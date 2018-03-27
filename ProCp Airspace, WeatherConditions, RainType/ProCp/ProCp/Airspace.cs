@@ -9,18 +9,18 @@ namespace ProCp
     class Airspace
     {
         public Airport Airport
-        { get; set}
-
-        public Checkpoint[] AvailableCheckpoints
         { get; set; }
 
-        public Airplane[] AirplanesInTheAir
+        public List<Checkpoint> AvailableCheckpoints
+        { get; set; }
+
+        public List<Airplane> AirplanesInTheAir
         { get; set; }
 
         public WeatherConditions WeatherConditions
         { get; set; }
 
-        public Airspace(Airport airport, Checkpoint[] availableCheckpoints, Airplane[] airplanesInTheAir, WeatherConditions weatherConditions)
+        public Airspace(Airport airport, List<Checkpoint> availableCheckpoints, List<Airplane> airplanesInTheAir, WeatherConditions weatherConditions)
         {
             Airport = airport;
             AvailableCheckpoints = availableCheckpoints;
@@ -28,19 +28,26 @@ namespace ProCp
             WeatherConditions = weatherConditions;
         }
 
-        public void AddAirplane()
+        public void AddAirplane(Airplane newAirplane)
         {
-
+            AirplanesInTheAir.Add(newAirplane);
         }
 
         public void AddCheckpoint(double x, double y)
         {
-
+            Checkpoint temp = new AddCheckpoint(double x, double y);
+            AvailableCheckpoints.Add(temp);
         }
 
         public void RemoveCheckpoint(double x, double y)
         {
-
+            foreach (Checkpoint c in AvailableCheckpoints)
+            {
+                if (c.x == x && c.y == y)
+                {
+                    AvailableCheckpoints.Remove(c);
+                }
+            }
         }
 
         public void ChangeWeatherConditions(WeatherConditions newWeatherConditions)
