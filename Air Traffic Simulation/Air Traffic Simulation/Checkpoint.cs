@@ -16,7 +16,7 @@ namespace Air_Traffic_Simulation
         {
             this.Name = name;
             this.CoordinateX = coordinateX;
-            this.CoordinateY = CoordinateY;
+            this.CoordinateY = coordinateY;
         }
 
     }
