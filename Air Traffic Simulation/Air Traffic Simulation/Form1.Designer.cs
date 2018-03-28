@@ -51,7 +51,6 @@
             this.label7 = new System.Windows.Forms.Label();
             this.trackBar3 = new System.Windows.Forms.TrackBar();
             this.label8 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
             this.panel6 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -296,14 +295,6 @@
             this.label8.TabIndex = 15;
             this.label8.Text = "Checkpoint Menu";
             // 
-            // panel5
-            // 
-            this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel5.Location = new System.Drawing.Point(272, 42);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(855, 578);
-            this.panel5.TabIndex = 2;
-            // 
             // panel6
             // 
             this.panel6.Controls.Add(this.label9);
@@ -354,7 +345,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
             this.ClientSize = new System.Drawing.Size(1327, 620);
-            this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.Header);
@@ -405,7 +395,6 @@
         private System.Windows.Forms.TrackBar trackBar3;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Panel panel6;
-        private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label9;
