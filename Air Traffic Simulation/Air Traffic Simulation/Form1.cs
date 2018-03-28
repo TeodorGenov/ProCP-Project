@@ -14,7 +14,7 @@ namespace Air_Traffic_Simulation
 {
     public partial class Form1 : Form
     {
-        //radar
+        //RADAR
 
         Timer t = new Timer();
         int width = 300, height = 300, hand = 150;
@@ -22,6 +22,16 @@ namespace Air_Traffic_Simulation
         int cx, cy; //center of the circle
         int x, y; //hand coordinates
         int tx, ty, lim = 20;
+        Bitmap bmp;
+        Pen p;
+        Graphics g;
+
+
+
+        //GRID
+
+        Grid grid = new Grid();
+        Point p1, p2, p3, p4;
 
 
         // SIMULATION VARIABLES
@@ -38,11 +48,8 @@ namespace Air_Traffic_Simulation
         BinaryFormatter bf;
 
         // END OF SIMULATION VARIABLES
+        
 
-
-        Bitmap bmp;
-        Pen p;
-        Graphics g;
 
         //simulation
 
@@ -70,7 +77,8 @@ namespace Air_Traffic_Simulation
             Simulate();
             
 
-            //radar
+
+            //RADAR
 
             //create bitmap
             bmp = new Bitmap(width + 1, height + 1);
@@ -89,9 +97,15 @@ namespace Air_Traffic_Simulation
             t.Interval = 1; //miliseconds
             t.Tick += new EventHandler(this.t_Tick);
             t.Start();
+
+
+
+            //GRID
         }
 
-        //methods for radar
+
+
+        //RADAR METHOD
 
         private void t_Tick (object sender, EventArgs e)
         {
@@ -131,13 +145,24 @@ namespace Air_Traffic_Simulation
             g.DrawEllipse(p, 0, 0, width, height); //bigger circle
             g.DrawEllipse(p, 80, 80, width - 160, height - 160); //smaller circle
 
-            //draw perpendicular line
-            g.DrawLine(p, new Point(cx, 0), new Point(cx, height)); //up - down
-            g.DrawLine(p, new Point(0, cy), new Point(width, cy)); //left - right
-
             //draw hand
             g.DrawLine(new Pen(Color.Black, 1f), new Point(cx, cy), new Point(tx, ty));
             g.DrawLine(p, new Point(cx, cy), new Point(x, y));
+
+            grid.MakeGrid();
+            foreach(Cell c in grid.listOfCells)
+            {
+                    p1 = new Point(c.x, c.y);
+                    p2 = new Point(c.x + c.width, c.y);
+                    p3 = new Point(c.x + c.width, c.y + c.width);
+                    p4 = new Point(c.x, c.y + c.width);
+
+                    g.DrawLine(p, p1, p2);
+                    g.DrawLine(p, p1, p4);
+                    g.DrawLine(p, p2, p3);
+                    g.DrawLine(p, p3, p4);
+                
+            }
 
             //load bitmap in picturebox
             pictureBox1.Image = bmp;
