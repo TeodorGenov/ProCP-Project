@@ -17,7 +17,7 @@ namespace Air_Traffic_Simulation
 
         public double TakeOffDirection
         {
-            get => _takeOffDirection;
+            get { return _takeOffDirection; }
 
             private set
             {
