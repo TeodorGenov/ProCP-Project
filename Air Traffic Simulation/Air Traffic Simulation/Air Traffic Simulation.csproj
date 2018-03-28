@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="AbstractCheckpoint.cs" />
     <Compile Include="Airplane.cs" />
+    <Compile Include="Airport.cs" />
     <Compile Include="Airspace.cs" />
     <Compile Include="Airstrip.cs" />
     <Compile Include="Checkpoint.cs" />

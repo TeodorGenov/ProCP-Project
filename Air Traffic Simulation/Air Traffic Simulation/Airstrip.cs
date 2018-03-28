@@ -14,9 +14,10 @@ namespace Air_Traffic_Simulation
         public override double CoordinateY { get; }
 
         public bool IsFree { get; set; }
+        public string Type { set; get; }
 
         public double TakeOffDirection
-        {
+        { 
             get => _takeOffDirection;
 
             private set
