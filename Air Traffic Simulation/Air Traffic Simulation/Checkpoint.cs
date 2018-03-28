@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Air_Traffic_Simulation
 {
+    [Serializable]
     class Checkpoint : AbstractCheckpoint
     {
         public override string Name { get; }

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.labelTemp = new System.Windows.Forms.Label();
             this.trackBarPrecipitation = new System.Windows.Forms.TrackBar();
             this.label7 = new System.Windows.Forms.Label();
             this.comboBoxWindDirection = new System.Windows.Forms.ComboBox();
@@ -63,6 +64,11 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.labelPrec = new System.Windows.Forms.Label();
+            this.labelWind = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.prob = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
@@ -79,6 +85,10 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.prob);
+            this.panel1.Controls.Add(this.labelWind);
+            this.panel1.Controls.Add(this.labelPrec);
+            this.panel1.Controls.Add(this.labelTemp);
             this.panel1.Controls.Add(this.trackBarPrecipitation);
             this.panel1.Controls.Add(this.label7);
             this.panel1.Controls.Add(this.comboBoxWindDirection);
@@ -99,14 +109,25 @@
             this.panel1.Size = new System.Drawing.Size(272, 578);
             this.panel1.TabIndex = 0;
             // 
+            // labelTemp
+            // 
+            this.labelTemp.AutoSize = true;
+            this.labelTemp.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTemp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.labelTemp.Location = new System.Drawing.Point(34, 267);
+            this.labelTemp.Name = "labelTemp";
+            this.labelTemp.Size = new System.Drawing.Size(0, 19);
+            this.labelTemp.TabIndex = 15;
+            // 
             // trackBarPrecipitation
             // 
             this.trackBarPrecipitation.Location = new System.Drawing.Point(121, 294);
-            this.trackBarPrecipitation.Maximum = 24;
+            this.trackBarPrecipitation.Maximum = 100;
             this.trackBarPrecipitation.Name = "trackBarPrecipitation";
             this.trackBarPrecipitation.Size = new System.Drawing.Size(148, 45);
             this.trackBarPrecipitation.TabIndex = 14;
             this.trackBarPrecipitation.Value = 24;
+            this.trackBarPrecipitation.ValueChanged += new System.EventHandler(this.trackBarPrecipitation_ValueChanged);
             // 
             // label7
             // 
@@ -139,9 +160,11 @@
             // trackBarWindSpeed
             // 
             this.trackBarWindSpeed.Location = new System.Drawing.Point(121, 345);
+            this.trackBarWindSpeed.Maximum = 75;
             this.trackBarWindSpeed.Name = "trackBarWindSpeed";
             this.trackBarWindSpeed.Size = new System.Drawing.Size(148, 45);
             this.trackBarWindSpeed.TabIndex = 9;
+            this.trackBarWindSpeed.ValueChanged += new System.EventHandler(this.trackBarWindSpeed_ValueChanged);
             // 
             // label5
             // 
@@ -174,11 +197,13 @@
             // trackBarTemperature
             // 
             this.trackBarTemperature.Location = new System.Drawing.Point(121, 243);
-            this.trackBarTemperature.Maximum = 24;
+            this.trackBarTemperature.Maximum = 50;
+            this.trackBarTemperature.Minimum = -30;
             this.trackBarTemperature.Name = "trackBarTemperature";
             this.trackBarTemperature.Size = new System.Drawing.Size(148, 45);
             this.trackBarTemperature.TabIndex = 5;
             this.trackBarTemperature.Value = 24;
+            this.trackBarTemperature.ValueChanged += new System.EventHandler(this.trackBarTemperature_ValueChanged);
             // 
             // rbTakeOff
             // 
@@ -250,6 +275,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.button3);
+            this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel6);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
@@ -280,6 +307,7 @@
             this.btnUploadData.TabIndex = 17;
             this.btnUploadData.Text = "Upload";
             this.btnUploadData.UseVisualStyleBackColor = true;
+            this.btnUploadData.Click += new System.EventHandler(this.btnUploadData_Click);
             // 
             // btnSaveData
             // 
@@ -292,6 +320,7 @@
             this.btnSaveData.TabIndex = 16;
             this.btnSaveData.Text = "Save";
             this.btnSaveData.UseVisualStyleBackColor = true;
+            this.btnSaveData.Click += new System.EventHandler(this.btnSaveData_Click);
             // 
             // label11
             // 
@@ -424,6 +453,62 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.t_Tick);
             // 
+            // labelPrec
+            // 
+            this.labelPrec.AutoSize = true;
+            this.labelPrec.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPrec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.labelPrec.Location = new System.Drawing.Point(34, 320);
+            this.labelPrec.Name = "labelPrec";
+            this.labelPrec.Size = new System.Drawing.Size(0, 19);
+            this.labelPrec.TabIndex = 16;
+            // 
+            // labelWind
+            // 
+            this.labelWind.AutoSize = true;
+            this.labelWind.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.labelWind.Location = new System.Drawing.Point(34, 371);
+            this.labelWind.Name = "labelWind";
+            this.labelWind.Size = new System.Drawing.Size(0, 19);
+            this.labelWind.TabIndex = 17;
+            // 
+            // button1
+            // 
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(0, 411);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(199, 73);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "get list";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // button3
+            // 
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.ForeColor = System.Drawing.Color.White;
+            this.button3.Location = new System.Drawing.Point(-2, 490);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(199, 73);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "Show probability";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // prob
+            // 
+            this.prob.AutoSize = true;
+            this.prob.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.prob.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.prob.Location = new System.Drawing.Point(34, 430);
+            this.prob.Name = "prob";
+            this.prob.Size = new System.Drawing.Size(0, 19);
+            this.prob.TabIndex = 18;
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -494,6 +579,12 @@
         private System.Windows.Forms.Button btnSaveData;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Label labelTemp;
+        private System.Windows.Forms.Label labelWind;
+        private System.Windows.Forms.Label labelPrec;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label prob;
     }
 }
 
