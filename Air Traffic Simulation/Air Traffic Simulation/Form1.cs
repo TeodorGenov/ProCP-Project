@@ -65,5 +65,10 @@ namespace Air_Traffic_Simulation
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
