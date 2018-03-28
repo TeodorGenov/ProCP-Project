@@ -6,25 +6,18 @@ using System.Threading.Tasks;
 
 namespace Air_Traffic_Simulation
 {
-    class Checkpoint : ICheckpoint
+    class Checkpoint : AbstractCheckpoint
     {
-        private string name;
-        private double coordinateX;
-        private double coordinateY;
+        public override string Name { get; }
+        public override double CoordinateX { get; }
+        public override double CoordinateY { get; }
 
-        public double CoordinateX()
+        public Checkpoint(string name, double coordinateX, double coordinateY)
         {
-            
+            this.Name = name;
+            this.CoordinateX = coordinateX;
+            this.CoordinateY = CoordinateY;
         }
 
-        public double CoordinateY()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string Name()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
