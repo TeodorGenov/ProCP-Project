@@ -12,7 +12,6 @@ using System.Windows.Forms;
 
 namespace Air_Traffic_Simulation
 {
-    [Serializable]
     public partial class Form1 : Form
     {
         //radar
