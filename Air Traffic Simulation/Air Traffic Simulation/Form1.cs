@@ -20,6 +20,10 @@ namespace Air_Traffic_Simulation
         int cx, cy; //center of the circle
         int x, y; //hand coordinates
         int tx, ty, lim = 20;
+
+
+        int AddingCheckpoints = 0;
+
         Bitmap bmp;
         Pen p;
         Graphics g;
@@ -142,7 +146,32 @@ namespace Air_Traffic_Simulation
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
+            if (AddingCheckpoints == 1);
+           
+        }
 
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void btnAddCheckpoint_Click(object sender, EventArgs e)
+        {
+            if (btnAddCheckpoint.Text == "Add")
+            {
+                AddingCheckpoints = 1;
+                btnAddCheckpoint.Text = "Stop";
+            }
+            else if (btnAddCheckpoint.Text == "Stop")
+            {
+                AddingCheckpoints = 0;
+                btnAddCheckpoint.Text = "Add";
+            }
         }
 
         private void label2_Click(object sender, EventArgs e)

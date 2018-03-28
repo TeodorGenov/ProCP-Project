@@ -347,6 +347,7 @@
             this.btnAddCheckpoint.TabIndex = 15;
             this.btnAddCheckpoint.Text = "Add";
             this.btnAddCheckpoint.UseVisualStyleBackColor = true;
+            this.btnAddCheckpoint.Click += new System.EventHandler(this.btnAddCheckpoint_Click);
             // 
             // label8
             // 
@@ -381,6 +382,7 @@
             this.button4.Size = new System.Drawing.Size(40, 40);
             this.button4.TabIndex = 2;
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button2
             // 
@@ -392,6 +394,7 @@
             this.button2.Size = new System.Drawing.Size(36, 40);
             this.button2.TabIndex = 0;
             this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // fileSystemWatcher1
             // 
