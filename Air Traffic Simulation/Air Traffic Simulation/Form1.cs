@@ -271,13 +271,27 @@ namespace Air_Traffic_Simulation
 
         private void btnSaveData_Click(object sender, EventArgs e)
         {
-            using (Stream stream = File.Open(serializationFile, FileMode.Create))
-            {
-                var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                bformatter.Serialize(stream, checkpoints);
-            }
-               
-           
+            SaveFileDialog SaveFileDialogMain = new SaveFileDialog();
+            SaveFileDialogMain.Filter = "Binary Files (*.bin)|*.bin";
+            SaveFileDialogMain.DefaultExt = "bin";
+            SaveFileDialogMain.AddExtension = true;
+                if (SaveFileDialogMain.ShowDialog() == DialogResult.OK)
+                {
+                    var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+                    string filename = SaveFileDialogMain.FileName;
+                    FileStream filestream = new FileStream(filename, FileMode.Create, FileAccess.Write);
+                    bformatter.Serialize(filestream, checkpoints);
+                    filestream.Close();
+                    filestream = null;
+                }
+
+            //using (Stream stream = File.Open(serializationFile, FileMode.Create))
+            //{
+            //    var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            //    bformatter.Serialize(stream, checkpoints);
+            //}
+
+
         }
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
@@ -336,16 +350,40 @@ namespace Air_Traffic_Simulation
 
         private void btnUploadData_Click(object sender, EventArgs e)
         {
-            using (Stream stream = File.Open(serializationFile, FileMode.Open))
+            //using (Stream stream = File.Open(serializationFile, FileMode.Open))
+            //{
+            //    var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
+            //    checkpoints = (List<Checkpoint>)bformatter.Deserialize(stream);
+            //}
+
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "Binary Files (*.bin)|*.bin";
+            ofd.DefaultExt = "bin";
+            ofd.AddExtension = true;
+            //using (Stream stream = File.Open(serializationFile, FileMode.Create))
+
+            if (ofd.ShowDialog() == DialogResult.OK)
             {
                 var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-                checkpoints = (List<Checkpoint>)bformatter.Deserialize(stream);
+                string filename = ofd.FileName;
+                FileStream filestream = new FileStream(filename, FileMode.Open, FileAccess.Read);
+                checkpoints = (List<Checkpoint>)bformatter.Deserialize(filestream);
+                filestream.Close();
+                filestream = null;
+
+                foreach (Checkpoint a in checkpoints)
+                {
+                    PaintCircle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
+                    cpName++;
+                }
+
             }
-            foreach(Checkpoint a in checkpoints)
-            {
-                PaintCircle(new Point(Convert.ToInt32(a.CoordinateX),Convert.ToInt32(a.CoordinateY)));
-                cpName++;
-            }
+
+            //foreach (Checkpoint a in checkpoints)
+            //{
+            //    PaintCircle(new Point(Convert.ToInt32(a.CoordinateX),Convert.ToInt32(a.CoordinateY)));
+            //    cpName++;
+            //}
         }
 
         private void btnRemoveCheckpoint_Click(object sender, EventArgs e)
