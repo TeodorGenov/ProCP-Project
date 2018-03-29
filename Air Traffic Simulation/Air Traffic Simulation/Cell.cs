@@ -25,5 +25,11 @@ namespace Air_Traffic_Simulation
         {
             return (this.x - xmouse) * (this.x - xmouse) + (this.y - ymouse) * (this.y - ymouse) <= width * width;
         }
+
+        public Point GetCenter()
+        {
+            Point p = new Point(x + (width/20), y + (width/2));
+            return p;
+        }
     }
 }

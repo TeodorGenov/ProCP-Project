@@ -31,6 +31,9 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.prob = new System.Windows.Forms.Label();
+            this.labelWind = new System.Windows.Forms.Label();
+            this.labelPrec = new System.Windows.Forms.Label();
             this.labelTemp = new System.Windows.Forms.Label();
             this.trackBarPrecipitation = new System.Windows.Forms.TrackBar();
             this.label7 = new System.Windows.Forms.Label();
@@ -48,6 +51,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnUploadData = new System.Windows.Forms.Button();
             this.btnSaveData = new System.Windows.Forms.Button();
@@ -64,11 +69,6 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.labelPrec = new System.Windows.Forms.Label();
-            this.labelWind = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.prob = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
@@ -108,6 +108,36 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(272, 578);
             this.panel1.TabIndex = 0;
+            // 
+            // prob
+            // 
+            this.prob.AutoSize = true;
+            this.prob.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.prob.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.prob.Location = new System.Drawing.Point(34, 430);
+            this.prob.Name = "prob";
+            this.prob.Size = new System.Drawing.Size(0, 19);
+            this.prob.TabIndex = 18;
+            // 
+            // labelWind
+            // 
+            this.labelWind.AutoSize = true;
+            this.labelWind.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelWind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.labelWind.Location = new System.Drawing.Point(34, 371);
+            this.labelWind.Name = "labelWind";
+            this.labelWind.Size = new System.Drawing.Size(0, 19);
+            this.labelWind.TabIndex = 17;
+            // 
+            // labelPrec
+            // 
+            this.labelPrec.AutoSize = true;
+            this.labelPrec.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelPrec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.labelPrec.Location = new System.Drawing.Point(34, 320);
+            this.labelPrec.Name = "labelPrec";
+            this.labelPrec.Size = new System.Drawing.Size(0, 19);
+            this.labelPrec.TabIndex = 16;
             // 
             // labelTemp
             // 
@@ -285,6 +315,32 @@
             this.panel2.Size = new System.Drawing.Size(200, 578);
             this.panel2.TabIndex = 1;
             // 
+            // button3
+            // 
+            this.button3.FlatAppearance.BorderSize = 0;
+            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button3.ForeColor = System.Drawing.Color.White;
+            this.button3.Location = new System.Drawing.Point(-2, 490);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(199, 73);
+            this.button3.TabIndex = 19;
+            this.button3.Text = "Show probability";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // button1
+            // 
+            this.button1.FlatAppearance.BorderSize = 0;
+            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button1.ForeColor = System.Drawing.Color.White;
+            this.button1.Location = new System.Drawing.Point(0, 411);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(199, 73);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "get list";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.btnUploadData);
@@ -452,62 +508,6 @@
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.t_Tick);
-            // 
-            // labelPrec
-            // 
-            this.labelPrec.AutoSize = true;
-            this.labelPrec.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelPrec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.labelPrec.Location = new System.Drawing.Point(34, 320);
-            this.labelPrec.Name = "labelPrec";
-            this.labelPrec.Size = new System.Drawing.Size(0, 19);
-            this.labelPrec.TabIndex = 16;
-            // 
-            // labelWind
-            // 
-            this.labelWind.AutoSize = true;
-            this.labelWind.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelWind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.labelWind.Location = new System.Drawing.Point(34, 371);
-            this.labelWind.Name = "labelWind";
-            this.labelWind.Size = new System.Drawing.Size(0, 19);
-            this.labelWind.TabIndex = 17;
-            // 
-            // button1
-            // 
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(0, 411);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(199, 73);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "get list";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // button3
-            // 
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(-2, 490);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(199, 73);
-            this.button3.TabIndex = 19;
-            this.button3.Text = "Show probability";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // prob
-            // 
-            this.prob.AutoSize = true;
-            this.prob.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.prob.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.prob.Location = new System.Drawing.Point(34, 430);
-            this.prob.Name = "prob";
-            this.prob.Size = new System.Drawing.Size(0, 19);
-            this.prob.TabIndex = 18;
             // 
             // Form1
             // 

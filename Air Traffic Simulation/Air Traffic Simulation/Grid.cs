@@ -26,9 +26,9 @@ namespace Air_Traffic_Simulation
         public void MakeGrid()
         {
 
-            for(int i = 1; i <= 50; i++)
+            for(int i = 1; i <= 600; i++)
             {
-                if(i % 20 != 0)
+                if(i % 30 != 0)
                 {
                     c = new Cell(id, xs, ys);
                     listOfCells.Add(c);

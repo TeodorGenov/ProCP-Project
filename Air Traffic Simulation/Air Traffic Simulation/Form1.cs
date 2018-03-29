@@ -17,7 +17,7 @@ namespace Air_Traffic_Simulation
         //RADAR
 
         Timer t = new Timer();
-        int width = 300, height = 300, hand = 150;
+        int width = 600, height = 400, hand = 150;
         int u; //in degree
         int cx, cy; //center of the circle
         int x, y; //hand coordinates
@@ -27,12 +27,14 @@ namespace Air_Traffic_Simulation
         Graphics g;
 
 
-
+        
         //GRID
 
         Grid grid = new Grid();
         Point p1, p2, p3, p4;
-
+        Pen pGrid;
+        Graphics gGrid;
+        Bitmap bmpGrid;
 
         // SIMULATION VARIABLES
 
@@ -94,13 +96,36 @@ namespace Air_Traffic_Simulation
             u = 0;
 
             //timer
-            t.Interval = 1; //miliseconds
-            t.Tick += new EventHandler(this.t_Tick);
-            t.Start();
+            //t.Interval = 1; //miliseconds
+            //t.Tick += new EventHandler(this.t_Tick);
+            //t.Start();
 
 
 
             //GRID
+
+            //pictureBox2.BackColor = Color.Transparent;
+            bmpGrid = new Bitmap(width + 1, height + 1);
+            gGrid = Graphics.FromImage(bmp);
+            pGrid = new Pen(Color.Green, 1f);
+
+            grid.MakeGrid();
+
+            foreach (Cell c in grid.listOfCells)
+            {
+                p1 = new Point(c.x, c.y);
+                p2 = new Point(c.x + c.width, c.y);
+                p3 = new Point(c.x + c.width, c.y + c.width);
+                p4 = new Point(c.x, c.y + c.width);
+
+                gGrid.DrawLine(pGrid, p1, p2);
+                gGrid.DrawLine(pGrid, p1, p4);
+                gGrid.DrawLine(pGrid, p2, p3);
+                gGrid.DrawLine(pGrid, p3, p4);
+
+            }
+
+            pictureBox1.Image = bmp;
         }
 
 
@@ -148,21 +173,6 @@ namespace Air_Traffic_Simulation
             //draw hand
             g.DrawLine(new Pen(Color.Black, 1f), new Point(cx, cy), new Point(tx, ty));
             g.DrawLine(p, new Point(cx, cy), new Point(x, y));
-
-            grid.MakeGrid();
-            foreach(Cell c in grid.listOfCells)
-            {
-                    p1 = new Point(c.x, c.y);
-                    p2 = new Point(c.x + c.width, c.y);
-                    p3 = new Point(c.x + c.width, c.y + c.width);
-                    p4 = new Point(c.x, c.y + c.width);
-
-                    g.DrawLine(p, p1, p2);
-                    g.DrawLine(p, p1, p4);
-                    g.DrawLine(p, p2, p3);
-                    g.DrawLine(p, p3, p4);
-                
-            }
 
             //load bitmap in picturebox
             pictureBox1.Image = bmp;
