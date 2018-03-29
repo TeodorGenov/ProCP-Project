@@ -16,6 +16,7 @@ namespace Air_Traffic_Simulation
     {
         //RADAR
 
+
         Timer t = new Timer();
         int width = 600, height = 400, hand = 150;
         int u; //in degree
@@ -142,6 +143,7 @@ namespace Air_Traffic_Simulation
             }
 
             pictureBox1.Image = bmpGrid;
+            
         }
 
 
@@ -318,7 +320,7 @@ namespace Air_Traffic_Simulation
                     }
                 }
             }
-            if (RemovingCheckpoints == 1)
+            else if (RemovingCheckpoints == 1)
             {
                 foreach (Cell c in grid.listOfCells)
                 {
@@ -451,21 +453,6 @@ namespace Air_Traffic_Simulation
             wind = trackBarWindSpeed.Value;
             labelWind.Text = wind.ToString() + "m/s";
             Simulate();
-        }
-
-        private void label2_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnPlaySimulation_Click(object sender, EventArgs e)

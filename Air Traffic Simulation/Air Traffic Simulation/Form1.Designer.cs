@@ -58,7 +58,6 @@
             this.btnSaveData = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.panel6 = new System.Windows.Forms.Panel();
-            this.label9 = new System.Windows.Forms.Label();
             this.btnRemoveCheckpoint = new System.Windows.Forms.Button();
             this.btnAddCheckpoint = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
@@ -168,7 +167,6 @@
             this.label7.Size = new System.Drawing.Size(109, 21);
             this.label7.TabIndex = 13;
             this.label7.Text = "Precipitation";
-            this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // comboBoxWindDirection
             // 
@@ -225,7 +223,6 @@
             this.label3.Size = new System.Drawing.Size(93, 21);
             this.label3.TabIndex = 6;
             this.label3.Text = "Air Control";
-            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // trackBarTemperature
             // 
@@ -304,7 +301,6 @@
             this.label2.Size = new System.Drawing.Size(170, 21);
             this.label2.TabIndex = 2;
             this.label2.Text = "Simulation Outcome";
-            this.label2.Click += new System.EventHandler(this.label2_Click_1);
             // 
             // panel2
             // 
@@ -396,7 +392,6 @@
             // 
             // panel6
             // 
-            this.panel6.Controls.Add(this.label9);
             this.panel6.Controls.Add(this.btnRemoveCheckpoint);
             this.panel6.Controls.Add(this.btnAddCheckpoint);
             this.panel6.Controls.Add(this.label8);
@@ -405,15 +400,6 @@
             this.panel6.Name = "panel6";
             this.panel6.Size = new System.Drawing.Size(200, 228);
             this.panel6.TabIndex = 1;
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 190);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 21);
-            this.label9.TabIndex = 17;
-            this.label9.Text = "Total:";
             // 
             // btnRemoveCheckpoint
             // 
@@ -582,7 +568,6 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.Button btnRemoveCheckpoint;
         private System.Windows.Forms.Button btnAddCheckpoint;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnUploadData;
