@@ -356,20 +356,42 @@ namespace Air_Traffic_Simulation
             //    checkpoints = (List<Checkpoint>)bformatter.Deserialize(stream);
             //}
 
+
+
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Binary Files (*.bin)|*.bin";
             ofd.DefaultExt = "bin";
             ofd.AddExtension = true;
             //using (Stream stream = File.Open(serializationFile, FileMode.Create))
 
+
+         
+            
+
+
+
+
             if (ofd.ShowDialog() == DialogResult.OK)
             {
                 var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 string filename = ofd.FileName;
                 FileStream filestream = new FileStream(filename, FileMode.Open, FileAccess.Read);
+
+                // REMOVE ALL DATA FROM CURRENT SESSION
+
+                foreach (Checkpoint bee in checkpoints)
+                {
+                    Checkpoint B = bee;
+                    Point p = new Point(Convert.ToInt32(B.CoordinateX), Convert.ToInt32(B.CoordinateY));
+                    PaintCircleB(p);
+                    cpName = 0;
+                }
+                checkpoints = null;
+
                 checkpoints = (List<Checkpoint>)bformatter.Deserialize(filestream);
                 filestream.Close();
                 filestream = null;
+
 
                 foreach (Checkpoint a in checkpoints)
                 {
