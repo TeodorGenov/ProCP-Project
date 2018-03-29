@@ -60,6 +60,7 @@ namespace Air_Traffic_Simulation
         double probability;
 
         int AddingCheckpoints = 0;
+        int RemovingCheckpoints = 0;
         static int cpName = 0;
         BinaryFormatter bf;
 
@@ -244,11 +245,13 @@ namespace Air_Traffic_Simulation
         {
             if (btnAddCheckpoint.Text == "Add")
             {
+                btnRemoveCheckpoint.Enabled = false;
                 AddingCheckpoints = 1;
                 btnAddCheckpoint.Text = "Stop";
             }
             else if (btnAddCheckpoint.Text == "Stop")
             {
+                btnRemoveCheckpoint.Enabled = true;
                 AddingCheckpoints = 0;
                 btnAddCheckpoint.Text = "Add";
             }
@@ -285,15 +288,47 @@ namespace Air_Traffic_Simulation
                 {
                     if (c.ContainsPoint(e.X, e.Y) == true)
                     {
+                        bool exists = false;
                         Point p = c.GetCenter();
-                        PaintCircle(p);
+                        foreach (Checkpoint mm in checkpoints)
+                        {
+                            if (mm.CoordinateX == p.X && mm.CoordinateY == p.Y)
+                            {
+                                MessageBox.Show("Checkpoint already exists at this location", "WARNING");
+                                exists = true;
+                            }
+                        }
+                        if (!exists){
+                            PaintCircle(p);
+
+                            cpName++;
+                            string name = "cp" + cpName;
+                            Checkpoint a = new Checkpoint(name, p.X, p.Y);
+                            checkpoints.Add(a);
+                            MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" + a.CoordinateX + "," + a.CoordinateY + ")");
+                        }
                         
-                        cpName++;
-                        string name = "cp" + cpName;
-                        Checkpoint a = new Checkpoint(name, p.X, p.Y );
-                        checkpoints.Add(a);
-                        MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" + a.CoordinateX + "," + a.CoordinateY + ")");
-                        break;
+                    }
+                }
+            }
+            if (RemovingCheckpoints == 1)
+            {
+                foreach (Cell c in grid.listOfCells)
+                {
+                    if (c.ContainsPoint(e.X, e.Y) == true)
+                    {
+                        Point p = c.GetCenter();
+                        foreach(Checkpoint bee in checkpoints)
+                        {
+                            if (bee.CoordinateX == p.X && bee.CoordinateY == p.Y)
+                            {
+                                PaintCircleB(p);
+                                Checkpoint v = bee;
+                                checkpoints.Remove(bee);
+                                MessageBox.Show("Successfully removed checkpoint " + v.Name + " With coordinates(" + v.CoordinateX + "," + v.CoordinateY + ").");
+                                break;
+                            }
+                        }
                     }
                 }
             }
@@ -313,15 +348,37 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        private void btnRemoveCheckpoint_Click(object sender, EventArgs e)
+        {
+            if (btnRemoveCheckpoint.Text == "Remove")
+            {
+                btnAddCheckpoint.Enabled = false;
+                RemovingCheckpoints = 1;
+                btnRemoveCheckpoint.Text = "Stop";
+            }
+            else if (btnRemoveCheckpoint.Text == "Stop")
+            {
+                btnAddCheckpoint.Enabled = true;
+                RemovingCheckpoints = 0;
+                btnRemoveCheckpoint.Text = "Remove";
+            }
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             string checks = "";
-            foreach(Checkpoint a in checkpoints)
+            if(checkpoints.Count >= 1)
             {
-                checks += "\nCheckpoint: " + a.Name + ", Coordinates: (" + a.CoordinateX + "," + a.CoordinateY + ")";
-                
+                foreach(Checkpoint a in checkpoints)
+                    {
+                            checks += "\nCheckpoint: " + a.Name + ", Coordinates: (" + a.CoordinateX + "," + a.CoordinateY + ")";
+                    }
+                MessageBox.Show(checks, "List of checkpoints");
             }
-            MessageBox.Show(checks);
+            else { MessageBox.Show("No checkpoints created", "Warning"); };
+
+            
+            
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -387,15 +444,15 @@ namespace Air_Traffic_Simulation
             }
             if (temp >= 0 && temp <= 29)
             {
-                probability -= (((temp * (0.007)) * ((temp * (0.007))) + ((prec * (0.01)) * (prec * (0.01))) + ((wind * (0.008)) * (wind * (0.008)) * 2)));
+                probability -= (((temp * (0.007)) * ((temp * (0.007))) + ((prec * (0.005)) * (prec * (0.005))) + ((wind * (0.008)) * (wind * (0.008)) * 2)));
             }
             if (temp >= 30 && temp <= 39)
             {
-                probability -= (((temp * (0.013)) * ((temp * (0.013))) + ((prec * (0.01)) * (prec * (0.01))) + ((wind * (0.008)) * (wind * (0.008)) * 2)));
+                probability -= (((temp * (0.013)) * ((temp * (0.013))) + ((prec * (0.005)) * (prec * (0.005))) + ((wind * (0.008)) * (wind * (0.008)) * 2)));
             }
             if (temp >= 40)
             {
-                probability -= (((temp * (0.016)) * ((temp * (0.016))) + ((prec * (0.01)) * (prec * (0.01))) + ((wind * (0.008)) * (wind * (0.008)) *2)));
+                probability -= (((temp * (0.016)) * ((temp * (0.016))) + ((prec * (0.005)) * (prec * (0.005))) + ((wind * (0.008)) * (wind * (0.008)) *2)));
             }
 
             if (probability < 0)
@@ -531,6 +588,18 @@ namespace Air_Traffic_Simulation
             Pen pen = new Pen(Color.Yellow);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawEllipse(pen,x,y,width,height);
+
+        }
+        public void PaintCircleB(Point p)
+        {
+
+            float x = p.X - 3;
+            float y = p.Y - 3;
+            float width = 2 * 3;
+            float height = 2 * 3;
+            Pen pen = new Pen(Color.Black);
+            Graphics g = this.pictureBox1.CreateGraphics();
+            g.DrawEllipse(pen, x, y, width, height);
 
         }
     }

@@ -420,6 +420,7 @@
             this.btnRemoveCheckpoint.TabIndex = 16;
             this.btnRemoveCheckpoint.Text = "Remove";
             this.btnRemoveCheckpoint.UseVisualStyleBackColor = true;
+            this.btnRemoveCheckpoint.Click += new System.EventHandler(this.btnRemoveCheckpoint_Click);
             // 
             // btnAddCheckpoint
             // 
