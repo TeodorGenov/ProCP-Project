@@ -28,7 +28,7 @@ namespace Air_Traffic_Simulation
 
         public Point GetCenter()
         {
-            Point p = new Point(x + (width/20), y + (width/2));
+            Point p = new Point(x + (width/2), y + (width/2));
             return p;
         }
     }

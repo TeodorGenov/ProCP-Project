@@ -225,15 +225,7 @@ namespace Air_Traffic_Simulation
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-            if (AddingCheckpoints == 1)
-            {
-                cpName++;
-                string name = "cp" + cpName;
-                Checkpoint a = new Checkpoint(name, 10, 10);
-                checkpoints.Add(a);
-
-                MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" + a.CoordinateX + "," + a.CoordinateY + ")");
-            }
+            
 
 
         }
@@ -293,7 +285,15 @@ namespace Air_Traffic_Simulation
                 {
                     if (c.ContainsPoint(e.X, e.Y) == true)
                     {
-                        PaintCircle(c.x, c.y);
+                        Point p = c.GetCenter();
+                        PaintCircle(p);
+                        
+                        cpName++;
+                        string name = "cp" + cpName;
+                        Checkpoint a = new Checkpoint(name, p.X, p.Y );
+                        checkpoints.Add(a);
+                        MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" + a.CoordinateX + "," + a.CoordinateY + ")");
+                        break;
                     }
                 }
             }
@@ -306,14 +306,22 @@ namespace Air_Traffic_Simulation
                 var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 checkpoints = (List<Checkpoint>)bformatter.Deserialize(stream);
             }
+            foreach(Checkpoint a in checkpoints)
+            {
+                PaintCircle(new Point(Convert.ToInt32(a.CoordinateX),Convert.ToInt32(a.CoordinateY)));
+                cpName++;
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            string checks = "";
             foreach(Checkpoint a in checkpoints)
             {
-                MessageBox.Show(a.Name);
+                checks += "\nCheckpoint: " + a.Name + ", Coordinates: (" + a.CoordinateX + "," + a.CoordinateY + ")";
+                
             }
+            MessageBox.Show(checks);
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -513,12 +521,16 @@ namespace Air_Traffic_Simulation
 
         }
 
-        public void PaintCircle(int x, int y)
+        public void PaintCircle(Point p)
         {
-            Brush aBrush = (Brush)Brushes.White;
-            Graphics g = this.CreateGraphics();
 
-            g.FillRectangle(aBrush, x, y, 1, 1);
+            float x = p.X - 3;
+            float y = p.Y - 3;
+            float width = 2 * 3;
+            float height = 2 * 3;
+            Pen pen = new Pen(Color.Yellow);
+            Graphics g = this.pictureBox1.CreateGraphics();
+            g.DrawEllipse(pen,x,y,width,height);
 
         }
     }
