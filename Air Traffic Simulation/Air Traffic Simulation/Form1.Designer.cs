@@ -156,6 +156,7 @@
             this.trackBarPrecipitation.Name = "trackBarPrecipitation";
             this.trackBarPrecipitation.Size = new System.Drawing.Size(148, 45);
             this.trackBarPrecipitation.TabIndex = 14;
+            this.trackBarPrecipitation.TabStop = false;
             this.trackBarPrecipitation.Value = 24;
             this.trackBarPrecipitation.ValueChanged += new System.EventHandler(this.trackBarPrecipitation_ValueChanged);
             // 
@@ -177,6 +178,7 @@
             this.comboBoxWindDirection.Name = "comboBoxWindDirection";
             this.comboBoxWindDirection.Size = new System.Drawing.Size(128, 29);
             this.comboBoxWindDirection.TabIndex = 12;
+            this.comboBoxWindDirection.TabStop = false;
             // 
             // label6
             // 
@@ -194,6 +196,7 @@
             this.trackBarWindSpeed.Name = "trackBarWindSpeed";
             this.trackBarWindSpeed.Size = new System.Drawing.Size(148, 45);
             this.trackBarWindSpeed.TabIndex = 9;
+            this.trackBarWindSpeed.TabStop = false;
             this.trackBarWindSpeed.ValueChanged += new System.EventHandler(this.trackBarWindSpeed_ValueChanged);
             // 
             // label5
@@ -232,6 +235,7 @@
             this.trackBarTemperature.Name = "trackBarTemperature";
             this.trackBarTemperature.Size = new System.Drawing.Size(148, 45);
             this.trackBarTemperature.TabIndex = 5;
+            this.trackBarTemperature.TabStop = false;
             this.trackBarTemperature.Value = 24;
             this.trackBarTemperature.ValueChanged += new System.EventHandler(this.trackBarTemperature_ValueChanged);
             // 
@@ -243,7 +247,6 @@
             this.rbTakeOff.Name = "rbTakeOff";
             this.rbTakeOff.Size = new System.Drawing.Size(92, 25);
             this.rbTakeOff.TabIndex = 4;
-            this.rbTakeOff.TabStop = true;
             this.rbTakeOff.Text = "Take Off";
             this.rbTakeOff.UseVisualStyleBackColor = true;
             // 
@@ -257,6 +260,7 @@
             this.btnPlaySimulation.Name = "btnPlaySimulation";
             this.btnPlaySimulation.Size = new System.Drawing.Size(269, 123);
             this.btnPlaySimulation.TabIndex = 1;
+            this.btnPlaySimulation.TabStop = false;
             this.btnPlaySimulation.UseVisualStyleBackColor = true;
             this.btnPlaySimulation.Click += new System.EventHandler(this.btnPlaySimulation_Click);
             // 
@@ -268,7 +272,6 @@
             this.rbLanding.Name = "rbLanding";
             this.rbLanding.Size = new System.Drawing.Size(90, 25);
             this.rbLanding.TabIndex = 3;
-            this.rbLanding.TabStop = true;
             this.rbLanding.Text = "Landing";
             this.rbLanding.UseVisualStyleBackColor = true;
             // 
@@ -324,6 +327,7 @@
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(199, 73);
             this.button3.TabIndex = 19;
+            this.button3.TabStop = false;
             this.button3.Text = "Show probability";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
@@ -337,6 +341,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(199, 73);
             this.button1.TabIndex = 18;
+            this.button1.TabStop = false;
             this.button1.Text = "get list";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -361,6 +366,7 @@
             this.btnUploadData.Name = "btnUploadData";
             this.btnUploadData.Size = new System.Drawing.Size(199, 73);
             this.btnUploadData.TabIndex = 17;
+            this.btnUploadData.TabStop = false;
             this.btnUploadData.Text = "Upload";
             this.btnUploadData.UseVisualStyleBackColor = true;
             this.btnUploadData.Click += new System.EventHandler(this.btnUploadData_Click);
@@ -374,6 +380,7 @@
             this.btnSaveData.Name = "btnSaveData";
             this.btnSaveData.Size = new System.Drawing.Size(199, 73);
             this.btnSaveData.TabIndex = 16;
+            this.btnSaveData.TabStop = false;
             this.btnSaveData.Text = "Save";
             this.btnSaveData.UseVisualStyleBackColor = true;
             this.btnSaveData.Click += new System.EventHandler(this.btnSaveData_Click);
@@ -386,7 +393,6 @@
             this.label11.Size = new System.Drawing.Size(100, 21);
             this.label11.TabIndex = 15;
             this.label11.Text = "Data Menu";
-            this.label11.Click += new System.EventHandler(this.label11_Click);
             // 
             // panel6
             // 
@@ -418,6 +424,7 @@
             this.btnRemoveCheckpoint.Name = "btnRemoveCheckpoint";
             this.btnRemoveCheckpoint.Size = new System.Drawing.Size(199, 73);
             this.btnRemoveCheckpoint.TabIndex = 16;
+            this.btnRemoveCheckpoint.TabStop = false;
             this.btnRemoveCheckpoint.Text = "Remove";
             this.btnRemoveCheckpoint.UseVisualStyleBackColor = true;
             this.btnRemoveCheckpoint.Click += new System.EventHandler(this.btnRemoveCheckpoint_Click);
@@ -431,6 +438,7 @@
             this.btnAddCheckpoint.Name = "btnAddCheckpoint";
             this.btnAddCheckpoint.Size = new System.Drawing.Size(199, 73);
             this.btnAddCheckpoint.TabIndex = 15;
+            this.btnAddCheckpoint.TabStop = false;
             this.btnAddCheckpoint.Text = "Add";
             this.btnAddCheckpoint.UseVisualStyleBackColor = true;
             this.btnAddCheckpoint.Click += new System.EventHandler(this.btnAddCheckpoint_Click);
@@ -467,6 +475,7 @@
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(40, 40);
             this.button4.TabIndex = 2;
+            this.button4.TabStop = false;
             this.button4.UseVisualStyleBackColor = true;
             this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
@@ -479,6 +488,7 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(36, 40);
             this.button2.TabIndex = 0;
+            this.button2.TabStop = false;
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -499,7 +509,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // panel5
