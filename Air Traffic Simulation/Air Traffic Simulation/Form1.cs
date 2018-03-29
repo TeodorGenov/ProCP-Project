@@ -30,13 +30,27 @@ namespace Air_Traffic_Simulation
         
         //GRID
 
+
         Grid grid = new Grid();
         Point p1, p2, p3, p4;
         Pen pGrid;
         Graphics gGrid;
         Bitmap bmpGrid;
 
+
+        // CHECKPOINT CIRCLE POINT LOL
+
+
+        Graphics grCircle;
+        Pen pnCircle;
+
+
+
+
+
+
         // SIMULATION VARIABLES
+
 
         int temp, prec, wind;
         List<Checkpoint> checkpoints;
@@ -48,6 +62,7 @@ namespace Air_Traffic_Simulation
         int AddingCheckpoints = 0;
         static int cpName = 0;
         BinaryFormatter bf;
+
 
         // END OF SIMULATION VARIABLES
         
@@ -105,8 +120,8 @@ namespace Air_Traffic_Simulation
             //GRID
 
             //pictureBox2.BackColor = Color.Transparent;
-            bmpGrid = new Bitmap(width + 1, height + 1);
-            gGrid = Graphics.FromImage(bmp);
+            bmpGrid = new Bitmap(width, height);
+            gGrid = Graphics.FromImage(bmpGrid);
             pGrid = new Pen(Color.Green, 1f);
 
             grid.MakeGrid();
@@ -125,7 +140,7 @@ namespace Air_Traffic_Simulation
 
             }
 
-            pictureBox1.Image = bmp;
+            pictureBox1.Image = bmpGrid;
         }
 
 
@@ -214,7 +229,10 @@ namespace Air_Traffic_Simulation
             {
                 cpName++;
                 string name = "cp" + cpName;
-                checkpoints.Add(new Checkpoint(name, 10, 10));
+                Checkpoint a = new Checkpoint(name, 10, 10);
+                checkpoints.Add(a);
+
+                MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" + a.CoordinateX + "," + a.CoordinateY + ")");
             }
 
 
@@ -265,6 +283,20 @@ namespace Air_Traffic_Simulation
             }
                
            
+        }
+
+        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (AddingCheckpoints == 1)
+            {
+                foreach (Cell c in grid.listOfCells)
+                {
+                    if (c.ContainsPoint(e.X, e.Y) == true)
+                    {
+                        PaintCircle(c.x, c.y);
+                    }
+                }
+            }
         }
 
         private void btnUploadData_Click(object sender, EventArgs e)
@@ -478,6 +510,15 @@ namespace Air_Traffic_Simulation
 
             //}
 
+
+        }
+
+        public void PaintCircle(int x, int y)
+        {
+            Brush aBrush = (Brush)Brushes.White;
+            Graphics g = this.CreateGraphics();
+
+            g.FillRectangle(aBrush, x, y, 1, 1);
 
         }
     }
