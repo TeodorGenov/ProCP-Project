@@ -39,11 +39,17 @@ namespace Air_Traffic_Simulation
 
         public void calculateShortestPath(List<AbstractCheckpoint> points, Airstrip strip)
         {
+            this.ReachableNodes.Clear();
+            this.ShortestPath.Clear();
+
             this.AddAllPossibleDestinations(points);
 
             points.Add(strip);
             foreach (var point in points)
             {
+                point.ShortestPath.Clear();
+                point.ReachableNodes.Clear();
+                point.DistanceFromSource = Int32.MaxValue;
                 point.AddAllPossibleDestinations(points);
             }
 
@@ -68,18 +74,6 @@ namespace Air_Traffic_Simulation
                 }
 
                 settledCheckpoints.Add(currentCheckpnt);
-            }
-        }
-
-        public void second(List<AbstractCheckpoint> points, Airstrip strip)
-        {
-            this.AddAllPossibleDestinations(points);
-
-            List<AbstractCheckpoint> Q = new List<AbstractCheckpoint>();
-            points.Add(strip);
-            foreach (var v in points)
-            {
-                v.DistanceFromSource = Double.MaxValue;
             }
         }
     }

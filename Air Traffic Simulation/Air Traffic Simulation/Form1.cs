@@ -294,18 +294,6 @@ namespace Air_Traffic_Simulation
             testPlane = new Airplane("FB123", 290, 390, 300, "FB321");
             testStrip = new Airstrip("Strip A", 550, 50, true, 360);
 
-            Random rnd = new Random();
-            checkpoints.AddRange(new List<AbstractCheckpoint>()
-            {
-                new Checkpoint("A", rnd.Next(0, 599), rnd.Next(0, 399)),
-                new Checkpoint("B", rnd.Next(0, 599), rnd.Next(0, 399)),
-                new Checkpoint("C", rnd.Next(0, 599), rnd.Next(0, 399)),
-                new Checkpoint("D", rnd.Next(0, 599), rnd.Next(0, 399)),
-                new Checkpoint("E", rnd.Next(0, 599), rnd.Next(0, 399)),
-                new Checkpoint("F", rnd.Next(0, 599), rnd.Next(0, 399)),
-                new Checkpoint("G", rnd.Next(0, 599), rnd.Next(0, 399))
-            });
-
             foreach (Cell c in grid.listOfCells)
             {
                 if (c.ContainsPoint(Convert.ToInt32(testPlane.CoordinateX), Convert.ToInt32(testPlane.CoordinateY)))
@@ -352,20 +340,20 @@ namespace Air_Traffic_Simulation
         private void button6_Click(object sender, EventArgs e)
         {
             testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
-            foreach (var point in this.checkpoints)
-            {
-                PaintCircle(new Point(Convert.ToInt32(point.CoordinateX), Convert.ToInt32(point.CoordinateY)));
-            }
-
 
             Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
 
-            foreach (var p in testStrip.ShortestPath)
+
+
+            var pp = testStrip.ShortestPath.Last;
+
+            while (pp != null)
             {
-                Point b = new Point(Convert.ToInt32(p.CoordinateX), Convert.ToInt32(p.CoordinateY));
+                Point b = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
                 Console.WriteLine($"a: {a.X}, {a.Y} \t b: {b.X}, {b.Y}");
                 ConnectDots(a, b);
-                a = new Point(Convert.ToInt32(p.CoordinateX), Convert.ToInt32(p.CoordinateY));
+                a = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
+                pp = pp.Previous;
             }
         }
 
