@@ -12,6 +12,9 @@ namespace Air_Traffic_Simulation
         public override string Name { get; }
         public override double CoordinateX { get; }
         public override double CoordinateY { get; }
+        public override LinkedList<AbstractCheckpoint> ShortestPath { get; set; }
+        public override double DistanceFromSource { get; set; }
+        public override Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }
 
         public bool IsFree { get; set; }
 
@@ -39,6 +42,10 @@ namespace Air_Traffic_Simulation
             CoordinateY = coordinateY;
             this.IsFree = isFree;
             this._takeOffDirection = takeOffDirection;
+
+            ShortestPath = new LinkedList<AbstractCheckpoint>();
+            DistanceFromSource = Int32.MaxValue;
+            ReachableNodes = new Dictionary<AbstractCheckpoint, double>();
         }
 
 
