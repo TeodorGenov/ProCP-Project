@@ -45,3 +45,15 @@ D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Tra
 D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.CoreCompileInputs.cache
 D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.exe
 D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.pdb
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.config
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.xml
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.pdb
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Form1.resources
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Properties.Resources.resources
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.GenerateResource.Cache
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.CoreCompileInputs.cache
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.exe
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.pdb
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.CodeAnalysisLog.xml
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.lastcodeanalysissucceeded
