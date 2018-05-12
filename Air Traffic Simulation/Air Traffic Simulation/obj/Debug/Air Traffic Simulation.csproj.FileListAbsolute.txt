@@ -57,3 +57,14 @@ C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air
 C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.pdb
 C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.CodeAnalysisLog.xml
 C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.lastcodeanalysissucceeded
+C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.config
+C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.xml
+C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe
+C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.pdb
+C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csprojResolveAssemblyReference.cache
+C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Form1.resources
+C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Properties.Resources.resources
+C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.GenerateResource.Cache
+C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.CoreCompileInputs.cache
+C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.exe
+C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.pdb

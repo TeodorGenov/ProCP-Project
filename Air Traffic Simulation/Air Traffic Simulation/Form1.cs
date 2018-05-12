@@ -65,6 +65,28 @@ namespace Air_Traffic_Simulation
         // END OF SIMULATION VARIABLES
 
 
+
+        // PAINT GRID
+        Rectangle rect;
+        SolidBrush b = new SolidBrush(Color.Yellow);
+
+        public void PaintGrid()
+        {
+            foreach(Cell c in grid.listOfCells)
+            {
+                if(c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - 20 || c.y == bmpGrid.Height - 20)
+                {
+                    rect = new Rectangle(c.x, c.y, 20, 20);
+                    gGrid.FillRectangle(b, rect);
+                    gGrid.DrawRectangle(pGrid, rect);
+                }
+            }
+        }
+
+        
+
+
+
         //simulation
 
         private bool dragging = false;
@@ -144,6 +166,7 @@ namespace Air_Traffic_Simulation
             }
 
             pictureBox1.Image = bmpGrid;
+            PaintGrid();
         }
 
 
