@@ -31,6 +31,11 @@
             Marks the type of cell. Depending on this, min and max speeds and altitudes will be defined.
             </summary>
         </member>
+        <member name="M:Air_Traffic_Simulation.Form1.t_Tick(System.Object,System.EventArgs)">
+            <summary>
+            RADAR METHOD
+            </summary>
+        </member>
         <member name="F:Air_Traffic_Simulation.Form1.components">
             <summary>
             Required designer variable.

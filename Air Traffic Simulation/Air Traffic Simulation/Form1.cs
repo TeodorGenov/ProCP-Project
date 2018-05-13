@@ -18,7 +18,8 @@ namespace Air_Traffic_Simulation
 
 
         Timer t = new Timer();
-        int width = 600, height = 400, hand = 150;
+        int width, height;
+        int hand = 150;
         int u; //in degree
         int cx, cy; //center of the circle
         int x, y; //hand coordinates
@@ -73,9 +74,9 @@ namespace Air_Traffic_Simulation
         {
             foreach (Cell c in grid.listOfCells)
             {
-                if (c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - 20 || c.y == bmpGrid.Height - 20)
+                if (c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - Cell.Width || c.y == bmpGrid.Height - Cell.Width)
                 {
-                    rect = new Rectangle(c.x, c.y, 20, 20);
+                    rect = new Rectangle(c.x, c.y, Cell.Width, Cell.Width);
                     gGrid.FillRectangle(b, rect);
                     gGrid.DrawRectangle(pGrid, rect);
                 }
@@ -107,7 +108,9 @@ namespace Air_Traffic_Simulation
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            grid = new Grid(pictureBox1.Height, pictureBox1.Width);
+            width = pictureBox1.Width;
+            height = pictureBox1.Height;
+            grid = new Grid(width, height);
 
             // Slider info
             temp = trackBarTemperature.Value;
@@ -167,8 +170,9 @@ namespace Air_Traffic_Simulation
         }
 
 
-        //RADAR METHOD
-
+        /// <summary>
+        /// RADAR METHOD
+        /// </summary>
         private void t_Tick(object sender, EventArgs e)
         {
             p = new Pen(Color.Green, 1f);

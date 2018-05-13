@@ -30,8 +30,8 @@ namespace Air_Traffic_Simulation
 
         public Grid(int pictureBoxWidth, int pictureBoxHeight)
         {
-            this.columnsOfCells = pictureBoxHeight / Cell.Width;
-            this.rowsOfCells = pictureBoxWidth / Cell.Width;
+            this.columnsOfCells = pictureBoxWidth / Cell.Width;
+            this.rowsOfCells = pictureBoxHeight / Cell.Width;
             this.totalNumberOfCells = this.columnsOfCells * this.rowsOfCells;
             Console.WriteLine($"columns: {columnsOfCells}{Environment.NewLine}rows: {rowsOfCells}{Environment.NewLine}total: {totalNumberOfCells}");
         }
