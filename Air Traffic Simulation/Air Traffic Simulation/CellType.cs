@@ -8,6 +8,8 @@ namespace Air_Traffic_Simulation
 {
     public enum CellType
     {
+        UNASSIGNED,
+        BORDER,
         UPPER,
         MID,
         LOWER,

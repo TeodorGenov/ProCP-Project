@@ -10,30 +10,30 @@ namespace Air_Traffic_Simulation
     class Grid
     {
         public List<Cell> listOfCells = new List<Cell>();
-        private Cell c;
         private int xs = 0, ys = 0, id = 1;
 
         /// <summary>
         /// The number of columns the grid is going to have.
         /// </summary>
-        private int columnsOfCells;
+        private readonly int columnsOfCells;
 
         /// <summary>
         /// The number of rows the grid is going to have.
         /// </summary>
-        private int rowsOfCells;
+        private readonly int rowsOfCells;
 
         /// <summary>
         /// The total number of cells the grid is going to have.
         /// </summary>
-        private int totalNumberOfCells;
+        private readonly int totalNumberOfCells;
 
         public Grid(int pictureBoxWidth, int pictureBoxHeight)
         {
             this.columnsOfCells = pictureBoxWidth / Cell.Width;
             this.rowsOfCells = pictureBoxHeight / Cell.Width;
             this.totalNumberOfCells = this.columnsOfCells * this.rowsOfCells;
-            Console.WriteLine($"columns: {columnsOfCells}{Environment.NewLine}rows: {rowsOfCells}{Environment.NewLine}total: {totalNumberOfCells}");
+
+            Console.WriteLine($"columns: {columnsOfCells} rows: {rowsOfCells}");
         }
 
         public Cell GetCell(int xmouse, int ymouse)
@@ -51,6 +51,7 @@ namespace Air_Traffic_Simulation
 
         public void MakeGrid()
         {
+            Cell c;
             for (int i = 1; i <= totalNumberOfCells; i++)
             {
                 if (i % columnsOfCells != 0)
@@ -67,6 +68,23 @@ namespace Air_Traffic_Simulation
                     xs = 0;
                     ys = ys + Cell.Width;
                     id = id + 1;
+                }
+                
+                if (c.id <= this.columnsOfCells)
+                {
+                    c.Type = CellType.BORDER;
+                }
+                else if (c.id % this.columnsOfCells == 1)
+                {
+                    c.Type = CellType.BORDER;
+                }
+                else if (c.id % this.columnsOfCells == 0)
+                {
+                    c.Type = CellType.BORDER;
+                }
+                else if (c.id > this.columnsOfCells * (this.rowsOfCells - 1))
+                {
+                    c.Type = CellType.BORDER;
                 }
             }
         }

@@ -15,7 +15,7 @@ namespace Air_Traffic_Simulation
         /// <summary>
         /// The side of the cell, width = height.
         /// </summary>
-        public static int Width = 8;
+        public static int Width = 15;
 
         /// <summary>
         /// Marks the type of cell. Depending on this, min and max speeds and altitudes will be defined.

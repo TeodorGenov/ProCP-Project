@@ -68,8 +68,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
+            this.calcRouteBtn = new System.Windows.Forms.Button();
+            this.testAirplaneAndStrip = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
@@ -491,9 +491,9 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(162, 95);
+            this.pictureBox1.Location = new System.Drawing.Point(6, 6);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(600, 400);
+            this.pictureBox1.Size = new System.Drawing.Size(844, 500);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -501,8 +501,8 @@
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.button6);
-            this.panel5.Controls.Add(this.button5);
+            this.panel5.Controls.Add(this.calcRouteBtn);
+            this.panel5.Controls.Add(this.testAirplaneAndStrip);
             this.panel5.Controls.Add(this.pictureBox1);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(272, 42);
@@ -510,26 +510,26 @@
             this.panel5.Size = new System.Drawing.Size(855, 578);
             this.panel5.TabIndex = 2;
             // 
-            // button5
+            // calcRouteBtn
             // 
-            this.button5.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.button5.Location = new System.Drawing.Point(660, 512);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(187, 54);
-            this.button5.TabIndex = 1;
-            this.button5.Text = "Add test airplane and strip";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.addTestAirplaneAndStrip);
+            this.calcRouteBtn.Location = new System.Drawing.Point(467, 512);
+            this.calcRouteBtn.Name = "calcRouteBtn";
+            this.calcRouteBtn.Size = new System.Drawing.Size(187, 51);
+            this.calcRouteBtn.TabIndex = 2;
+            this.calcRouteBtn.Text = "Calculate Route";
+            this.calcRouteBtn.UseVisualStyleBackColor = true;
+            this.calcRouteBtn.Click += new System.EventHandler(this.calcRouteButtonClick);
             // 
-            // button6
+            // testAirplaneAndStrip
             // 
-            this.button6.Location = new System.Drawing.Point(579, 540);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "button6";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.testAirplaneAndStrip.Font = new System.Drawing.Font("Century Gothic", 10F);
+            this.testAirplaneAndStrip.Location = new System.Drawing.Point(660, 512);
+            this.testAirplaneAndStrip.Name = "testAirplaneAndStrip";
+            this.testAirplaneAndStrip.Size = new System.Drawing.Size(187, 54);
+            this.testAirplaneAndStrip.TabIndex = 1;
+            this.testAirplaneAndStrip.Text = "Add test airplane and strip";
+            this.testAirplaneAndStrip.UseVisualStyleBackColor = true;
+            this.testAirplaneAndStrip.Click += new System.EventHandler(this.addTestAirplaneAndStrip);
             // 
             // Form1
             // 
@@ -606,8 +606,8 @@
         private System.Windows.Forms.Label prob;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Button testAirplaneAndStrip;
+        private System.Windows.Forms.Button calcRouteBtn;
     }
 }
 

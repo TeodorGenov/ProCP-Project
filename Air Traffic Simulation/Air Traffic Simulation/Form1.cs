@@ -74,7 +74,7 @@ namespace Air_Traffic_Simulation
         {
             foreach (Cell c in grid.listOfCells)
             {
-                if (c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - Cell.Width || c.y == bmpGrid.Height - Cell.Width)
+                if (c.Type == CellType.BORDER)
                 {
                     rect = new Rectangle(c.x, c.y, Cell.Width, Cell.Width);
                     gGrid.FillRectangle(b, rect);
@@ -360,10 +360,10 @@ namespace Air_Traffic_Simulation
                             testStrip.CoordinateX + "," + testStrip.CoordinateY +
                             ")\n(That's the green filled square in the upper right of the screen.)");
 
-            button5.Enabled = false;
+            testAirplaneAndStrip.Enabled = false;
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void calcRouteButtonClick(object sender, EventArgs e)
         {
             testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
 
