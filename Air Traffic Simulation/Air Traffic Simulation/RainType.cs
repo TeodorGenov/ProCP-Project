@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Air_Traffic_Simulation
 {
-    interface ICheckpoint
+    public enum RainType
     {
-        string Name();
-        double CoordinateX();
-        double CoordinateY();
+        RAIN,
+        SNOWFALL,
+        HALE,
     }
 }
