@@ -375,6 +375,7 @@ namespace Air_Traffic_Simulation
             while (pp != null)
             {
                 Point b = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
+                //TODO: Remove cw
                 Console.WriteLine($"a: {a.X}, {a.Y} \t b: {b.X}, {b.Y}");
                 ConnectDots(a, b);
                 a = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));

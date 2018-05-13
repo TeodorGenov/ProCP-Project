@@ -33,6 +33,7 @@ namespace Air_Traffic_Simulation
             this.rowsOfCells = pictureBoxHeight / Cell.Width;
             this.totalNumberOfCells = this.columnsOfCells * this.rowsOfCells;
 
+            //TODO: Remove cw
             Console.WriteLine($"columns: {columnsOfCells} rows: {rowsOfCells}");
         }
 
