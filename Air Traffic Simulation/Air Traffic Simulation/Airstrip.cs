@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Air_Traffic_Simulation
 {
     class Airstrip : AbstractCheckpoint
     {
+        /// <summary>
+        /// This is any help written.
+        /// </summary>
         private double _takeOffDirection;
         public override string Name { get; }
         public override double CoordinateX { get; }

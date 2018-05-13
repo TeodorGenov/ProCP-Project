@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Air Traffic Simulation</name>
+    </assembly>
+    <members>
+        <member name="M:Air_Traffic_Simulation.AbstractCheckpoint.CalculateDistanceBetweenPoints(Air_Traffic_Simulation.AbstractCheckpoint)">
+            <summary>
+            Uses Pythagoras' theorem to calculate the distance between two checkpoints.
+            </summary>
+            <param name="a">The checkpoint we are looking for the distance from.</param>
+            <returns>The distance between the two checkpoints given as arguments.</returns>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Airstrip._takeOffDirection">
+            <summary>
+            This is any help written.
+            </summary>
+        </member>
+        <member name="M:Air_Traffic_Simulation.Airstrip.SwitchDirections">
+            <summary>
+            Changes the take off/landing direction to the opposite.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Form1.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Air_Traffic_Simulation.Form1.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Air_Traffic_Simulation.Form1.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="M:Air_Traffic_Simulation.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:Air_Traffic_Simulation.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Air_Traffic_Simulation.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Air_Traffic_Simulation.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>
