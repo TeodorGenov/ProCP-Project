@@ -21,6 +21,16 @@
             Changes the take off/landing direction to the opposite.
             </summary>
         </member>
+        <member name="F:Air_Traffic_Simulation.Cell.Width">
+            <summary>
+            The side of the cell, width = height.
+            </summary>
+        </member>
+        <member name="P:Air_Traffic_Simulation.Cell.Type">
+            <summary>
+            Marks the type of cell. Depending on this, min and max speeds and altitudes will be defined.
+            </summary>
+        </member>
         <member name="F:Air_Traffic_Simulation.Form1.components">
             <summary>
             Required designer variable.
@@ -36,6 +46,21 @@
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Grid.columnsOfCells">
+            <summary>
+            The number of columns the grid is going to have.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Grid.rowsOfCells">
+            <summary>
+            The number of rows the grid is going to have.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Grid.totalNumberOfCells">
+            <summary>
+            The total number of cells the grid is going to have.
             </summary>
         </member>
         <member name="M:Air_Traffic_Simulation.Program.Main">

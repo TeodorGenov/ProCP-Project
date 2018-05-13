@@ -31,7 +31,7 @@ namespace Air_Traffic_Simulation
         //GRID
 
 
-        Grid grid = new Grid();
+        Grid grid;
         Point p1, p2, p3, p4;
         Pen pGrid;
         Graphics gGrid;
@@ -100,7 +100,6 @@ namespace Air_Traffic_Simulation
         {
             dir = @"..\..\Saved";
             serializationFile = Path.Combine(dir, "Checkpoints.bin");
-            //checkpoints = new List<Checkpoint>();
             checkpoints = new List<AbstractCheckpoint>();
 
             InitializeComponent();
@@ -108,6 +107,8 @@ namespace Air_Traffic_Simulation
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            grid = new Grid(pictureBox1.Height, pictureBox1.Width);
+
             // Slider info
             temp = trackBarTemperature.Value;
             prec = trackBarPrecipitation.Value;
@@ -151,9 +152,9 @@ namespace Air_Traffic_Simulation
             foreach (Cell c in grid.listOfCells)
             {
                 p1 = new Point(c.x, c.y);
-                p2 = new Point(c.x + c.width, c.y);
-                p3 = new Point(c.x + c.width, c.y + c.width);
-                p4 = new Point(c.x, c.y + c.width);
+                p2 = new Point(c.x + Cell.Width, c.y);
+                p3 = new Point(c.x + Cell.Width, c.y + Cell.Width);
+                p4 = new Point(c.x, c.y + Cell.Width);
 
                 gGrid.DrawLine(pGrid, p1, p2);
                 gGrid.DrawLine(pGrid, p1, p4);

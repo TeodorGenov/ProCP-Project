@@ -11,20 +11,28 @@ namespace Air_Traffic_Simulation
     {
         public int id;
         public int x, y;
-        public int width;
+
+        /// <summary>
+        /// The side of the cell, width = height.
+        /// </summary>
+        public static int Width = 20;
+
+        /// <summary>
+        /// Marks the type of cell. Depending on this, min and max speeds and altitudes will be defined.
+        /// </summary>
+        public CellType Type { get; set; }
 
         public Cell(int id, int x, int y)
         {
             this.id = id;
             this.x = x;
             this.y = y;
-            this.width = 20;
         }
 
         public bool ContainsPoint(int xmouse, int ymouse)
         {
-            //return (this.x - xmouse) * (this.x - xmouse) + (this.y - ymouse) * (this.y - ymouse) <= width * width;
-            if (xmouse < x+width && ymouse < y + width && xmouse >= x && ymouse >= y)
+            //return (this.x - xmouse) * (this.x - xmouse) + (this.y - ymouse) * (this.y - ymouse) <= Width * Width;
+            if (xmouse < x+Width && ymouse < y + Width && xmouse >= x && ymouse >= y)
             {
                 return true;
             }
@@ -33,7 +41,7 @@ namespace Air_Traffic_Simulation
 
         public Point GetCenter()
         {
-            Point p = new Point(x + (width/2), y + (width/2));
+            Point p = new Point(x + (Width/2), y + (Width/2));
             return p;
         }
     }
