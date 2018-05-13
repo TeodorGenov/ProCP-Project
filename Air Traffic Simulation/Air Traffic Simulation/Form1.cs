@@ -65,16 +65,15 @@ namespace Air_Traffic_Simulation
         // END OF SIMULATION VARIABLES
 
 
-
         // PAINT GRID
         Rectangle rect;
         SolidBrush b = new SolidBrush(Color.Yellow);
 
         public void PaintGrid()
         {
-            foreach(Cell c in grid.listOfCells)
+            foreach (Cell c in grid.listOfCells)
             {
-                if(c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - 20 || c.y == bmpGrid.Height - 20)
+                if (c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - 20 || c.y == bmpGrid.Height - 20)
                 {
                     rect = new Rectangle(c.x, c.y, 20, 20);
                     gGrid.FillRectangle(b, rect);
@@ -82,9 +81,6 @@ namespace Air_Traffic_Simulation
                 }
             }
         }
-
-        
-
 
 
         //simulation
@@ -358,6 +354,8 @@ namespace Air_Traffic_Simulation
                             "\n\n..and test airstrip  " + testStrip.Name + "  With coordinates: (" +
                             testStrip.CoordinateX + "," + testStrip.CoordinateY +
                             ")\n(That's the green filled square in the upper right of the screen.)");
+
+            button5.Enabled = false;
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -365,7 +363,6 @@ namespace Air_Traffic_Simulation
             testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
 
             Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
-
 
 
             var pp = testStrip.ShortestPath.Last;

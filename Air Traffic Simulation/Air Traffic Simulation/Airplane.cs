@@ -53,6 +53,8 @@ namespace Air_Traffic_Simulation
                 point.AddAllPossibleDestinations(points);
             }
 
+            points.Remove(strip);
+
             HashSet<AbstractCheckpoint> settledCheckpoints = new HashSet<AbstractCheckpoint>();
             HashSet<AbstractCheckpoint> unsettledCheckpoints = new HashSet<AbstractCheckpoint> {this};
 
