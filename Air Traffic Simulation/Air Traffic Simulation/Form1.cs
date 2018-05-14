@@ -67,20 +67,9 @@ namespace Air_Traffic_Simulation
 
         // PAINT GRID
         Rectangle rect;
-        SolidBrush b = new SolidBrush(Color.Yellow);
+        SolidBrush brush = new SolidBrush(Color.Purple);
 
-        public void PaintGrid()
-        {
-            foreach (Cell c in grid.listOfCells)
-            {
-                if (c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - 20 || c.y == bmpGrid.Height - 20)
-                {
-                    rect = new Rectangle(c.x, c.y, 20, 20);
-                    gGrid.FillRectangle(b, rect);
-                    gGrid.DrawRectangle(pGrid, rect);
-                }
-            }
-        }
+        
 
 
         //simulation
@@ -310,7 +299,7 @@ namespace Air_Traffic_Simulation
         {
             //TODO: Fix mismatching var types of Doubles for Checkpoint locations and Ints for Cell locations
             //TODO: Remove following test lines:
-            testPlane = new Airplane("FB123", 290, 390, 300, "FB321");
+            testPlane = new Airplane("FB123", 290, 440, 300, "FB321");
             testStrip = new Airstrip("Strip A", 550, 50, true, 360);
 
             foreach (Cell c in grid.listOfCells)
@@ -392,6 +381,7 @@ namespace Air_Traffic_Simulation
                 {
                     if (c.ContainsPoint(e.X, e.Y) == true)
                     {
+
                         bool exists = false;
                         Point p = c.GetCenter();
                         foreach (Checkpoint mm in checkpoints)
@@ -405,7 +395,13 @@ namespace Air_Traffic_Simulation
 
                         if (!exists)
                         {
-                            PaintCircle(p);
+                            if (c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - 20 || c.y == bmpGrid.Height - 20)
+                            {
+                                MessageBox.Show("Selected area is for airplanes only.");
+                            }
+                            else
+                            {
+                               PaintCircle(p);
 
                             cpName++;
                             string name = "cp" + cpName;
@@ -413,6 +409,8 @@ namespace Air_Traffic_Simulation
                             checkpoints.Add(a);
                             MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" + a.CoordinateX +
                                             "," + a.CoordinateY + ")");
+                            }
+                                
                         }
                     }
                 }
@@ -734,6 +732,18 @@ namespace Air_Traffic_Simulation
             Pen pen = new Pen(Color.Black);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawEllipse(pen, x, y, width, height);
+        }
+        public void PaintGrid()
+        {
+            foreach (Cell c in grid.listOfCells)
+            {
+                if (c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - 20 || c.y == bmpGrid.Height - 20)
+                {
+                    rect = new Rectangle(c.x, c.y, 20, 20);
+                    gGrid.FillRectangle(brush, rect);
+                    gGrid.DrawRectangle(pGrid, rect);
+                }
+            }
         }
     }
 }
