@@ -442,8 +442,9 @@ namespace Air_Traffic_Simulation
                             string name = "cp" + cpName;
                             Checkpoint a = new Checkpoint(name, p.X, p.Y, c);
                             checkpoints.Add(a);
+                            //TODO: remove cell nr
                             MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" + a.CoordinateX +
-                                            "," + a.CoordinateY + ")");
+                                            "," + a.CoordinateY + ")" + "\nCell number: " + c.id);
                         }
                     }
                 }
