@@ -18,7 +18,7 @@ namespace Air_Traffic_Simulation
 
 
         Timer t = new Timer();
-        int width = 600, height = 400, hand = 150;
+        int width = 800, height = 460, hand = 150;
         int u; //in degree
         int cx, cy; //center of the circle
         int x, y; //hand coordinates
