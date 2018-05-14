@@ -18,6 +18,13 @@ namespace Air_Traffic_Simulation
         public abstract double DistanceFromSource { get; set; }
         public abstract Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }
 
+        //TODO: fix the mess with the inheritance and the min/max speed/altitude you are about to create
+
+        public abstract int MaxSpeed { get; }
+        public abstract int MinSpeed { get; }
+        public abstract int MaxAltitude { get; }
+        public abstract int MinAltitude { get; }
+
         /// <summary>
         /// Uses Pythagoras' theorem to calculate the distance between two checkpoints.
         /// </summary>
@@ -29,11 +36,19 @@ namespace Air_Traffic_Simulation
                              Math.Pow(Math.Abs(this.CoordinateY - a.CoordinateY), 2));
         }
 
+        protected virtual double CalculateTimeBetweenPoints(AbstractCheckpoint a)
+        {
+            return CalculateDistanceBetweenPoints(a) / this.MaxSpeed;
+        }
+
         public virtual void AddAllPossibleDestinations(List<AbstractCheckpoint> checkpoints)
         {
             foreach (var point in checkpoints)
             {
-                this.AddSingleDestination(point, CalculateDistanceBetweenPoints(point));
+                ///TODO: update names
+                //this.AddSingleDestination(point, CalculateDistanceBetweenPoints(point));
+
+                this.AddSingleDestination(point, CalculateTimeBetweenPoints(point));
             }
         }
 

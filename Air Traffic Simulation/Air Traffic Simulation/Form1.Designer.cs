@@ -523,8 +523,8 @@
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.button6);
-            this.panel5.Controls.Add(this.button5);
+            this.panel5.Controls.Add(this.calcRouteBtn);
+            this.panel5.Controls.Add(this.testAirplaneAndStrip);
             this.panel5.Controls.Add(this.pictureBox1);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(272, 42);
@@ -544,14 +544,13 @@
             // 
             // button5
             // 
-            this.button5.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.button5.Location = new System.Drawing.Point(660, 512);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(187, 54);
-            this.button5.TabIndex = 1;
-            this.button5.Text = "Add test airplane and strip";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.addTestAirplaneAndStrip);
+            this.calcRouteBtn.Location = new System.Drawing.Point(467, 512);
+            this.calcRouteBtn.Name = "calcRouteBtn";
+            this.calcRouteBtn.Size = new System.Drawing.Size(187, 51);
+            this.calcRouteBtn.TabIndex = 2;
+            this.calcRouteBtn.Text = "Calculate Route";
+            this.calcRouteBtn.UseVisualStyleBackColor = true;
+            this.calcRouteBtn.Click += new System.EventHandler(this.calcRouteButtonClick);
             // 
             // panel7
             // 

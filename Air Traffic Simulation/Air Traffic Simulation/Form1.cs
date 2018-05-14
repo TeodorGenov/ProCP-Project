@@ -18,7 +18,8 @@ namespace Air_Traffic_Simulation
 
 
         Timer t = new Timer();
-        int width = 800, height = 460, hand = 150;
+        int width, height;
+        int hand = 150;
         int u; //in degree
         int cx, cy; //center of the circle
         int x, y; //hand coordinates
@@ -31,7 +32,7 @@ namespace Air_Traffic_Simulation
         //GRID
 
 
-        Grid grid = new Grid();
+        Grid grid;
         Point p1, p2, p3, p4;
         Pen pGrid;
         Graphics gGrid;
@@ -72,10 +73,39 @@ namespace Air_Traffic_Simulation
 
 
         // PAINT GRID
-        Rectangle rect;
-        SolidBrush brush = new SolidBrush(Color.Purple);
+        public void PaintGrid()
+        {
+            Rectangle rect;
+            SolidBrush b = new SolidBrush(Color.Yellow);
 
-        
+            foreach (Cell c in grid.listOfCells)
+            {
+                switch (c.Type)
+                {
+                    case CellType.BORDER:
+                        b = new SolidBrush(Color.Yellow);
+                        break;
+                    case CellType.UPPER:
+                        b = new SolidBrush(Color.Aqua);
+                        break;
+                    case CellType.MID:
+                        b = new SolidBrush(Color.LightSkyBlue);
+                        break;
+                    case CellType.LOWER:
+                        b = new SolidBrush(Color.Gainsboro);
+                        break;
+                    case CellType.FINAL:
+                        b = new SolidBrush(Color.Chocolate);
+                        break;
+                    default:
+                        continue;
+                }
+
+                rect = new Rectangle(c.x, c.y, Cell.Width, Cell.Width);
+                gGrid.FillRectangle(b, rect);
+                gGrid.DrawRectangle(pGrid, rect);
+            }
+        }
 
 
         //simulation
@@ -97,7 +127,6 @@ namespace Air_Traffic_Simulation
         {
             dir = @"..\..\Saved";
             serializationFile = Path.Combine(dir, "Checkpoints.bin");
-            //checkpoints = new List<Checkpoint>();
             checkpoints = new List<AbstractCheckpoint>();
             airplanes = new List<Airplane>();
             InitializeComponent();
@@ -106,6 +135,10 @@ namespace Air_Traffic_Simulation
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            width = pictureBox1.Width;
+            height = pictureBox1.Height;
+            grid = new Grid(width, height);
+
             // Slider info
             temp = trackBarTemperature.Value;
             prec = trackBarPrecipitation.Value;
@@ -149,9 +182,9 @@ namespace Air_Traffic_Simulation
             foreach (Cell c in grid.listOfCells)
             {
                 p1 = new Point(c.x, c.y);
-                p2 = new Point(c.x + c.width, c.y);
-                p3 = new Point(c.x + c.width, c.y + c.width);
-                p4 = new Point(c.x, c.y + c.width);
+                p2 = new Point(c.x + Cell.Width, c.y);
+                p3 = new Point(c.x + Cell.Width, c.y + Cell.Width);
+                p4 = new Point(c.x, c.y + Cell.Width);
 
                 gGrid.DrawLine(pGrid, p1, p2);
                 gGrid.DrawLine(pGrid, p1, p4);
@@ -164,8 +197,9 @@ namespace Air_Traffic_Simulation
         }
 
 
-        //RADAR METHOD
-
+        /// <summary>
+        /// RADAR METHOD
+        /// </summary>
         private void t_Tick(object sender, EventArgs e)
         {
             p = new Pen(Color.Green, 1f);
@@ -313,7 +347,8 @@ namespace Air_Traffic_Simulation
         {
             //TODO: Fix mismatching var types of Doubles for Checkpoint locations and Ints for Cell locations
             //TODO: Remove following test lines:
-            testPlane = new Airplane("FB123", 290, 440, 300, "FB321");
+            testPlane = new Airplane(name: "FB123", coordinateX: 20, coordinateY: this.pictureBox1.Height-20, speed: 300,
+                flightNumber: "FB321");
             testStrip = new Airstrip("Strip A", 550, 50, true, 360);
 
             foreach (Cell c in grid.listOfCells)
@@ -358,10 +393,10 @@ namespace Air_Traffic_Simulation
                             testStrip.CoordinateX + "," + testStrip.CoordinateY +
                             ")\n(That's the green filled square in the upper right of the screen.)");
 
-            button5.Enabled = false;
+            testAirplaneAndStrip.Enabled = false;
         }
 
-        private void button6_Click(object sender, EventArgs e)
+        private void calcRouteButtonClick(object sender, EventArgs e)
         {
             testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
 
@@ -373,6 +408,7 @@ namespace Air_Traffic_Simulation
             while (pp != null)
             {
                 Point b = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
+                //TODO: Remove cw
                 Console.WriteLine($"a: {a.X}, {a.Y} \t b: {b.X}, {b.Y}");
                 ConnectDots(a, b);
                 a = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
@@ -380,13 +416,23 @@ namespace Air_Traffic_Simulation
             }
         }
 
-        public void ConnectDots(Point a, Point b)
+        /// <summary>
+        /// Creates a line between two points on the grid.
+        /// </summary>
+        /// <param name="a">The initial point.</param>
+        /// <param name="b">The end point.</param>
+        private void ConnectDots(Point a, Point b)
         {
-            Pen pen = new Pen(Color.Yellow);
+            Pen pen = new Pen(Color.Black);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawLine(pen, a, b);
         }
 
+        /// <summary>
+        /// The method that does the actual addition of checkpoints.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (AddingCheckpoints == 1)
@@ -419,12 +465,11 @@ namespace Air_Traffic_Simulation
 
                             cpName++;
                             string name = "cp" + cpName;
-                            Checkpoint a = new Checkpoint(name, p.X, p.Y);
+                            Checkpoint a = new Checkpoint(name, p.X, p.Y, c);
                             checkpoints.Add(a);
+                            //TODO: remove cell nr
                             MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" + a.CoordinateX +
-                                            "," + a.CoordinateY + ")");
-                            }
-                                
+                                            "," + a.CoordinateY + ")" + "\nCell number: " + c.id);
                         }
                     }
                 }
