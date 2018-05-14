@@ -58,7 +58,13 @@ namespace Air_Traffic_Simulation
 
         int AddingCheckpoints = 0;
         int RemovingCheckpoints = 0;
+        int AddingAirplanes = 0;
+        int RemovingAirplanes = 0;
+        int RandomAirplane = 0;
         static int cpName = 0;
+        static int apName = 0;
+        static int fnName = 0;
+        
         BinaryFormatter bf;
 
 
@@ -82,7 +88,9 @@ namespace Air_Traffic_Simulation
         //TODO: remove testing variables
         private Airplane testPlane;
         private Airstrip testStrip;
+
         List<AbstractCheckpoint> checkpoints;
+        List<Airplane> airplanes;
 
 
         public Form1()
@@ -91,8 +99,9 @@ namespace Air_Traffic_Simulation
             serializationFile = Path.Combine(dir, "Checkpoints.bin");
             //checkpoints = new List<Checkpoint>();
             checkpoints = new List<AbstractCheckpoint>();
-
+            airplanes = new List<Airplane>();
             InitializeComponent();
+            nSpeed.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -250,19 +259,24 @@ namespace Air_Traffic_Simulation
             if (btnAddCheckpoint.Text == "Add")
             {
                 btnRemoveCheckpoint.Enabled = false;
+                btnAddAirplane.Enabled = false;
+                btnRemoveAirplane.Enabled = false;
+                trackBar1.Enabled = false;
                 AddingCheckpoints = 1;
                 btnAddCheckpoint.Text = "Stop";
             }
             else if (btnAddCheckpoint.Text == "Stop")
             {
                 btnRemoveCheckpoint.Enabled = true;
+                if (RandomAirplane == 0)
+                {
+                btnAddAirplane.Enabled = true;
+                btnRemoveAirplane.Enabled = true;
+                }
+                trackBar1.Enabled = true;
                 AddingCheckpoints = 0;
                 btnAddCheckpoint.Text = "Add";
             }
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
         }
 
         private void trackBarTemperature_ValueChanged(object sender, EventArgs e)
@@ -437,6 +451,135 @@ namespace Air_Traffic_Simulation
                     }
                 }
             }
+
+            else if (AddingAirplanes == 1)
+            {
+                foreach (Cell c in grid.listOfCells)
+                {
+                    if (c.ContainsPoint(e.X, e.Y) == true)
+                    {
+
+                        bool exists = false;
+                        Point p = c.GetCenter();
+                        foreach (Airplane mm in airplanes)
+                        {
+                            if (mm.CoordinateX == p.X && mm.CoordinateY == p.Y)
+                            {
+                                MessageBox.Show("Airplane already exists at this location", "WARNING");
+                                exists = true;
+                            }
+                        }
+
+                        if (!exists)
+                        {
+                            if (c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - 20 || c.y == bmpGrid.Height - 20)
+                            {
+                                PaintRectangle(p);
+
+                                apName++;
+                                fnName += 6 * 2 / 3;
+                                string name = "Airplane" + apName;
+                                string flight = "fn" + fnName + "z";
+                                Airplane a = new Airplane(name, p.X, p.Y, Convert.ToDouble(nSpeed.Value), flight);
+                                airplanes.Add(a);
+                                MessageBox.Show("Added Airplane  " + a.Name + "\nCoordinates: \t(" + a.CoordinateX +
+                                                "," + a.CoordinateY + ")" + "\nFlight number: \t(" + flight + ") " + "\nSpeed: \t\t(" + nSpeed.Value + "kmh)");
+
+                            }
+                            else
+                            {
+                                MessageBox.Show("This area is used for checkpoints only");
+                            }
+
+                        }
+                    }
+                }
+            }
+
+            else if (RemovingAirplanes == 1)
+            {
+                foreach (Cell c in grid.listOfCells)
+                {
+                    if (c.ContainsPoint(e.X, e.Y) == true)
+                    {
+                        Point p = c.GetCenter();
+                        foreach (Airplane bee in airplanes)
+                        {
+                            if (bee.CoordinateX == p.X && bee.CoordinateY == p.Y)
+                            {
+                                PaintRectangleP(p);
+                                Airplane v = bee;
+                                airplanes.Remove(bee);
+                                MessageBox.Show("Successfully removed Airplane " + v.Name + " With coordinates(" +
+                                                v.CoordinateX + "," + v.CoordinateY + ").");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btnAddAirplane_Click(object sender, EventArgs e)
+        {
+            if (btnAddAirplane.Text == "Add")
+            {
+                btnRemoveAirplane.Enabled = false;
+                btnAddCheckpoint.Enabled = false;
+                btnRemoveCheckpoint.Enabled = false;
+                trackBar1.Enabled = false;
+                nSpeed.Enabled = true;
+                AddingAirplanes = 1;
+                btnAddAirplane.Text = "Stop";
+            }
+            else if (btnAddAirplane.Text == "Stop")
+            {
+                btnRemoveAirplane.Enabled = true;
+                btnAddCheckpoint.Enabled = true;
+                btnRemoveCheckpoint.Enabled = true;
+                trackBar1.Enabled = true;
+                nSpeed.Enabled = false;
+                AddingAirplanes = 0;
+                btnAddAirplane.Text = "Add";
+            }
+        }
+
+        private void btnRemoveAirplane_Click(object sender, EventArgs e)
+        {
+            if (btnRemoveAirplane.Text == "Remove")
+            {
+                btnAddAirplane.Enabled = false;
+                btnAddCheckpoint.Enabled = false;
+                btnRemoveCheckpoint.Enabled = false;
+                trackBar1.Enabled = false;
+                RemovingAirplanes = 1;
+                btnRemoveAirplane.Text = "Stop";
+            }
+            else if (btnRemoveAirplane.Text == "Stop")
+            {
+                btnAddAirplane.Enabled = true;
+                btnAddCheckpoint.Enabled = true;
+                btnRemoveCheckpoint.Enabled = true;
+                trackBar1.Enabled = true;
+                RemovingAirplanes = 0;
+                btnRemoveAirplane.Text = "Remove";
+            }
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            if (trackBar1.Value == 1)
+            {
+                btnAddAirplane.Enabled = false;
+                btnRemoveAirplane.Enabled = false;
+                RandomAirplane = 1;
+            }
+            if (trackBar1.Value == 0)
+            {
+                btnAddAirplane.Enabled = true;
+                btnRemoveAirplane.Enabled = true;
+                RandomAirplane = 0;
+            }
         }
 
         private void btnUploadData_Click(object sender, EventArgs e)
@@ -499,12 +642,21 @@ namespace Air_Traffic_Simulation
             if (btnRemoveCheckpoint.Text == "Remove")
             {
                 btnAddCheckpoint.Enabled = false;
+                btnAddAirplane.Enabled = false;
+                btnRemoveAirplane.Enabled = false;
+                trackBar1.Enabled = false;
                 RemovingCheckpoints = 1;
                 btnRemoveCheckpoint.Text = "Stop";
             }
             else if (btnRemoveCheckpoint.Text == "Stop")
             {
                 btnAddCheckpoint.Enabled = true;
+                if (RandomAirplane == 0)
+                {
+                    btnAddAirplane.Enabled = true;
+                    btnRemoveAirplane.Enabled = true;
+                }
+                trackBar1.Enabled = true;
                 RemovingCheckpoints = 0;
                 btnRemoveCheckpoint.Text = "Remove";
             }
@@ -732,6 +884,27 @@ namespace Air_Traffic_Simulation
             Pen pen = new Pen(Color.Black);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawEllipse(pen, x, y, width, height);
+        }
+
+        public void PaintRectangle(Point p)
+        {
+            float x = p.X - 3;
+            float y = p.Y - 3;
+            float width = 2 * 3;
+            float height = 2 * 3;
+            Pen pen = new Pen(Color.Red);
+            Graphics g = this.pictureBox1.CreateGraphics();
+            g.DrawRectangle(pen, x, y, width, height);
+        }
+        public void PaintRectangleP(Point p)
+        {
+            float x = p.X - 3;
+            float y = p.Y - 3;
+            float width = 2 * 3;
+            float height = 2 * 3;
+            Pen pen = new Pen(Color.Purple);
+            Graphics g = this.pictureBox1.CreateGraphics();
+            g.DrawRectangle(pen, x, y, width, height);
         }
         public void PaintGrid()
         {

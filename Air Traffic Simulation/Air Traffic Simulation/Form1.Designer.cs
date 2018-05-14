@@ -70,6 +70,17 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label9 = new System.Windows.Forms.Label();
+            this.btnRemoveAirplane = new System.Windows.Forms.Button();
+            this.btnAddAirplane = new System.Windows.Forms.Button();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.nSpeed = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
@@ -82,6 +93,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
+            this.panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nSpeed)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -306,6 +320,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.panel7);
             this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.panel4);
@@ -321,9 +336,9 @@
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(-2, 490);
+            this.button3.Location = new System.Drawing.Point(-2, 526);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(199, 73);
+            this.button3.Size = new System.Drawing.Size(199, 37);
             this.button3.TabIndex = 19;
             this.button3.TabStop = false;
             this.button3.Text = "Show probability";
@@ -335,9 +350,9 @@
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(0, 411);
+            this.button1.Location = new System.Drawing.Point(0, 481);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(199, 73);
+            this.button1.Size = new System.Drawing.Size(199, 39);
             this.button1.TabIndex = 18;
             this.button1.TabStop = false;
             this.button1.Text = "get list";
@@ -346,13 +361,20 @@
             // 
             // panel4
             // 
-            this.panel4.Controls.Add(this.btnUploadData);
-            this.panel4.Controls.Add(this.btnSaveData);
-            this.panel4.Controls.Add(this.label11);
+            this.panel4.Controls.Add(this.nSpeed);
+            this.panel4.Controls.Add(this.label15);
+            this.panel4.Controls.Add(this.label14);
+            this.panel4.Controls.Add(this.label13);
+            this.panel4.Controls.Add(this.label12);
+            this.panel4.Controls.Add(this.label10);
+            this.panel4.Controls.Add(this.trackBar1);
+            this.panel4.Controls.Add(this.btnRemoveAirplane);
+            this.panel4.Controls.Add(this.btnAddAirplane);
+            this.panel4.Controls.Add(this.label9);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel4.Location = new System.Drawing.Point(0, 228);
+            this.panel4.Location = new System.Drawing.Point(0, 101);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(200, 177);
+            this.panel4.Size = new System.Drawing.Size(200, 187);
             this.panel4.TabIndex = 2;
             // 
             // btnUploadData
@@ -360,9 +382,9 @@
             this.btnUploadData.FlatAppearance.BorderSize = 0;
             this.btnUploadData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnUploadData.ForeColor = System.Drawing.Color.White;
-            this.btnUploadData.Location = new System.Drawing.Point(-2, 98);
+            this.btnUploadData.Location = new System.Drawing.Point(1, 77);
             this.btnUploadData.Name = "btnUploadData";
-            this.btnUploadData.Size = new System.Drawing.Size(199, 73);
+            this.btnUploadData.Size = new System.Drawing.Size(199, 36);
             this.btnUploadData.TabIndex = 17;
             this.btnUploadData.TabStop = false;
             this.btnUploadData.Text = "Upload";
@@ -374,9 +396,9 @@
             this.btnSaveData.FlatAppearance.BorderSize = 0;
             this.btnSaveData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSaveData.ForeColor = System.Drawing.Color.White;
-            this.btnSaveData.Location = new System.Drawing.Point(0, 28);
+            this.btnSaveData.Location = new System.Drawing.Point(1, 37);
             this.btnSaveData.Name = "btnSaveData";
-            this.btnSaveData.Size = new System.Drawing.Size(199, 73);
+            this.btnSaveData.Size = new System.Drawing.Size(199, 35);
             this.btnSaveData.TabIndex = 16;
             this.btnSaveData.TabStop = false;
             this.btnSaveData.Text = "Save";
@@ -386,7 +408,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(48, 3);
+            this.label11.Location = new System.Drawing.Point(49, 13);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(100, 21);
             this.label11.TabIndex = 15;
@@ -400,7 +422,7 @@
             this.panel6.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel6.Location = new System.Drawing.Point(0, 0);
             this.panel6.Name = "panel6";
-            this.panel6.Size = new System.Drawing.Size(200, 228);
+            this.panel6.Size = new System.Drawing.Size(200, 101);
             this.panel6.TabIndex = 1;
             // 
             // btnRemoveCheckpoint
@@ -408,9 +430,9 @@
             this.btnRemoveCheckpoint.FlatAppearance.BorderSize = 0;
             this.btnRemoveCheckpoint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRemoveCheckpoint.ForeColor = System.Drawing.Color.White;
-            this.btnRemoveCheckpoint.Location = new System.Drawing.Point(1, 114);
+            this.btnRemoveCheckpoint.Location = new System.Drawing.Point(1, 65);
             this.btnRemoveCheckpoint.Name = "btnRemoveCheckpoint";
-            this.btnRemoveCheckpoint.Size = new System.Drawing.Size(199, 73);
+            this.btnRemoveCheckpoint.Size = new System.Drawing.Size(199, 27);
             this.btnRemoveCheckpoint.TabIndex = 16;
             this.btnRemoveCheckpoint.TabStop = false;
             this.btnRemoveCheckpoint.Text = "Remove";
@@ -422,9 +444,9 @@
             this.btnAddCheckpoint.FlatAppearance.BorderSize = 0;
             this.btnAddCheckpoint.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnAddCheckpoint.ForeColor = System.Drawing.Color.White;
-            this.btnAddCheckpoint.Location = new System.Drawing.Point(1, 35);
+            this.btnAddCheckpoint.Location = new System.Drawing.Point(1, 28);
             this.btnAddCheckpoint.Name = "btnAddCheckpoint";
-            this.btnAddCheckpoint.Size = new System.Drawing.Size(199, 73);
+            this.btnAddCheckpoint.Size = new System.Drawing.Size(199, 31);
             this.btnAddCheckpoint.TabIndex = 15;
             this.btnAddCheckpoint.TabStop = false;
             this.btnAddCheckpoint.Text = "Add";
@@ -531,6 +553,137 @@
             this.button5.UseVisualStyleBackColor = true;
             this.button5.Click += new System.EventHandler(this.addTestAirplaneAndStrip);
             // 
+            // panel7
+            // 
+            this.panel7.Controls.Add(this.btnUploadData);
+            this.panel7.Controls.Add(this.label11);
+            this.panel7.Controls.Add(this.btnSaveData);
+            this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel7.Location = new System.Drawing.Point(0, 288);
+            this.panel7.Name = "panel7";
+            this.panel7.Size = new System.Drawing.Size(200, 116);
+            this.panel7.TabIndex = 18;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(33, 3);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(125, 21);
+            this.label9.TabIndex = 17;
+            this.label9.Text = "Airplane Menu";
+            // 
+            // btnRemoveAirplane
+            // 
+            this.btnRemoveAirplane.FlatAppearance.BorderSize = 0;
+            this.btnRemoveAirplane.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRemoveAirplane.ForeColor = System.Drawing.Color.White;
+            this.btnRemoveAirplane.Location = new System.Drawing.Point(1, 138);
+            this.btnRemoveAirplane.Name = "btnRemoveAirplane";
+            this.btnRemoveAirplane.Size = new System.Drawing.Size(199, 27);
+            this.btnRemoveAirplane.TabIndex = 18;
+            this.btnRemoveAirplane.TabStop = false;
+            this.btnRemoveAirplane.Text = "Remove";
+            this.btnRemoveAirplane.UseVisualStyleBackColor = true;
+            this.btnRemoveAirplane.Click += new System.EventHandler(this.btnRemoveAirplane_Click);
+            // 
+            // btnAddAirplane
+            // 
+            this.btnAddAirplane.FlatAppearance.BorderSize = 0;
+            this.btnAddAirplane.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnAddAirplane.ForeColor = System.Drawing.Color.White;
+            this.btnAddAirplane.Location = new System.Drawing.Point(1, 101);
+            this.btnAddAirplane.Name = "btnAddAirplane";
+            this.btnAddAirplane.Size = new System.Drawing.Size(199, 31);
+            this.btnAddAirplane.TabIndex = 17;
+            this.btnAddAirplane.TabStop = false;
+            this.btnAddAirplane.Text = "Add";
+            this.btnAddAirplane.UseVisualStyleBackColor = true;
+            this.btnAddAirplane.Click += new System.EventHandler(this.btnAddAirplane_Click);
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.LargeChange = 1;
+            this.trackBar1.Location = new System.Drawing.Point(155, 31);
+            this.trackBar1.Maximum = 1;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.trackBar1.Size = new System.Drawing.Size(45, 42);
+            this.trackBar1.TabIndex = 19;
+            this.trackBar1.TabStop = false;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
+            this.trackBar1.ValueChanged += new System.EventHandler(this.trackBar1_ValueChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label10.Location = new System.Drawing.Point(25, 42);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(77, 21);
+            this.label10.TabIndex = 20;
+            this.label10.Text = "Random";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label12.ForeColor = System.Drawing.Color.Silver;
+            this.label12.Location = new System.Drawing.Point(119, 31);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(30, 19);
+            this.label12.TabIndex = 21;
+            this.label12.Text = "Yes";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.ForeColor = System.Drawing.Color.Silver;
+            this.label13.Location = new System.Drawing.Point(121, 50);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(28, 19);
+            this.label13.TabIndex = 22;
+            this.label13.Text = "No";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label14.Location = new System.Drawing.Point(25, 77);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(60, 21);
+            this.label14.TabIndex = 23;
+            this.label14.Text = "Speed";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.label15.Location = new System.Drawing.Point(164, 79);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(38, 19);
+            this.label15.TabIndex = 25;
+            this.label15.Text = "kmh";
+            // 
+            // nSpeed
+            // 
+            this.nSpeed.Location = new System.Drawing.Point(91, 75);
+            this.nSpeed.Maximum = new decimal(new int[] {
+            3000,
+            0,
+            0,
+            0});
+            this.nSpeed.Name = "nSpeed";
+            this.nSpeed.Size = new System.Drawing.Size(67, 27);
+            this.nSpeed.TabIndex = 26;
+            this.nSpeed.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -562,6 +715,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel5.ResumeLayout(false);
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nSpeed)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -608,6 +765,17 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Button btnRemoveAirplane;
+        private System.Windows.Forms.Button btnAddAirplane;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.NumericUpDown nSpeed;
     }
 }
 
