@@ -67,19 +67,38 @@ namespace Air_Traffic_Simulation
 
 
         // PAINT GRID
-        Rectangle rect;
-        SolidBrush b = new SolidBrush(Color.Yellow);
-
         public void PaintGrid()
         {
+            Rectangle rect;
+            SolidBrush b = new SolidBrush(Color.Yellow);
+
             foreach (Cell c in grid.listOfCells)
             {
-                if (c.Type == CellType.BORDER)
+                switch (c.Type)
                 {
-                    rect = new Rectangle(c.x, c.y, Cell.Width, Cell.Width);
-                    gGrid.FillRectangle(b, rect);
-                    gGrid.DrawRectangle(pGrid, rect);
+                    case CellType.BORDER:
+                        b = new SolidBrush(Color.Yellow);
+                        break;
+                    case CellType.UPPER:
+                        b = new SolidBrush(Color.Aqua);
+                        break;
+                    case CellType.MID:
+                        b = new SolidBrush(Color.LightSkyBlue);
+                        break;
+                    case CellType.LOWER:
+                        b = new SolidBrush(Color.Gainsboro);
+                        break;
+                    case CellType.FINAL:
+                        b = new SolidBrush(Color.Chocolate);
+                        break;
+                    default:
+                        continue;
+
                 }
+
+                rect = new Rectangle(c.x, c.y, Cell.Width, Cell.Width);
+                gGrid.FillRectangle(b, rect);
+                gGrid.DrawRectangle(pGrid, rect);
             }
         }
 
