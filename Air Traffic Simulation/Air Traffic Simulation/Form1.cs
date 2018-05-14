@@ -93,7 +93,6 @@ namespace Air_Traffic_Simulation
                         break;
                     default:
                         continue;
-
                 }
 
                 rect = new Rectangle(c.x, c.y, Cell.Width, Cell.Width);
@@ -296,10 +295,6 @@ namespace Air_Traffic_Simulation
             }
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-        }
-
         private void trackBarTemperature_ValueChanged(object sender, EventArgs e)
         {
             temp = trackBarTemperature.Value;
@@ -334,7 +329,8 @@ namespace Air_Traffic_Simulation
         {
             //TODO: Fix mismatching var types of Doubles for Checkpoint locations and Ints for Cell locations
             //TODO: Remove following test lines:
-            testPlane = new Airplane("FB123", 290, 390, 300, "FB321");
+            testPlane = new Airplane(name: "FB123", coordinateX: 20, coordinateY: this.pictureBox1.Height-20, speed: 300,
+                flightNumber: "FB321");
             testStrip = new Airstrip("Strip A", 550, 50, true, 360);
 
             foreach (Cell c in grid.listOfCells)
@@ -402,13 +398,23 @@ namespace Air_Traffic_Simulation
             }
         }
 
-        public void ConnectDots(Point a, Point b)
+        /// <summary>
+        /// Creates a line between two points on the grid.
+        /// </summary>
+        /// <param name="a">The initial point.</param>
+        /// <param name="b">The end point.</param>
+        private void ConnectDots(Point a, Point b)
         {
-            Pen pen = new Pen(Color.Yellow);
+            Pen pen = new Pen(Color.Black);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawLine(pen, a, b);
         }
 
+        /// <summary>
+        /// The method that does the actual addition of checkpoints.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (AddingCheckpoints == 1)
@@ -434,7 +440,7 @@ namespace Air_Traffic_Simulation
 
                             cpName++;
                             string name = "cp" + cpName;
-                            Checkpoint a = new Checkpoint(name, p.X, p.Y);
+                            Checkpoint a = new Checkpoint(name, p.X, p.Y, c);
                             checkpoints.Add(a);
                             MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" + a.CoordinateX +
                                             "," + a.CoordinateY + ")");

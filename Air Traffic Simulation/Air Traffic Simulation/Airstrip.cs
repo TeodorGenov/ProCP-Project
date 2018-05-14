@@ -20,6 +20,11 @@ namespace Air_Traffic_Simulation
         public override double DistanceFromSource { get; set; }
         public override Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }
 
+        public override int MaxSpeed { get; }
+        public override int MinSpeed { get; }
+        public override int MaxAltitude { get; }
+        public override int MinAltitude { get; }
+
         public bool IsFree { get; set; }
 
         public double TakeOffDirection
@@ -50,6 +55,11 @@ namespace Air_Traffic_Simulation
             ShortestPath = new LinkedList<AbstractCheckpoint>();
             DistanceFromSource = Int32.MaxValue;
             ReachableNodes = new Dictionary<AbstractCheckpoint, double>();
+
+            MinSpeed = 0;
+            MaxSpeed = 0;
+            MaxAltitude = 0;
+            MinAltitude = 0;
         }
 
 
