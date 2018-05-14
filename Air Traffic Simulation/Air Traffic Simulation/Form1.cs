@@ -65,7 +65,7 @@ namespace Air_Traffic_Simulation
         static int cpName = 0;
         static int apName = 0;
         static int fnName = 0;
-        
+
         BinaryFormatter bf;
 
 
@@ -73,7 +73,7 @@ namespace Air_Traffic_Simulation
 
 
         // PAINT GRID
-        public void PaintGrid()
+        private void PaintGrid()
         {
             Rectangle rect;
             SolidBrush b = new SolidBrush(Color.Yellow);
@@ -127,6 +127,7 @@ namespace Air_Traffic_Simulation
         {
             dir = @"..\..\Saved";
             serializationFile = Path.Combine(dir, "Checkpoints.bin");
+
             checkpoints = new List<AbstractCheckpoint>();
             airplanes = new List<Airplane>();
             InitializeComponent();
@@ -135,8 +136,8 @@ namespace Air_Traffic_Simulation
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            width = pictureBox1.Width;
-            height = pictureBox1.Height;
+            width = this.pictureBox1.Width;
+            height = this.pictureBox1.Height;
             grid = new Grid(width, height);
 
             // Slider info
@@ -197,9 +198,7 @@ namespace Air_Traffic_Simulation
         }
 
 
-        /// <summary>
-        /// RADAR METHOD
-        /// </summary>
+        //RADAR METHOD
         private void t_Tick(object sender, EventArgs e)
         {
             p = new Pen(Color.Green, 1f);
@@ -304,9 +303,10 @@ namespace Air_Traffic_Simulation
                 btnRemoveCheckpoint.Enabled = true;
                 if (RandomAirplane == 0)
                 {
-                btnAddAirplane.Enabled = true;
-                btnRemoveAirplane.Enabled = true;
+                    btnAddAirplane.Enabled = true;
+                    btnRemoveAirplane.Enabled = true;
                 }
+
                 trackBar1.Enabled = true;
                 AddingCheckpoints = 0;
                 btnAddCheckpoint.Text = "Add";
@@ -347,7 +347,8 @@ namespace Air_Traffic_Simulation
         {
             //TODO: Fix mismatching var types of Doubles for Checkpoint locations and Ints for Cell locations
             //TODO: Remove following test lines:
-            testPlane = new Airplane(name: "FB123", coordinateX: 20, coordinateY: this.pictureBox1.Height-20, speed: 300,
+            testPlane = new Airplane(name: "FB123", coordinateX: 20, coordinateY: this.pictureBox1.Height - 20,
+                speed: 300,
                 flightNumber: "FB321");
             testStrip = new Airstrip("Strip A", 550, 50, true, 360);
 
@@ -393,10 +394,10 @@ namespace Air_Traffic_Simulation
                             testStrip.CoordinateX + "," + testStrip.CoordinateY +
                             ")\n(That's the green filled square in the upper right of the screen.)");
 
-            testAirplaneAndStrip.Enabled = false;
+            button5.Enabled = false;
         }
 
-        private void calcRouteButtonClick(object sender, EventArgs e)
+        private void button6_Click(object sender, EventArgs e)
         {
             testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
 
@@ -421,9 +422,9 @@ namespace Air_Traffic_Simulation
         /// </summary>
         /// <param name="a">The initial point.</param>
         /// <param name="b">The end point.</param>
-        private void ConnectDots(Point a, Point b)
+        public void ConnectDots(Point a, Point b)
         {
-            Pen pen = new Pen(Color.Black);
+            Pen pen = new Pen(Color.Yellow);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawLine(pen, a, b);
         }
@@ -441,7 +442,6 @@ namespace Air_Traffic_Simulation
                 {
                     if (c.ContainsPoint(e.X, e.Y) == true)
                     {
-
                         bool exists = false;
                         Point p = c.GetCenter();
                         foreach (Checkpoint mm in checkpoints)
@@ -461,15 +461,16 @@ namespace Air_Traffic_Simulation
                             }
                             else
                             {
-                               PaintCircle(p);
+                                PaintCircle(p);
 
-                            cpName++;
-                            string name = "cp" + cpName;
-                            Checkpoint a = new Checkpoint(name, p.X, p.Y, c);
-                            checkpoints.Add(a);
-                            //TODO: remove cell nr
-                            MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" + a.CoordinateX +
-                                            "," + a.CoordinateY + ")" + "\nCell number: " + c.id);
+                                cpName++;
+                                string name = "cp" + cpName;
+                                Checkpoint a = new Checkpoint(name, p.X, p.Y, c);
+                                checkpoints.Add(a);
+                                MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" +
+                                                a.CoordinateX +
+                                                "," + a.CoordinateY + ")");
+                            }
                         }
                     }
                 }
@@ -503,7 +504,6 @@ namespace Air_Traffic_Simulation
                 {
                     if (c.ContainsPoint(e.X, e.Y) == true)
                     {
-
                         bool exists = false;
                         Point p = c.GetCenter();
                         foreach (Airplane mm in airplanes)
@@ -528,14 +528,13 @@ namespace Air_Traffic_Simulation
                                 Airplane a = new Airplane(name, p.X, p.Y, Convert.ToDouble(nSpeed.Value), flight);
                                 airplanes.Add(a);
                                 MessageBox.Show("Added Airplane  " + a.Name + "\nCoordinates: \t(" + a.CoordinateX +
-                                                "," + a.CoordinateY + ")" + "\nFlight number: \t(" + flight + ") " + "\nSpeed: \t\t(" + nSpeed.Value + "kmh)");
-
+                                                "," + a.CoordinateY + ")" + "\nFlight number: \t(" + flight + ") " +
+                                                "\nSpeed: \t\t(" + nSpeed.Value + "kmh)");
                             }
                             else
                             {
                                 MessageBox.Show("This area is used for checkpoints only");
                             }
-
                         }
                     }
                 }
@@ -619,6 +618,7 @@ namespace Air_Traffic_Simulation
                 btnRemoveAirplane.Enabled = false;
                 RandomAirplane = 1;
             }
+
             if (trackBar1.Value == 0)
             {
                 btnAddAirplane.Enabled = true;
@@ -701,6 +701,7 @@ namespace Air_Traffic_Simulation
                     btnAddAirplane.Enabled = true;
                     btnRemoveAirplane.Enabled = true;
                 }
+
                 trackBar1.Enabled = true;
                 RemovingCheckpoints = 0;
                 btnRemoveCheckpoint.Text = "Remove";
@@ -941,6 +942,7 @@ namespace Air_Traffic_Simulation
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawRectangle(pen, x, y, width, height);
         }
+
         public void PaintRectangleP(Point p)
         {
             float x = p.X - 3;
@@ -950,18 +952,6 @@ namespace Air_Traffic_Simulation
             Pen pen = new Pen(Color.Purple);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawRectangle(pen, x, y, width, height);
-        }
-        public void PaintGrid()
-        {
-            foreach (Cell c in grid.listOfCells)
-            {
-                if (c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - 20 || c.y == bmpGrid.Height - 20)
-                {
-                    rect = new Rectangle(c.x, c.y, 20, 20);
-                    gGrid.FillRectangle(brush, rect);
-                    gGrid.DrawRectangle(pGrid, rect);
-                }
-            }
         }
     }
 }
