@@ -91,7 +91,7 @@ namespace Air_Traffic_Simulation
                          (c.id > Math.Floor((0.4 * rowsOfCells / 2) - 1) * columnsOfCells) &&
                          (c.id < (rowsOfCells - Math.Floor(0.4 * rowsOfCells / 2)) * columnsOfCells))
                 {
-                    c.Type = CellType.MID;
+                    c.Type = CellType.MIDDLE;
                 }
 
 //                else if ((c.id % columnsOfCells >= Math.Floor(0.1 * columnsOfCells / 2)) &&

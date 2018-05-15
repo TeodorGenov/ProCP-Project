@@ -47,23 +47,20 @@ namespace Air_Traffic_Simulation
             throw new NotImplementedException();
         }
 
-        public void calculateShortestPath(List<AbstractCheckpoint> points, Airstrip strip)
+        public void calculateShortestPath(List<Checkpoint> points)
         {
             this.ReachableNodes.Clear();
             this.ShortestPath.Clear();
 
-            this.AddAllPossibleDestinations(points);
-
-            points.Add(strip);
-            foreach (var point in points)
+            foreach (Checkpoint point in points)
             {
-                point.ShortestPath.Clear();
-                point.ReachableNodes.Clear();
-                point.DistanceFromSource = Int32.MaxValue;
-                point.AddAllPossibleDestinations(points);
+                if (point.ParentCellType == CellType.UPPER ||
+                    point.ParentCellType == CellType.UNASSIGNED)
+                {
+                    this.AddSingleDestination(point, CalculateTimeBetweenPoints(point));
+                    point.AddSingleDestination(this, CalculateTimeBetweenPoints(this));
+                }
             }
-
-            points.Remove(strip);
 
             HashSet<AbstractCheckpoint> settledCheckpoints = new HashSet<AbstractCheckpoint>();
             HashSet<AbstractCheckpoint> unsettledCheckpoints = new HashSet<AbstractCheckpoint> {this};

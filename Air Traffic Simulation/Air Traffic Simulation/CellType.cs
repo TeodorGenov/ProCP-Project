@@ -11,7 +11,7 @@ namespace Air_Traffic_Simulation
         UNASSIGNED,
         BORDER,
         UPPER,
-        MID,
+        MIDDLE,
         LOWER,
         FINAL
     }

@@ -88,7 +88,7 @@ namespace Air_Traffic_Simulation
                     case CellType.UPPER:
                         b = new SolidBrush(Color.Aqua);
                         break;
-                    case CellType.MID:
+                    case CellType.MIDDLE:
                         b = new SolidBrush(Color.LightSkyBlue);
                         break;
                     case CellType.LOWER:
@@ -119,7 +119,7 @@ namespace Air_Traffic_Simulation
         private Airplane testPlane;
         private Airstrip testStrip;
 
-        List<AbstractCheckpoint> checkpoints;
+        List<Checkpoint> checkpoints;
         List<Airplane> airplanes;
 
 
@@ -128,7 +128,7 @@ namespace Air_Traffic_Simulation
             dir = @"..\..\Saved";
             serializationFile = Path.Combine(dir, "Checkpoints.bin");
 
-            checkpoints = new List<AbstractCheckpoint>();
+            checkpoints = new List<Checkpoint>();
             airplanes = new List<Airplane>();
             InitializeComponent();
             nSpeed.Enabled = false;
@@ -397,9 +397,15 @@ namespace Air_Traffic_Simulation
             button5.Enabled = false;
         }
 
+
+        /// <summary>
+        /// Generates and draws the route between the example airplane and the airfield.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button6_Click(object sender, EventArgs e)
         {
-            testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
+            testPlane.calculateShortestPath(this.checkpoints);
 
             Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
 
@@ -414,6 +420,39 @@ namespace Air_Traffic_Simulation
                 ConnectDots(a, b);
                 a = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
                 pp = pp.Previous;
+            }
+
+            bool[] allZonesCheck = new bool[] {false, false, false, false};
+            string lacking = $"   - UPPER{Environment.NewLine}   - MIDDLE{Environment.NewLine}   - LOWER{Environment.NewLine}   - FINAL";
+
+            foreach (Checkpoint point in checkpoints)
+            {
+                if (point.ParentCellType == CellType.UPPER)
+                {
+                    lacking = lacking.Replace($"   - UPPER{Environment.NewLine}", string.Empty);
+                    allZonesCheck[0] = true;
+                }
+                else if (point.ParentCellType == CellType.MIDDLE)
+                {
+                    lacking = lacking.Replace($"   - MIDDLE{Environment.NewLine}", string.Empty);
+                    allZonesCheck[1] = true;
+                }
+                else if (point.ParentCellType == CellType.LOWER)
+                {
+                    lacking = lacking.Replace($"   - LOWER{Environment.NewLine}", string.Empty);
+                    allZonesCheck[2] = true;
+                }
+                else if (point.ParentCellType == CellType.FINAL)
+                {
+                    lacking = lacking.Replace("   - FINAL", string.Empty);
+                    allZonesCheck[3] = true;
+                }
+            }
+
+            if (allZonesCheck.Contains(false))
+            {
+                MessageBox.Show(
+                    $"There seem to be no checkpoints in the following zones:{Environment.NewLine}{Environment.NewLine}{lacking}", "Missing Checkpoint", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -444,7 +483,7 @@ namespace Air_Traffic_Simulation
                     {
                         bool exists = false;
                         Point p = c.GetCenter();
-                        foreach (Checkpoint mm in checkpoints)
+                        foreach (AbstractCheckpoint mm in checkpoints)
                         {
                             if (mm.CoordinateX == p.X && mm.CoordinateY == p.Y)
                             {
@@ -465,7 +504,7 @@ namespace Air_Traffic_Simulation
 
                                 cpName++;
                                 string name = "cp" + cpName;
-                                Checkpoint a = new Checkpoint(name, p.X, p.Y, c);
+                                Checkpoint a = new Checkpoint(name, p.X, p.Y, c, checkpoints, testStrip);
                                 checkpoints.Add(a);
                                 MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" +
                                                 a.CoordinateX +
@@ -661,8 +700,7 @@ namespace Air_Traffic_Simulation
 
                 checkpoints = null;
 
-                //checkpoints = (List<Checkpoint>) bformatter.Deserialize(filestream);
-                checkpoints = (List<AbstractCheckpoint>) bformatter.Deserialize(filestream);
+                checkpoints = (List<Checkpoint>) bformatter.Deserialize(filestream);
 
                 filestream.Close();
                 filestream = null;
