@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace Air_Traffic_Simulation
 {
@@ -138,6 +139,7 @@ namespace Air_Traffic_Simulation
 
                     break;
                 case CellType.FINAL:
+                    
                     foreach (Checkpoint point in allCheckpoints)
                     {
                         if (point.ParentCellType == CellType.LOWER ||
@@ -148,8 +150,16 @@ namespace Air_Traffic_Simulation
                         }
                     }
 
-                    this.AddSingleDestination(strip, CalculateDistanceBetweenPoints(strip));
-                    strip.AddSingleDestination(this, CalculateDistanceBetweenPoints(this));
+                    try
+                    {
+                        this.AddSingleDestination(strip, CalculateDistanceBetweenPoints(strip));
+                        strip.AddSingleDestination(this, CalculateDistanceBetweenPoints(this));
+                    }
+                    catch (System.NullReferenceException e)
+                    {
+                        MessageBox.Show(
+                            $"A strip needs to be added before{Environment.NewLine}adding a checkpoint in the final zone.", "No strip found.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
 
                     break;
                 default:

@@ -345,7 +345,6 @@ namespace Air_Traffic_Simulation
 
         private void addTestAirplaneAndStrip(object sender, EventArgs e)
         {
-            //TODO: Fix mismatching var types of Doubles for Checkpoint locations and Ints for Cell locations
             //TODO: Remove following test lines:
             testPlane = new Airplane(name: "FB123", coordinateX: 20, coordinateY: this.pictureBox1.Height - 20,
                 speed: 300,
