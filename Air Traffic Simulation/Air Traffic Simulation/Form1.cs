@@ -551,7 +551,7 @@ namespace Air_Traffic_Simulation
                         {
                             if (bee.CoordinateX == p.X && bee.CoordinateY == p.Y)
                             {
-                                PaintRectangleP(p);
+                                PaintRectangleY(p);
                                 Airplane v = bee;
                                 airplanes.Remove(bee);
                                 MessageBox.Show("Successfully removed Airplane " + v.Name + " With coordinates(" +
@@ -943,13 +943,13 @@ namespace Air_Traffic_Simulation
             g.DrawRectangle(pen, x, y, width, height);
         }
 
-        public void PaintRectangleP(Point p)
+        public void PaintRectangleY(Point p)
         {
             float x = p.X - 3;
             float y = p.Y - 3;
             float width = 2 * 3;
             float height = 2 * 3;
-            Pen pen = new Pen(Color.Purple);
+            Pen pen = new Pen(Color.Yellow);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawRectangle(pen, x, y, width, height);
         }
