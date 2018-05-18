@@ -17,7 +17,6 @@ namespace Air_Traffic_Simulation
             InitializeComponent();
             bunifuMaterialTextbox1.Text = "";
             bunifuMaterialTextbox2.Text = "";
-            bunifuGauge1.Value = 50;
         }
 
         private void button1_Click(object sender, EventArgs e)
