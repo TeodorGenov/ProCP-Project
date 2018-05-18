@@ -19,11 +19,18 @@ namespace Air_Traffic_Simulation
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            var opnedForm1 = new Form1();
-            opnedForm1.Show();
-            this.Hide();
+        }
 
+        private void bunifuLabel3_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void bunifuButton1_Click(object sender, EventArgs e)
+        {
+            var newForm = new Form1();
+            newForm.Show();
+            this.Hide();
         }
     }
 }

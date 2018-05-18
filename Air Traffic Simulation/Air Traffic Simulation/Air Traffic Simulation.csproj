@@ -37,6 +37,12 @@
     <Reference Include="Bunifu.Core">
       <HintPath>C:\Users\blood\Desktop\Bunifu UI WinForms 1.5.5.2\Bunifu UI WinForms 1.5.5.2\Bunifu.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Bunifu.UI.WinForms.BunifuButton">
+      <HintPath>C:\Users\blood\Desktop\Bunifu UI WinForms 1.5.5.2\Bunifu UI WinForms 1.5.5.2\Bunifu.UI.WinForms.BunifuButton.dll</HintPath>
+    </Reference>
+    <Reference Include="Bunifu.UI.WinForms.BunifuLabel">
+      <HintPath>C:\Users\blood\Desktop\Bunifu UI WinForms 1.5.5.2\Bunifu UI WinForms 1.5.5.2\Bunifu.UI.WinForms.BunifuLabel.dll</HintPath>
+    </Reference>
     <Reference Include="Bunifu.UI.WinForms.BunifuTextbox">
       <HintPath>C:\Users\blood\Desktop\Bunifu UI WinForms 1.5.5.2\Bunifu UI WinForms 1.5.5.2\Bunifu.UI.WinForms.BunifuTextbox.dll</HintPath>
     </Reference>
@@ -45,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
