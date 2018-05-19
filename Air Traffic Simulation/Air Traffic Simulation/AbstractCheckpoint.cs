@@ -11,8 +11,8 @@ namespace Air_Traffic_Simulation
     abstract class AbstractCheckpoint
     {
         public abstract string Name { get; }
-        public abstract double CoordinateX { get; }
-        public abstract double CoordinateY { get; }
+        public abstract double CoordinateX { get; set; }
+        public abstract double CoordinateY { get; set; }
 
         public abstract LinkedList<AbstractCheckpoint> ShortestPath { get; set; }
         public abstract double DistanceFromSource { get; set; }

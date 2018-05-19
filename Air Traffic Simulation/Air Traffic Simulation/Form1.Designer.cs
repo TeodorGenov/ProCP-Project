@@ -70,6 +70,8 @@
             this.panel5 = new System.Windows.Forms.Panel();
             this.calcRouteBtn = new System.Windows.Forms.Button();
             this.testAirplaneAndStrip = new System.Windows.Forms.Button();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.button5 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
@@ -501,6 +503,7 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.button5);
             this.panel5.Controls.Add(this.calcRouteBtn);
             this.panel5.Controls.Add(this.testAirplaneAndStrip);
             this.panel5.Controls.Add(this.pictureBox1);
@@ -512,24 +515,41 @@
             // 
             // calcRouteBtn
             // 
+            this.calcRouteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
             this.calcRouteBtn.Location = new System.Drawing.Point(467, 512);
             this.calcRouteBtn.Name = "calcRouteBtn";
             this.calcRouteBtn.Size = new System.Drawing.Size(187, 51);
             this.calcRouteBtn.TabIndex = 2;
             this.calcRouteBtn.Text = "Calculate Route";
-            this.calcRouteBtn.UseVisualStyleBackColor = true;
+            this.calcRouteBtn.UseVisualStyleBackColor = false;
             this.calcRouteBtn.Click += new System.EventHandler(this.calcRouteButtonClick);
             // 
             // testAirplaneAndStrip
             // 
+            this.testAirplaneAndStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
+            this.testAirplaneAndStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.testAirplaneAndStrip.Font = new System.Drawing.Font("Century Gothic", 10F);
             this.testAirplaneAndStrip.Location = new System.Drawing.Point(660, 512);
             this.testAirplaneAndStrip.Name = "testAirplaneAndStrip";
             this.testAirplaneAndStrip.Size = new System.Drawing.Size(187, 54);
             this.testAirplaneAndStrip.TabIndex = 1;
             this.testAirplaneAndStrip.Text = "Add test airplane and strip";
-            this.testAirplaneAndStrip.UseVisualStyleBackColor = true;
+            this.testAirplaneAndStrip.UseVisualStyleBackColor = false;
             this.testAirplaneAndStrip.Click += new System.EventHandler(this.addTestAirplaneAndStrip);
+            // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(99, 526);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(75, 23);
+            this.button5.TabIndex = 3;
+            this.button5.Text = "button5";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click);
             // 
             // Form1
             // 
@@ -608,6 +628,8 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button testAirplaneAndStrip;
         private System.Windows.Forms.Button calcRouteBtn;
+        private System.Windows.Forms.Timer timer2;
+        private System.Windows.Forms.Button button5;
     }
 }
 

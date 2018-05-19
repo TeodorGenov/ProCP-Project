@@ -10,8 +10,8 @@ namespace Air_Traffic_Simulation
     class Checkpoint : AbstractCheckpoint
     {
         public override string Name { get; }
-        public override double CoordinateX { get; }
-        public override double CoordinateY { get; }
+        public override double CoordinateX { get; set; }
+        public override double CoordinateY { get; set; }
         public override LinkedList<AbstractCheckpoint> ShortestPath { get; set; }
         public override double DistanceFromSource { get; set; }
         public override Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }

@@ -111,7 +111,9 @@ namespace Air_Traffic_Simulation
 
         //TODO: remove testing variables
         private Airplane testPlane;
+        private Airplane testPlane2;
         private Airstrip testStrip;
+        List<Airplane> airplaneList;
         List<AbstractCheckpoint> checkpoints;
 
 
@@ -120,7 +122,13 @@ namespace Air_Traffic_Simulation
             dir = @"..\..\Saved";
             serializationFile = Path.Combine(dir, "Checkpoints.bin");
             checkpoints = new List<AbstractCheckpoint>();
-
+            airplaneList = new List<Airplane>();
+            testPlane = new Airplane(name: "FB123", coordinateX: 35, coordinateY: 64, speed: 300,
+                flightNumber: "FB321");
+            airplaneList.Add(testPlane);
+            testPlane2 = new Airplane(name: "FB123", coordinateX: 100, coordinateY: 100, speed: 300,
+                flightNumber: "FB321");
+            airplaneList.Add(testPlane2);
             InitializeComponent();
         }
 
@@ -472,6 +480,45 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            Refresh();
+            foreach(Checkpoint c in checkpoints)
+            {
+
+
+                foreach (Cell cl in grid.listOfCells)
+                {
+                    if (cl.ContainsPoint((int)c.CoordinateX, (int)c.CoordinateY) == true)
+                    {
+                        Point p = cl.GetCenter();
+                        PaintCircle(p);
+                    }
+                }
+            }
+            foreach (Airplane p in airplaneList)
+            {
+                p.CoordinateX += 10;
+                p.CoordinateY += 10;
+                Pen pen = new Pen(Color.Red);
+                Graphics g = this.pictureBox1.CreateGraphics();
+                g.DrawRectangle(pen, (float)p.CoordinateX, (float)p.CoordinateY, 10, 10);
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            testStrip = new Airstrip("Strip A", 550, 50, true, 360);
+            foreach (Airplane p in airplaneList)
+            {
+                Pen pen = new Pen(Color.Red);
+                Graphics g = this.pictureBox1.CreateGraphics();
+                g.DrawRectangle(pen, (float)p.CoordinateX, (float)p.CoordinateY, 10, 10);
+            }
+            timer2.Interval = 1000;
+            timer2.Start();
+        }
+
         private void btnUploadData_Click(object sender, EventArgs e)
         {
             //using (Stream stream = File.Open(serializationFile, FileMode.Open))
@@ -751,7 +798,7 @@ namespace Air_Traffic_Simulation
             float y = p.Y - 3;
             float width = 2 * 3;
             float height = 2 * 3;
-            Pen pen = new Pen(Color.Yellow);
+            Pen pen = new Pen(Color.Blue);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawEllipse(pen, x, y, width, height);
         }

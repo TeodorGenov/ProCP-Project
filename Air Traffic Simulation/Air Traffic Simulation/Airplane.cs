@@ -12,13 +12,11 @@ namespace Air_Traffic_Simulation
         public override LinkedList<AbstractCheckpoint> ShortestPath { get; set; }
         public override double DistanceFromSource { get; set; }
         public override Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }
-        public override double CoordinateX { get; }
-        public override double CoordinateY { get; }
+        public override double CoordinateX { get; set; }
+        public override double CoordinateY { get; set; }
         public double speed { get; private set; }
         public List<AbstractCheckpoint> Route { get; private set; }
         public string FlightNumber { get; private set; }
-
-
         public override int MaxSpeed { get; }
         public override int MinSpeed { get; }
         public override int MaxAltitude { get; }
