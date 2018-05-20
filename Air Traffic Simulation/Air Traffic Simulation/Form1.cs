@@ -347,10 +347,10 @@ namespace Air_Traffic_Simulation
         {
             //TODO: Fix mismatching var types of Doubles for Checkpoint locations and Ints for Cell locations
             //TODO: Remove following test lines:
-            testPlane = new Airplane(name: "FB123", coordinateX: 20, coordinateY: this.pictureBox1.Height - 20,
+            testPlane = new Airplane(name: "FB123", coordinateX: 20, coordinateY: this.pictureBox1.Height - 10,
                 speed: 300,
                 flightNumber: "FB321");
-            testStrip = new Airstrip("Strip A", 550, 50, true, 360);
+            testStrip = new Airstrip("Strip A", 390, 222, true, 360);
 
             foreach (Cell c in grid.listOfCells)
             {
@@ -399,22 +399,27 @@ namespace Air_Traffic_Simulation
 
         private void button6_Click(object sender, EventArgs e)
         {
-            testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
-
-            Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
-
-
-            var pp = testStrip.ShortestPath.Last;
-
-            while (pp != null)
+            foreach(Airplane airpln in airplanes)
             {
-                Point b = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
-                //TODO: Remove cw
-                Console.WriteLine($"a: {a.X}, {a.Y} \t b: {b.X}, {b.Y}");
-                ConnectDots(a, b);
-                a = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
-                pp = pp.Previous;
+                airpln.calculateShortestPath(this.checkpoints, this.testStrip);
+                Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
+
+
+                var pp = testStrip.ShortestPath.Last;
+
+                while (pp != null)
+                {
+                    Point b = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
+                    //TODO: Remove cw
+                    Console.WriteLine($"a: {a.X}, {a.Y} \t b: {b.X}, {b.Y}");
+                    ConnectDots(a, b);
+                    a = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
+                    pp = pp.Previous;
+                }
             }
+            // testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
+
+            
         }
 
         /// <summary>
@@ -517,7 +522,7 @@ namespace Air_Traffic_Simulation
 
                         if (!exists)
                         {
-                            if (c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - 20 || c.y == bmpGrid.Height - 20)
+                            if (c.Type == CellType.BORDER)
                             {
                                 PaintRectangle(p);
 
