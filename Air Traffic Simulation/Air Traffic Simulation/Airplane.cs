@@ -12,13 +12,11 @@ namespace Air_Traffic_Simulation
         public override LinkedList<AbstractCheckpoint> ShortestPath { get; set; }
         public override double DistanceFromSource { get; set; }
         public override Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }
-        public override double CoordinateX { get; }
-        public override double CoordinateY { get; }
+        public override double CoordinateX { get; set; }
+        public override double CoordinateY { get; set; }
         public double speed { get; private set; }
         public List<AbstractCheckpoint> Route { get; private set; }
         public string FlightNumber { get; private set; }
-
-
         public override int MaxSpeed { get; }
         public override int MinSpeed { get; }
         public override int MaxAltitude { get; }
@@ -47,20 +45,23 @@ namespace Air_Traffic_Simulation
             throw new NotImplementedException();
         }
 
-        public void calculateShortestPath(List<Checkpoint> points)
+        public void calculateShortestPath(List<AbstractCheckpoint> points, Airstrip strip)
         {
             this.ReachableNodes.Clear();
             this.ShortestPath.Clear();
 
-            foreach (Checkpoint point in points)
+            this.AddAllPossibleDestinations(points);
+
+            points.Add(strip);
+            foreach (var point in points)
             {
-                if (point.ParentCellType == CellType.UPPER ||
-                    point.ParentCellType == CellType.UNASSIGNED)
-                {
-                    this.AddSingleDestination(point, CalculateTimeBetweenPoints(point));
-                    point.AddSingleDestination(this, CalculateTimeBetweenPoints(this));
-                }
+                point.ShortestPath.Clear();
+                point.ReachableNodes.Clear();
+                point.DistanceFromSource = Int32.MaxValue;
+                point.AddAllPossibleDestinations(points);
             }
+
+            points.Remove(strip);
 
             HashSet<AbstractCheckpoint> settledCheckpoints = new HashSet<AbstractCheckpoint>();
             HashSet<AbstractCheckpoint> unsettledCheckpoints = new HashSet<AbstractCheckpoint> {this};
