@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,9 +41,49 @@ namespace Air_Traffic_Simulation
             MaxAltitude = 6500;
         }
 
-        public void setRoute()
+        private bool first = true;
+        private double leapx = 0;
+        private double leapy = 0;
+        private LinkedListNode<AbstractCheckpoint> target;
+
+        public void MoveTowardsNextPoint()
         {
-            throw new NotImplementedException();
+            //if the path is plane -> a -> b -> c -> strip and a is removed, the plane will "get lost" 
+            //bc it doesnt have b in its reachable states; b can be added to the reachable states and a - removed,
+            //but what if a recalculation needs to be done? -- no what happens; the path just becomes plane -> b - > c -> strip
+            //TODO: force a recalculation of route on every airplane upon addition or removal of a checkpoint
+            //somehow after passing through checkpoint a, every checkpoint of type b has to be added to the reachable states of the
+            //airplane ..which will f things up if the weather disables checkpoint a before reaching it..
+            //think about this later..
+
+            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < 0.5 &&
+                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < 0.5)
+            {
+                return;
+            }
+
+            if (target == null)
+            {
+                target = ShortestPath.First;
+                target = target.Next;
+            }
+
+            if (first)
+            {
+                Console.WriteLine($"x: {CalculateTimeBetweenPoints(target.Value)} Y: {CalculateTimeBetweenPoints(target.Value)}");
+                leapx = (target.Value.CoordinateX - CoordinateX) / CalculateTimeBetweenPoints(target.Value);
+                leapy = (target.Value.CoordinateY - CoordinateY) / CalculateTimeBetweenPoints(target.Value);
+                first = false;
+            }
+
+            if (CoordinateX > target.Value.CoordinateX) // && CoordinateY == target.Value.CoordinateY)
+            {
+                target = target.Next;
+                first = true;
+            }
+
+            CoordinateX += leapx;
+            CoordinateY += leapy;
         }
 
         public void calculateShortestPath(List<Checkpoint> points)
@@ -73,9 +114,16 @@ namespace Air_Traffic_Simulation
                     AbstractCheckpoint reachableCheckpoint = pair.Key;
                     double edgeWeight = pair.Value;
 
+
                     if (!settledCheckpoints.Contains(reachableCheckpoint))
                     {
-                        CalculateMinDistance(reachableCheckpoint, edgeWeight, currentCheckpnt);
+                        var shortestPath = CalculateMinDistance(reachableCheckpoint, edgeWeight, currentCheckpnt);
+                        if (shortestPath != null && reachableCheckpoint.GetType() == typeof(Airstrip))
+                        {
+                            shortestPath.AddLast(reachableCheckpoint);
+                            this.ShortestPath = shortestPath;
+                        }
+
                         unsettledCheckpoints.Add(reachableCheckpoint);
                     }
                 }

@@ -86,19 +86,23 @@ namespace Air_Traffic_Simulation
         }
 
 
-        protected virtual void CalculateMinDistance(AbstractCheckpoint evaluationCheckpoint, double edgeWeight,
+        protected virtual LinkedList<AbstractCheckpoint> CalculateMinDistance(AbstractCheckpoint evaluationCheckpoint, double edgeWeight,
             AbstractCheckpoint sourceCheckpoint)
         {
-            double sourceDisntace = sourceCheckpoint.DistanceFromSource;
+            double sourceDistance = sourceCheckpoint.DistanceFromSource;
 
-            if (sourceDisntace + edgeWeight < evaluationCheckpoint.DistanceFromSource)
+            if (sourceDistance + edgeWeight < evaluationCheckpoint.DistanceFromSource)
             {
-                evaluationCheckpoint.DistanceFromSource = sourceDisntace + edgeWeight;
+                evaluationCheckpoint.DistanceFromSource = sourceDistance + edgeWeight;
                 LinkedList<AbstractCheckpoint> shortestPath =
                     new LinkedList<AbstractCheckpoint>(sourceCheckpoint.ShortestPath);
                 shortestPath.AddLast(sourceCheckpoint);
                 evaluationCheckpoint.ShortestPath = shortestPath;
+
+                return shortestPath;
             }
+
+            return null;
         }
 
         public override string ToString()

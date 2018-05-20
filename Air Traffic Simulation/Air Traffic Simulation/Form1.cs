@@ -120,9 +120,8 @@ namespace Air_Traffic_Simulation
         private Airplane testPlane2;
         private Airstrip testStrip;
 
-		//TODO: check if both airplanelist and airplanes are needed
+        //TODO: check if both airplanelist and airplanes are needed
         List<Checkpoint> checkpoints;
-        List<Airplane> airplanes;
         List<Airplane> airplaneList;
 
 
@@ -132,14 +131,13 @@ namespace Air_Traffic_Simulation
             serializationFile = Path.Combine(dir, "Checkpoints.bin");
 
             checkpoints = new List<Checkpoint>();
-            airplanes = new List<Airplane>();
             airplaneList = new List<Airplane>();
             testPlane = new Airplane(name: "FB123", coordinateX: 35, coordinateY: 64, speed: 300,
                 flightNumber: "FB321");
             airplaneList.Add(testPlane);
-            testPlane2 = new Airplane(name: "FB123", coordinateX: 100, coordinateY: 100, speed: 300,
-                flightNumber: "FB321");
-            airplaneList.Add(testPlane2);
+            //testPlane2 = new Airplane(name: "FB123", coordinateX: 100, coordinateY: 100, speed: 300,
+           //     flightNumber: "FB321");
+           // airplaneList.Add(testPlane2);
             InitializeComponent();
             nSpeed.Enabled = false;
         }
@@ -356,9 +354,7 @@ namespace Air_Traffic_Simulation
         private void addTestAirplaneAndStrip(object sender, EventArgs e)
         {
             //TODO: Remove following test lines:
-            testPlane = new Airplane(name: "FB123", coordinateX: 20, coordinateY: this.pictureBox1.Height - 20,
-                speed: 300,
-                flightNumber: "FB321");
+
             testStrip = new Airstrip("Strip A", 550, 50, true, 360);
 
             foreach (Cell c in grid.listOfCells)
@@ -418,21 +414,23 @@ namespace Air_Traffic_Simulation
 
             Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
 
-
-            var pp = testStrip.ShortestPath.Last;
-
-            while (pp != null)
+            var ppp = testPlane.ShortestPath.Last;
+            string planePath = String.Empty;
+            while (ppp != null)
             {
-                Point b = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
-                //TODO: Remove cw
-                Console.WriteLine($"a: {a.X}, {a.Y} \t b: {b.X}, {b.Y}");
+                planePath += ppp.Value.Name + " -> ";
+
+                Point b = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
                 ConnectDots(a, b);
-                a = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
-                pp = pp.Previous;
+                a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
+                ppp = ppp.Previous;
             }
 
+            Console.WriteLine(planePath);
+            //generates the message box that informs the user that some areas are missing points
             bool[] allZonesCheck = new bool[] {false, false, false, false};
-            string lacking = $"   - UPPER{Environment.NewLine}   - MIDDLE{Environment.NewLine}   - LOWER{Environment.NewLine}   - FINAL";
+            string lacking =
+                $"   - UPPER{Environment.NewLine}   - MIDDLE{Environment.NewLine}   - LOWER{Environment.NewLine}   - FINAL";
 
             foreach (Checkpoint point in checkpoints)
             {
@@ -461,7 +459,8 @@ namespace Air_Traffic_Simulation
             if (allZonesCheck.Contains(false))
             {
                 MessageBox.Show(
-                    $"There seem to be no checkpoints in the following zones:{Environment.NewLine}{Environment.NewLine}{lacking}", "Missing Checkpoint", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    $"There seem to be no checkpoints in the following zones:{Environment.NewLine}{Environment.NewLine}{lacking}",
+                    "Missing Checkpoint", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
 
@@ -554,7 +553,7 @@ namespace Air_Traffic_Simulation
                     {
                         bool exists = false;
                         Point p = c.GetCenter();
-                        foreach (Airplane mm in airplanes)
+                        foreach (Airplane mm in airplaneList)
                         {
                             if (mm.CoordinateX == p.X && mm.CoordinateY == p.Y)
                             {
@@ -574,7 +573,7 @@ namespace Air_Traffic_Simulation
                                 string name = "Airplane" + apName;
                                 string flight = "fn" + fnName + "z";
                                 Airplane a = new Airplane(name, p.X, p.Y, Convert.ToDouble(nSpeed.Value), flight);
-                                airplanes.Add(a);
+                                airplaneList.Add(a);
                                 MessageBox.Show("Added Airplane  " + a.Name + "\nCoordinates: \t(" + a.CoordinateX +
                                                 "," + a.CoordinateY + ")" + "\nFlight number: \t(" + flight + ") " +
                                                 "\nSpeed: \t\t(" + nSpeed.Value + "kmh)");
@@ -595,13 +594,13 @@ namespace Air_Traffic_Simulation
                     if (c.ContainsPoint(e.X, e.Y) == true)
                     {
                         Point p = c.GetCenter();
-                        foreach (Airplane bee in airplanes)
+                        foreach (Airplane bee in airplaneList)
                         {
                             if (bee.CoordinateX == p.X && bee.CoordinateY == p.Y)
                             {
                                 PaintRectangleP(p);
                                 Airplane v = bee;
-                                airplanes.Remove(bee);
+                                airplaneList.Remove(bee);
                                 MessageBox.Show("Successfully removed Airplane " + v.Name + " With coordinates(" +
                                                 v.CoordinateX + "," + v.CoordinateY + ").");
                                 break;
@@ -678,27 +677,35 @@ namespace Air_Traffic_Simulation
         private void timer2_Tick(object sender, EventArgs e)
         {
             Refresh();
-            foreach(Checkpoint c in checkpoints)
+            foreach (Checkpoint c in checkpoints)
             {
-
-
                 foreach (Cell cl in grid.listOfCells)
                 {
-                    if (cl.ContainsPoint((int)c.CoordinateX, (int)c.CoordinateY) == true)
+                    if (cl.ContainsPoint((int) c.CoordinateX, (int) c.CoordinateY) == true)
                     {
                         Point p = cl.GetCenter();
                         PaintCircle(p);
                     }
                 }
             }
+
+            Console.WriteLine($"testplane x: {testPlane.CoordinateX} testplane y: {testPlane.CoordinateY}");
+
             foreach (Airplane p in airplaneList)
             {
-                p.CoordinateX += 10;
-                p.CoordinateY += 10;
+                p.MoveTowardsNextPoint();
+                //p.CoordinateX += 10;
+                //p.CoordinateY += 10;
                 Pen pen = new Pen(Color.Red);
                 Graphics g = this.pictureBox1.CreateGraphics();
-                g.DrawRectangle(pen, (float)p.CoordinateX, (float)p.CoordinateY, 10, 10);
+                g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
             }
+
+
+//            testPlane.MoveTowardsNextPoint();
+//            Pen pen = new Pen(Color.Red);
+//            Graphics g = this.pictureBox1.CreateGraphics();
+//            g.DrawRectangle(pen, (float)testPlane.CoordinateX, (float)testPlane.CoordinateY, 10, 10);
         }
 
         private void button5_Click(object sender, EventArgs e)
@@ -708,9 +715,10 @@ namespace Air_Traffic_Simulation
             {
                 Pen pen = new Pen(Color.Red);
                 Graphics g = this.pictureBox1.CreateGraphics();
-                g.DrawRectangle(pen, (float)p.CoordinateX, (float)p.CoordinateY, 10, 10);
+                g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
             }
-            timer2.Interval = 1000;
+
+            timer2.Interval = 10;
             timer2.Start();
         }
 
