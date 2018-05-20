@@ -403,7 +403,7 @@ namespace Air_Traffic_Simulation
                             testStrip.CoordinateX + "," + testStrip.CoordinateY +
                             ")\n(That's the green filled square in the upper right of the screen.)");
 
-            button5.Enabled = false;
+            this.testAirplaneAndStrip.Enabled = false;
         }
 
 
@@ -412,7 +412,7 @@ namespace Air_Traffic_Simulation
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button6_Click(object sender, EventArgs e)
+        private void calcRouteBtn_Click(object sender, EventArgs e)
         {
             testPlane.calculateShortestPath(this.checkpoints);
 

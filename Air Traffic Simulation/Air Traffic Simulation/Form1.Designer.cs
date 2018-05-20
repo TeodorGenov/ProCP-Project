@@ -68,10 +68,6 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.button6 = new System.Windows.Forms.Button();
-						//TODO: button 5 is a problematic thing
-
-            this.button5 = new System.Windows.Forms.Button();
             this.panel7 = new System.Windows.Forms.Panel();
             this.label9 = new System.Windows.Forms.Label();
             this.btnRemoveAirplane = new System.Windows.Forms.Button();
@@ -87,10 +83,7 @@
             this.calcRouteBtn = new System.Windows.Forms.Button();
             this.testAirplaneAndStrip = new System.Windows.Forms.Button();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-						//TODO: button 5 is a problematic thing
-
             this.button5 = new System.Windows.Forms.Button();
-
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
@@ -543,28 +536,7 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(855, 578);
             this.panel5.TabIndex = 2;
-            // 
 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(579, 540);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 2;
-            this.button6.Text = "button6";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button5
-            // 
-            this.button5.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.button5.Location = new System.Drawing.Point(660, 512);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(187, 54);
-            this.button5.TabIndex = 1;
-            this.button5.Text = "Add test airplane and strip";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.addTestAirplaneAndStrip);
             // 
             // panel7
             // 
@@ -696,7 +668,6 @@
             0,
             0,
             0});
-=======
             // calcRouteBtn
             // 
             this.calcRouteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
@@ -706,7 +677,7 @@
             this.calcRouteBtn.TabIndex = 2;
             this.calcRouteBtn.Text = "Calculate Route";
             this.calcRouteBtn.UseVisualStyleBackColor = false;
-            this.calcRouteBtn.Click += new System.EventHandler(this.calcRouteButtonClick);
+            this.calcRouteBtn.Click += new System.EventHandler(this.calcRouteBtn_Click);
             // 
             // testAirplaneAndStrip
             // 
@@ -720,7 +691,6 @@
             this.testAirplaneAndStrip.Text = "Add test airplane and strip";
             this.testAirplaneAndStrip.UseVisualStyleBackColor = false;
             this.testAirplaneAndStrip.Click += new System.EventHandler(this.addTestAirplaneAndStrip);
->>>>>>> path_following
             // 
             // timer2
             // 
@@ -816,9 +786,6 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.PictureBox pictureBox1;
 
-		//TODO: button 5 again
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
         private System.Windows.Forms.Panel panel7;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MySql.Data;
-using MySql.Data.MySqlClient;
+//using MySql.Data;
+//using MySql.Data.MySqlClient;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -12,6 +12,7 @@ namespace Air_Traffic_Simulation
 {
     class Database
     {
+        /*
         #region Declaration
         public MySqlConnection connection;
 
@@ -81,5 +82,6 @@ namespace Air_Traffic_Simulation
         }
 
         #endregion
+        */
     }
 }

@@ -44,7 +44,7 @@
             The type of cell the checkpoint is situated in.
             </summary>
         </member>
-        <member name="M:Air_Traffic_Simulation.Form1.button6_Click(System.Object,System.EventArgs)">
+        <member name="M:Air_Traffic_Simulation.Form1.calcRouteBtn_Click(System.Object,System.EventArgs)">
             <summary>
             Generates and draws the route between the example airplane and the airfield.
             </summary>
