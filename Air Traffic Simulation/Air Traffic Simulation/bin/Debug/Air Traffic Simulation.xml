@@ -11,14 +11,6 @@
             <param name="a">The checkpoint we are looking for the distance from.</param>
             <returns>The distance between the two checkpoints given as arguments.</returns>
         </member>
-        <member name="M:Air_Traffic_Simulation.AbstractCheckpoint.AddAllPossibleDestinations(System.Collections.Generic.List{Air_Traffic_Simulation.AbstractCheckpoint})">
-            <summary>
-            Shouldn't have to use this one any more. 
-            
-            Adds all checkpoints from a list to the reachable destinations of  the checkpoint, from which the method has been called.
-            </summary>
-            <param name="checkpoints">All the checkpoints we would like to add as reachable destinations.</param>
-        </member>
         <member name="F:Air_Traffic_Simulation.Airstrip._takeOffDirection">
             <summary>
             This is any help written.
@@ -39,17 +31,10 @@
             Marks the type of cell. Depending on this, min and max speeds and altitudes will be defined.
             </summary>
         </member>
-        <member name="P:Air_Traffic_Simulation.Checkpoint.ParentCellType">
+        <member name="M:Air_Traffic_Simulation.Form1.t_Tick(System.Object,System.EventArgs)">
             <summary>
-            The type of cell the checkpoint is situated in.
+            RADAR METHOD
             </summary>
-        </member>
-        <member name="M:Air_Traffic_Simulation.Form1.button6_Click(System.Object,System.EventArgs)">
-            <summary>
-            Generates and draws the route between the example airplane and the airfield.
-            </summary>
-            <param name="sender"></param>
-            <param name="e"></param>
         </member>
         <member name="M:Air_Traffic_Simulation.Form1.ConnectDots(System.Drawing.Point,System.Drawing.Point)">
             <summary>

@@ -55,8 +55,6 @@ C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air
 C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.CoreCompileInputs.cache
 C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.exe
 C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.pdb
-C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.CodeAnalysisLog.xml
-C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.lastcodeanalysissucceeded
 C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.config
 C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.xml
 C:\Users\USER\Desktop\UNI STUFF\PROCP\GIT\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe
@@ -79,4 +77,17 @@ D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulati
 D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.CoreCompileInputs.cache
 D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.exe
 D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.pdb
-D:\OneDrive\Fontys University (Semester IV)\PROCP\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.xml
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csprojResolveAssemblyReference.cache
+C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.WindDirection.resources
+H:\Backup\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.config
+H:\Backup\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.xml
+H:\Backup\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe
+H:\Backup\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.pdb
+H:\Backup\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csprojResolveAssemblyReference.cache
+H:\Backup\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Form1.resources
+H:\Backup\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Properties.Resources.resources
+H:\Backup\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.WindDirection.resources
+H:\Backup\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.GenerateResource.Cache
+H:\Backup\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.CoreCompileInputs.cache
+H:\Backup\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.exe
+H:\Backup\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.pdb
