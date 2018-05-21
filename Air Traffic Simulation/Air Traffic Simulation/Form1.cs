@@ -118,9 +118,8 @@ namespace Air_Traffic_Simulation
         //TODO: remove testing variables
         private Airplane testPlane;
         private Airplane testPlane2;
-        private Airstrip testStrip;
+        private Airstrip landingStrip;
 
-        //TODO: check if both airplanelist and airplanes are needed
         List<Checkpoint> checkpoints;
         List<Airplane> airplaneList;
 
@@ -136,8 +135,8 @@ namespace Air_Traffic_Simulation
                 flightNumber: "FB321");
             airplaneList.Add(testPlane);
             //testPlane2 = new Airplane(name: "FB123", coordinateX: 100, coordinateY: 100, speed: 300,
-           //     flightNumber: "FB321");
-           // airplaneList.Add(testPlane2);
+            //     flightNumber: "FB321");
+            // airplaneList.Add(testPlane2);
             InitializeComponent();
             nSpeed.Enabled = false;
         }
@@ -203,8 +202,52 @@ namespace Air_Traffic_Simulation
 
             pictureBox1.Image = bmpGrid;
             PaintGrid();
+            makeAirstrip();
         }
 
+        /// <summary>
+        /// Initializes and draws the airstrip.
+        /// </summary>
+        private void makeAirstrip()
+        {
+            //using the x and y of the last cell in the grid as comparison, because in some cases it might
+            //happen so that the picturebox is actually bigger than the grid, so using the picturebox' 
+            //width and height would lead to wrong results
+            Cell middleCell = grid.listOfCells
+                .Where(cell => cell.ContainsPoint(grid.listOfCells[grid.listOfCells.Count - 1].x / 2,
+                    grid.listOfCells[grid.listOfCells.Count - 1].y / 2)).ElementAt(0);
+            landingStrip = new Airstrip("Strip A", middleCell.x, middleCell.y, true, 360);
+            Point p = new Point(middleCell.x, middleCell.y);
+
+            Brush pen = new SolidBrush(Color.Green);
+            Graphics g = this.pictureBox1.CreateGraphics();
+            gGrid.FillRectangle(pen, p.X, p.Y, Cell.Width, Cell.Width);
+        }
+
+
+        private void addTestAirplaneAndStrip(object sender, EventArgs e)
+        {
+            //TODO: Remove following test lines:
+
+            foreach (Cell c in grid.listOfCells)
+            {
+                if (c.ContainsPoint(Convert.ToInt32(testPlane.CoordinateX), Convert.ToInt32(testPlane.CoordinateY)))
+                {
+                    Point p = c.GetCenter();
+
+                    //slightly, uh, artistically collaborated PaintCircle
+                    float x = p.X - 3;
+                    float y = p.Y - 3;
+                    float width = 2 * 3;
+                    float height = 2 * 3;
+                    Pen pen = new Pen(Color.Red);
+                    Graphics g = this.pictureBox1.CreateGraphics();
+                    g.DrawRectangle(pen, x, y, width, height);
+                }
+            }
+
+            this.testAirplaneAndStrip.Enabled = false;
+        }
 
         //RADAR METHOD
         private void t_Tick(object sender, EventArgs e)
@@ -351,58 +394,6 @@ namespace Air_Traffic_Simulation
             //}
         }
 
-        private void addTestAirplaneAndStrip(object sender, EventArgs e)
-        {
-            //TODO: Remove following test lines:
-
-            testStrip = new Airstrip("Strip A", 550, 50, true, 360);
-
-            foreach (Cell c in grid.listOfCells)
-            {
-                if (c.ContainsPoint(Convert.ToInt32(testPlane.CoordinateX), Convert.ToInt32(testPlane.CoordinateY)))
-                {
-                    Point p = c.GetCenter();
-
-                    //slightly, uh, artistically collaborated PaintCircle
-                    float x = p.X - 3;
-                    float y = p.Y - 3;
-                    float width = 2 * 3;
-                    float height = 2 * 3;
-                    Pen pen = new Pen(Color.Red);
-                    Graphics g = this.pictureBox1.CreateGraphics();
-                    g.DrawRectangle(pen, x, y, width, height);
-
-                    string name = "aircraft" + testPlane;
-                }
-                else if (c.ContainsPoint(Convert.ToInt32(testStrip.CoordinateX),
-                    Convert.ToInt32(testStrip.CoordinateY)))
-                {
-                    Point p = c.GetCenter();
-
-                    //slightly, uh, artistically collaborated PaintCircle
-                    float x = p.X - 3;
-                    float y = p.Y - 3;
-                    float width = 2 * 3;
-                    float height = 2 * 3;
-                    Brush pen = new SolidBrush(Color.Green);
-                    Graphics g = this.pictureBox1.CreateGraphics();
-                    g.FillRectangle(pen, x, y, width, height);
-
-                    string name = "aircraft" + testPlane;
-                }
-            }
-
-            MessageBox.Show("Added test airplane  " + testPlane.Name + "  With coordinates: (" + testPlane.CoordinateX +
-                            "," + testPlane.CoordinateY +
-                            ")\nThat's the red empty square in the center bottom of the screen." +
-                            "\n\n..and test airstrip  " + testStrip.Name + "  With coordinates: (" +
-                            testStrip.CoordinateX + "," + testStrip.CoordinateY +
-                            ")\n(That's the green filled square in the upper right of the screen.)");
-
-            this.testAirplaneAndStrip.Enabled = false;
-        }
-
-
         /// <summary>
         /// Generates and draws the route between the example airplane and the airfield.
         /// </summary>
@@ -412,7 +403,7 @@ namespace Air_Traffic_Simulation
         {
             testPlane.calculateShortestPath(this.checkpoints);
 
-            Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
+            Point a = new Point(Convert.ToInt32(landingStrip.CoordinateX), Convert.ToInt32(landingStrip.CoordinateY));
 
             var ppp = testPlane.ShortestPath.Last;
             string planePath = String.Empty;
@@ -512,7 +503,7 @@ namespace Air_Traffic_Simulation
 
                                 cpName++;
                                 string name = "cp" + cpName;
-                                Checkpoint a = new Checkpoint(name, p.X, p.Y, c, checkpoints, testStrip);
+                                Checkpoint a = new Checkpoint(name, p.X, p.Y, c, checkpoints, landingStrip);
                                 checkpoints.Add(a);
                                 MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" +
                                                 a.CoordinateX +
@@ -710,7 +701,6 @@ namespace Air_Traffic_Simulation
 
         private void button5_Click(object sender, EventArgs e)
         {
-            testStrip = new Airstrip("Strip A", 550, 50, true, 360);
             foreach (Airplane p in airplaneList)
             {
                 Pen pen = new Pen(Color.Red);
