@@ -15,13 +15,30 @@ namespace Air_Traffic_Simulation
         public override Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }
         public override double CoordinateX { get; set; }
         public override double CoordinateY { get; set; }
-        public double speed { get; private set; }
+
+        private double speed;
+
+        public double Speed
+        {
+            get => speed;
+            private set
+            {
+                ktsPerSecond = value / 360;
+                speed = value;
+            }
+        }
+
         public List<AbstractCheckpoint> Route { get; private set; }
         public string FlightNumber { get; private set; }
         public override int MaxSpeed { get; }
         public override int MinSpeed { get; }
         public override int MaxAltitude { get; }
         public override int MinAltitude { get; }
+
+        /// <summary>
+        /// The airplane's speed for knots per second. Used for calculation of movement.
+        /// </summary>
+        private double ktsPerSecond;
 
         public Airplane(string name, double coordinateX, double coordinateY, double speed, string flightNumber)
         {
@@ -39,6 +56,8 @@ namespace Air_Traffic_Simulation
             //yeah.. reconsider that.
             MaxSpeed = 2;
             MaxAltitude = 6500;
+
+            this.ktsPerSecond = speed / 360;
         }
 
         private bool first = true;
@@ -56,8 +75,8 @@ namespace Air_Traffic_Simulation
             //airplane ..which will f things up if the weather disables checkpoint a before reaching it..
             //think about this later..
 
-            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < 0.5 &&
-                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < 0.5)
+            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Math.Floor(Cell.Width/2f) &&
+                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Math.Floor(Cell.Width/2f))
             {
                 return;
             }
@@ -70,15 +89,25 @@ namespace Air_Traffic_Simulation
 
             if (first)
             {
-                Console.WriteLine($"x: {CalculateTimeBetweenPoints(target.Value)} Y: {CalculateTimeBetweenPoints(target.Value)}");
-                leapx = (target.Value.CoordinateX - CoordinateX) / CalculateTimeBetweenPoints(target.Value);
-                leapy = (target.Value.CoordinateY - CoordinateY) / CalculateTimeBetweenPoints(target.Value);
+                double a = (target.Value.CoordinateY - CoordinateY) / Grid.PixelsPerMileVertically;
+                double b = (target.Value.CoordinateX - CoordinateX) / Grid.PixelsPerMileHorizontally;
+                double c = Math.Sqrt(Math.Pow(a, 2) + Math.Pow(b, 2)); //the distance the plane has to fly in miles
+
+                double t = c / ktsPerSecond; //the time which the plane will need to fly this distance
+
+                leapx = (b/t) * Grid.PixelsPerMileHorizontally; //the x speed of the airplane in miles times pixels per mile 
+                leapy = (a/t) * Grid.PixelsPerMileVertically; //the y speed of the airplane in miles
+
                 first = false;
             }
 
-            if (CoordinateX > target.Value.CoordinateX) // && CoordinateY == target.Value.CoordinateY)
+            if (Math.Abs(CoordinateX - target.Value.CoordinateX) < Cell.Width && Math.Abs(CoordinateY - target.Value.CoordinateY) < Cell.Width)
             {
+
                 target = target.Next;
+                if(target != null)
+                    speed = target.Value.MaxSpeed;
+
                 first = true;
             }
 

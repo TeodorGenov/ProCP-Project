@@ -19,6 +19,11 @@
             </summary>
             <param name="checkpoints">All the checkpoints we would like to add as reachable destinations.</param>
         </member>
+        <member name="F:Air_Traffic_Simulation.Airplane.ktsPerSecond">
+            <summary>
+            The airplane's speed for knots per second. Used for calculation of movement.
+            </summary>
+        </member>
         <member name="F:Air_Traffic_Simulation.Airstrip._takeOffDirection">
             <summary>
             This is any help written.
@@ -100,6 +105,18 @@
         <member name="F:Air_Traffic_Simulation.Grid.totalNumberOfCells">
             <summary>
             The total number of cells the grid is going to have.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Grid.PixelsPerMileHorizontally">
+            <summary>
+            The amount of pixels which corresponds on a nautical mile
+            per our grid, when we are considering horizontal movement.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Grid.PixelsPerMileVertically">
+            <summary>
+            The amount of pixels which corresponds on a nautical mile
+            per our grid, when we are considering vertical movement.
             </summary>
         </member>
         <member name="M:Air_Traffic_Simulation.Program.Main">

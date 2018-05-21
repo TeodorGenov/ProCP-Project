@@ -27,11 +27,43 @@ namespace Air_Traffic_Simulation
         /// </summary>
         private readonly int totalNumberOfCells;
 
+        /// <summary>
+        /// The amount of pixels which corresponds on a nautical mile
+        /// per our grid, when we are considering horizontal movement.
+        /// </summary>
+        public static double PixelsPerMileHorizontally;
+
+        /// <summary>
+        /// The amount of pixels which corresponds on a nautical mile
+        /// per our grid, when we are considering vertical movement.
+        /// </summary>
+        public static double PixelsPerMileVertically;
+
         public Grid(int pictureBoxWidth, int pictureBoxHeight)
         {
             this.columnsOfCells = pictureBoxWidth / Cell.Width;
             this.rowsOfCells = pictureBoxHeight / Cell.Width;
             this.totalNumberOfCells = this.columnsOfCells * this.rowsOfCells;
+
+            //that's the diameter of the space covered between the inner sides
+            //of the BORDER cells; our grid is based on real life numbers and in real life
+            //this outermost zone starts from 20 miles away from the airport - thus, the total
+            //diameter of our airspace is 40 miles
+            int diameterOfAirspaceInMiles = 40;
+
+            int diameterOfAirspaceInPixelsHorizontally = (columnsOfCells - 2) * Cell.Width;
+
+            int diameterOfAirspaceInPixelsVertically = (rowsOfCells - 2) * Cell.Width;
+
+            PixelsPerMileHorizontally = (double)diameterOfAirspaceInPixelsHorizontally / diameterOfAirspaceInMiles;
+            PixelsPerMileVertically = (double)diameterOfAirspaceInPixelsVertically / diameterOfAirspaceInMiles;
+
+            Console.WriteLine($"diameter: {diameterOfAirspaceInMiles} miles");
+            Console.WriteLine($"diameter hor: {diameterOfAirspaceInPixelsHorizontally} pixels");
+            Console.WriteLine($"diameter vert: {diameterOfAirspaceInPixelsVertically} pixels");
+            Console.WriteLine($"ppm hor: {PixelsPerMileHorizontally} pixels");
+            Console.WriteLine($"ppm vert: {PixelsPerMileVertically} pixels");
+
 
             //TODO: Remove cw
             Console.WriteLine($"columns: {columnsOfCells} rows: {rowsOfCells}");

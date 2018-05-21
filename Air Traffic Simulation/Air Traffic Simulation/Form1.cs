@@ -245,8 +245,6 @@ namespace Air_Traffic_Simulation
                     g.DrawRectangle(pen, x, y, width, height);
                 }
             }
-
-            this.testAirplaneAndStrip.Enabled = false;
         }
 
         //RADAR METHOD
@@ -416,7 +414,7 @@ namespace Air_Traffic_Simulation
                 a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
                 ppp = ppp.Previous;
             }
-
+            //TODO: remove planepath print
             Console.WriteLine(planePath);
             //generates the message box that informs the user that some areas are missing points
             bool[] allZonesCheck = new bool[] {false, false, false, false};
@@ -680,8 +678,6 @@ namespace Air_Traffic_Simulation
                 }
             }
 
-            Console.WriteLine($"testplane x: {testPlane.CoordinateX} testplane y: {testPlane.CoordinateY}");
-
             foreach (Airplane p in airplaneList)
             {
                 p.MoveTowardsNextPoint();
@@ -701,15 +697,21 @@ namespace Air_Traffic_Simulation
 
         private void button5_Click(object sender, EventArgs e)
         {
-            foreach (Airplane p in airplaneList)
+            if (timer2.Enabled)
             {
-                Pen pen = new Pen(Color.Red);
-                Graphics g = this.pictureBox1.CreateGraphics();
-                g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                timer2.Stop();
             }
+            else
+            {
+                foreach (Airplane p in airplaneList)
+                {
+                    Pen pen = new Pen(Color.Red);
+                    Graphics g = this.pictureBox1.CreateGraphics();
+                    g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                }
 
-            timer2.Interval = 10;
-            timer2.Start();
+                timer2.Start();
+            }
         }
 
         private void btnUploadData_Click(object sender, EventArgs e)
