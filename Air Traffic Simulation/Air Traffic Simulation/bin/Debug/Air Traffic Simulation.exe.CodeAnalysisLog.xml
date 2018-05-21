@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="c:\program files (x86)\microsoft visual studio\2017\enterprise\team tools\static analysis tools\fxcop\Xml\CodeAnalysisReport.xsl"?>
+<FxCopReport Version="15.0">
+ <Targets>
+  <Target Name="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe">
+   <Modules>
+    <Module Name="air traffic simulation.exe">
+     <Namespaces>
+      <Namespace Name="Air_Traffic_Simulation">
+       <Types>
+        <Type Name="Airplane" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Members>
+          <Member Name="#.ctor(System.String,System.Double,System.Double,System.Double,System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2018-05-04 16:48:51Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Airplane.cs" Line="21">'Airplane.Airplane(string, double, double, double, string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Airplane..ctor(String, Double, Double, Double, String)&#xD;&#xA;AbstractCheckpoint.set_ShortestPath(LinkedList&lt;AbstractCheckpoint&gt;):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Airplane.cs" Line="21">'Airplane.Airplane(string, double, double, double, string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Airplane..ctor(String, Double, Double, Double, String)&#xD;&#xA;AbstractCheckpoint.set_ShortestPath(LinkedList&lt;AbstractCheckpoint&gt;):Void&#xD;&#xA;AbstractCheckpoint.set_DistanceFromSource(Double):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Airplane.cs" Line="21">'Airplane.Airplane(string, double, double, double, string)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Airplane..ctor(String, Double, Double, Double, String)&#xD;&#xA;AbstractCheckpoint.set_ShortestPath(LinkedList&lt;AbstractCheckpoint&gt;):Void&#xD;&#xA;AbstractCheckpoint.set_DistanceFromSource(Double):Void&#xD;&#xA;AbstractCheckpoint.set_ReachableNodes(Dictionary&lt;AbstractCheckpoint,Double&gt;):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="Airstrip" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Members>
+          <Member Name="#.ctor(System.String,System.Double,System.Double,System.Boolean,System.Double)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2018-05-04 16:48:51Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Airstrip.cs" Line="42">'Airstrip.Airstrip(string, double, double, bool, double)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Airstrip..ctor(String, Double, Double, Boolean, Double)&#xD;&#xA;AbstractCheckpoint.set_ShortestPath(LinkedList&lt;AbstractCheckpoint&gt;):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Airstrip.cs" Line="42">'Airstrip.Airstrip(string, double, double, bool, double)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Airstrip..ctor(String, Double, Double, Boolean, Double)&#xD;&#xA;AbstractCheckpoint.set_ShortestPath(LinkedList&lt;AbstractCheckpoint&gt;):Void&#xD;&#xA;AbstractCheckpoint.set_DistanceFromSource(Double):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Airstrip.cs" Line="42">'Airstrip.Airstrip(string, double, double, bool, double)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Airstrip..ctor(String, Double, Double, Boolean, Double)&#xD;&#xA;AbstractCheckpoint.set_ShortestPath(LinkedList&lt;AbstractCheckpoint&gt;):Void&#xD;&#xA;AbstractCheckpoint.set_DistanceFromSource(Double):Void&#xD;&#xA;AbstractCheckpoint.set_ReachableNodes(Dictionary&lt;AbstractCheckpoint,Double&gt;):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="Checkpoint" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Members>
+          <Member Name="#.ctor(System.String,System.Double,System.Double)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214" Status="Active" Created="2018-05-04 16:48:51Z" FixCategory="NonBreaking">
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Checkpoint.cs" Line="19">'Checkpoint.Checkpoint(string, double, double)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Checkpoint..ctor(String, Double, Double)&#xD;&#xA;AbstractCheckpoint.set_ShortestPath(LinkedList&lt;AbstractCheckpoint&gt;):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Checkpoint.cs" Line="19">'Checkpoint.Checkpoint(string, double, double)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Checkpoint..ctor(String, Double, Double)&#xD;&#xA;AbstractCheckpoint.set_ShortestPath(LinkedList&lt;AbstractCheckpoint&gt;):Void&#xD;&#xA;AbstractCheckpoint.set_DistanceFromSource(Double):Void</Issue>
+             <Issue Certainty="95" Level="CriticalWarning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Checkpoint.cs" Line="19">'Checkpoint.Checkpoint(string, double, double)' contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: &#xD;&#xA;&#xD;&#xA;Checkpoint..ctor(String, Double, Double)&#xD;&#xA;AbstractCheckpoint.set_ShortestPath(LinkedList&lt;AbstractCheckpoint&gt;):Void&#xD;&#xA;AbstractCheckpoint.set_DistanceFromSource(Double):Void&#xD;&#xA;AbstractCheckpoint.set_ReachableNodes(Dictionary&lt;AbstractCheckpoint,Double&gt;):Void</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+        <Type Name="Form1" Kind="Class" Accessibility="Public" ExternallyVisible="True">
+         <Members>
+          <Member Name="#Dispose(System.Boolean)" Kind="Method" Static="False" Accessibility="Family" ExternallyVisible="True">
+           <Messages>
+            <Message Id="bmp" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2018-05-04 16:48:51Z" FixCategory="NonBreaking">
+             <Issue Certainty="75" Level="Warning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Form1.Designer.cs" Line="15">'Form1' contains field 'Form1.bmp' that is of IDisposable type: 'Bitmap'. Change the Dispose method on 'Form1' to call Dispose or Close on this field.</Issue>
+            </Message>
+            <Message Id="bmpGrid" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2018-05-04 16:48:51Z" FixCategory="NonBreaking">
+             <Issue Certainty="75" Level="Warning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Form1.Designer.cs" Line="15">'Form1' contains field 'Form1.bmpGrid' that is of IDisposable type: 'Bitmap'. Change the Dispose method on 'Form1' to call Dispose or Close on this field.</Issue>
+            </Message>
+            <Message Id="p" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2018-05-04 16:48:51Z" FixCategory="NonBreaking">
+             <Issue Certainty="75" Level="Warning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Form1.Designer.cs" Line="15">'Form1' contains field 'Form1.p' that is of IDisposable type: 'Pen'. Change the Dispose method on 'Form1' to call Dispose or Close on this field.</Issue>
+            </Message>
+            <Message Id="pGrid" TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213" Status="Active" Created="2018-05-04 16:48:51Z" FixCategory="NonBreaking">
+             <Issue Certainty="75" Level="Warning" Path="C:\Users\Teodor\Desktop\Uni Works\ProCp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation" File="Form1.Designer.cs" Line="15">'Form1' contains field 'Form1.pGrid' that is of IDisposable type: 'Pen'. Change the Dispose method on 'Form1' to call Dispose or Close on this field.</Issue>
+            </Message>
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+      <Namespace Name="Air_Traffic_Simulation.Properties">
+       <Types>
+        <Type Name="Resources" Kind="Class" Accessibility="Assembly" ExternallyVisible="False">
+         <Members>
+          <Member Name="#.ctor()" Kind="Method" Static="False" Accessibility="Assembly" ExternallyVisible="False">
+           <Messages>
+            <Message TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811" Status="ExcludedInSource" Created="2018-05-04 16:48:51Z" FixCategory="NonBreaking" LastSeen="0001-01-01 00:00:00Z" />
+           </Messages>
+          </Member>
+         </Members>
+        </Type>
+       </Types>
+      </Namespace>
+     </Namespaces>
+    </Module>
+   </Modules>
+  </Target>
+ </Targets>
+ <Rules>
+  <Rule TypeName="AvoidUncalledPrivateCode" Category="Microsoft.Performance" CheckId="CA1811">
+   <Name>Avoid uncalled private code</Name>
+   <Description>There is uncalled code that is not externally visible and is not a known runtime entry point. If this violation fires in error, please send a problem report to the Visual Studio Code Analysis team.</Description>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182264.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="performancerules.dll" Version="15.0.0.0" />
+  </Rule>
+  <Rule TypeName="DisposableFieldsShouldBeDisposed" Category="Microsoft.Usage" CheckId="CA2213">
+   <Name>Disposable fields should be disposed</Name>
+   <Description>If a type that implements IDisposable owns fields that also implement IDisposable, the encapsulating type's Dispose() implementation should call Dispose() on each disposable field.</Description>
+   <Resolution Name="Default">{0} contains field {1} that is of IDisposable type: {2}. Change the Dispose method on {0} to call Dispose or Close on this field.</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182328.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="75">Warning</MessageLevel>
+   <File Name="usagerules.dll" Version="15.0.0.0" />
+  </Rule>
+  <Rule TypeName="DoNotCallOverridableMethodsInConstructors" Category="Microsoft.Usage" CheckId="CA2214">
+   <Name>Do not call overridable methods in constructors</Name>
+   <Description>Virtual methods defined on the class should not be called from constructors. If a derived class has overridden the method, the derived class version will be called (before the derived class constructor is called).</Description>
+   <Resolution Name="Default">{0} contains a call chain that results in a call to a virtual method defined by the class. Review the following call stack for unintended consequences: {1}</Resolution>
+   <Owner />
+   <Url>http://msdn.microsoft.com/library/ms182331.aspx</Url>
+   <Email>[none]</Email>
+   <MessageLevel Certainty="95">CriticalWarning</MessageLevel>
+   <File Name="usagerules.dll" Version="15.0.0.0" />
+  </Rule>
+ </Rules>
+ <Localized>
+  <String Key="Category">Category</String>
+  <String Key="Certainty">Certainty</String>
+  <String Key="CollapseAll">Collapse All</String>
+  <String Key="CheckId">Check Id</String>
+  <String Key="Error">Error</String>
+  <String Key="Errors">error(s)</String>
+  <String Key="ExpandAll">Expand All</String>
+  <String Key="Help">Help</String>
+  <String Key="Line">Line</String>
+  <String Key="Messages">message(s)</String>
+  <String Key="LocationNotStoredInPdb">[Location not stored in Pdb]</String>
+  <String Key="Project">Project</String>
+  <String Key="Resolution">Resolution</String>
+  <String Key="Rule">Rule</String>
+  <String Key="RuleFile">Rule File</String>
+  <String Key="RuleDescription">Rule Description</String>
+  <String Key="Source">Source</String>
+  <String Key="Status">Status</String>
+  <String Key="Target">Target</String>
+  <String Key="Warning">Warning</String>
+  <String Key="Warnings">warning(s)</String>
+  <String Key="ReportTitle">Code Analysis Report</String>
+ </Localized>
+</FxCopReport>
