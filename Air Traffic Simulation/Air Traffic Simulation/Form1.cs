@@ -259,8 +259,6 @@ namespace Air_Traffic_Simulation
             Refresh();
             weather.TemperatureC = trackBarTemperature.Value;
             weather.RainIntensity = trackBarPrecipitation.Value;
-            lblRain.Text = weather.RainIntensity.ToString();
-            lblTemp.Text = weather.TemperatureC.ToString();
             weather.ChangeWeather();
 
             if (weather.RainType == RainType.RAIN)
