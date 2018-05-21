@@ -83,7 +83,6 @@
             this.panelBeneathGrid = new System.Windows.Forms.Panel();
             this.testAirplaneAndStrip = new System.Windows.Forms.Button();
             this.calcRouteBtn = new System.Windows.Forms.Button();
-            this.testAirplaneAndStrip = new System.Windows.Forms.Button();
             this.timerWeather = new System.Windows.Forms.Timer(this.components);
 			this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
@@ -715,6 +714,12 @@
             this.calcRouteBtn.Text = "Calculate Route";
             this.calcRouteBtn.UseVisualStyleBackColor = true;
             // 
+            // timerWeather
+            // 
+            this.timerWeather.Enabled = true;
+            this.timerWeather.Interval = 10;
+            this.timerWeather.Tick += new System.EventHandler(this.timerWeather_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -811,6 +816,7 @@
         private System.Windows.Forms.Button testAirplaneAndStrip;
         private System.Windows.Forms.Button calcRouteBtn;
         private System.Windows.Forms.ListBox allFlightsListBox;
+        private System.Windows.Forms.Timer timerWeather;
     }
 }
 

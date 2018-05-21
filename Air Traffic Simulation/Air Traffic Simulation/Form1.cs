@@ -16,7 +16,7 @@ namespace Air_Traffic_Simulation
     {
         //RADAR
 
-
+        Random r = new Random();
         Timer t = new Timer();
         int width, height;
         int hand = 150;
@@ -50,7 +50,7 @@ namespace Air_Traffic_Simulation
 
 
         int temp, prec, wind;
-		SolidBrush weatherBrush = new SolidBrush(Color.White);
+        SolidBrush weatherBrush = new SolidBrush(Color.White);
         Rectangle weatherBlock;
 
         //List<Checkpoint> checkpoints;
@@ -152,8 +152,8 @@ namespace Air_Traffic_Simulation
 
             labelPrec.Text = trackBarPrecipitation.Value.ToString() + "%";
             prec = trackBarPrecipitation.Value;
-			
-			//comboBoxWindDirection.Items.AddRange(new object[] {"NORTH",
+
+            //comboBoxWindDirection.Items.AddRange(new object[] {"NORTH",
             //            "NORTH-EAST",
             //            "NORTH-WEST",
             //            "SOUTH",
@@ -163,7 +163,6 @@ namespace Air_Traffic_Simulation
             //            "WEST"
             //});
 
-            
 
             //WeatherInfo
             weather = new WeatherConditions(wind, 10, temp, prec);
@@ -177,17 +176,17 @@ namespace Air_Traffic_Simulation
             }
             //WEATHER BLOCK
 
-            if(weather.RainType == RainType.RAIN)
+            if (weather.RainType == RainType.RAIN)
             {
-                if(weather.RainIntensity >= 10 && weather.RainIntensity <= 25)
+                if (weather.RainIntensity >= 10 && weather.RainIntensity <= 25)
                 {
                     weather.Visibility = 80;
                 }
-                else if(weather.RainIntensity >= 26 && weather.RainIntensity <= 50)
+                else if (weather.RainIntensity >= 26 && weather.RainIntensity <= 50)
                 {
                     weather.Visibility = 50;
                 }
-                else if(weather.RainIntensity > 50)
+                else if (weather.RainIntensity > 50)
                 {
                     weather.Visibility = 10;
                 }
@@ -196,8 +195,8 @@ namespace Air_Traffic_Simulation
                     weather.Visibility = 100;
                 }
             }
-            
-			Simulate();
+
+            Simulate();
 
 
             //RADAR
@@ -243,35 +242,33 @@ namespace Air_Traffic_Simulation
                 gGrid.DrawLine(pGrid, p3, p4);
             }
 
-			int x = r.Next(100, 200);
+            int x = r.Next(100, 200);
             //int y = r.Next(100, 200);
-            weatherBlock = new Rectangle(x, x+50, 50, 50);
+            weatherBlock = new Rectangle(x, x + 50, 50, 50);
 
             timerWeather.Interval = 500;
             timerWeather.Start();
-			
+
             pictureBox1.Image = bmpGrid;
             PaintGrid();
         }
 
-		private void timerWeather_Tick(object sender, EventArgs e)
-        { 
+        private void timerWeather_Tick(object sender, EventArgs e)
+        {
             Refresh();
             weather.TemperatureC = trackBarTemperature.Value;
             weather.RainIntensity = trackBarPrecipitation.Value;
-            lblRain.Text = weather.RainIntensity.ToString();
-            lblTemp.Text = weather.TemperatureC.ToString();
             weather.ChangeWeather();
 
             if (weather.RainType == RainType.RAIN)
             {
                 weatherBrush.Color = Color.FromArgb(125, 92, 92, 92);
             }
-            else if(weather.RainType == RainType.SNOWFALL)
+            else if (weather.RainType == RainType.SNOWFALL)
             {
                 weatherBrush.Color = Color.FromArgb(125, 205, 205, 205);
             }
-            else if(weather.RainType == RainType.HALE)
+            else if (weather.RainType == RainType.HALE)
             {
                 weatherBrush.Color = Color.FromArgb(125, 175, 75, 75);
             }
@@ -281,7 +278,7 @@ namespace Air_Traffic_Simulation
             }
 
             Pen p = new Pen(Color.Black);
-            if(weatherBlock.X < 0 || weatherBlock.Y < 0)
+            if (weatherBlock.X < 0 || weatherBlock.Y < 0)
             {
                 weatherBlock.X += r.Next(20);
                 weatherBlock.Y += r.Next(20);
@@ -295,10 +292,8 @@ namespace Air_Traffic_Simulation
             {
                 weatherBlock.X += r.Next(-20, 20);
                 weatherBlock.Y += r.Next(-20, 20);
-
             }
 
-            
 
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawEllipse(p, weatherBlock);
@@ -507,7 +502,7 @@ namespace Air_Traffic_Simulation
 
         private void button6_Click(object sender, EventArgs e)
         {
-            foreach(Airplane airpln in airplanes)
+            foreach (Airplane airpln in airplanes)
             {
                 airpln.calculateShortestPath(this.checkpoints, this.testStrip);
                 Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
@@ -525,9 +520,8 @@ namespace Air_Traffic_Simulation
                     pp = pp.Previous;
                 }
             }
-            // testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
 
-            
+            // testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
         }
 
         /// <summary>
@@ -740,11 +734,10 @@ namespace Air_Traffic_Simulation
             }
         }
 
-		private void trackBarWindSpeed_Scroll(object sender, EventArgs e)
+        private void trackBarWindSpeed_Scroll(object sender, EventArgs e)
         {
-
         }
-		
+
         private void btnUploadData_Click(object sender, EventArgs e)
         {
             //using (Stream stream = File.Open(serializationFile, FileMode.Open))
