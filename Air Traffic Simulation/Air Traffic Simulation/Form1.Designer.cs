@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.allFlightsListBox = new System.Windows.Forms.ListBox();
             this.prob = new System.Windows.Forms.Label();
             this.labelWind = new System.Windows.Forms.Label();
             this.labelPrec = new System.Windows.Forms.Label();
@@ -68,10 +69,9 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.calcRouteBtn = new System.Windows.Forms.Button();
+            this.panelBeneathGrid = new System.Windows.Forms.Panel();
             this.testAirplaneAndStrip = new System.Windows.Forms.Button();
-            this.allFlightsListBox = new System.Windows.Forms.ListBox();
+            this.calcRouteBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
@@ -84,7 +84,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
-            this.panel7.SuspendLayout();
+            this.panelBeneathGrid.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -113,6 +113,17 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(272, 710);
             this.panel1.TabIndex = 0;
+            // 
+            // allFlightsListBox
+            // 
+            this.allFlightsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.allFlightsListBox.FormattingEnabled = true;
+            this.allFlightsListBox.ItemHeight = 23;
+            this.allFlightsListBox.Location = new System.Drawing.Point(7, 602);
+            this.allFlightsListBox.Name = "allFlightsListBox";
+            this.allFlightsListBox.Size = new System.Drawing.Size(259, 96);
+            this.allFlightsListBox.TabIndex = 19;
             // 
             // prob
             // 
@@ -509,33 +520,23 @@
             // panel5
             // 
             this.panel5.Controls.Add(this.pictureBox1);
-            this.panel5.Controls.Add(this.panel7);
+            this.panel5.Controls.Add(this.panelBeneathGrid);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(272, 42);
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(855, 710);
             this.panel5.TabIndex = 2;
             // 
-            // panel7
+            // panelBeneathGrid
             // 
-            this.panel7.BackColor = System.Drawing.Color.Maroon;
-            this.panel7.Controls.Add(this.testAirplaneAndStrip);
-            this.panel7.Controls.Add(this.calcRouteBtn);
-            this.panel7.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel7.Location = new System.Drawing.Point(0, 610);
-            this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(855, 100);
-            this.panel7.TabIndex = 3;
-            // 
-            // calcRouteBtn
-            // 
-            this.calcRouteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.calcRouteBtn.Location = new System.Drawing.Point(467, 26);
-            this.calcRouteBtn.Name = "calcRouteBtn";
-            this.calcRouteBtn.Size = new System.Drawing.Size(187, 51);
-            this.calcRouteBtn.TabIndex = 3;
-            this.calcRouteBtn.Text = "Calculate Route";
-            this.calcRouteBtn.UseVisualStyleBackColor = true;
+            this.panelBeneathGrid.BackColor = System.Drawing.Color.Maroon;
+            this.panelBeneathGrid.Controls.Add(this.testAirplaneAndStrip);
+            this.panelBeneathGrid.Controls.Add(this.calcRouteBtn);
+            this.panelBeneathGrid.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBeneathGrid.Location = new System.Drawing.Point(0, 610);
+            this.panelBeneathGrid.Name = "panelBeneathGrid";
+            this.panelBeneathGrid.Size = new System.Drawing.Size(855, 100);
+            this.panelBeneathGrid.TabIndex = 3;
             // 
             // testAirplaneAndStrip
             // 
@@ -548,16 +549,15 @@
             this.testAirplaneAndStrip.Text = "Add test airplane and strip";
             this.testAirplaneAndStrip.UseVisualStyleBackColor = true;
             // 
-            // allFlightsListBox
+            // calcRouteBtn
             // 
-            this.allFlightsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.allFlightsListBox.FormattingEnabled = true;
-            this.allFlightsListBox.ItemHeight = 23;
-            this.allFlightsListBox.Location = new System.Drawing.Point(7, 602);
-            this.allFlightsListBox.Name = "allFlightsListBox";
-            this.allFlightsListBox.Size = new System.Drawing.Size(259, 96);
-            this.allFlightsListBox.TabIndex = 19;
+            this.calcRouteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.calcRouteBtn.Location = new System.Drawing.Point(467, 26);
+            this.calcRouteBtn.Name = "calcRouteBtn";
+            this.calcRouteBtn.Size = new System.Drawing.Size(187, 51);
+            this.calcRouteBtn.TabIndex = 3;
+            this.calcRouteBtn.Text = "Calculate Route";
+            this.calcRouteBtn.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -591,7 +591,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel5.ResumeLayout(false);
-            this.panel7.ResumeLayout(false);
+            this.panelBeneathGrid.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -636,7 +636,7 @@
         private System.Windows.Forms.Label prob;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Panel panelBeneathGrid;
         private System.Windows.Forms.Button testAirplaneAndStrip;
         private System.Windows.Forms.Button calcRouteBtn;
         private System.Windows.Forms.ListBox allFlightsListBox;
