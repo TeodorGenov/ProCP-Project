@@ -71,62 +71,58 @@ namespace Air_Traffic_Simulation
                     id = id + 1;
                 }
 
-                assignZoneToCell(c);
-            }
-        }
+                if ((c.id % columnsOfCells >= Math.Floor(0.9 * columnsOfCells / 2)) &&
+                    (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.9 * columnsOfCells / 2)) &&
+                    (c.id > (Math.Floor(0.9 * rowsOfCells / 2) - 1) * columnsOfCells) &&
+                    (c.id < (rowsOfCells - Math.Floor(0.9 * rowsOfCells / 2)) * columnsOfCells))
+                {
+                    c.Type = CellType.FINAL;
+                }
+                else if ((c.id % columnsOfCells >= Math.Floor(0.7 * columnsOfCells / 2)) &&
+                         (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.7 * columnsOfCells / 2)) &&
+                         (c.id > Math.Floor((0.7 * rowsOfCells / 2) - 1) * columnsOfCells) &&
+                         (c.id < (rowsOfCells - Math.Floor(0.7 * rowsOfCells / 2)) * columnsOfCells))
+                {
+                    c.Type = CellType.LOWER;
+                }
 
-        private void assignZoneToCell(Cell c)
-        {
-            if ((c.id % columnsOfCells >= Math.Floor(0.9 * columnsOfCells / 2)) &&
-                (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.9 * columnsOfCells / 2)) &&
-                (c.id > (Math.Floor(0.9 * rowsOfCells / 2) - 1) * columnsOfCells) &&
-                (c.id < (rowsOfCells - Math.Floor(0.9 * rowsOfCells / 2)) * columnsOfCells))
-            {
-                c.Type = CellType.FINAL;
-            }
-            else if ((c.id % columnsOfCells >= Math.Floor(0.7 * columnsOfCells / 2)) &&
-                     (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.7 * columnsOfCells / 2)) &&
-                     (c.id > Math.Floor((0.7 * rowsOfCells / 2) - 1) * columnsOfCells) &&
-                     (c.id < (rowsOfCells - Math.Floor(0.7 * rowsOfCells / 2)) * columnsOfCells))
-            {
-                c.Type = CellType.LOWER;
-            }
-            else if ((c.id % columnsOfCells >= Math.Floor(0.4 * columnsOfCells / 2)) &&
-                     (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.4 * columnsOfCells / 2)) &&
-                     (c.id > Math.Floor((0.4 * rowsOfCells / 2) - 1) * columnsOfCells) &&
-                     (c.id < (rowsOfCells - Math.Floor(0.4 * rowsOfCells / 2)) * columnsOfCells))
-            {
-                c.Type = CellType.MIDDLE;
-            }
-            else if (c.id <= this.columnsOfCells)
-            {
-                c.Type = CellType.BORDER;
-            }
-            else if (c.id % this.columnsOfCells == 1)
-            {
-                c.Type = CellType.BORDER;
-            }
-            else if (c.id % this.columnsOfCells == 0)
-            {
-                c.Type = CellType.BORDER;
-            }
-            //last row
-            else if (c.id > this.columnsOfCells * (this.rowsOfCells - 1))
-            {
-                c.Type = CellType.BORDER;
-            }
-            else
-            {
-                c.Type = CellType.UPPER;
-            }
+                else if ((c.id % columnsOfCells >= Math.Floor(0.4 * columnsOfCells / 2)) &&
+                         (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.4 * columnsOfCells / 2)) &&
+                         (c.id > Math.Floor((0.4 * rowsOfCells / 2) - 1) * columnsOfCells) &&
+                         (c.id < (rowsOfCells - Math.Floor(0.4 * rowsOfCells / 2)) * columnsOfCells))
+                {
+                    c.Type = CellType.MID;
+                }
 
-            //                else if ((c.id % columnsOfCells >= Math.Floor(0.1 * columnsOfCells / 2)) &&
-            //                         (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.1 * columnsOfCells / 2)) &&
-            //                         (c.id > Math.Floor((0.1 * rowsOfCells / 2) - 1) * columnsOfCells) &&
-            //                         (c.id < (rowsOfCells - Math.Floor(0.1 * rowsOfCells / 2)) * columnsOfCells))
-            //                {
-            //                    c.Type = CellType.UPPER;
-            //                }
+//                else if ((c.id % columnsOfCells >= Math.Floor(0.1 * columnsOfCells / 2)) &&
+//                         (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.1 * columnsOfCells / 2)) &&
+//                         (c.id > Math.Floor((0.1 * rowsOfCells / 2) - 1) * columnsOfCells) &&
+//                         (c.id < (rowsOfCells - Math.Floor(0.1 * rowsOfCells / 2)) * columnsOfCells))
+//                {
+//                    c.Type = CellType.UPPER;
+//                }
+                else if (c.id <= this.columnsOfCells)
+                {
+                    c.Type = CellType.BORDER;
+                }
+                else if (c.id % this.columnsOfCells == 1)
+                {
+                    c.Type = CellType.BORDER;
+                }
+                else if (c.id % this.columnsOfCells == 0)
+                {
+                    c.Type = CellType.BORDER;
+                }
+                //last row
+                else if (c.id > this.columnsOfCells * (this.rowsOfCells - 1))
+                {
+                    c.Type = CellType.BORDER;
+                }
+                else
+                {
+                    c.Type = CellType.UPPER;
+                }
+            }
         }
     }
 }

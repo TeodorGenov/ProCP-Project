@@ -38,20 +38,18 @@ namespace Air_Traffic_Simulation
 
         protected virtual double CalculateTimeBetweenPoints(AbstractCheckpoint a)
         {
+            Console.WriteLine(CalculateDistanceBetweenPoints(a) / this.MaxSpeed);
+
             return CalculateDistanceBetweenPoints(a) / this.MaxSpeed;
         }
 
-        /// <summary>
-        /// Shouldn't have to use this one any more. 
-        /// 
-        /// Adds all checkpoints from a list to the reachable destinations of  the checkpoint, from which the method has been called.
-        /// </summary>
-        /// <param name="checkpoints">All the checkpoints we would like to add as reachable destinations.</param>
         public virtual void AddAllPossibleDestinations(List<AbstractCheckpoint> checkpoints)
         {
             foreach (var point in checkpoints)
             {
-                ///TODO: update names of methods
+                ///TODO: update names
+                //this.AddSingleDestination(point, CalculateDistanceBetweenPoints(point));
+
                 this.AddSingleDestination(point, CalculateTimeBetweenPoints(point));
             }
         }
@@ -61,7 +59,7 @@ namespace Air_Traffic_Simulation
             if (this.CoordinateX != destination.CoordinateX || this.CoordinateY != destination.CoordinateY ||
                 !this.Name.Equals(destination.Name))
             {
-                ReachableNodes[destination] = distance;
+                ReachableNodes.Add(destination, distance);
             }
         }
 
