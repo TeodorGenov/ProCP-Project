@@ -562,7 +562,7 @@ namespace Air_Traffic_Simulation
 
                         if (!exists)
                         {
-                            if (c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - 20 || c.y == bmpGrid.Height - 20)
+                            if (c.Type == CellType.BORDER)
                             {
                                 MessageBox.Show("Selected area is for airplanes only.");
                             }
