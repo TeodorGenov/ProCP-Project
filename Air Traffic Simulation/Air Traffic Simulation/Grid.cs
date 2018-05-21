@@ -71,51 +71,37 @@ namespace Air_Traffic_Simulation
                     id = id + 1;
                 }
 
-
-                if (c.id % columnsOfCells > (0.9 * columnsOfCells / 2) &&
-                    c.id % columnsOfCells < (columnsOfCells - (0.9 * columnsOfCells / 2)) &&
-                    (c.id >= 0.9 * columnsOfCells / 2 +
-                     (((0.9 * rowsOfCells / 2) - 1) * columnsOfCells)) &&
-                    (c.id <= totalNumberOfCells - (0.9 * columnsOfCells / 2 +
-                                                   (((0.9 * rowsOfCells / 2) - 1) * columnsOfCells))))
+                if ((c.id % columnsOfCells >= Math.Floor(0.9 * columnsOfCells / 2)) &&
+                    (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.9 * columnsOfCells / 2)) &&
+                    (c.id > (Math.Floor(0.9 * rowsOfCells / 2) - 1) * columnsOfCells) &&
+                    (c.id < (rowsOfCells - Math.Floor(0.9 * rowsOfCells / 2)) * columnsOfCells))
                 {
                     c.Type = CellType.FINAL;
                 }
-
-                else if (c.id % columnsOfCells > (0.7 * columnsOfCells / 2) &&
-                         c.id % columnsOfCells < (columnsOfCells - (0.7 * columnsOfCells / 2)) &&
-                         (c.id >= 0.7 * columnsOfCells / 2 +
-                          (((0.7 * rowsOfCells / 2) - 1) * columnsOfCells)) &&
-                         (c.id <= totalNumberOfCells - (0.7 * columnsOfCells / 2 +
-                                                        (((0.7 * rowsOfCells / 2) - 1) * columnsOfCells))))
+                else if ((c.id % columnsOfCells >= Math.Floor(0.7 * columnsOfCells / 2)) &&
+                         (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.7 * columnsOfCells / 2)) &&
+                         (c.id > Math.Floor((0.7 * rowsOfCells / 2) - 1) * columnsOfCells) &&
+                         (c.id < (rowsOfCells - Math.Floor(0.7 * rowsOfCells / 2)) * columnsOfCells))
                 {
                     c.Type = CellType.LOWER;
                 }
 
-                else if (c.id % columnsOfCells > (0.4 * columnsOfCells / 2) &&
-                         c.id % columnsOfCells < (columnsOfCells - (0.4 * columnsOfCells / 2)) &&
-                         (c.id >= 0.4 * columnsOfCells / 2 +
-                          (((0.4 * rowsOfCells / 2) - 1) * columnsOfCells)) &&
-                         (c.id <= totalNumberOfCells - (0.4 * columnsOfCells / 2 +
-                                                        (((0.4 * rowsOfCells / 2) - 1) * columnsOfCells))))
+                else if ((c.id % columnsOfCells >= Math.Floor(0.4 * columnsOfCells / 2)) &&
+                         (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.4 * columnsOfCells / 2)) &&
+                         (c.id > Math.Floor((0.4 * rowsOfCells / 2) - 1) * columnsOfCells) &&
+                         (c.id < (rowsOfCells - Math.Floor(0.4 * rowsOfCells / 2)) * columnsOfCells))
                 {
                     c.Type = CellType.MID;
                 }
 
-                else if (c.id % columnsOfCells > (0.05 * columnsOfCells / 2) &&
-                         c.id % columnsOfCells < (columnsOfCells - (0.05 * columnsOfCells / 2)) &&
-                         (c.id >= 0.05 * columnsOfCells / 2 +
-                          (((0.05 * rowsOfCells / 2) - 1) * columnsOfCells)) &&
-                         (c.id <= totalNumberOfCells - (0.05 * columnsOfCells / 2 +
-                                                        (((0.05 * rowsOfCells / 2) - 1) * columnsOfCells))))
-                {
-                    c.Type = CellType.UPPER;
-                }
-
-
-                //TODO: add this to the previous if somehow; edit the rounding errors
-                //first row
-                if (c.id <= this.columnsOfCells)
+//                else if ((c.id % columnsOfCells >= Math.Floor(0.1 * columnsOfCells / 2)) &&
+//                         (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.1 * columnsOfCells / 2)) &&
+//                         (c.id > Math.Floor((0.1 * rowsOfCells / 2) - 1) * columnsOfCells) &&
+//                         (c.id < (rowsOfCells - Math.Floor(0.1 * rowsOfCells / 2)) * columnsOfCells))
+//                {
+//                    c.Type = CellType.UPPER;
+//                }
+                else if (c.id <= this.columnsOfCells)
                 {
                     c.Type = CellType.BORDER;
                 }
@@ -132,8 +118,11 @@ namespace Air_Traffic_Simulation
                 {
                     c.Type = CellType.BORDER;
                 }
+                else
+                {
+                    c.Type = CellType.UPPER;
+                }
             }
-            
         }
     }
 }

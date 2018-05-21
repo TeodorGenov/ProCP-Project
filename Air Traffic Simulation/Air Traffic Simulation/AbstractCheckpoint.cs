@@ -38,6 +38,8 @@ namespace Air_Traffic_Simulation
 
         protected virtual double CalculateTimeBetweenPoints(AbstractCheckpoint a)
         {
+            Console.WriteLine(CalculateDistanceBetweenPoints(a) / this.MaxSpeed);
+
             return CalculateDistanceBetweenPoints(a) / this.MaxSpeed;
         }
 

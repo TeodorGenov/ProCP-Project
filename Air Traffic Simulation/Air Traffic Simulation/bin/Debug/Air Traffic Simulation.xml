@@ -31,11 +31,6 @@
             Marks the type of cell. Depending on this, min and max speeds and altitudes will be defined.
             </summary>
         </member>
-        <member name="M:Air_Traffic_Simulation.Form1.t_Tick(System.Object,System.EventArgs)">
-            <summary>
-            RADAR METHOD
-            </summary>
-        </member>
         <member name="M:Air_Traffic_Simulation.Form1.ConnectDots(System.Drawing.Point,System.Drawing.Point)">
             <summary>
             Creates a line between two points on the grid.
@@ -62,6 +57,23 @@
             <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         </member>
         <member name="M:Air_Traffic_Simulation.Form1.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Form2.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Air_Traffic_Simulation.Form2.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Air_Traffic_Simulation.Form2.InitializeComponent">
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
