@@ -134,7 +134,6 @@ namespace Air_Traffic_Simulation
             airplaneList = new List<Airplane>();
             testPlane = new Airplane(name: "FB123", coordinateX: 35, coordinateY: 64, speed: 300,
                 flightNumber: "FB321");
-            airplaneList.Add(testPlane);
             //testPlane2 = new Airplane(name: "FB123", coordinateX: 100, coordinateY: 100, speed: 300,
            //     flightNumber: "FB321");
            // airplaneList.Add(testPlane2);
@@ -147,6 +146,10 @@ namespace Air_Traffic_Simulation
             width = this.pictureBox1.Width;
             height = this.pictureBox1.Height;
             grid = new Grid(width, height);
+
+
+     
+
 
             // Slider info
             temp = trackBarTemperature.Value;
@@ -203,6 +206,8 @@ namespace Air_Traffic_Simulation
 
             pictureBox1.Image = bmpGrid;
             PaintGrid();
+
+            
         }
 
 
@@ -355,26 +360,12 @@ namespace Air_Traffic_Simulation
         {
             //TODO: Remove following test lines:
 
-            testStrip = new Airstrip("Strip A", 550, 50, true, 360);
 
+            testStrip = new Airstrip("Strip A", 550, 50, true, 360);
+            // drawing the strip
             foreach (Cell c in grid.listOfCells)
             {
-                if (c.ContainsPoint(Convert.ToInt32(testPlane.CoordinateX), Convert.ToInt32(testPlane.CoordinateY)))
-                {
-                    Point p = c.GetCenter();
-
-                    //slightly, uh, artistically collaborated PaintCircle
-                    float x = p.X - 3;
-                    float y = p.Y - 3;
-                    float width = 2 * 3;
-                    float height = 2 * 3;
-                    Pen pen = new Pen(Color.Red);
-                    Graphics g = this.pictureBox1.CreateGraphics();
-                    g.DrawRectangle(pen, x, y, width, height);
-
-                    string name = "aircraft" + testPlane;
-                }
-                else if (c.ContainsPoint(Convert.ToInt32(testStrip.CoordinateX),
+                if (c.ContainsPoint(Convert.ToInt32(testStrip.CoordinateX),
                     Convert.ToInt32(testStrip.CoordinateY)))
                 {
                     Point p = c.GetCenter();
@@ -387,19 +378,8 @@ namespace Air_Traffic_Simulation
                     Brush pen = new SolidBrush(Color.Green);
                     Graphics g = this.pictureBox1.CreateGraphics();
                     g.FillRectangle(pen, x, y, width, height);
-
-                    string name = "aircraft" + testPlane;
                 }
             }
-
-            MessageBox.Show("Added test airplane  " + testPlane.Name + "  With coordinates: (" + testPlane.CoordinateX +
-                            "," + testPlane.CoordinateY +
-                            ")\nThat's the red empty square in the center bottom of the screen." +
-                            "\n\n..and test airstrip  " + testStrip.Name + "  With coordinates: (" +
-                            testStrip.CoordinateX + "," + testStrip.CoordinateY +
-                            ")\n(That's the green filled square in the upper right of the screen.)");
-
-            this.testAirplaneAndStrip.Enabled = false;
         }
 
 
@@ -410,23 +390,27 @@ namespace Air_Traffic_Simulation
         /// <param name="e"></param>
         private void calcRouteBtn_Click(object sender, EventArgs e)
         {
-            testPlane.calculateShortestPath(this.checkpoints);
-
-            Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
-
-            var ppp = testPlane.ShortestPath.Last;
-            string planePath = String.Empty;
-            while (ppp != null)
+            foreach (Airplane plane in airplaneList)
             {
-                planePath += ppp.Value.Name + " -> ";
+                plane.calculateShortestPath(this.checkpoints);
 
-                Point b = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
-                ConnectDots(a, b);
-                a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
-                ppp = ppp.Previous;
+                Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
+
+                var ppp = plane.ShortestPath.Last;
+                string planePath = String.Empty;
+                while (ppp != null)
+                {
+                    planePath += ppp.Value.Name + " -> ";
+
+                    Point b = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
+                    ConnectDots(a, b);
+                    a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
+                    ppp = ppp.Previous;
+                }
+
+                Console.WriteLine(planePath);
             }
-
-            Console.WriteLine(planePath);
+            
             //generates the message box that informs the user that some areas are missing points
             bool[] allZonesCheck = new bool[] {false, false, false, false};
             string lacking =
@@ -689,7 +673,7 @@ namespace Air_Traffic_Simulation
                 }
             }
 
-            Console.WriteLine($"testplane x: {testPlane.CoordinateX} testplane y: {testPlane.CoordinateY}");
+            //Console.WriteLine($"testplane x: {testPlane.CoordinateX} testplane y: {testPlane.CoordinateY}");
 
             foreach (Airplane p in airplaneList)
             {
@@ -710,7 +694,6 @@ namespace Air_Traffic_Simulation
 
         private void button5_Click(object sender, EventArgs e)
         {
-            testStrip = new Airstrip("Strip A", 550, 50, true, 360);
             foreach (Airplane p in airplaneList)
             {
                 Pen pen = new Pen(Color.Red);
@@ -800,6 +783,11 @@ namespace Air_Traffic_Simulation
                 RemovingCheckpoints = 0;
                 btnRemoveCheckpoint.Text = "Remove";
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void button1_Click(object sender, EventArgs e)
