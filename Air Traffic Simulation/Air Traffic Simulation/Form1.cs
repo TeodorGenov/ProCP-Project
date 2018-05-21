@@ -449,11 +449,9 @@ namespace Air_Traffic_Simulation
         {
             //TODO: Fix mismatching var types of Doubles for Checkpoint locations and Ints for Cell locations
             //TODO: Remove following test lines:
-
-            testPlane = new Airplane(name: "FB123", coordinateX: 20, coordinateY: this.pictureBox1.Height - 10,
-                speed: 300,
+            testPlane = new Airplane(name: "FB123", coordinateX: 20, coordinateY: this.pictureBox1.Height-20, speed: 300,
                 flightNumber: "FB321");
-            testStrip = new Airstrip("Strip A", 390, 222, true, 360);
+            testStrip = new Airstrip("Strip A", 550, 50, true, 360);
 
             foreach (Cell c in grid.listOfCells)
             {
@@ -502,27 +500,22 @@ namespace Air_Traffic_Simulation
 
         private void calcRouteButtonClick(object sender, EventArgs e)
         {
-            foreach(Airplane airpln in airplanes)
+            testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
+
+            Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
+
+
+            var pp = testStrip.ShortestPath.Last;
+
+            while (pp != null)
             {
-                airpln.calculateShortestPath(this.checkpoints, this.testStrip);
-                Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
-
-
-                var pp = testStrip.ShortestPath.Last;
-
-                while (pp != null)
-                {
-                    Point b = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
-                    //TODO: Remove cw
-                    Console.WriteLine($"a: {a.X}, {a.Y} \t b: {b.X}, {b.Y}");
-                    ConnectDots(a, b);
-                    a = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
-                    pp = pp.Previous;
-                }
+                Point b = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
+                //TODO: Remove cw
+                Console.WriteLine($"a: {a.X}, {a.Y} \t b: {b.X}, {b.Y}");
+                ConnectDots(a, b);
+                a = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
+                pp = pp.Previous;
             }
-            // testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
-
-            
         }
 
         /// <summary>
@@ -597,76 +590,11 @@ namespace Air_Traffic_Simulation
                     }
                 }
             }
-			else if (AddingAirplanes == 1)
-            {
-                foreach (Cell c in grid.listOfCells)
-                {
-                    if (c.ContainsPoint(e.X, e.Y) == true)
-                    {
-                        bool exists = false;
-                        Point p = c.GetCenter();
-                        foreach (Airplane mm in airplanes)
-                        {
-                            if (mm.CoordinateX == p.X && mm.CoordinateY == p.Y)
-                            {
-                                MessageBox.Show("Airplane already exists at this location", "WARNING");
-                                exists = true;
-                            }
-                        }
-
-                        if (!exists)
-                        {
-                            if (c.Type == CellType.BORDER)
-                            {
-                                PaintRectangle(p);
-
-                                apName++;
-                                fnName += 6 * 2 / 3;
-                                string name = "Airplane" + apName;
-                                string flight = "fn" + fnName + "z";
-                                Airplane a = new Airplane(name, p.X, p.Y, Convert.ToDouble(nSpeed.Value), flight);
-                                airplanes.Add(a);
-                                MessageBox.Show("Added Airplane  " + a.Name + "\nCoordinates: \t(" + a.CoordinateX +
-                                                "," + a.CoordinateY + ")" + "\nFlight number: \t(" + flight + ") " +
-                                                "\nSpeed: \t\t(" + nSpeed.Value + "kmh)");
-                            }
-                            else
-                            {
-                                MessageBox.Show("This area is used for checkpoints only");
-                            }
-                        }
-                    }
-                }
-            }
-            else if (RemovingAirplanes == 1)
-            {
-                foreach (Cell c in grid.listOfCells)
-                {
-                    if (c.ContainsPoint(e.X, e.Y) == true)
-                    {
-                        Point p = c.GetCenter();
-                        foreach (Airplane bee in airplanes)
-                        {
-                            if (bee.CoordinateX == p.X && bee.CoordinateY == p.Y)
-                            {
-                                PaintRectangleY(p);
-                                Airplane v = bee;
-                                airplanes.Remove(bee);
-                                MessageBox.Show("Successfully removed Airplane " + v.Name + " With coordinates(" +
-                                                v.CoordinateX + "," + v.CoordinateY + ").");
-                                break;
-                            }
-                        }
-                    }
-                }
-            }			
-			
         }
-
 
         private void trackBarWindSpeed_Scroll(object sender, EventArgs e)
         {
-			
+
         }
 
         private void Header_Paint(object sender, PaintEventArgs e)
@@ -985,14 +913,10 @@ namespace Air_Traffic_Simulation
         }
 
 
-        public void PaintRectangleY(Point p)
-        {
-            float x = p.X - 3;
-            float y = p.Y - 3;
-            float width = 2 * 3;
-            float height = 2 * 3;
-            Pen pen = new Pen(Color.Yellow);
-            Graphics g = this.pictureBox1.CreateGraphics();
-            g.DrawRectangle(pen, x, y, width, height);
+        
+
+
+
+
         }
     }
