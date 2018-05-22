@@ -149,6 +149,10 @@ namespace Air_Traffic_Simulation
             height = this.pictureBox1.Height;
             grid = new Grid(width, height);
 
+
+     
+
+
             // Slider info
             temp = trackBarTemperature.Value;
             prec = trackBarPrecipitation.Value;
@@ -401,6 +405,7 @@ namespace Air_Traffic_Simulation
             //}
         }
 
+
         /// <summary>
         /// Generates and draws the route between the example airplane and the airfield.
         /// </summary>
@@ -408,15 +413,19 @@ namespace Air_Traffic_Simulation
         /// <param name="e"></param>
         private void calcRouteBtn_Click(object sender, EventArgs e)
         {
-            testPlane.calculateShortestPath(this.checkpoints);
+            foreach (Airplane plane in airplaneList)
+            {
+                plane.calculateShortestPath(this.checkpoints);
+
 
             Point a = new Point(Convert.ToInt32(landingStrip.CoordinateX), Convert.ToInt32(landingStrip.CoordinateY));
 
-            var ppp = testPlane.ShortestPath.Last;
-            string planePath = String.Empty;
-            while (ppp != null)
-            {
-                planePath += ppp.Value.Name + " -> ";
+
+                var ppp = plane.ShortestPath.Last;
+                string planePath = String.Empty;
+                while (ppp != null)
+                {
+                    planePath += ppp.Value.Name + " -> ";
 
                 Point b = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
                 ConnectDots(a, b);
@@ -425,6 +434,7 @@ namespace Air_Traffic_Simulation
             }
             //TODO: remove planepath print
             Console.WriteLine(planePath);
+
             //generates the message box that informs the user that some areas are missing points
             bool[] allZonesCheck = new bool[] {false, false, false, false};
             string lacking =
@@ -796,6 +806,11 @@ namespace Air_Traffic_Simulation
                 RemovingCheckpoints = 0;
                 btnRemoveCheckpoint.Text = "Remove";
             }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void button1_Click(object sender, EventArgs e)

@@ -83,6 +83,7 @@
             this.calcRouteBtn = new System.Windows.Forms.Button();
             this.testAirplaneAndStrip = new System.Windows.Forms.Button();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.button6 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
@@ -656,6 +657,7 @@
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.button6);
             this.panel5.Controls.Add(this.button5);
             this.panel5.Controls.Add(this.calcRouteBtn);
             this.panel5.Controls.Add(this.testAirplaneAndStrip);
@@ -696,13 +698,26 @@
             this.testAirplaneAndStrip.Name = "testAirplaneAndStrip";
             this.testAirplaneAndStrip.Size = new System.Drawing.Size(187, 54);
             this.testAirplaneAndStrip.TabIndex = 1;
+
             this.testAirplaneAndStrip.Text = "Draw test airplane";
+           // this.testAirplaneAndStrip.Text = "Add test strip";
+//>>>>>>> path_following_3
             this.testAirplaneAndStrip.UseVisualStyleBackColor = false;
             this.testAirplaneAndStrip.Click += new System.EventHandler(this.addTestAirplaneAndStrip);
             // 
             // timer2
             // 
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(262, 525);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(75, 23);
+            this.button6.TabIndex = 4;
+            this.button6.Text = "button6";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
             // 
             // Form1
             // 
@@ -800,7 +815,7 @@
         private System.Windows.Forms.Button calcRouteBtn;
         private System.Windows.Forms.Timer timer2;
         private System.Windows.Forms.Button button5;
-
+        private System.Windows.Forms.Button button6;
     }
 }
 

@@ -9,3 +9,14 @@ D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulati
 D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.exe
 D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.pdb
 D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csprojResolveAssemblyReference.cache
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.config
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.xml
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.pdb
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csprojResolveAssemblyReference.cache
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Form1.resources
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Properties.Resources.resources
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.GenerateResource.cache
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.CoreCompileInputs.cache
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.exe
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.pdb
