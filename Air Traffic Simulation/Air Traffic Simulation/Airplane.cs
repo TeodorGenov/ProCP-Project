@@ -76,8 +76,8 @@ namespace Air_Traffic_Simulation
             //airplane ..which will f things up if the weather disables checkpoint a before reaching it..
             //think about this later..
 
-            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Math.Floor(Cell.Width / 2f) &&
-                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Math.Floor(Cell.Width / 2f) &&
+            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Cell.Width &&
+                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Cell.Width &&
                 OnAirportReached != null)
             {
                 OnAirportReached(this, EventArgs.Empty);

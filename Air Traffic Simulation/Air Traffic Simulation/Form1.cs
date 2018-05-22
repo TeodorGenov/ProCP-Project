@@ -132,6 +132,7 @@ namespace Air_Traffic_Simulation
 
             checkpoints = new List<Checkpoint>();
             airplaneList = new List<Airplane>();
+            planesOnTheGround = new List<Airplane>();
             testPlane = new Airplane(name: "FB123", coordinateX: 35, coordinateY: 64, speed: 300,
                 flightNumber: "FB321");
             testPlane.OnAirportReached += airplaneHasReachedTheAirport;
@@ -230,7 +231,7 @@ namespace Air_Traffic_Simulation
 
         private void airplaneHasReachedTheAirport(Object sender, EventArgs e)
         {
-            //this.planesOnTheGround.Add((Airplane)sender);
+            this.planesOnTheGround.Add((Airplane) sender);
             this.airplaneList.Remove((Airplane) sender);
             Refresh();
         }
@@ -410,6 +411,7 @@ namespace Air_Traffic_Simulation
         /// <param name="e"></param>
         private void calcRouteBtn_Click(object sender, EventArgs e)
         {
+            Console.WriteLine(airplaneList.Count);
             foreach (Airplane plane in airplaneList)
             {
                 plane.calculateShortestPath(this.checkpoints);
@@ -580,7 +582,9 @@ namespace Air_Traffic_Simulation
                                 fnName += 6 * 2 / 3;
                                 string name = "Airplane" + apName;
                                 string flight = "fn" + fnName + "z";
+
                                 Airplane a = new Airplane(name, p.X, p.Y, Convert.ToDouble(nSpeed.Value), flight);
+                                a.OnAirportReached += airplaneHasReachedTheAirport;
                                 airplaneList.Add(a);
                                 MessageBox.Show("Added Airplane  " + a.Name + "\nCoordinates: \t(" + a.CoordinateX +
                                                 "," + a.CoordinateY + ")" + "\nFlight number: \t(" + flight + ") " +
@@ -711,9 +715,9 @@ namespace Air_Traffic_Simulation
 
         private void button5_Click(object sender, EventArgs e)
         {
-            if (timer2.Enabled)
+            if (timerPlaneMovement.Enabled)
             {
-                timer2.Stop();
+                timerPlaneMovement.Stop();
             }
             else
             {
@@ -724,7 +728,7 @@ namespace Air_Traffic_Simulation
                     g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
                 }
 
-                timer2.Start();
+                timerPlaneMovement.Start();
             }
         }
 
@@ -806,10 +810,6 @@ namespace Air_Traffic_Simulation
                 RemovingCheckpoints = 0;
                 btnRemoveCheckpoint.Text = "Remove";
             }
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
         }
 
         private void button1_Click(object sender, EventArgs e)

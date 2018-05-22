@@ -79,11 +79,10 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.button5 = new System.Windows.Forms.Button();
+            this.btnStartPlaneMovement = new System.Windows.Forms.Button();
             this.calcRouteBtn = new System.Windows.Forms.Button();
             this.testAirplaneAndStrip = new System.Windows.Forms.Button();
-            this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.button6 = new System.Windows.Forms.Button();
+            this.timerPlaneMovement = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
@@ -176,7 +175,6 @@
             this.trackBarPrecipitation.TabIndex = 14;
             this.trackBarPrecipitation.TabStop = false;
             this.trackBarPrecipitation.Value = 24;
-//            this.trackBarPrecipitation.ValueChanged += new System.EventHandler(this.trackBarPrecipitation_ValueChanged);
             // 
             // label7
             // 
@@ -657,8 +655,7 @@
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.button6);
-            this.panel5.Controls.Add(this.button5);
+            this.panel5.Controls.Add(this.btnStartPlaneMovement);
             this.panel5.Controls.Add(this.calcRouteBtn);
             this.panel5.Controls.Add(this.testAirplaneAndStrip);
             this.panel5.Controls.Add(this.pictureBox1);
@@ -668,15 +665,15 @@
             this.panel5.Size = new System.Drawing.Size(855, 578);
             this.panel5.TabIndex = 2;
             // 
-            // button5
+            // btnStartPlaneMovement
             // 
-            this.button5.Location = new System.Drawing.Point(99, 526);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(75, 23);
-            this.button5.TabIndex = 3;
-            this.button5.Text = "button5";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.btnStartPlaneMovement.Location = new System.Drawing.Point(99, 526);
+            this.btnStartPlaneMovement.Name = "btnStartPlaneMovement";
+            this.btnStartPlaneMovement.Size = new System.Drawing.Size(75, 23);
+            this.btnStartPlaneMovement.TabIndex = 3;
+            this.btnStartPlaneMovement.Text = "btnStartPlaneMovement";
+            this.btnStartPlaneMovement.UseVisualStyleBackColor = true;
+            this.btnStartPlaneMovement.Click += new System.EventHandler(this.button5_Click);
             // 
             // calcRouteBtn
             // 
@@ -698,26 +695,13 @@
             this.testAirplaneAndStrip.Name = "testAirplaneAndStrip";
             this.testAirplaneAndStrip.Size = new System.Drawing.Size(187, 54);
             this.testAirplaneAndStrip.TabIndex = 1;
-
             this.testAirplaneAndStrip.Text = "Draw test airplane";
-           // this.testAirplaneAndStrip.Text = "Add test strip";
-//>>>>>>> path_following_3
             this.testAirplaneAndStrip.UseVisualStyleBackColor = false;
             this.testAirplaneAndStrip.Click += new System.EventHandler(this.addTestAirplaneAndStrip);
             // 
-            // timer2
+            // timerPlaneMovement
             // 
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(262, 525);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(75, 23);
-            this.button6.TabIndex = 4;
-            this.button6.Text = "button6";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
+            this.timerPlaneMovement.Tick += new System.EventHandler(this.timer2_Tick);
             // 
             // Form1
             // 
@@ -813,9 +797,8 @@
 
         private System.Windows.Forms.Button testAirplaneAndStrip;
         private System.Windows.Forms.Button calcRouteBtn;
-        private System.Windows.Forms.Timer timer2;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.Timer timerPlaneMovement;
+        private System.Windows.Forms.Button btnStartPlaneMovement;
     }
 }
 
