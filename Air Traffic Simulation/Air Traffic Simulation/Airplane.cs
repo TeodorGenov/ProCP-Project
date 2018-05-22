@@ -26,7 +26,7 @@ namespace Air_Traffic_Simulation
 
         public double Speed
         {
-            get => speed;
+            get { return speed; }
             private set
             {
                 ktsPerSecond = value / 360;
