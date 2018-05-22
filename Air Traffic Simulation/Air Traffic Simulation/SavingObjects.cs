@@ -33,9 +33,9 @@ namespace Air_Traffic_Simulation
         {
             get { return checkpoints; }
         }
-        public List<Checkpoint> getGroundplanes
+        public List<Airplane> getGroundplanes
         {
-            get { return checkpoints; }
+            get { return groundplanes; }
         }
 
     }

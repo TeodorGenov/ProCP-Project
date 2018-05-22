@@ -828,6 +828,18 @@ namespace Air_Traffic_Simulation
                     Graphics g = this.pictureBox1.CreateGraphics();
                     g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
                 }
+                else if (p.ShortestPath.Count == 0)
+                {
+                    airplaneHasReachedTheAirport(p, e);
+
+                    allFlightsListBox.Items.Clear();
+                        foreach(Airplane a in planesOnTheGround)
+                    {
+                        allFlightsListBox.Items.Add(p.Name + "\t" + p.FlightNumber);
+                    }
+                    
+                }
+               
             }
         }
 
@@ -897,22 +909,32 @@ namespace Air_Traffic_Simulation
                 filestream.Close();
                 filestream = null;
 
-
-                foreach (Checkpoint a in checkpoints)
+                if(checkpoints != null)
                 {
-                    PaintCircle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
-                    cpName++;
+                    foreach (Checkpoint a in checkpoints)
+                    {
+                        PaintCircle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
+                        cpName++;
+                    }
                 }
-                foreach(Airplane a in airplaneList)
+                if(airplaneList != null)
+                {
+                    foreach(Airplane a in airplaneList)
                 {
                     apName++;
                     fnName += 6 * 2 / 3;
                     PaintRectangle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
                 }
-                foreach(Airplane a in planesOnTheGround)
-                {
-                    allFlightsListBox.Items.Add(a.Name + "\t" + a.FlightNumber);
                 }
+                if(planesOnTheGround != null)
+                {
+                    foreach (Airplane a in planesOnTheGround)
+                    {
+                        allFlightsListBox.Items.Add(a.Name + "\t" + a.FlightNumber);
+                    }
+                }
+                
+                
             }
 
             //foreach (Checkpoint a in checkpoints)
