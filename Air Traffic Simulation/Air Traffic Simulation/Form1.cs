@@ -150,9 +150,6 @@ namespace Air_Traffic_Simulation
             grid = new Grid(width, height);
 
 
-     
-
-
             // Slider info
             temp = trackBarTemperature.Value;
             prec = trackBarPrecipitation.Value;
@@ -233,8 +230,8 @@ namespace Air_Traffic_Simulation
 
         private void airplaneHasReachedTheAirport(Object sender, EventArgs e)
         {
+            //this.planesOnTheGround.Add((Airplane)sender);
             this.airplaneList.Remove((Airplane) sender);
-            this.planesOnTheGround.Add((Airplane) sender);
             Refresh();
         }
 
@@ -418,7 +415,8 @@ namespace Air_Traffic_Simulation
                 plane.calculateShortestPath(this.checkpoints);
 
 
-            Point a = new Point(Convert.ToInt32(landingStrip.CoordinateX), Convert.ToInt32(landingStrip.CoordinateY));
+                Point a = new Point(Convert.ToInt32(landingStrip.CoordinateX),
+                    Convert.ToInt32(landingStrip.CoordinateY));
 
 
                 var ppp = plane.ShortestPath.Last;
@@ -427,48 +425,50 @@ namespace Air_Traffic_Simulation
                 {
                     planePath += ppp.Value.Name + " -> ";
 
-                Point b = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
-                ConnectDots(a, b);
-                a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
-                ppp = ppp.Previous;
-            }
-            //TODO: remove planepath print
-            Console.WriteLine(planePath);
+                    Point b = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
+                    ConnectDots(a, b);
+                    a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
+                    ppp = ppp.Previous;
+                }
 
-            //generates the message box that informs the user that some areas are missing points
-            bool[] allZonesCheck = new bool[] {false, false, false, false};
-            string lacking =
-                $"   - UPPER{Environment.NewLine}   - MIDDLE{Environment.NewLine}   - LOWER{Environment.NewLine}   - FINAL";
+                //TODO: remove planepath print
+                Console.WriteLine(planePath);
 
-            foreach (Checkpoint point in checkpoints)
-            {
-                if (point.ParentCellType == CellType.UPPER)
-                {
-                    lacking = lacking.Replace($"   - UPPER{Environment.NewLine}", string.Empty);
-                    allZonesCheck[0] = true;
-                }
-                else if (point.ParentCellType == CellType.MIDDLE)
-                {
-                    lacking = lacking.Replace($"   - MIDDLE{Environment.NewLine}", string.Empty);
-                    allZonesCheck[1] = true;
-                }
-                else if (point.ParentCellType == CellType.LOWER)
-                {
-                    lacking = lacking.Replace($"   - LOWER{Environment.NewLine}", string.Empty);
-                    allZonesCheck[2] = true;
-                }
-                else if (point.ParentCellType == CellType.FINAL)
-                {
-                    lacking = lacking.Replace("   - FINAL", string.Empty);
-                    allZonesCheck[3] = true;
-                }
-            }
+                //generates the message box that informs the user that some areas are missing points
+                bool[] allZonesCheck = new bool[] {false, false, false, false};
+                string lacking =
+                    $"   - UPPER{Environment.NewLine}   - MIDDLE{Environment.NewLine}   - LOWER{Environment.NewLine}   - FINAL";
 
-            if (allZonesCheck.Contains(false))
-            {
-                MessageBox.Show(
-                    $"There seem to be no checkpoints in the following zones:{Environment.NewLine}{Environment.NewLine}{lacking}",
-                    "Missing Checkpoint", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                foreach (Checkpoint point in checkpoints)
+                {
+                    if (point.ParentCellType == CellType.UPPER)
+                    {
+                        lacking = lacking.Replace($"   - UPPER{Environment.NewLine}", string.Empty);
+                        allZonesCheck[0] = true;
+                    }
+                    else if (point.ParentCellType == CellType.MIDDLE)
+                    {
+                        lacking = lacking.Replace($"   - MIDDLE{Environment.NewLine}", string.Empty);
+                        allZonesCheck[1] = true;
+                    }
+                    else if (point.ParentCellType == CellType.LOWER)
+                    {
+                        lacking = lacking.Replace($"   - LOWER{Environment.NewLine}", string.Empty);
+                        allZonesCheck[2] = true;
+                    }
+                    else if (point.ParentCellType == CellType.FINAL)
+                    {
+                        lacking = lacking.Replace("   - FINAL", string.Empty);
+                        allZonesCheck[3] = true;
+                    }
+                }
+
+                if (allZonesCheck.Contains(false))
+                {
+                    MessageBox.Show(
+                        $"There seem to be no checkpoints in the following zones:{Environment.NewLine}{Environment.NewLine}{lacking}",
+                        "Missing Checkpoint", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                }
             }
         }
 
@@ -810,7 +810,6 @@ namespace Air_Traffic_Simulation
 
         private void button6_Click(object sender, EventArgs e)
         {
-
         }
 
         private void button1_Click(object sender, EventArgs e)
