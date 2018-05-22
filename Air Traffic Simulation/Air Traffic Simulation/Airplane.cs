@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Air_Traffic_Simulation
 {
+    [Serializable]
     class Airplane : AbstractCheckpoint
     {
         public override string Name { get; }
@@ -64,6 +65,7 @@ namespace Air_Traffic_Simulation
         private bool first = true;
         private double leapx = 0;
         private double leapy = 0;
+        [NonSerialized]
         private LinkedListNode<AbstractCheckpoint> target;
 
         public void MoveTowardsNextPoint()

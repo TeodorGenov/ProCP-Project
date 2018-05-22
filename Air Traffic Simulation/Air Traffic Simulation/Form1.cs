@@ -488,6 +488,8 @@ namespace Air_Traffic_Simulation
 
         private void btnSaveData_Click(object sender, EventArgs e)
         {
+            SavingObjects so = new SavingObjects(airplaneList, checkpoints);
+
             SaveFileDialog SaveFileDialogMain = new SaveFileDialog();
             SaveFileDialogMain.Filter = "Binary Files (*.bin)|*.bin";
             SaveFileDialogMain.DefaultExt = "bin";
@@ -497,7 +499,7 @@ namespace Air_Traffic_Simulation
                 var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 string filename = SaveFileDialogMain.FileName;
                 FileStream filestream = new FileStream(filename, FileMode.Create, FileAccess.Write);
-                bformatter.Serialize(filestream, checkpoints);
+                bformatter.Serialize(filestream, so);
                 filestream.Close();
                 filestream = null;
             }
@@ -879,8 +881,13 @@ namespace Air_Traffic_Simulation
                 }
 
                 checkpoints = null;
+                airplaneList = null;
 
-                checkpoints = (List<Checkpoint>) bformatter.Deserialize(filestream);
+                SavingObjects so = null;
+
+                so = (SavingObjects) bformatter.Deserialize(filestream);
+                checkpoints = so.getCheckpoints;
+                airplaneList = so.getAirplanes;
 
                 filestream.Close();
                 filestream = null;
@@ -890,6 +897,12 @@ namespace Air_Traffic_Simulation
                 {
                     PaintCircle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
                     cpName++;
+                }
+                foreach(Airplane a in airplaneList)
+                {
+                    apName++;
+                    fnName += 6 * 2 / 3;
+                    PaintRectangle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
                 }
             }
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace Air_Traffic_Simulation
 {
+    [Serializable]
     class Airstrip : AbstractCheckpoint
     {
         /// <summary>
