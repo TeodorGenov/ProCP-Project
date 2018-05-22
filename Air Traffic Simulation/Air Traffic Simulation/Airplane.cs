@@ -15,6 +15,12 @@ namespace Air_Traffic_Simulation
         public override Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }
         public override double CoordinateX { get; set; }
         public override double CoordinateY { get; set; }
+        public List<AbstractCheckpoint> Route { get; private set; }
+        public string FlightNumber { get; private set; }
+        public override int MaxSpeed { get; }
+        public override int MinSpeed { get; }
+        public override int MaxAltitude { get; }
+        public override int MinAltitude { get; }
 
         private double speed;
 
@@ -28,12 +34,7 @@ namespace Air_Traffic_Simulation
             }
         }
 
-        public List<AbstractCheckpoint> Route { get; private set; }
-        public string FlightNumber { get; private set; }
-        public override int MaxSpeed { get; }
-        public override int MinSpeed { get; }
-        public override int MaxAltitude { get; }
-        public override int MinAltitude { get; }
+        public event EventHandler OnAirportReached;
 
         /// <summary>
         /// The airplane's speed for knots per second. Used for calculation of movement.
@@ -75,9 +76,11 @@ namespace Air_Traffic_Simulation
             //airplane ..which will f things up if the weather disables checkpoint a before reaching it..
             //think about this later..
 
-            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Math.Floor(Cell.Width/2f) &&
-                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Math.Floor(Cell.Width/2f))
+            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Math.Floor(Cell.Width / 2f) &&
+                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Math.Floor(Cell.Width / 2f) &&
+                OnAirportReached != null)
             {
+                OnAirportReached(this, EventArgs.Empty);
                 return;
             }
 
@@ -95,17 +98,18 @@ namespace Air_Traffic_Simulation
 
                 double t = c / ktsPerSecond; //the time which the plane will need to fly this distance
 
-                leapx = (b/t) * Grid.PixelsPerMileHorizontally; //the x speed of the airplane in miles times pixels per mile 
-                leapy = (a/t) * Grid.PixelsPerMileVertically; //the y speed of the airplane in miles
+                leapx = (b / t) * Grid
+                            .PixelsPerMileHorizontally; //the x speed of the airplane in miles times pixels per mile 
+                leapy = (a / t) * Grid.PixelsPerMileVertically; //the y speed of the airplane in miles
 
                 first = false;
             }
 
-            if (Math.Abs(CoordinateX - target.Value.CoordinateX) < Cell.Width && Math.Abs(CoordinateY - target.Value.CoordinateY) < Cell.Width)
+            if (Math.Abs(CoordinateX - target.Value.CoordinateX) < Cell.Width &&
+                Math.Abs(CoordinateY - target.Value.CoordinateY) < Cell.Width)
             {
-
                 target = target.Next;
-                if(target != null)
+                if (target != null)
                     speed = target.Value.MaxSpeed;
 
                 first = true;

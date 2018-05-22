@@ -122,6 +122,7 @@ namespace Air_Traffic_Simulation
 
         List<Checkpoint> checkpoints;
         List<Airplane> airplaneList;
+        private List<Airplane> planesOnTheGround;
 
 
         public Form1()
@@ -133,6 +134,7 @@ namespace Air_Traffic_Simulation
             airplaneList = new List<Airplane>();
             testPlane = new Airplane(name: "FB123", coordinateX: 35, coordinateY: 64, speed: 300,
                 flightNumber: "FB321");
+            testPlane.OnAirportReached += airplaneHasReachedTheAirport;
             airplaneList.Add(testPlane);
             //testPlane2 = new Airplane(name: "FB123", coordinateX: 100, coordinateY: 100, speed: 300,
             //     flightNumber: "FB321");
@@ -224,6 +226,13 @@ namespace Air_Traffic_Simulation
             gGrid.FillRectangle(pen, p.X, p.Y, Cell.Width, Cell.Width);
         }
 
+
+        private void airplaneHasReachedTheAirport(Object sender, EventArgs e)
+        {
+            this.airplaneList.Remove((Airplane) sender);
+            this.planesOnTheGround.Add((Airplane) sender);
+            Refresh();
+        }
 
         private void addTestAirplaneAndStrip(object sender, EventArgs e)
         {
@@ -678,21 +687,16 @@ namespace Air_Traffic_Simulation
                 }
             }
 
-            foreach (Airplane p in airplaneList)
+            foreach (Airplane p in airplaneList.ToArray())
             {
-                p.MoveTowardsNextPoint();
-                //p.CoordinateX += 10;
-                //p.CoordinateY += 10;
-                Pen pen = new Pen(Color.Red);
-                Graphics g = this.pictureBox1.CreateGraphics();
-                g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                if (p.ShortestPath.Count != 0)
+                {
+                    p.MoveTowardsNextPoint();
+                    Pen pen = new Pen(Color.Red);
+                    Graphics g = this.pictureBox1.CreateGraphics();
+                    g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                }
             }
-
-
-//            testPlane.MoveTowardsNextPoint();
-//            Pen pen = new Pen(Color.Red);
-//            Graphics g = this.pictureBox1.CreateGraphics();
-//            g.DrawRectangle(pen, (float)testPlane.CoordinateX, (float)testPlane.CoordinateY, 10, 10);
         }
 
         private void button5_Click(object sender, EventArgs e)
