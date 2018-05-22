@@ -123,10 +123,10 @@ namespace Air_Traffic_Simulation
         private Airplane testPlane2;
         private Airstrip landingStrip;
 
-        List<Airplane> airplanes;
+        List<Airplane> airplanes;   
 
         List<Checkpoint> checkpoints;
-        List<Airplane> airplaneList;
+        List<Airplane> airplaneList;  
         private List<Airplane> planesOnTheGround;
 
 
@@ -489,7 +489,7 @@ namespace Air_Traffic_Simulation
 
         private void btnSaveData_Click(object sender, EventArgs e)
         {
-            SavingObjects so = new SavingObjects(airplaneList, checkpoints);
+            SavingObjects so = new SavingObjects(airplaneList, planesOnTheGround, checkpoints);
 
             SaveFileDialog SaveFileDialogMain = new SaveFileDialog();
             SaveFileDialogMain.Filter = "Binary Files (*.bin)|*.bin";
@@ -881,15 +881,18 @@ namespace Air_Traffic_Simulation
                     PaintCircleB(p);
                     cpName = 0;
                 }
+                
 
                 checkpoints = null;
                 airplaneList = null;
+                planesOnTheGround = null;
 
                 SavingObjects so = null;
 
                 so = (SavingObjects) bformatter.Deserialize(filestream);
                 checkpoints = so.getCheckpoints;
                 airplaneList = so.getAirplanes;
+                planesOnTheGround = so.getGroundplanes;
 
                 filestream.Close();
                 filestream = null;
@@ -905,6 +908,10 @@ namespace Air_Traffic_Simulation
                     apName++;
                     fnName += 6 * 2 / 3;
                     PaintRectangle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
+                }
+                foreach(Airplane a in planesOnTheGround)
+                {
+                    allFlightsListBox.Items.Add(a.Name + "\t" + a.FlightNumber);
                 }
             }
 

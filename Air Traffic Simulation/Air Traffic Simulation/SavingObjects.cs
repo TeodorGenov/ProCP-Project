@@ -11,14 +11,16 @@ namespace Air_Traffic_Simulation
     {
         List<Airplane> airplanes;
         List<Checkpoint> checkpoints;
+        List<Airplane> groundplanes;
 
         public SavingObjects()
         {
             airplanes = null;
             checkpoints = null;
         }
-        public SavingObjects(List<Airplane> ap, List<Checkpoint> cp)
+        public SavingObjects(List<Airplane> ap, List<Airplane> gp, List<Checkpoint> cp)
         {
+            groundplanes = gp;
             airplanes = ap;
             checkpoints = cp;
         }
@@ -28,6 +30,10 @@ namespace Air_Traffic_Simulation
             get { return airplanes; }
         }
         public List<Checkpoint> getCheckpoints
+        {
+            get { return checkpoints; }
+        }
+        public List<Checkpoint> getGroundplanes
         {
             get { return checkpoints; }
         }
