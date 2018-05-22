@@ -39,16 +39,16 @@ namespace Air_Traffic_Simulation
             newForm.Show();
             this.Hide();
 
-            if (dbConnection.GetLogin(bunifuMaterialTextbox1.Text, bunifuMaterialTextbox1.Text) == true)
-            {
-                MessageBox.Show("Login successfull.");
-                loggedIn = true;
-
-            }
-            else
-            {
-                MessageBox.Show("Login denied.");
-            }
+//            if (dbConnection.GetLogin(bunifuMaterialTextbox1.Text, bunifuMaterialTextbox1.Text) == true)
+//            {
+//                MessageBox.Show("Login successfull.");
+//                loggedIn = true;
+//
+//            }
+//            else
+//            {
+//                MessageBox.Show("Login denied.");
+//            }
         }
 
         private void bunifuGauge1_Load(object sender, EventArgs e)

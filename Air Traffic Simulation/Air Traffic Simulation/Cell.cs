@@ -32,7 +32,7 @@ namespace Air_Traffic_Simulation
         public bool ContainsPoint(int xmouse, int ymouse)
         {
             //return (this.x - xmouse) * (this.x - xmouse) + (this.y - ymouse) * (this.y - ymouse) <= Width * Width;
-            if (xmouse < x+Width && ymouse < y + Width && xmouse >= x && ymouse >= y)
+            if (xmouse < x + Width && ymouse < y + Width && xmouse >= x && ymouse >= y)
             {
                 return true;
             }
@@ -41,7 +41,7 @@ namespace Air_Traffic_Simulation
 
         public Point GetCenter()
         {
-            Point p = new Point(x + (Width/2), y + (Width/2));
+            Point p = new Point(x + (Width / 2), y + (Width / 2));
             return p;
         }
     }
