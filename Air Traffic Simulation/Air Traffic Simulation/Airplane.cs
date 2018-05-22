@@ -34,7 +34,7 @@ namespace Air_Traffic_Simulation
                 speed = value;
             }
         }
-
+        [field: NonSerialized]
         public event EventHandler OnAirportReached;
 
         /// <summary>

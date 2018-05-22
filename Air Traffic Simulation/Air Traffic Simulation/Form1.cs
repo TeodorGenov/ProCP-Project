@@ -153,6 +153,7 @@ namespace Air_Traffic_Simulation
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             width = this.pictureBox1.Width;
             height = this.pictureBox1.Height;
             grid = new Grid(width, height);
@@ -334,7 +335,7 @@ namespace Air_Traffic_Simulation
             g.FillEllipse(weatherBrush, weatherBlock);
         }
 
-
+        
         private void airplaneHasReachedTheAirport(Object sender, EventArgs e)
         {
             this.planesOnTheGround.Add((Airplane) sender);
@@ -502,6 +503,7 @@ namespace Air_Traffic_Simulation
                 bformatter.Serialize(filestream, so);
                 filestream.Close();
                 filestream = null;
+                
             }
 
             //using (Stream stream = File.Open(serializationFile, FileMode.Create))
