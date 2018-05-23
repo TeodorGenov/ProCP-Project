@@ -45,19 +45,17 @@ namespace Air_Traffic_Simulation
         Graphics grCircle;
         Pen pnCircle;
 
-
-        // SIMULATION VARIABLES
-
-
-        int temp, prec, wind;
+        //WEATHER VALUES
+        string wdComboBox;
+        int temp, precIntencity, windSpeed;
+        WindDirection windDirection;
         SolidBrush weatherBrush = new SolidBrush(Color.White);
         Rectangle weatherBlock;
+        WeatherConditions weather;
 
         //List<Checkpoint> checkpoints;
         string dir;
         string serializationFile;
-
-        double probability;
 
         int AddingCheckpoints = 0;
         int RemovingCheckpoints = 0;
@@ -70,9 +68,6 @@ namespace Air_Traffic_Simulation
 
         BinaryFormatter bf;
 
-        WeatherConditions weather;
-
-        // END OF SIMULATION VARIABLES
 
 
         // PAINT GRID
@@ -111,7 +106,7 @@ namespace Air_Traffic_Simulation
         }
 
 
-        //simulation
+        //SIMULATION
 
         private bool dragging = false;
         private Point dragCursorPoint;
@@ -153,64 +148,58 @@ namespace Air_Traffic_Simulation
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            //GRID VALUES
             width = this.pictureBox1.Width;
             height = this.pictureBox1.Height;
             grid = new Grid(width, height);
+            
 
-            // SLIDER INFO AND WEATHER CONDITIONS
+
+            //WEATHER GUI
             labelWind.Text = trackBarWindSpeed.Value.ToString() + "m/s";
-            wind = trackBarWindSpeed.Value;
-
             labelTemp.Text = trackBarTemperature.Value.ToString() + "°C";
-            temp = trackBarTemperature.Value;
-
             labelPrec.Text = trackBarPrecipitation.Value.ToString() + "%";
-            prec = trackBarPrecipitation.Value;
-
-            //comboBoxWindDirection.Items.AddRange(new object[] {"NORTH",
-            //            "NORTH-EAST",
-            //            "NORTH-WEST",
-            //            "SOUTH",
-            //            "SOUTH-EAST",
-            //            "SOUTH-WEST",
-            //            "EAST",
-            //            "WEST"
-            //});
+            comboBoxWindDirection.Items.AddRange(new object[]{ "NORTH", "NORTH-EAST", "NORTH-WEST", "SOUTH", "SOUTH-EAST", "SOUTH-WEST", "EAST", "WEST" });
+            
 
 
-            //WeatherInfo
-            weather = new WeatherConditions(wind, 10, temp, prec);
-            if (temp <= 0 && prec >= 45)
+
+            //WEATHER VALUES
+            windSpeed = trackBarWindSpeed.Value;
+            temp = trackBarTemperature.Value;
+            precIntencity = trackBarPrecipitation.Value;
+
+            switch (wdComboBox)
             {
-                weather.RainType = RainType.SNOWFALL;
-            }
-            else if (temp >= 8 && prec >= 20)
-            {
-                weather.RainType = RainType.RAIN;
-            }
-            //WEATHER BLOCK
-
-            if (weather.RainType == RainType.RAIN)
-            {
-                if (weather.RainIntensity >= 10 && weather.RainIntensity <= 25)
-                {
-                    weather.Visibility = 80;
-                }
-                else if (weather.RainIntensity >= 26 && weather.RainIntensity <= 50)
-                {
-                    weather.Visibility = 50;
-                }
-                else if (weather.RainIntensity > 50)
-                {
-                    weather.Visibility = 10;
-                }
-                else
-                {
-                    weather.Visibility = 100;
-                }
+                case "NORTH":
+                    windDirection = WindDirection.NORTH;
+                    break;
+                case "NORTH-EAST":
+                    windDirection = WindDirection.NORTHEAST;
+                    break;
+                case "NORTH-WEST":
+                    windDirection = WindDirection.NORTHWEST;
+                    break;
+                case "SOUTH":
+                    windDirection = WindDirection.SOUTH;
+                    break;
+                case "SOUTH-EAST":
+                    windDirection = WindDirection.SOUTHEAST;
+                    break;
+                case "SOUTH-WEST":
+                    windDirection = WindDirection.SOUTHWEST;
+                    break;
+                case "EAST":
+                    windDirection = WindDirection.EAST;
+                    break;
+                case "WEST":
+                    windDirection = WindDirection.WEST;
+                    break;
             }
 
-            Simulate();
+            weather = new WeatherConditions(windSpeed, windDirection, temp, precIntencity);
+            LabelChange();
+
 
 
             //RADAR
@@ -290,19 +279,16 @@ namespace Air_Traffic_Simulation
         private void timerWeather_Tick(object sender, EventArgs e)
         {
             Refresh();
-            weather.TemperatureC = trackBarTemperature.Value;
-            weather.RainIntensity = trackBarPrecipitation.Value;
-            weather.ChangeWeather();
 
-            if (weather.RainType == RainType.RAIN)
+            if (weather.PrecipitationType == PrecipitationType.RAIN)
             {
                 weatherBrush.Color = Color.FromArgb(125, 92, 92, 92);
             }
-            else if (weather.RainType == RainType.SNOWFALL)
+            else if (weather.PrecipitationType == PrecipitationType.SNOW)
             {
                 weatherBrush.Color = Color.FromArgb(125, 205, 205, 205);
             }
-            else if (weather.RainType == RainType.HALE)
+            else if (weather.PrecipitationType == PrecipitationType.HAIL)
             {
                 weatherBrush.Color = Color.FromArgb(125, 175, 75, 75);
             }
@@ -377,26 +363,26 @@ namespace Air_Traffic_Simulation
             {
                 //right half
                 //u in degree is converted into radian
-                x = cx + (int) (hand * Math.Sin(Math.PI * u / 180));
-                y = cy - (int) (hand * Math.Cos(Math.PI * u / 180));
+                x = cx + (int)(hand * Math.Sin(Math.PI * u / 180));
+                y = cy - (int)(hand * Math.Cos(Math.PI * u / 180));
             }
             else
             {
-                x = cx - (int) (hand * -Math.Sin(Math.PI * u / 180));
-                y = cy - (int) (hand * Math.Cos(Math.PI * u / 180));
+                x = cx - (int)(hand * -Math.Sin(Math.PI * u / 180));
+                y = cy - (int)(hand * Math.Cos(Math.PI * u / 180));
             }
 
             if (tu >= 0 && tu <= 180)
             {
                 //right half
                 //u in degree is converted into radian
-                tx = cx + (int) (hand * Math.Sin(Math.PI * tu / 180));
-                ty = cy - (int) (hand * Math.Cos(Math.PI * tu / 180));
+                tx = cx + (int)(hand * Math.Sin(Math.PI * tu / 180));
+                ty = cy - (int)(hand * Math.Cos(Math.PI * tu / 180));
             }
             else
             {
-                tx = cx - (int) (hand * -Math.Sin(Math.PI * tu / 180));
-                ty = cy - (int) (hand * Math.Cos(Math.PI * tu / 180));
+                tx = cx - (int)(hand * -Math.Sin(Math.PI * tu / 180));
+                ty = cy - (int)(hand * Math.Cos(Math.PI * tu / 180));
             }
 
             //draw circle
@@ -483,7 +469,7 @@ namespace Air_Traffic_Simulation
         {
             temp = trackBarTemperature.Value;
             labelTemp.Text = temp.ToString() + "°C";
-            Simulate();
+            LabelChange();
         }
 
         private void btnSaveData_Click(object sender, EventArgs e)
@@ -627,11 +613,9 @@ namespace Air_Traffic_Simulation
 
                                 cpName++;
                                 string name = "cp" + cpName;
-//<<<<<<< HEAD
-                                //Checkpoint a = new Checkpoint(name, p.X, p.Y, c);
-//=======
+
                                 Checkpoint a = new Checkpoint(name, p.X, p.Y, c, checkpoints, landingStrip);
-//>>>>>>> path_following_2
+
                                 checkpoints.Add(a);
                                 MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" +
                                                 a.CoordinateX +
@@ -798,6 +782,7 @@ namespace Air_Traffic_Simulation
 
         private void trackBarWindSpeed_Scroll(object sender, EventArgs e)
         {
+            LabelChange();
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -926,6 +911,7 @@ namespace Air_Traffic_Simulation
             }
         }
 
+
         private void stopWeatherBtn_Click(object sender, EventArgs e)
         {
             if (timerWeather.Enabled)
@@ -936,6 +922,18 @@ namespace Air_Traffic_Simulation
             {
                 timerWeather.Start();
             }
+		}
+
+        private void calcRouteBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+        
+        //wind direction changed in combobox
+        private void comboBoxWindDirection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            wdComboBox = (String)comboBoxWindDirection.SelectedItem;
+            LabelChange();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -961,183 +959,25 @@ namespace Air_Traffic_Simulation
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(probability.ToString());
+            MessageBox.Show(weather.Probability.ToString());
         }
 
         private void trackBarPrecipitation_ValueChanged(object sender, EventArgs e)
         {
-            prec = trackBarPrecipitation.Value;
-            labelPrec.Text = prec.ToString() + "%";
-            Simulate();
+            precIntencity = trackBarPrecipitation.Value;
+            labelPrec.Text = precIntencity.ToString() + "%";
+            LabelChange();
         }
 
         private void trackBarWindSpeed_ValueChanged(object sender, EventArgs e)
         {
-            wind = trackBarWindSpeed.Value;
-            labelWind.Text = wind.ToString() + "m/s";
-            Simulate();
+            windSpeed = trackBarWindSpeed.Value;
+            labelWind.Text = windSpeed.ToString() + "m/s";
+            LabelChange();
         }
 
         private void btnPlaySimulation_Click(object sender, EventArgs e)
         {
-        }
-
-        // SIMULATION ITSELF
-
-
-        private void Simulate()
-        {
-            // Airplanes gets performance loss for air that is 40c or more, cold air doesnt impact the take off or landing except if its snowing (when <0c and percipation is also around 15-30 and more) then sometimes airplanes wont take off or land.
-
-            // Wind speed is usually not a harm if it is a headwind or tailwind (From front or back), however if it is from side then if its around 15m/s or more the flight must be canceled (Keep in mind while choosing wind direction and checking the airstrip at which place it is placed.
-
-            // In here we calculate probability for a good flight (1 means it is 100percent safe and everyone is gonna fly happy, however less < 0.99 and so on will impact on the airplanes speed, take off, landing and etc.
-
-            probability = 1;
-
-            if (temp < 0)
-            {
-                probability -= (((temp * (-0.005)) * ((temp * (-0.005))) + ((prec * (0.015)) * (prec * (0.015))) +
-                                 ((wind * (0.01)) * (wind * (0.01)) * 2)));
-            }
-
-            if (temp >= 0 && temp <= 29)
-            {
-                probability -= (((temp * (0.007)) * ((temp * (0.007))) + ((prec * (0.005)) * (prec * (0.005))) +
-                                 ((wind * (0.008)) * (wind * (0.008)) * 2)));
-            }
-
-            if (temp >= 30 && temp <= 39)
-            {
-                probability -= (((temp * (0.013)) * ((temp * (0.013))) + ((prec * (0.005)) * (prec * (0.005))) +
-                                 ((wind * (0.008)) * (wind * (0.008)) * 2)));
-            }
-
-            if (temp >= 40)
-            {
-                probability -= (((temp * (0.016)) * ((temp * (0.016))) + ((prec * (0.005)) * (prec * (0.005))) +
-                                 ((wind * (0.008)) * (wind * (0.008)) * 2)));
-            }
-
-            if (probability < 0)
-            {
-                probability = 0;
-            }
-
-            prob.Text = probability.ToString();
-
-            //if (trackBarPrecipitation.Value < 10)
-            //{
-            //    if (trackBarTemperature.Value > 0 || trackBarTemperature.Value <= 39)
-            //    {
-            //        if (trackBarWindSpeed.Value <= 5)
-            //        {
-            //            probability -= 0;
-            //        }
-            //        if (trackBarWindSpeed.Value >=6 || trackBarWindSpeed.Value <= 10)
-            //        {
-            //            probability -= 0.01;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 11 || trackBarWindSpeed.Value <= 15)
-            //        {
-            //            probability -= 0.03;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 16 || trackBarWindSpeed.Value <= 20)
-            //        {
-            //            probability -= 0.06;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 21 || trackBarWindSpeed.Value <= 30)
-            //        {
-            //            probability -= 0.1;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 31 || trackBarWindSpeed.Value <= 50)
-            //        {
-            //            probability -= 0.2;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 51 || trackBarWindSpeed.Value <= 75)
-            //        {
-            //            probability -= 0.4;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 76 || trackBarWindSpeed.Value <= 100)
-            //        {
-            //            probability -= 0.8;
-            //        }
-            //    }
-            //    if (trackBarTemperature.Value <= 0)
-            //    {
-            //        if (trackBarWindSpeed.Value <= 5)
-            //        {
-            //            probability -= 0.02;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 6 || trackBarWindSpeed.Value <= 10)
-            //        {
-            //            probability -= 0.04;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 11 || trackBarWindSpeed.Value <= 15)
-            //        {
-            //            probability -= 0.08;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 16 || trackBarWindSpeed.Value <= 20)
-            //        {
-            //            probability -= 0.15;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 21 || trackBarWindSpeed.Value <= 30)
-            //        {
-            //            probability -= 0.25;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 31 || trackBarWindSpeed.Value <= 50)
-            //        {
-            //            probability -= 0.5;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 51 || trackBarWindSpeed.Value <= 75)
-            //        {
-            //            probability -= 0.7;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 76 || trackBarWindSpeed.Value <= 100)
-            //        {
-            //            probability -= 0.9;
-            //        }
-            //    }
-
-
-            //     if (trackBarTemperature.Value > 0)
-            //    {
-            //        if (trackBarWindSpeed.Value <= 5)
-            //        {
-            //            probability -= 0;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 6 || trackBarWindSpeed.Value <= 10)
-            //        {
-            //            probability -= 0.01;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 11 || trackBarWindSpeed.Value <= 15)
-            //        {
-            //            probability -= 0.03;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 16 || trackBarWindSpeed.Value <= 20)
-            //        {
-            //            probability -= 0.06;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 21 || trackBarWindSpeed.Value <= 30)
-            //        {
-            //            probability -= 0.1;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 31 || trackBarWindSpeed.Value <= 50)
-            //        {
-            //            probability -= 0.2;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 51 || trackBarWindSpeed.Value <= 75)
-            //        {
-            //            probability -= 0.4;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 76 || trackBarWindSpeed.Value <= 100)
-            //        {
-            //            probability -= 0.8;
-            //        }
-            //    }
-
-
-            //}
         }
 
         public void PaintCircle(Point p)
@@ -1182,6 +1022,15 @@ namespace Air_Traffic_Simulation
             Pen pen = new Pen(Color.Yellow);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawRectangle(pen, x, y, width, height);
+        }
+
+        public void LabelChange()
+        {
+            weather = new WeatherConditions(windSpeed, windDirection, temp, precIntencity);
+            weather.SetProbability();
+            lbPrecipitationType.Text = weather.GetPrecipitationType().ToString();
+            lbProbability.Text = weather.Probability.ToString();
+            lbVisibility.Text = weather.GetVisibility().ToString();
         }
     }
 }
