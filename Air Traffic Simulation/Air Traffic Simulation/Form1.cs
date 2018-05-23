@@ -15,7 +15,6 @@ namespace Air_Traffic_Simulation
     public partial class Form1 : Form
     {
         //RADAR
-
         Random r = new Random();
         Timer t = new Timer();
         int width, height;
@@ -30,8 +29,6 @@ namespace Air_Traffic_Simulation
 
 
         //GRID
-
-
         Grid grid;
         Point p1, p2, p3, p4;
         Pen pGrid;
@@ -40,25 +37,23 @@ namespace Air_Traffic_Simulation
 
 
         // CHECKPOINT CIRCLE POINT LOL
-
-
         Graphics grCircle;
         Pen pnCircle;
+
 
         //WEATHER VALUES
         string wdComboBox;
         int temp, precIntencity, windSpeed;
         WindDirection windDirection;
         SolidBrush weatherBrush = new SolidBrush(Color.White);
-        Rectangle weatherBlock;
         WeatherConditions weather;
         Image weatherImage;
         Rectangle weatherRect;
 
+
         //List<Checkpoint> checkpoints;
         string dir;
         string serializationFile;
-
         int AddingCheckpoints = 0;
         int RemovingCheckpoints = 0;
         int AddingAirplanes = 0;
@@ -67,9 +62,7 @@ namespace Air_Traffic_Simulation
         static int cpName = 0;
         static int apName = 0;
         static int fnName = 0;
-
         BinaryFormatter bf;
-
 
 
         // PAINT GRID
@@ -109,7 +102,6 @@ namespace Air_Traffic_Simulation
 
 
         //SIMULATION
-
         private bool dragging = false;
         private Point dragCursorPoint;
         private Point dragFormPoint;
@@ -119,9 +111,7 @@ namespace Air_Traffic_Simulation
         private Airplane testPlane;
         private Airplane testPlane2;
         private Airstrip landingStrip;
-
         List<Airplane> airplanes;
-
         List<Checkpoint> checkpoints;
         List<Airplane> airplaneList;
         private List<Airplane> planesOnTheGround;
@@ -146,6 +136,7 @@ namespace Air_Traffic_Simulation
             // airplaneList.Add(testPlane2);
             InitializeComponent();
             nSpeed.Enabled = false;
+            weatherRect = new Rectangle(x, y, 60, 60);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -198,18 +189,8 @@ namespace Air_Traffic_Simulation
                     windDirection = WindDirection.WEST;
                     break;
             }
-            
+
             weather = new WeatherConditions(windSpeed, windDirection, temp, precIntencity);
-
-            if (weather.PrecipitationType == PrecipitationType.RAIN)
-            { weatherImage = Properties.Resources.snow; }
-            else if (weather.PrecipitationType == PrecipitationType.SNOW)
-            { weatherImage = Properties.Resources.snow; }
-            else if (weather.PrecipitationType == PrecipitationType.HAIL)
-            { weatherImage = Properties.Resources.hail; }
-            else
-            { weatherImage = Properties.Resources.clear; }
-
             LabelChange();
 
 
@@ -259,7 +240,7 @@ namespace Air_Traffic_Simulation
 
             int x = r.Next(100, 200);
             //int y = r.Next(100, 200);
-            weatherBlock = new Rectangle(x, x + 50, 50, 50);
+            //weatherBlock = new Rectangle(x, x + 50, 50, 50);
 
             timerWeather.Interval = 500;
             timerWeather.Start();
@@ -292,45 +273,46 @@ namespace Air_Traffic_Simulation
         {
             Refresh();
 
-            if (weather.PrecipitationType == PrecipitationType.RAIN)
-            {
-                weatherBrush.Color = Color.FromArgb(125, 92, 92, 92);
-            }
-            else if (weather.PrecipitationType == PrecipitationType.SNOW)
-            {
-                weatherBrush.Color = Color.FromArgb(125, 205, 205, 205);
-            }
-            else if (weather.PrecipitationType == PrecipitationType.HAIL)
-            {
-                weatherBrush.Color = Color.FromArgb(125, 175, 75, 75);
-            }
-            else
-            {
-                weatherBrush.Color = Color.FromArgb(0, 250, 75, 75);
-            }
+            //if (weather.PrecipitationType == PrecipitationType.RAIN)
+            //{
+            //    weatherBrush.Color = Color.FromArgb(125, 92, 92, 92);
+            //}
+            //else if (weather.PrecipitationType == PrecipitationType.SNOW)
+            //{
+            //    weatherBrush.Color = Color.FromArgb(125, 205, 205, 205);
+            //}
+            //else if (weather.PrecipitationType == PrecipitationType.HAIL)
+            //{
+            //    weatherBrush.Color = Color.FromArgb(125, 175, 75, 75);
+            //}
+            //else
+            //{
+            //    weatherBrush.Color = Color.FromArgb(0, 250, 75, 75);
+            //}
 
-            Pen p = new Pen(Color.Black);
-            if (weatherBlock.X < 0 || weatherBlock.Y < 0)
+            //Pen p = new Pen(Color.Black);
+            
+            if (weatherRect.X < 0 || weatherRect.Y < 0)
             {
-                weatherBlock.X += r.Next(20);
-                weatherBlock.Y += r.Next(20);
+                weatherRect.X += r.Next(20);
+                weatherRect.Y += r.Next(20);
             }
-            else if (weatherBlock.X > 580 || weatherBlock.Y > 580)
+            else if (weatherRect.X > 580 || weatherRect.Y > 580)
             {
-                weatherBlock.X -= r.Next(-20, 0);
-                weatherBlock.Y -= r.Next(-20, 0);
+                weatherRect.X -= r.Next(-20, 0);
+                weatherRect.Y -= r.Next(-20, 0);
             }
             else
             {
-                weatherBlock.X += r.Next(-20, 20);
-                weatherBlock.Y += r.Next(-20, 20);
+                weatherRect.X += r.Next(-20, 20);
+                weatherRect.Y += r.Next(-20, 20);
             }
 
 
             //Graphics g = this.pictureBox1.CreateGraphics();
             //g.DrawEllipse(p, weatherBlock);
             //g.FillEllipse(weatherBrush, weatherBlock);
-            Point weatherPoint = new Point(weatherBlock.X, weatherBlock.Y);
+            Point weatherPoint = new Point(weatherRect.X, weatherRect.Y);
             PaintWeather(weatherPoint);
         }
 
@@ -1030,9 +1012,17 @@ namespace Air_Traffic_Simulation
         {
             int x = p.X - 3;
             int y = p.Y - 3;
-            
+
             Graphics g = this.pictureBox1.CreateGraphics();
-            weatherRect = new Rectangle(x, y, 60, 60);
+            if (weather.PrecipitationType == PrecipitationType.RAIN)
+            { weatherImage = Properties.Resources.snow; }
+            else if (weather.PrecipitationType == PrecipitationType.SNOW)
+            { weatherImage = Properties.Resources.snow; }
+            else if (weather.PrecipitationType == PrecipitationType.HAIL)
+            { weatherImage = Properties.Resources.hail; }
+            else
+            { weatherImage = Properties.Resources.clear; }
+            
             g.DrawImage(weatherImage, weatherRect);
         }
 
