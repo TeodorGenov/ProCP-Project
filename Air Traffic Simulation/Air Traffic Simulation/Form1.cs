@@ -923,11 +923,6 @@ namespace Air_Traffic_Simulation
                 timerWeather.Start();
             }
 		}
-
-        private void calcRouteBtn_Click(object sender, EventArgs e)
-        {
-
-        }
         
         //wind direction changed in combobox
         private void comboBoxWindDirection_SelectedIndexChanged(object sender, EventArgs e)
