@@ -828,17 +828,7 @@ namespace Air_Traffic_Simulation
                     Graphics g = this.pictureBox1.CreateGraphics();
                     g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
                 }
-                else if (p.ShortestPath.Count == 0)
-                {
-                    airplaneHasReachedTheAirport(p, e);
-
-                    allFlightsListBox.Items.Clear();
-                        foreach(Airplane a in planesOnTheGround)
-                    {
-                        allFlightsListBox.Items.Add(p.Name + "\t" + p.FlightNumber);
-                    }
-                    
-                }
+              
                
             }
         }
@@ -924,6 +914,7 @@ namespace Air_Traffic_Simulation
                     apName++;
                     fnName += 6 * 2 / 3;
                     PaintRectangle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
+                        a.OnAirportReached += airplaneHasReachedTheAirport;
                 }
                 }
                 if(planesOnTheGround != null)
