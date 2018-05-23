@@ -830,12 +830,8 @@ namespace Air_Traffic_Simulation
                 if (p.ShortestPath.Count != 0)
                 {
                     p.MoveTowardsNextPoint();
-                    //Pen pen = new Pen(Color.Red);
-                    Graphics g = this.pictureBox1.CreateGraphics();
-                    //g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
-                    airplaneImage = Properties.Resources.airplanePic;
-                    airplaneRect = new Rectangle((int)p.CoordinateX, (int)p.CoordinateY, 40, 40);
-                    g.DrawImage(airplaneImage, airplaneRect);
+                    Point point = new Point((int)p.CoordinateX, (int)p.CoordinateY);
+                    PaintRectangle(point);
                 }
             }
         }
@@ -850,12 +846,8 @@ namespace Air_Traffic_Simulation
             {
                 foreach (Airplane p in airplaneList)
                 {
-                    //Pen pen = new Pen(Color.Red);
-                    Graphics g = this.pictureBox1.CreateGraphics();
-                    //g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
-                    airplaneImage = Properties.Resources.airplanePic;
-                    airplaneRect = new Rectangle((int)p.CoordinateX, (int)p.CoordinateY, 40, 40);
-                    g.DrawImage(airplaneImage, airplaneRect);
+                    Point point = new Point((int)p.CoordinateX, (int)p.CoordinateY);
+                    PaintRectangle(point);
                 }
 
                 timerPlaneMovement.Start();
