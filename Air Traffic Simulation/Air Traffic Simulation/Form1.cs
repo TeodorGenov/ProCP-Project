@@ -198,8 +198,18 @@ namespace Air_Traffic_Simulation
                     windDirection = WindDirection.WEST;
                     break;
             }
-
+            
             weather = new WeatherConditions(windSpeed, windDirection, temp, precIntencity);
+
+            if (weather.PrecipitationType == PrecipitationType.RAIN)
+            { weatherImage = Properties.Resources.snow; }
+            else if (weather.PrecipitationType == PrecipitationType.SNOW)
+            { weatherImage = Properties.Resources.snow; }
+            else if (weather.PrecipitationType == PrecipitationType.HAIL)
+            { weatherImage = Properties.Resources.hail; }
+            else
+            { weatherImage = Properties.Resources.clear; }
+
             LabelChange();
 
 
@@ -1020,16 +1030,7 @@ namespace Air_Traffic_Simulation
         {
             int x = p.X - 3;
             int y = p.Y - 3;
-
-            if (weather.PrecipitationType == PrecipitationType.RAIN)
-            { weatherImage = Properties.Resources.rain; }
-            else if (weather.PrecipitationType == PrecipitationType.SNOW)
-            { weatherImage = Properties.Resources.snow; }
-            else if (weather.PrecipitationType == PrecipitationType.HAIL)
-            { weatherImage = Properties.Resources.hail; }
-            else
-            { weatherImage = Properties.Resources.clear; }
-
+            
             Graphics g = this.pictureBox1.CreateGraphics();
             weatherRect = new Rectangle(x, y, 60, 60);
             g.DrawImage(weatherImage, weatherRect);
