@@ -786,9 +786,21 @@ namespace Air_Traffic_Simulation
         {
             if (trackBar1.Value == 1)
             {
+                airplaneList.Clear();
                 btnAddAirplane.Enabled = false;
                 btnRemoveAirplane.Enabled = false;
                 RandomAirplane = 1;
+                Random random = new Random();
+                int rnd = random.Next(1, 10);
+                for (int i = 0; i < rnd; i++)
+                {
+                    CreateRandomAirplane();
+                }
+                foreach (Airplane a in airplaneList)
+                {
+                    PaintRectangle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
+                    a.OnAirportReached += airplaneHasReachedTheAirport;
+                }
             }
 
             if (trackBar1.Value == 0)
@@ -1217,6 +1229,89 @@ namespace Air_Traffic_Simulation
             Pen pen = new Pen(Color.Yellow);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawRectangle(pen, x, y, width, height);
+        }
+        /// <summary>
+        /// Method to create random airplane on border area.
+        /// </summary>
+        private void CreateRandomAirplane()
+        {
+            Refresh();
+            int speed = 5;
+            int s;
+            int x;
+            int y;
+            Boolean exists = false;
+            do
+            {
+                Random random = new Random();
+                speed = 5;
+                s = random.Next(1, 5);
+                x = 1;
+                y = 1;
+                exists = false;
+
+                while (speed % 25 != 0)
+                {
+                    speed = random.Next(100, 3000);
+                }
+
+                if (s == 1)
+                {
+                    while (x % 12 != 6)
+                    {
+                        x = random.Next(6, 1434);
+                    }
+                    y = 6;
+                }
+
+                else if (s == 2)
+                {
+                    while (x % 12 != 6)
+                    {
+                        x = random.Next(6, 1434);
+                    }
+                    y = 930;
+                }
+
+                else if (s == 3)
+                {
+                    while (y % 12 != 6)
+                    {
+                        y = random.Next(6, 930);
+                    }
+                    x = 1434;
+                }
+
+                else if (s == 4)
+                {
+                    while (y % 12 != 6)
+                    {
+                        y = random.Next(6, 930);
+                    }
+                    x = 6;
+                }
+
+                if (airplaneList.Count > 0)
+                {
+                    foreach (Airplane mm in airplaneList)
+                    {
+                        if (mm.CoordinateX == x && mm.CoordinateY == y)
+                        {
+                            exists = true;
+                        }
+                    }
+                }
+            } while (exists == true);
+            
+            
+
+            apName++;
+            fnName += 6 * 2 / 3;
+            string name = "Airplane" + apName;
+            string flight = "fn" + fnName + "z";
+            Airplane one = new Airplane(name, x, y, speed, flight);
+            airplaneList.Add(one);
+
         }
     }
 }
