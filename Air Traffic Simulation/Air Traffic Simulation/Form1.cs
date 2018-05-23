@@ -882,7 +882,7 @@ namespace Air_Traffic_Simulation
             //{
             //    PaintCircle(new Point(Convert.ToInt32(a.CoordinateX),Convert.ToInt32(a.CoordinateY)));
             //    cpName++;
-            //} /
+            //}
         }
 
         private void btnRemoveCheckpoint_Click(object sender, EventArgs e)
