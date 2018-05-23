@@ -31,6 +31,10 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.lbPrecipitationType = new System.Windows.Forms.Label();
+            this.lbVisibility = new System.Windows.Forms.Label();
+            this.lbPrecipitationTypeGUI = new System.Windows.Forms.Label();
+            this.lbVisibilityGUI = new System.Windows.Forms.Label();
             this.allFlightsListBox = new System.Windows.Forms.ListBox();
             this.lbProbability = new System.Windows.Forms.Label();
             this.labelWind = new System.Windows.Forms.Label();
@@ -80,17 +84,13 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.btnStartPlaneMovement = new System.Windows.Forms.Button();
-            this.calcRouteBtn = new System.Windows.Forms.Button();
-            this.testAirplaneAndStrip = new System.Windows.Forms.Button();
             this.panelBeneathGrid = new System.Windows.Forms.Panel();
+            this.stopWeatherBtn = new System.Windows.Forms.Button();
+            this.btnStartPlaneMovement = new System.Windows.Forms.Button();
+            this.testAirplaneAndStrip = new System.Windows.Forms.Button();
+            this.calcRouteBtn = new System.Windows.Forms.Button();
             this.timerWeather = new System.Windows.Forms.Timer(this.components);
             this.timerPlaneMovement = new System.Windows.Forms.Timer(this.components);
-            this.stopWeatherBtn = new System.Windows.Forms.Button();
-            this.lbVisibilityGUI = new System.Windows.Forms.Label();
-            this.lbPrecipitationTypeGUI = new System.Windows.Forms.Label();
-            this.lbVisibility = new System.Windows.Forms.Label();
-            this.lbPrecipitationType = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
@@ -140,6 +140,44 @@
             this.panel1.Size = new System.Drawing.Size(272, 707);
             this.panel1.TabIndex = 0;
             // 
+            // lbPrecipitationType
+            // 
+            this.lbPrecipitationType.AutoSize = true;
+            this.lbPrecipitationType.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.lbPrecipitationType.Location = new System.Drawing.Point(222, 455);
+            this.lbPrecipitationType.Name = "lbPrecipitationType";
+            this.lbPrecipitationType.Size = new System.Drawing.Size(0, 17);
+            this.lbPrecipitationType.TabIndex = 23;
+            // 
+            // lbVisibility
+            // 
+            this.lbVisibility.AutoSize = true;
+            this.lbVisibility.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.lbVisibility.Location = new System.Drawing.Point(71, 455);
+            this.lbVisibility.Name = "lbVisibility";
+            this.lbVisibility.Size = new System.Drawing.Size(0, 17);
+            this.lbVisibility.TabIndex = 22;
+            // 
+            // lbPrecipitationTypeGUI
+            // 
+            this.lbPrecipitationTypeGUI.AutoSize = true;
+            this.lbPrecipitationTypeGUI.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.lbPrecipitationTypeGUI.Location = new System.Drawing.Point(93, 455);
+            this.lbPrecipitationTypeGUI.Name = "lbPrecipitationTypeGUI";
+            this.lbPrecipitationTypeGUI.Size = new System.Drawing.Size(126, 17);
+            this.lbPrecipitationTypeGUI.TabIndex = 21;
+            this.lbPrecipitationTypeGUI.Text = "Precipitation type:";
+            // 
+            // lbVisibilityGUI
+            // 
+            this.lbVisibilityGUI.AutoSize = true;
+            this.lbVisibilityGUI.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.lbVisibilityGUI.Location = new System.Drawing.Point(4, 455);
+            this.lbVisibilityGUI.Name = "lbVisibilityGUI";
+            this.lbVisibilityGUI.Size = new System.Drawing.Size(61, 17);
+            this.lbVisibilityGUI.TabIndex = 20;
+            this.lbVisibilityGUI.Text = "Visibility:";
+            // 
             // allFlightsListBox
             // 
             this.allFlightsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
@@ -168,7 +206,7 @@
             this.labelWind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.labelWind.Location = new System.Drawing.Point(34, 371);
             this.labelWind.Name = "labelWind";
-            this.labelWind.Size = new System.Drawing.Size(0, 21);
+            this.labelWind.Size = new System.Drawing.Size(0, 19);
             this.labelWind.TabIndex = 17;
             // 
             // labelPrec
@@ -178,7 +216,7 @@
             this.labelPrec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.labelPrec.Location = new System.Drawing.Point(34, 325);
             this.labelPrec.Name = "labelPrec";
-            this.labelPrec.Size = new System.Drawing.Size(0, 21);
+            this.labelPrec.Size = new System.Drawing.Size(0, 19);
             this.labelPrec.TabIndex = 16;
             // 
             // labelTemp
@@ -188,7 +226,7 @@
             this.labelTemp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.labelTemp.Location = new System.Drawing.Point(34, 267);
             this.labelTemp.Name = "labelTemp";
-            this.labelTemp.Size = new System.Drawing.Size(0, 21);
+            this.labelTemp.Size = new System.Drawing.Size(0, 19);
             this.labelTemp.TabIndex = 15;
             // 
             // trackBarPrecipitation
@@ -196,10 +234,11 @@
             this.trackBarPrecipitation.Location = new System.Drawing.Point(121, 294);
             this.trackBarPrecipitation.Maximum = 100;
             this.trackBarPrecipitation.Name = "trackBarPrecipitation";
-            this.trackBarPrecipitation.Size = new System.Drawing.Size(148, 56);
+            this.trackBarPrecipitation.Size = new System.Drawing.Size(148, 45);
             this.trackBarPrecipitation.TabIndex = 14;
             this.trackBarPrecipitation.TabStop = false;
             this.trackBarPrecipitation.Value = 24;
+            this.trackBarPrecipitation.ValueChanged += new System.EventHandler(this.trackBarPrecipitation_ValueChanged_1);
             // 
             // label7
             // 
@@ -215,7 +254,7 @@
             this.comboBoxWindDirection.FormattingEnabled = true;
             this.comboBoxWindDirection.Location = new System.Drawing.Point(131, 393);
             this.comboBoxWindDirection.Name = "comboBoxWindDirection";
-            this.comboBoxWindDirection.Size = new System.Drawing.Size(128, 31);
+            this.comboBoxWindDirection.Size = new System.Drawing.Size(128, 29);
             this.comboBoxWindDirection.TabIndex = 12;
             this.comboBoxWindDirection.TabStop = false;
             this.comboBoxWindDirection.SelectedIndexChanged += new System.EventHandler(this.comboBoxWindDirection_SelectedIndexChanged);
@@ -225,7 +264,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(3, 396);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(146, 23);
+            this.label6.Size = new System.Drawing.Size(122, 21);
             this.label6.TabIndex = 11;
             this.label6.Text = "Wind direction";
             // 
@@ -234,7 +273,7 @@
             this.trackBarWindSpeed.Location = new System.Drawing.Point(121, 345);
             this.trackBarWindSpeed.Maximum = 75;
             this.trackBarWindSpeed.Name = "trackBarWindSpeed";
-            this.trackBarWindSpeed.Size = new System.Drawing.Size(148, 56);
+            this.trackBarWindSpeed.Size = new System.Drawing.Size(148, 45);
             this.trackBarWindSpeed.TabIndex = 9;
             this.trackBarWindSpeed.TabStop = false;
             this.trackBarWindSpeed.Scroll += new System.EventHandler(this.trackBarWindSpeed_Scroll);
@@ -245,7 +284,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(3, 345);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(124, 23);
+            this.label5.Size = new System.Drawing.Size(101, 21);
             this.label5.TabIndex = 8;
             this.label5.Text = "Wind speed";
             // 
@@ -254,7 +293,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 243);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(135, 23);
+            this.label4.Size = new System.Drawing.Size(112, 21);
             this.label4.TabIndex = 7;
             this.label4.Text = "Temperature";
             // 
@@ -273,7 +312,7 @@
             this.trackBarTemperature.Maximum = 50;
             this.trackBarTemperature.Minimum = -30;
             this.trackBarTemperature.Name = "trackBarTemperature";
-            this.trackBarTemperature.Size = new System.Drawing.Size(148, 56);
+            this.trackBarTemperature.Size = new System.Drawing.Size(148, 45);
             this.trackBarTemperature.TabIndex = 5;
             this.trackBarTemperature.TabStop = false;
             this.trackBarTemperature.Value = 24;
@@ -285,7 +324,7 @@
             this.rbTakeOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbTakeOff.Location = new System.Drawing.Point(177, 168);
             this.rbTakeOff.Name = "rbTakeOff";
-            this.rbTakeOff.Size = new System.Drawing.Size(110, 27);
+            this.rbTakeOff.Size = new System.Drawing.Size(92, 25);
             this.rbTakeOff.TabIndex = 4;
             this.rbTakeOff.Text = "Take Off";
             this.rbTakeOff.UseVisualStyleBackColor = true;
@@ -310,7 +349,7 @@
             this.rbLanding.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbLanding.Location = new System.Drawing.Point(12, 168);
             this.rbLanding.Name = "rbLanding";
-            this.rbLanding.Size = new System.Drawing.Size(107, 27);
+            this.rbLanding.Size = new System.Drawing.Size(90, 25);
             this.rbLanding.TabIndex = 3;
             this.rbLanding.Text = "Landing";
             this.rbLanding.UseVisualStyleBackColor = true;
@@ -332,7 +371,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(158)))), ((int)(((byte)(209)))));
             this.label1.Location = new System.Drawing.Point(8, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(312, 80);
+            this.label1.Size = new System.Drawing.Size(251, 63);
             this.label1.TabIndex = 0;
             this.label1.Text = "Air Traffic";
             // 
@@ -341,7 +380,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(49, 128);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(208, 23);
+            this.label2.Size = new System.Drawing.Size(170, 21);
             this.label2.TabIndex = 2;
             this.label2.Text = "Simulation Outcome";
             // 
@@ -476,9 +515,9 @@
             this.label15.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label15.Location = new System.Drawing.Point(164, 79);
             this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(26, 19);
             this.label15.TabIndex = 25;
             this.label15.Text = "kts";
-            this.label15.Size = new System.Drawing.Size(38, 19);
             // 
             // label14
             // 
@@ -616,7 +655,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(25, 3);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(183, 23);
+            this.label8.Size = new System.Drawing.Size(151, 21);
             this.label8.TabIndex = 15;
             this.label8.Text = "Checkpoint Menu";
             // 
@@ -692,41 +731,6 @@
             this.panel5.Size = new System.Drawing.Size(855, 707);
             this.panel5.TabIndex = 2;
             // 
-            // btnStartPlaneMovement
-            // 
-            this.btnStartPlaneMovement.Location = new System.Drawing.Point(33, 26);
-            this.btnStartPlaneMovement.Name = "btnStartPlaneMovement";
-            this.btnStartPlaneMovement.Size = new System.Drawing.Size(75, 23);
-            this.btnStartPlaneMovement.TabIndex = 3;
-            this.btnStartPlaneMovement.Text = "btnStartPlaneMovement";
-            this.btnStartPlaneMovement.UseVisualStyleBackColor = true;
-            this.btnStartPlaneMovement.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // calcRouteBtn
-            // 
-            this.calcRouteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.calcRouteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
-            this.calcRouteBtn.Location = new System.Drawing.Point(467, 26);
-            this.calcRouteBtn.Name = "calcRouteBtn";
-            this.calcRouteBtn.Size = new System.Drawing.Size(187, 51);
-            this.calcRouteBtn.TabIndex = 3;
-            this.calcRouteBtn.Text = "Calculate Route";
-            this.calcRouteBtn.UseVisualStyleBackColor = true;
-            this.calcRouteBtn.Click += new System.EventHandler(this.calcRouteBtn_Click);
-            // 
-            // testAirplaneAndStrip
-            // 
-            this.testAirplaneAndStrip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.testAirplaneAndStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
-            this.testAirplaneAndStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.testAirplaneAndStrip.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.testAirplaneAndStrip.Location = new System.Drawing.Point(660, 25);
-            this.testAirplaneAndStrip.Name = "testAirplaneAndStrip";
-            this.testAirplaneAndStrip.Size = new System.Drawing.Size(187, 54);
-            this.testAirplaneAndStrip.TabIndex = 4;
-            this.testAirplaneAndStrip.Text = "Draw test airplane";
-            this.testAirplaneAndStrip.UseVisualStyleBackColor = true;
-            // 
             // panelBeneathGrid
             // 
             this.panelBeneathGrid.BackColor = System.Drawing.Color.Maroon;
@@ -740,9 +744,31 @@
             this.panelBeneathGrid.Size = new System.Drawing.Size(855, 100);
             this.panelBeneathGrid.TabIndex = 3;
             // 
+            // stopWeatherBtn
+            // 
+            this.stopWeatherBtn.Location = new System.Drawing.Point(160, 12);
+            this.stopWeatherBtn.Name = "stopWeatherBtn";
+            this.stopWeatherBtn.Size = new System.Drawing.Size(218, 51);
+            this.stopWeatherBtn.TabIndex = 5;
+            this.stopWeatherBtn.Text = "stop weather timer";
+            this.stopWeatherBtn.UseVisualStyleBackColor = true;
+            this.stopWeatherBtn.Click += new System.EventHandler(this.stopWeatherBtn_Click);
+            // 
+            // btnStartPlaneMovement
+            // 
+            this.btnStartPlaneMovement.Location = new System.Drawing.Point(33, 26);
+            this.btnStartPlaneMovement.Name = "btnStartPlaneMovement";
+            this.btnStartPlaneMovement.Size = new System.Drawing.Size(75, 23);
+            this.btnStartPlaneMovement.TabIndex = 3;
+            this.btnStartPlaneMovement.Text = "btnStartPlaneMovement";
+            this.btnStartPlaneMovement.UseVisualStyleBackColor = true;
+            this.btnStartPlaneMovement.Click += new System.EventHandler(this.button5_Click);
+            // 
             // testAirplaneAndStrip
             // 
             this.testAirplaneAndStrip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.testAirplaneAndStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
+            this.testAirplaneAndStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.testAirplaneAndStrip.Font = new System.Drawing.Font("Century Gothic", 10F);
             this.testAirplaneAndStrip.Location = new System.Drawing.Point(660, 25);
             this.testAirplaneAndStrip.Name = "testAirplaneAndStrip";
@@ -754,6 +780,7 @@
             // calcRouteBtn
             // 
             this.calcRouteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.calcRouteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
             this.calcRouteBtn.Location = new System.Drawing.Point(467, 26);
             this.calcRouteBtn.Name = "calcRouteBtn";
             this.calcRouteBtn.Size = new System.Drawing.Size(187, 51);
@@ -772,53 +799,6 @@
             // 
             this.timerPlaneMovement.Interval = 1000;
             this.timerPlaneMovement.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // stopWeatherBtn
-            // 
-            this.stopWeatherBtn.Location = new System.Drawing.Point(160, 12);
-            this.stopWeatherBtn.Name = "stopWeatherBtn";
-            this.stopWeatherBtn.Size = new System.Drawing.Size(218, 51);
-            this.stopWeatherBtn.TabIndex = 5;
-            this.stopWeatherBtn.Text = "stop weather timer";
-            this.stopWeatherBtn.UseVisualStyleBackColor = true;
-            this.stopWeatherBtn.Click += new System.EventHandler(this.stopWeatherBtn_Click);
-            // lbVisibilityGUI
-            // 
-            this.lbVisibilityGUI.AutoSize = true;
-            this.lbVisibilityGUI.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.lbVisibilityGUI.Location = new System.Drawing.Point(4, 455);
-            this.lbVisibilityGUI.Name = "lbVisibilityGUI";
-            this.lbVisibilityGUI.Size = new System.Drawing.Size(61, 17);
-            this.lbVisibilityGUI.TabIndex = 20;
-            this.lbVisibilityGUI.Text = "Visibility:";
-            // 
-            // lbPrecipitationTypeGUI
-            // 
-            this.lbPrecipitationTypeGUI.AutoSize = true;
-            this.lbPrecipitationTypeGUI.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.lbPrecipitationTypeGUI.Location = new System.Drawing.Point(93, 455);
-            this.lbPrecipitationTypeGUI.Name = "lbPrecipitationTypeGUI";
-            this.lbPrecipitationTypeGUI.Size = new System.Drawing.Size(126, 17);
-            this.lbPrecipitationTypeGUI.TabIndex = 21;
-            this.lbPrecipitationTypeGUI.Text = "Precipitation type:";
-            // 
-            // lbVisibility
-            // 
-            this.lbVisibility.AutoSize = true;
-            this.lbVisibility.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.lbVisibility.Location = new System.Drawing.Point(71, 455);
-            this.lbVisibility.Name = "lbVisibility";
-            this.lbVisibility.Size = new System.Drawing.Size(0, 17);
-            this.lbVisibility.TabIndex = 22;
-            // 
-            // lbPrecipitationType
-            // 
-            this.lbPrecipitationType.AutoSize = true;
-            this.lbPrecipitationType.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.lbPrecipitationType.Location = new System.Drawing.Point(222, 455);
-            this.lbPrecipitationType.Name = "lbPrecipitationType";
-            this.lbPrecipitationType.Size = new System.Drawing.Size(0, 17);
-            this.lbPrecipitationType.TabIndex = 23;
             // 
             // Form1
             // 

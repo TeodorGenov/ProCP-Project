@@ -931,6 +931,13 @@ namespace Air_Traffic_Simulation
             LabelChange();
         }
 
+        private void trackBarPrecipitation_ValueChanged_1(object sender, EventArgs e)
+        {
+            precIntencity = trackBarPrecipitation.Value;
+            labelPrec.Text = precIntencity.ToString() + "%";
+            LabelChange();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             string checks = "";
@@ -959,9 +966,6 @@ namespace Air_Traffic_Simulation
 
         private void trackBarPrecipitation_ValueChanged(object sender, EventArgs e)
         {
-            precIntencity = trackBarPrecipitation.Value;
-            labelPrec.Text = precIntencity.ToString() + "%";
-            LabelChange();
         }
 
         private void trackBarWindSpeed_ValueChanged(object sender, EventArgs e)
