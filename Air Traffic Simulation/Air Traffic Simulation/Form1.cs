@@ -52,6 +52,8 @@ namespace Air_Traffic_Simulation
         SolidBrush weatherBrush = new SolidBrush(Color.White);
         Rectangle weatherBlock;
         WeatherConditions weather;
+        Image weatherImage;
+        Rectangle weatherRect;
 
         //List<Checkpoint> checkpoints;
         string dir;
@@ -152,15 +154,15 @@ namespace Air_Traffic_Simulation
             width = this.pictureBox1.Width;
             height = this.pictureBox1.Height;
             grid = new Grid(width, height);
-            
+
 
 
             //WEATHER GUI
             labelWind.Text = trackBarWindSpeed.Value.ToString() + "m/s";
             labelTemp.Text = trackBarTemperature.Value.ToString() + "°C";
             labelPrec.Text = trackBarPrecipitation.Value.ToString() + "%";
-            comboBoxWindDirection.Items.AddRange(new object[]{ "NORTH", "NORTH-EAST", "NORTH-WEST", "SOUTH", "SOUTH-EAST", "SOUTH-WEST", "EAST", "WEST" });
-            
+            comboBoxWindDirection.Items.AddRange(new object[] { "NORTH", "NORTH-EAST", "NORTH-WEST", "SOUTH", "SOUTH-EAST", "SOUTH-WEST", "EAST", "WEST" });
+
 
 
 
@@ -315,16 +317,18 @@ namespace Air_Traffic_Simulation
             }
 
 
-            Graphics g = this.pictureBox1.CreateGraphics();
-            g.DrawEllipse(p, weatherBlock);
-            g.FillEllipse(weatherBrush, weatherBlock);
+            //Graphics g = this.pictureBox1.CreateGraphics();
+            //g.DrawEllipse(p, weatherBlock);
+            //g.FillEllipse(weatherBrush, weatherBlock);
+            Point weatherPoint = new Point(weatherBlock.X, weatherBlock.Y);
+            PaintWeather(weatherPoint);
         }
 
 
         private void airplaneHasReachedTheAirport(Object sender, EventArgs e)
         {
-            this.planesOnTheGround.Add((Airplane) sender);
-            this.airplaneList.Remove((Airplane) sender);
+            this.planesOnTheGround.Add((Airplane)sender);
+            this.airplaneList.Remove((Airplane)sender);
             Refresh();
         }
 
@@ -528,7 +532,7 @@ namespace Air_Traffic_Simulation
                 Console.WriteLine(planePath);
 
                 //generates the message box that informs the user that some areas are missing points
-                bool[] allZonesCheck = new bool[] {false, false, false, false};
+                bool[] allZonesCheck = new bool[] { false, false, false, false };
                 string lacking =
                     $"   - UPPER{Environment.NewLine}   - MIDDLE{Environment.NewLine}   - LOWER{Environment.NewLine}   - FINAL";
 
@@ -792,7 +796,7 @@ namespace Air_Traffic_Simulation
             {
                 foreach (Cell cl in grid.listOfCells)
                 {
-                    if (cl.ContainsPoint((int) c.CoordinateX, (int) c.CoordinateY) == true)
+                    if (cl.ContainsPoint((int)c.CoordinateX, (int)c.CoordinateY) == true)
                     {
                         Point p = cl.GetCenter();
                         PaintCircle(p);
@@ -807,7 +811,7 @@ namespace Air_Traffic_Simulation
                     p.MoveTowardsNextPoint();
                     Pen pen = new Pen(Color.Red);
                     Graphics g = this.pictureBox1.CreateGraphics();
-                    g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                    g.DrawRectangle(pen, (float)p.CoordinateX, (float)p.CoordinateY, 10, 10);
                 }
             }
         }
@@ -824,7 +828,7 @@ namespace Air_Traffic_Simulation
                 {
                     Pen pen = new Pen(Color.Red);
                     Graphics g = this.pictureBox1.CreateGraphics();
-                    g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                    g.DrawRectangle(pen, (float)p.CoordinateX, (float)p.CoordinateY, 10, 10);
                 }
 
                 timerPlaneMovement.Start();
@@ -865,7 +869,7 @@ namespace Air_Traffic_Simulation
 
                 checkpoints = null;
 
-                checkpoints = (List<Checkpoint>) bformatter.Deserialize(filestream);
+                checkpoints = (List<Checkpoint>)bformatter.Deserialize(filestream);
 
                 filestream.Close();
                 filestream = null;
@@ -922,8 +926,8 @@ namespace Air_Traffic_Simulation
             {
                 timerWeather.Start();
             }
-		}
-        
+        }
+
         //wind direction changed in combobox
         private void comboBoxWindDirection_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -1010,6 +1014,25 @@ namespace Air_Traffic_Simulation
             Pen pen = new Pen(Color.Red);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawRectangle(pen, x, y, width, height);
+        }
+
+        public void PaintWeather(Point p)
+        {
+            int x = p.X - 3;
+            int y = p.Y - 3;
+
+            if (weather.PrecipitationType == PrecipitationType.RAIN)
+            { weatherImage = Properties.Resources.rain; }
+            else if (weather.PrecipitationType == PrecipitationType.SNOW)
+            { weatherImage = Properties.Resources.snow; }
+            else if (weather.PrecipitationType == PrecipitationType.HAIL)
+            { weatherImage = Properties.Resources.hail; }
+            else
+            { weatherImage = Properties.Resources.clear; }
+
+            Graphics g = this.pictureBox1.CreateGraphics();
+            weatherRect = new Rectangle(x, y, 60, 60);
+            g.DrawImage(weatherImage, weatherRect);
         }
 
         public void PaintRectangleY(Point p)

@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 
 namespace Air_Traffic_Simulation
 {
     class WeatherConditions
     {
         private double probability = 1;
-        private Image weatherImg;
 
         //public double Humidity
         //{ get; set; }
@@ -111,19 +109,6 @@ namespace Air_Traffic_Simulation
             {
                 this.probability = 0;
             }
-        }
-
-        public Image GetWeatherImage()
-        {
-            if (PrecipitationType == PrecipitationType.RAIN)
-            { weatherImg = Properties.Resources.rain; }
-            else if (PrecipitationType == PrecipitationType.SNOW)
-            { weatherImg = Properties.Resources.snow; }
-            else if (PrecipitationType == PrecipitationType.HAIL)
-            { weatherImg = Properties.Resources.hail; }
-            else
-            { weatherImg = Properties.Resources.clear; }
-            return null;
         }
     }
 }
