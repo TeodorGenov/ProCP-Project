@@ -695,7 +695,7 @@ namespace Air_Traffic_Simulation
                         {
                             if (c.Type == CellType.BORDER)
                             {
-                                PaintRectangle(p);
+                                PaintAirplane(p);
 
                                 apName++;
                                 fnName += 6 * 2 / 3;
@@ -831,7 +831,7 @@ namespace Air_Traffic_Simulation
                 {
                     p.MoveTowardsNextPoint();
                     Point point = new Point((int)p.CoordinateX, (int)p.CoordinateY);
-                    PaintRectangle(point);
+                    PaintAirplane(point);
                 }
             }
         }
@@ -847,7 +847,7 @@ namespace Air_Traffic_Simulation
                 foreach (Airplane p in airplaneList)
                 {
                     Point point = new Point((int)p.CoordinateX, (int)p.CoordinateY);
-                    PaintRectangle(point);
+                    PaintAirplane(point);
                 }
 
                 timerPlaneMovement.Start();
@@ -1175,15 +1175,13 @@ namespace Air_Traffic_Simulation
             g.DrawEllipse(pen, x, y, width, height);
         }
 
-        public void PaintRectangle(Point p)
+        public void PaintAirplane(Point p)
         {
             int x = p.X - 3;
             int y = p.Y - 3;
             int width = 2 * 3;
             int height = 2 * 3;
-            //Pen pen = new Pen(Color.Red);
             Graphics g = this.pictureBox1.CreateGraphics();
-            //g.DrawRectangle(pen, x, y, width, height);
             airplaneImage = Properties.Resources.airplanePic;
             airplaneRect = new Rectangle(x, y, 40, 40);
             g.DrawImage(airplaneImage, airplaneRect);
