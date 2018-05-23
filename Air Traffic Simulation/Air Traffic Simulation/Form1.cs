@@ -1179,8 +1179,6 @@ namespace Air_Traffic_Simulation
         {
             int x = p.X - 3;
             int y = p.Y - 3;
-            int width = 2 * 3;
-            int height = 2 * 3;
             Graphics g = this.pictureBox1.CreateGraphics();
             airplaneImage = Properties.Resources.airplanePic;
             airplaneRect = new Rectangle(x, y, 40, 40);
