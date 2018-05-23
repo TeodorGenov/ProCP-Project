@@ -26,6 +26,8 @@ namespace Air_Traffic_Simulation
         /// </summary>
         public CellType ParentCellType { get; }
 
+        public event EventHandler OnWeatherPassing;
+
         public Checkpoint(string name, double coordinateX, double coordinateY, Cell c, List<Checkpoint> allCheckpoints, Airstrip strip)
         {
             this.Name = name;

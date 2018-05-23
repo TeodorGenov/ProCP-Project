@@ -312,6 +312,31 @@ namespace Air_Traffic_Simulation
             //Graphics g = this.pictureBox1.CreateGraphics();
             //g.DrawEllipse(p, weatherBlock);
             //g.FillEllipse(weatherBrush, weatherBlock);
+            try
+            {
+                foreach(Checkpoint c in this.checkpoints)
+                {
+                    foreach(Cell cl in grid.listOfCells)
+                    {
+                        if(cl.ContainsPoint((int)c.CoordinateX, (int)c.CoordinateY) == true)
+                        {
+                            if(weatherRect.Contains((int)c.CoordinateX, (int)c.CoordinateY))
+                            {
+                                weatherOnCheckpoint(c, EventArgs.Empty);
+                            }
+                            else
+                            {
+                                Point point = cl.GetCenter();
+                                PaintCircle(point);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show("Something went wrong with checkpoints list.");
+            }
             Point weatherPoint = new Point(weatherRect.X, weatherRect.Y);
             PaintWeather(weatherPoint);
         }
@@ -611,7 +636,7 @@ namespace Air_Traffic_Simulation
                                 string name = "cp" + cpName;
 
                                 Checkpoint a = new Checkpoint(name, p.X, p.Y, c, checkpoints, landingStrip);
-
+                                a.OnWeatherPassing += weatherOnCheckpoint;
                                 checkpoints.Add(a);
                                 MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" +
                                                 a.CoordinateX +
@@ -1044,6 +1069,11 @@ namespace Air_Traffic_Simulation
             lbPrecipitationType.Text = weather.GetPrecipitationType().ToString();
             lbProbability.Text = weather.Probability.ToString();
             lbVisibility.Text = weather.GetVisibility().ToString();
+        }
+
+        private void weatherOnCheckpoint(Object sender, EventArgs e)
+        {
+            this.checkpoints.Remove((Checkpoint) sender);
         }
     }
 }
