@@ -157,5 +157,10 @@
               resource lookups using this strongly typed resource class.
             </summary>
         </member>
+        <member name="P:Air_Traffic_Simulation.Properties.Resources.airplanePic">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Bitmap.
+            </summary>
+        </member>
     </members>
 </doc>

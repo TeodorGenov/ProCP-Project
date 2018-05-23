@@ -22,3 +22,15 @@ D:\OneDrive\Fontys University (Semester IV)\PROCP\ProCP_Project\Air Traffic Simu
 D:\OneDrive\Fontys University (Semester IV)\PROCP\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.xml
 D:\OneDrive\Fontys University (Semester IV)\PROCP\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe
 D:\OneDrive\Fontys University (Semester IV)\PROCP\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.pdb
+C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.config
+C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.xml
+C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.exe
+C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.pdb
+C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe
+C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.pdb
+C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csprojResolveAssemblyReference.cache
+C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Form1.resources
+C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Form2.resources
+C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Properties.Resources.resources
+C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.WindDirection.resources
+C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.GenerateResource.Cache

@@ -14,6 +14,12 @@ namespace Air_Traffic_Simulation
 {
     public partial class Form1 : Form
     {
+
+        //AIRPLAIN GRAPHICS
+
+        Image airplaneImage;
+        Rectangle airplaneRect;
+
         //RADAR
 
         Random r = new Random();
@@ -149,6 +155,7 @@ namespace Air_Traffic_Simulation
             // airplaneList.Add(testPlane2);
             InitializeComponent();
             nSpeed.Enabled = false;
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -353,13 +360,16 @@ namespace Air_Traffic_Simulation
                     Point p = c.GetCenter();
 
                     //slightly, uh, artistically collaborated PaintCircle
-                    float x = p.X - 3;
-                    float y = p.Y - 3;
-                    float width = 2 * 3;
-                    float height = 2 * 3;
-                    Pen pen = new Pen(Color.Red);
+                    int x = p.X - 3;
+                    int y = p.Y - 3;
+                    int width = 2 * 3;
+                    int height = 2 * 3;
+                    //Pen pen = new Pen(Color.Red);
                     Graphics g = this.pictureBox1.CreateGraphics();
-                    g.DrawRectangle(pen, x, y, width, height);
+                    //g.DrawRectangle(pen, x, y, width, height);
+                    airplaneImage = Properties.Resources.airplanePic;
+                    airplaneRect = new Rectangle(x, y, width, height);
+                    g.DrawImage(airplaneImage, airplaneRect);
                 }
             }
         }
@@ -820,9 +830,12 @@ namespace Air_Traffic_Simulation
                 if (p.ShortestPath.Count != 0)
                 {
                     p.MoveTowardsNextPoint();
-                    Pen pen = new Pen(Color.Red);
+                    //Pen pen = new Pen(Color.Red);
                     Graphics g = this.pictureBox1.CreateGraphics();
-                    g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                    //g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                    airplaneImage = Properties.Resources.airplanePic;
+                    airplaneRect = new Rectangle((int)p.CoordinateX, (int)p.CoordinateY, 40, 40);
+                    g.DrawImage(airplaneImage, airplaneRect);
                 }
             }
         }
@@ -837,9 +850,12 @@ namespace Air_Traffic_Simulation
             {
                 foreach (Airplane p in airplaneList)
                 {
-                    Pen pen = new Pen(Color.Red);
+                    //Pen pen = new Pen(Color.Red);
                     Graphics g = this.pictureBox1.CreateGraphics();
-                    g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                    //g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                    airplaneImage = Properties.Resources.airplanePic;
+                    airplaneRect = new Rectangle((int)p.CoordinateX, (int)p.CoordinateY, 40, 40);
+                    g.DrawImage(airplaneImage, airplaneRect);
                 }
 
                 timerPlaneMovement.Start();
@@ -936,6 +952,11 @@ namespace Air_Traffic_Simulation
             {
                 timerWeather.Start();
             }
+        }
+
+        private void testAirplaneAndStrip_Click(object sender, EventArgs e)
+        {
+
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -1164,13 +1185,16 @@ namespace Air_Traffic_Simulation
 
         public void PaintRectangle(Point p)
         {
-            float x = p.X - 3;
-            float y = p.Y - 3;
-            float width = 2 * 3;
-            float height = 2 * 3;
-            Pen pen = new Pen(Color.Red);
+            int x = p.X - 3;
+            int y = p.Y - 3;
+            int width = 2 * 3;
+            int height = 2 * 3;
+            //Pen pen = new Pen(Color.Red);
             Graphics g = this.pictureBox1.CreateGraphics();
-            g.DrawRectangle(pen, x, y, width, height);
+            //g.DrawRectangle(pen, x, y, width, height);
+            airplaneImage = Properties.Resources.airplanePic;
+            airplaneRect = new Rectangle(x, y, 40, 40);
+            g.DrawImage(airplaneImage, airplaneRect);
         }
 
         public void PaintRectangleY(Point p)

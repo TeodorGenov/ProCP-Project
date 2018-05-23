@@ -80,13 +80,13 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.btnStartPlaneMovement = new System.Windows.Forms.Button();
-            this.calcRouteBtn = new System.Windows.Forms.Button();
-            this.testAirplaneAndStrip = new System.Windows.Forms.Button();
             this.panelBeneathGrid = new System.Windows.Forms.Panel();
+            this.stopWeatherBtn = new System.Windows.Forms.Button();
+            this.btnStartPlaneMovement = new System.Windows.Forms.Button();
+            this.testAirplaneAndStrip = new System.Windows.Forms.Button();
+            this.calcRouteBtn = new System.Windows.Forms.Button();
             this.timerWeather = new System.Windows.Forms.Timer(this.components);
             this.timerPlaneMovement = new System.Windows.Forms.Timer(this.components);
-            this.stopWeatherBtn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
@@ -129,7 +129,7 @@
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 42);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(272, 710);
+            this.panel1.Size = new System.Drawing.Size(272, 707);
             this.panel1.TabIndex = 0;
             // 
             // allFlightsListBox
@@ -137,10 +137,10 @@
             this.allFlightsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.allFlightsListBox.FormattingEnabled = true;
-            this.allFlightsListBox.ItemHeight = 23;
-            this.allFlightsListBox.Location = new System.Drawing.Point(7, 602);
+            this.allFlightsListBox.ItemHeight = 21;
+            this.allFlightsListBox.Location = new System.Drawing.Point(7, 599);
             this.allFlightsListBox.Name = "allFlightsListBox";
-            this.allFlightsListBox.Size = new System.Drawing.Size(259, 96);
+            this.allFlightsListBox.Size = new System.Drawing.Size(259, 88);
             this.allFlightsListBox.TabIndex = 19;
             // 
             // prob
@@ -150,7 +150,7 @@
             this.prob.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.prob.Location = new System.Drawing.Point(34, 430);
             this.prob.Name = "prob";
-            this.prob.Size = new System.Drawing.Size(0, 21);
+            this.prob.Size = new System.Drawing.Size(0, 19);
             this.prob.TabIndex = 18;
             // 
             // labelWind
@@ -160,7 +160,7 @@
             this.labelWind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.labelWind.Location = new System.Drawing.Point(34, 371);
             this.labelWind.Name = "labelWind";
-            this.labelWind.Size = new System.Drawing.Size(0, 21);
+            this.labelWind.Size = new System.Drawing.Size(0, 19);
             this.labelWind.TabIndex = 17;
             // 
             // labelPrec
@@ -170,7 +170,7 @@
             this.labelPrec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.labelPrec.Location = new System.Drawing.Point(34, 320);
             this.labelPrec.Name = "labelPrec";
-            this.labelPrec.Size = new System.Drawing.Size(0, 21);
+            this.labelPrec.Size = new System.Drawing.Size(0, 19);
             this.labelPrec.TabIndex = 16;
             // 
             // labelTemp
@@ -180,7 +180,7 @@
             this.labelTemp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.labelTemp.Location = new System.Drawing.Point(34, 267);
             this.labelTemp.Name = "labelTemp";
-            this.labelTemp.Size = new System.Drawing.Size(0, 21);
+            this.labelTemp.Size = new System.Drawing.Size(0, 19);
             this.labelTemp.TabIndex = 15;
             // 
             // trackBarPrecipitation
@@ -188,7 +188,7 @@
             this.trackBarPrecipitation.Location = new System.Drawing.Point(121, 294);
             this.trackBarPrecipitation.Maximum = 100;
             this.trackBarPrecipitation.Name = "trackBarPrecipitation";
-            this.trackBarPrecipitation.Size = new System.Drawing.Size(148, 56);
+            this.trackBarPrecipitation.Size = new System.Drawing.Size(148, 45);
             this.trackBarPrecipitation.TabIndex = 14;
             this.trackBarPrecipitation.TabStop = false;
             this.trackBarPrecipitation.Value = 24;
@@ -198,7 +198,7 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(3, 294);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(130, 23);
+            this.label7.Size = new System.Drawing.Size(109, 21);
             this.label7.TabIndex = 13;
             this.label7.Text = "Precipitation";
             // 
@@ -208,7 +208,7 @@
             this.comboBoxWindDirection.FormattingEnabled = true;
             this.comboBoxWindDirection.Location = new System.Drawing.Point(131, 393);
             this.comboBoxWindDirection.Name = "comboBoxWindDirection";
-            this.comboBoxWindDirection.Size = new System.Drawing.Size(128, 31);
+            this.comboBoxWindDirection.Size = new System.Drawing.Size(128, 29);
             this.comboBoxWindDirection.TabIndex = 12;
             this.comboBoxWindDirection.TabStop = false;
             // 
@@ -217,7 +217,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(3, 396);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(146, 23);
+            this.label6.Size = new System.Drawing.Size(122, 21);
             this.label6.TabIndex = 11;
             this.label6.Text = "Wind direction";
             // 
@@ -226,7 +226,7 @@
             this.trackBarWindSpeed.Location = new System.Drawing.Point(121, 345);
             this.trackBarWindSpeed.Maximum = 75;
             this.trackBarWindSpeed.Name = "trackBarWindSpeed";
-            this.trackBarWindSpeed.Size = new System.Drawing.Size(148, 56);
+            this.trackBarWindSpeed.Size = new System.Drawing.Size(148, 45);
             this.trackBarWindSpeed.TabIndex = 9;
             this.trackBarWindSpeed.TabStop = false;
             this.trackBarWindSpeed.Scroll += new System.EventHandler(this.trackBarWindSpeed_Scroll);
@@ -237,7 +237,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(3, 345);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(124, 23);
+            this.label5.Size = new System.Drawing.Size(101, 21);
             this.label5.TabIndex = 8;
             this.label5.Text = "Wind speed";
             // 
@@ -246,7 +246,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 243);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(135, 23);
+            this.label4.Size = new System.Drawing.Size(112, 21);
             this.label4.TabIndex = 7;
             this.label4.Text = "Temperature";
             // 
@@ -255,7 +255,7 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(88, 207);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(112, 23);
+            this.label3.Size = new System.Drawing.Size(93, 21);
             this.label3.TabIndex = 6;
             this.label3.Text = "Air Control";
             // 
@@ -265,7 +265,7 @@
             this.trackBarTemperature.Maximum = 50;
             this.trackBarTemperature.Minimum = -30;
             this.trackBarTemperature.Name = "trackBarTemperature";
-            this.trackBarTemperature.Size = new System.Drawing.Size(148, 56);
+            this.trackBarTemperature.Size = new System.Drawing.Size(148, 45);
             this.trackBarTemperature.TabIndex = 5;
             this.trackBarTemperature.TabStop = false;
             this.trackBarTemperature.Value = 24;
@@ -277,7 +277,7 @@
             this.rbTakeOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbTakeOff.Location = new System.Drawing.Point(177, 168);
             this.rbTakeOff.Name = "rbTakeOff";
-            this.rbTakeOff.Size = new System.Drawing.Size(110, 27);
+            this.rbTakeOff.Size = new System.Drawing.Size(92, 25);
             this.rbTakeOff.TabIndex = 4;
             this.rbTakeOff.Text = "Take Off";
             this.rbTakeOff.UseVisualStyleBackColor = true;
@@ -302,7 +302,7 @@
             this.rbLanding.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbLanding.Location = new System.Drawing.Point(12, 168);
             this.rbLanding.Name = "rbLanding";
-            this.rbLanding.Size = new System.Drawing.Size(107, 27);
+            this.rbLanding.Size = new System.Drawing.Size(90, 25);
             this.rbLanding.TabIndex = 3;
             this.rbLanding.Text = "Landing";
             this.rbLanding.UseVisualStyleBackColor = true;
@@ -324,7 +324,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(158)))), ((int)(((byte)(209)))));
             this.label1.Location = new System.Drawing.Point(8, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(312, 80);
+            this.label1.Size = new System.Drawing.Size(251, 63);
             this.label1.TabIndex = 0;
             this.label1.Text = "Air Traffic";
             // 
@@ -333,7 +333,7 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(49, 128);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(208, 23);
+            this.label2.Size = new System.Drawing.Size(170, 21);
             this.label2.TabIndex = 2;
             this.label2.Text = "Simulation Outcome";
             // 
@@ -347,7 +347,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel2.Location = new System.Drawing.Point(1127, 42);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 710);
+            this.panel2.Size = new System.Drawing.Size(200, 707);
             this.panel2.TabIndex = 1;
             // 
             // panel7
@@ -380,7 +380,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(49, 13);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(120, 23);
+            this.label11.Size = new System.Drawing.Size(100, 21);
             this.label11.TabIndex = 15;
             this.label11.Text = "Data Menu";
             // 
@@ -453,7 +453,7 @@
             0,
             0});
             this.nSpeed.Name = "nSpeed";
-            this.nSpeed.Size = new System.Drawing.Size(67, 32);
+            this.nSpeed.Size = new System.Drawing.Size(67, 27);
             this.nSpeed.TabIndex = 26;
             this.nSpeed.Value = new decimal(new int[] {
             500,
@@ -468,7 +468,7 @@
             this.label15.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label15.Location = new System.Drawing.Point(164, 79);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(33, 21);
+            this.label15.Size = new System.Drawing.Size(26, 19);
             this.label15.TabIndex = 25;
             this.label15.Text = "kts";
             // 
@@ -478,7 +478,7 @@
             this.label14.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label14.Location = new System.Drawing.Point(11, 77);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(74, 23);
+            this.label14.Size = new System.Drawing.Size(60, 21);
             this.label14.TabIndex = 23;
             this.label14.Text = "Speed";
             // 
@@ -489,7 +489,7 @@
             this.label13.ForeColor = System.Drawing.Color.Silver;
             this.label13.Location = new System.Drawing.Point(121, 50);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(34, 21);
+            this.label13.Size = new System.Drawing.Size(28, 19);
             this.label13.TabIndex = 22;
             this.label13.Text = "No";
             // 
@@ -500,7 +500,7 @@
             this.label12.ForeColor = System.Drawing.Color.Silver;
             this.label12.Location = new System.Drawing.Point(119, 31);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(39, 21);
+            this.label12.Size = new System.Drawing.Size(30, 19);
             this.label12.TabIndex = 21;
             this.label12.Text = "Yes";
             // 
@@ -510,7 +510,7 @@
             this.label10.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label10.Location = new System.Drawing.Point(25, 42);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(94, 23);
+            this.label10.Size = new System.Drawing.Size(77, 21);
             this.label10.TabIndex = 20;
             this.label10.Text = "Random";
             // 
@@ -521,7 +521,7 @@
             this.trackBar1.Maximum = 1;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(56, 42);
+            this.trackBar1.Size = new System.Drawing.Size(45, 42);
             this.trackBar1.TabIndex = 19;
             this.trackBar1.TabStop = false;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -560,7 +560,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(33, 3);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(152, 23);
+            this.label9.Size = new System.Drawing.Size(125, 21);
             this.label9.TabIndex = 17;
             this.label9.Text = "Airplane Menu";
             // 
@@ -608,7 +608,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(25, 3);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(183, 23);
+            this.label8.Size = new System.Drawing.Size(151, 21);
             this.label8.TabIndex = 15;
             this.label8.Text = "Checkpoint Menu";
             // 
@@ -668,7 +668,7 @@
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(855, 610);
+            this.pictureBox1.Size = new System.Drawing.Size(855, 607);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
@@ -681,8 +681,31 @@
             this.panel5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel5.Location = new System.Drawing.Point(272, 42);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(855, 710);
+            this.panel5.Size = new System.Drawing.Size(855, 707);
             this.panel5.TabIndex = 2;
+            // 
+            // panelBeneathGrid
+            // 
+            this.panelBeneathGrid.BackColor = System.Drawing.Color.Maroon;
+            this.panelBeneathGrid.Controls.Add(this.stopWeatherBtn);
+            this.panelBeneathGrid.Controls.Add(this.btnStartPlaneMovement);
+            this.panelBeneathGrid.Controls.Add(this.testAirplaneAndStrip);
+            this.panelBeneathGrid.Controls.Add(this.calcRouteBtn);
+            this.panelBeneathGrid.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelBeneathGrid.Location = new System.Drawing.Point(0, 607);
+            this.panelBeneathGrid.Name = "panelBeneathGrid";
+            this.panelBeneathGrid.Size = new System.Drawing.Size(855, 100);
+            this.panelBeneathGrid.TabIndex = 3;
+            // 
+            // stopWeatherBtn
+            // 
+            this.stopWeatherBtn.Location = new System.Drawing.Point(160, 12);
+            this.stopWeatherBtn.Name = "stopWeatherBtn";
+            this.stopWeatherBtn.Size = new System.Drawing.Size(218, 51);
+            this.stopWeatherBtn.TabIndex = 5;
+            this.stopWeatherBtn.Text = "stop weather timer";
+            this.stopWeatherBtn.UseVisualStyleBackColor = true;
+            this.stopWeatherBtn.Click += new System.EventHandler(this.stopWeatherBtn_Click);
             // 
             // btnStartPlaneMovement
             // 
@@ -693,18 +716,6 @@
             this.btnStartPlaneMovement.Text = "btnStartPlaneMovement";
             this.btnStartPlaneMovement.UseVisualStyleBackColor = true;
             this.btnStartPlaneMovement.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // calcRouteBtn
-            // 
-            this.calcRouteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.calcRouteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
-            this.calcRouteBtn.Location = new System.Drawing.Point(467, 26);
-            this.calcRouteBtn.Name = "calcRouteBtn";
-            this.calcRouteBtn.Size = new System.Drawing.Size(187, 51);
-            this.calcRouteBtn.TabIndex = 3;
-            this.calcRouteBtn.Text = "Calculate Route";
-            this.calcRouteBtn.UseVisualStyleBackColor = true;
-            this.calcRouteBtn.Click += new System.EventHandler(this.calcRouteBtn_Click);
             // 
             // testAirplaneAndStrip
             // 
@@ -718,19 +729,19 @@
             this.testAirplaneAndStrip.TabIndex = 4;
             this.testAirplaneAndStrip.Text = "Draw test airplane";
             this.testAirplaneAndStrip.UseVisualStyleBackColor = true;
+            this.testAirplaneAndStrip.Click += new System.EventHandler(this.testAirplaneAndStrip_Click);
             // 
-            // panelBeneathGrid
+            // calcRouteBtn
             // 
-            this.panelBeneathGrid.BackColor = System.Drawing.Color.Maroon;
-            this.panelBeneathGrid.Controls.Add(this.stopWeatherBtn);
-            this.panelBeneathGrid.Controls.Add(this.btnStartPlaneMovement);
-            this.panelBeneathGrid.Controls.Add(this.testAirplaneAndStrip);
-            this.panelBeneathGrid.Controls.Add(this.calcRouteBtn);
-            this.panelBeneathGrid.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelBeneathGrid.Location = new System.Drawing.Point(0, 610);
-            this.panelBeneathGrid.Name = "panelBeneathGrid";
-            this.panelBeneathGrid.Size = new System.Drawing.Size(855, 100);
-            this.panelBeneathGrid.TabIndex = 3;
+            this.calcRouteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.calcRouteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
+            this.calcRouteBtn.Location = new System.Drawing.Point(467, 26);
+            this.calcRouteBtn.Name = "calcRouteBtn";
+            this.calcRouteBtn.Size = new System.Drawing.Size(187, 51);
+            this.calcRouteBtn.TabIndex = 3;
+            this.calcRouteBtn.Text = "Calculate Route";
+            this.calcRouteBtn.UseVisualStyleBackColor = true;
+            this.calcRouteBtn.Click += new System.EventHandler(this.calcRouteBtn_Click);
             // 
             // timerWeather
             // 
@@ -743,21 +754,11 @@
             this.timerPlaneMovement.Interval = 1000;
             this.timerPlaneMovement.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // stopWeatherBtn
-            // 
-            this.stopWeatherBtn.Location = new System.Drawing.Point(160, 12);
-            this.stopWeatherBtn.Name = "stopWeatherBtn";
-            this.stopWeatherBtn.Size = new System.Drawing.Size(218, 51);
-            this.stopWeatherBtn.TabIndex = 5;
-            this.stopWeatherBtn.Text = "stop weather timer";
-            this.stopWeatherBtn.UseVisualStyleBackColor = true;
-            this.stopWeatherBtn.Click += new System.EventHandler(this.stopWeatherBtn_Click);
-            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
-            this.ClientSize = new System.Drawing.Size(1327, 752);
+            this.ClientSize = new System.Drawing.Size(1327, 749);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
