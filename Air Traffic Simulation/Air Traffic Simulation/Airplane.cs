@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Air_Traffic_Simulation
 {
-    class Airplane : AbstractCheckpoint
+    public class Airplane : AbstractCheckpoint
     {
         public override string Name { get; }
         public override LinkedList<AbstractCheckpoint> ShortestPath { get; set; }

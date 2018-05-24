@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace Air_Traffic_Simulation
 {
     [Serializable]
-    class Checkpoint : AbstractCheckpoint
+    public class Checkpoint : AbstractCheckpoint
     {
         public override string Name { get; }
         public override double CoordinateX { get; set; }
