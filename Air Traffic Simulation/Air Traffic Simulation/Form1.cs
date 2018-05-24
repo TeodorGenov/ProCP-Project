@@ -359,17 +359,7 @@ namespace Air_Traffic_Simulation
                 {
                     Point p = c.GetCenter();
 
-                    //slightly, uh, artistically collaborated PaintCircle
-                    int x = p.X - 3;
-                    int y = p.Y - 3;
-                    int width = 2 * 3;
-                    int height = 2 * 3;
-                    //Pen pen = new Pen(Color.Red);
-                    Graphics g = this.pictureBox1.CreateGraphics();
-                    //g.DrawRectangle(pen, x, y, width, height);
-                    airplaneImage = Properties.Resources.airplanePic;
-                    airplaneRect = new Rectangle(x, y, width, height);
-                    g.DrawImage(airplaneImage, airplaneRect);
+                    PaintAirplane(p);
                 }
             }
         }
