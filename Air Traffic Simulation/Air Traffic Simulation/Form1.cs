@@ -16,9 +16,10 @@ namespace Air_Traffic_Simulation
     {
         //RADAR
 
-
+        Random r = new Random();
         Timer t = new Timer();
-        int width = 600, height = 400, hand = 150;
+        int width, height;
+        int hand = 150;
         int u; //in degree
         int cx, cy; //center of the circle
         int x, y; //hand coordinates
@@ -31,7 +32,7 @@ namespace Air_Traffic_Simulation
         //GRID
 
 
-        Grid grid = new Grid();
+        Grid grid;
         Point p1, p2, p3, p4;
         Pen pGrid;
         Graphics gGrid;
@@ -44,46 +45,68 @@ namespace Air_Traffic_Simulation
         Graphics grCircle;
         Pen pnCircle;
 
-
-        // SIMULATION VARIABLES
-
-
-        int temp, prec, wind;
+        //WEATHER VALUES
+        string wdComboBox;
+        int temp, precIntencity, windSpeed;
+        WindDirection windDirection;
+        SolidBrush weatherBrush = new SolidBrush(Color.White);
+        Rectangle weatherBlock;
+        WeatherConditions weather;
 
         //List<Checkpoint> checkpoints;
         string dir;
         string serializationFile;
 
-        double probability;
-
         int AddingCheckpoints = 0;
         int RemovingCheckpoints = 0;
+        int AddingAirplanes = 0;
+        int RemovingAirplanes = 0;
+        int RandomAirplane = 0;
         static int cpName = 0;
+        static int apName = 0;
+        static int fnName = 0;
+
         BinaryFormatter bf;
 
 
-        // END OF SIMULATION VARIABLES
-
 
         // PAINT GRID
-        Rectangle rect;
-        SolidBrush b = new SolidBrush(Color.Yellow);
-
-        public void PaintGrid()
+        private void PaintGrid()
         {
+            Rectangle rect;
+            SolidBrush b = new SolidBrush(Color.Yellow);
+
             foreach (Cell c in grid.listOfCells)
             {
-                if (c.x == 0 || c.y == 0 || c.x == bmpGrid.Width - 20 || c.y == bmpGrid.Height - 20)
+                switch (c.Type)
                 {
-                    rect = new Rectangle(c.x, c.y, 20, 20);
-                    gGrid.FillRectangle(b, rect);
-                    gGrid.DrawRectangle(pGrid, rect);
+                    case CellType.BORDER:
+                        b = new SolidBrush(Color.Yellow);
+                        break;
+                    case CellType.UPPER:
+                        b = new SolidBrush(Color.Aqua);
+                        break;
+                    case CellType.MIDDLE:
+                        b = new SolidBrush(Color.LightSkyBlue);
+                        break;
+                    case CellType.LOWER:
+                        b = new SolidBrush(Color.Gainsboro);
+                        break;
+                    case CellType.FINAL:
+                        b = new SolidBrush(Color.Chocolate);
+                        break;
+                    default:
+                        continue;
                 }
+
+                rect = new Rectangle(c.x, c.y, Cell.Width, Cell.Width);
+                gGrid.FillRectangle(b, rect);
+                gGrid.DrawRectangle(pGrid, rect);
             }
         }
 
 
-        //simulation
+        //SIMULATION
 
         private bool dragging = false;
         private Point dragCursorPoint;
@@ -92,30 +115,91 @@ namespace Air_Traffic_Simulation
 
         //TODO: remove testing variables
         private Airplane testPlane;
-        private Airstrip testStrip;
-        List<AbstractCheckpoint> checkpoints;
+        private Airplane testPlane2;
+        private Airstrip landingStrip;
+
+        List<Airplane> airplanes;
+
+        List<Checkpoint> checkpoints;
+        List<Airplane> airplaneList;
+        private List<Airplane> planesOnTheGround;
 
 
         public Form1()
         {
             dir = @"..\..\Saved";
             serializationFile = Path.Combine(dir, "Checkpoints.bin");
-            //checkpoints = new List<Checkpoint>();
-            checkpoints = new List<AbstractCheckpoint>();
 
+
+            airplanes = new List<Airplane>();
+            checkpoints = new List<Checkpoint>();
+            airplaneList = new List<Airplane>();
+            planesOnTheGround = new List<Airplane>();
+            testPlane = new Airplane(name: "FB123", coordinateX: 35, coordinateY: 64, speed: 300,
+                flightNumber: "FB321");
+            testPlane.OnAirportReached += airplaneHasReachedTheAirport;
+            airplaneList.Add(testPlane);
+            //testPlane2 = new Airplane(name: "FB123", coordinateX: 100, coordinateY: 100, speed: 300,
+            //     flightNumber: "FB321");
+            // airplaneList.Add(testPlane2);
             InitializeComponent();
+            nSpeed.Enabled = false;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // Slider info
-            temp = trackBarTemperature.Value;
-            prec = trackBarPrecipitation.Value;
-            wind = trackBarWindSpeed.Value;
+            //GRID VALUES
+            width = this.pictureBox1.Width;
+            height = this.pictureBox1.Height;
+            grid = new Grid(width, height);
+            
+
+
+            //WEATHER GUI
             labelWind.Text = trackBarWindSpeed.Value.ToString() + "m/s";
             labelTemp.Text = trackBarTemperature.Value.ToString() + "°C";
             labelPrec.Text = trackBarPrecipitation.Value.ToString() + "%";
-            Simulate();
+            comboBoxWindDirection.Items.AddRange(new object[]{ "NORTH", "NORTH-EAST", "NORTH-WEST", "SOUTH", "SOUTH-EAST", "SOUTH-WEST", "EAST", "WEST" });
+            
+
+
+
+            //WEATHER VALUES
+            windSpeed = trackBarWindSpeed.Value;
+            temp = trackBarTemperature.Value;
+            precIntencity = trackBarPrecipitation.Value;
+
+            switch (wdComboBox)
+            {
+                case "NORTH":
+                    windDirection = WindDirection.NORTH;
+                    break;
+                case "NORTH-EAST":
+                    windDirection = WindDirection.NORTHEAST;
+                    break;
+                case "NORTH-WEST":
+                    windDirection = WindDirection.NORTHWEST;
+                    break;
+                case "SOUTH":
+                    windDirection = WindDirection.SOUTH;
+                    break;
+                case "SOUTH-EAST":
+                    windDirection = WindDirection.SOUTHEAST;
+                    break;
+                case "SOUTH-WEST":
+                    windDirection = WindDirection.SOUTHWEST;
+                    break;
+                case "EAST":
+                    windDirection = WindDirection.EAST;
+                    break;
+                case "WEST":
+                    windDirection = WindDirection.WEST;
+                    break;
+            }
+
+            weather = new WeatherConditions(windSpeed, windDirection, temp, precIntencity);
+            LabelChange();
+
 
 
             //RADAR
@@ -151,9 +235,9 @@ namespace Air_Traffic_Simulation
             foreach (Cell c in grid.listOfCells)
             {
                 p1 = new Point(c.x, c.y);
-                p2 = new Point(c.x + c.width, c.y);
-                p3 = new Point(c.x + c.width, c.y + c.width);
-                p4 = new Point(c.x, c.y + c.width);
+                p2 = new Point(c.x + Cell.Width, c.y);
+                p3 = new Point(c.x + Cell.Width, c.y + Cell.Width);
+                p4 = new Point(c.x, c.y + Cell.Width);
 
                 gGrid.DrawLine(pGrid, p1, p2);
                 gGrid.DrawLine(pGrid, p1, p4);
@@ -161,13 +245,112 @@ namespace Air_Traffic_Simulation
                 gGrid.DrawLine(pGrid, p3, p4);
             }
 
+            int x = r.Next(100, 200);
+            //int y = r.Next(100, 200);
+            weatherBlock = new Rectangle(x, x + 50, 50, 50);
+
+            timerWeather.Interval = 500;
+            timerWeather.Start();
+
             pictureBox1.Image = bmpGrid;
             PaintGrid();
+            makeAirstrip();
+        }
+
+        /// <summary>
+        /// Initializes and draws the airstrip.
+        /// </summary>
+        private void makeAirstrip()
+        {
+            //using the x and y of the last cell in the grid as comparison, because in some cases it might
+            //happen so that the picturebox is actually bigger than the grid, so using the picturebox' 
+            //width and height would lead to wrong results
+            Cell middleCell = grid.listOfCells
+                .Where(cell => cell.ContainsPoint(grid.listOfCells[grid.listOfCells.Count - 1].x / 2,
+                    grid.listOfCells[grid.listOfCells.Count - 1].y / 2)).ElementAt(0);
+            landingStrip = new Airstrip("Strip A", middleCell.x, middleCell.y, true, 360);
+            Point p = new Point(middleCell.x, middleCell.y);
+
+            Brush pen = new SolidBrush(Color.Green);
+            Graphics g = this.pictureBox1.CreateGraphics();
+            gGrid.FillRectangle(pen, p.X, p.Y, Cell.Width, Cell.Width);
+        }
+
+        private void timerWeather_Tick(object sender, EventArgs e)
+        {
+            Refresh();
+
+            if (weather.PrecipitationType == PrecipitationType.RAIN)
+            {
+                weatherBrush.Color = Color.FromArgb(125, 92, 92, 92);
+            }
+            else if (weather.PrecipitationType == PrecipitationType.SNOW)
+            {
+                weatherBrush.Color = Color.FromArgb(125, 205, 205, 205);
+            }
+            else if (weather.PrecipitationType == PrecipitationType.HAIL)
+            {
+                weatherBrush.Color = Color.FromArgb(125, 175, 75, 75);
+            }
+            else
+            {
+                weatherBrush.Color = Color.FromArgb(0, 250, 75, 75);
+            }
+
+            Pen p = new Pen(Color.Black);
+            if (weatherBlock.X < 0 || weatherBlock.Y < 0)
+            {
+                weatherBlock.X += r.Next(20);
+                weatherBlock.Y += r.Next(20);
+            }
+            else if (weatherBlock.X > 580 || weatherBlock.Y > 580)
+            {
+                weatherBlock.X -= r.Next(-20, 0);
+                weatherBlock.Y -= r.Next(-20, 0);
+            }
+            else
+            {
+                weatherBlock.X += r.Next(-20, 20);
+                weatherBlock.Y += r.Next(-20, 20);
+            }
+
+
+            Graphics g = this.pictureBox1.CreateGraphics();
+            g.DrawEllipse(p, weatherBlock);
+            g.FillEllipse(weatherBrush, weatherBlock);
         }
 
 
-        //RADAR METHOD
+        private void airplaneHasReachedTheAirport(Object sender, EventArgs e)
+        {
+            this.planesOnTheGround.Add((Airplane) sender);
+            this.airplaneList.Remove((Airplane) sender);
+            Refresh();
+        }
 
+        private void addTestAirplaneAndStrip(object sender, EventArgs e)
+        {
+            //TODO: Remove following test lines:
+
+            foreach (Cell c in grid.listOfCells)
+            {
+                if (c.ContainsPoint(Convert.ToInt32(testPlane.CoordinateX), Convert.ToInt32(testPlane.CoordinateY)))
+                {
+                    Point p = c.GetCenter();
+
+                    //slightly, uh, artistically collaborated PaintCircle
+                    float x = p.X - 3;
+                    float y = p.Y - 3;
+                    float width = 2 * 3;
+                    float height = 2 * 3;
+                    Pen pen = new Pen(Color.Red);
+                    Graphics g = this.pictureBox1.CreateGraphics();
+                    g.DrawRectangle(pen, x, y, width, height);
+                }
+            }
+        }
+
+        //RADAR METHOD
         private void t_Tick(object sender, EventArgs e)
         {
             p = new Pen(Color.Green, 1f);
@@ -180,26 +363,26 @@ namespace Air_Traffic_Simulation
             {
                 //right half
                 //u in degree is converted into radian
-                x = cx + (int) (hand * Math.Sin(Math.PI * u / 180));
-                y = cy - (int) (hand * Math.Cos(Math.PI * u / 180));
+                x = cx + (int)(hand * Math.Sin(Math.PI * u / 180));
+                y = cy - (int)(hand * Math.Cos(Math.PI * u / 180));
             }
             else
             {
-                x = cx - (int) (hand * -Math.Sin(Math.PI * u / 180));
-                y = cy - (int) (hand * Math.Cos(Math.PI * u / 180));
+                x = cx - (int)(hand * -Math.Sin(Math.PI * u / 180));
+                y = cy - (int)(hand * Math.Cos(Math.PI * u / 180));
             }
 
             if (tu >= 0 && tu <= 180)
             {
                 //right half
                 //u in degree is converted into radian
-                tx = cx + (int) (hand * Math.Sin(Math.PI * tu / 180));
-                ty = cy - (int) (hand * Math.Cos(Math.PI * tu / 180));
+                tx = cx + (int)(hand * Math.Sin(Math.PI * tu / 180));
+                ty = cy - (int)(hand * Math.Cos(Math.PI * tu / 180));
             }
             else
             {
-                tx = cx - (int) (hand * -Math.Sin(Math.PI * tu / 180));
-                ty = cy - (int) (hand * Math.Cos(Math.PI * tu / 180));
+                tx = cx - (int)(hand * -Math.Sin(Math.PI * tu / 180));
+                ty = cy - (int)(hand * Math.Cos(Math.PI * tu / 180));
             }
 
             //draw circle
@@ -261,26 +444,32 @@ namespace Air_Traffic_Simulation
             if (btnAddCheckpoint.Text == "Add")
             {
                 btnRemoveCheckpoint.Enabled = false;
+                btnAddAirplane.Enabled = false;
+                btnRemoveAirplane.Enabled = false;
+                trackBar1.Enabled = false;
                 AddingCheckpoints = 1;
                 btnAddCheckpoint.Text = "Stop";
             }
             else if (btnAddCheckpoint.Text == "Stop")
             {
                 btnRemoveCheckpoint.Enabled = true;
+                if (RandomAirplane == 0)
+                {
+                    btnAddAirplane.Enabled = true;
+                    btnRemoveAirplane.Enabled = true;
+                }
+
+                trackBar1.Enabled = true;
                 AddingCheckpoints = 0;
                 btnAddCheckpoint.Text = "Add";
             }
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
         }
 
         private void trackBarTemperature_ValueChanged(object sender, EventArgs e)
         {
             temp = trackBarTemperature.Value;
             labelTemp.Text = temp.ToString() + "°C";
-            Simulate();
+            LabelChange();
         }
 
         private void btnSaveData_Click(object sender, EventArgs e)
@@ -306,77 +495,81 @@ namespace Air_Traffic_Simulation
             //}
         }
 
-        private void addTestAirplaneAndStrip(object sender, EventArgs e)
+        /// <summary>
+        /// Generates and draws the route between the example airplane and the airfield.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void calcRouteBtn_Click(object sender, EventArgs e)
         {
-            //TODO: Fix mismatching var types of Doubles for Checkpoint locations and Ints for Cell locations
-            //TODO: Remove following test lines:
-            testPlane = new Airplane("FB123", 290, 390, 300, "FB321");
-            testStrip = new Airstrip("Strip A", 550, 50, true, 360);
-
-            foreach (Cell c in grid.listOfCells)
+            Console.WriteLine(airplaneList.Count);
+            foreach (Airplane plane in airplaneList)
             {
-                if (c.ContainsPoint(Convert.ToInt32(testPlane.CoordinateX), Convert.ToInt32(testPlane.CoordinateY)))
+                plane.calculateShortestPath(this.checkpoints);
+
+
+                Point a = new Point(Convert.ToInt32(landingStrip.CoordinateX),
+                    Convert.ToInt32(landingStrip.CoordinateY));
+
+
+                var ppp = plane.ShortestPath.Last;
+                string planePath = String.Empty;
+                while (ppp != null)
                 {
-                    Point p = c.GetCenter();
+                    planePath += ppp.Value.Name + " -> ";
 
-                    //slightly, uh, artistically collaborated PaintCircle
-                    float x = p.X - 3;
-                    float y = p.Y - 3;
-                    float width = 2 * 3;
-                    float height = 2 * 3;
-                    Pen pen = new Pen(Color.Red);
-                    Graphics g = this.pictureBox1.CreateGraphics();
-                    g.DrawRectangle(pen, x, y, width, height);
-
-                    string name = "aircraft" + testPlane;
+                    Point b = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
+                    ConnectDots(a, b);
+                    a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
+                    ppp = ppp.Previous;
                 }
-                else if (c.ContainsPoint(Convert.ToInt32(testStrip.CoordinateX),
-                    Convert.ToInt32(testStrip.CoordinateY)))
+
+                //TODO: remove planepath print
+                Console.WriteLine(planePath);
+
+                //generates the message box that informs the user that some areas are missing points
+                bool[] allZonesCheck = new bool[] {false, false, false, false};
+                string lacking =
+                    $"   - UPPER{Environment.NewLine}   - MIDDLE{Environment.NewLine}   - LOWER{Environment.NewLine}   - FINAL";
+
+                foreach (Checkpoint point in checkpoints)
                 {
-                    Point p = c.GetCenter();
+                    if (point.ParentCellType == CellType.UPPER)
+                    {
+                        lacking = lacking.Replace($"   - UPPER{Environment.NewLine}", string.Empty);
+                        allZonesCheck[0] = true;
+                    }
+                    else if (point.ParentCellType == CellType.MIDDLE)
+                    {
+                        lacking = lacking.Replace($"   - MIDDLE{Environment.NewLine}", string.Empty);
+                        allZonesCheck[1] = true;
+                    }
+                    else if (point.ParentCellType == CellType.LOWER)
+                    {
+                        lacking = lacking.Replace($"   - LOWER{Environment.NewLine}", string.Empty);
+                        allZonesCheck[2] = true;
+                    }
+                    else if (point.ParentCellType == CellType.FINAL)
+                    {
+                        lacking = lacking.Replace("   - FINAL", string.Empty);
+                        allZonesCheck[3] = true;
+                    }
+                }
 
-                    //slightly, uh, artistically collaborated PaintCircle
-                    float x = p.X - 3;
-                    float y = p.Y - 3;
-                    float width = 2 * 3;
-                    float height = 2 * 3;
-                    Brush pen = new SolidBrush(Color.Green);
-                    Graphics g = this.pictureBox1.CreateGraphics();
-                    g.FillRectangle(pen, x, y, width, height);
-
-                    string name = "aircraft" + testPlane;
+                if (allZonesCheck.Contains(false))
+                {
+                    MessageBox.Show(
+                        $"There seem to be no checkpoints in the following zones:{Environment.NewLine}{Environment.NewLine}{lacking}",
+                        "Missing Checkpoint", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
             }
-
-            MessageBox.Show("Added test airplane  " + testPlane.Name + "  With coordinates: (" + testPlane.CoordinateX +
-                            "," + testPlane.CoordinateY +
-                            ")\nThat's the red empty square in the center bottom of the screen." +
-                            "\n\n..and test airstrip  " + testStrip.Name + "  With coordinates: (" +
-                            testStrip.CoordinateX + "," + testStrip.CoordinateY +
-                            ")\n(That's the green filled square in the upper right of the screen.)");
-
-            button5.Enabled = false;
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            testPlane.calculateShortestPath(this.checkpoints, this.testStrip);
-
-            Point a = new Point(Convert.ToInt32(testStrip.CoordinateX), Convert.ToInt32(testStrip.CoordinateY));
-
-
-            var pp = testStrip.ShortestPath.Last;
-
-            while (pp != null)
-            {
-                Point b = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
-                Console.WriteLine($"a: {a.X}, {a.Y} \t b: {b.X}, {b.Y}");
-                ConnectDots(a, b);
-                a = new Point(Convert.ToInt32(pp.Value.CoordinateX), Convert.ToInt32(pp.Value.CoordinateY));
-                pp = pp.Previous;
-            }
-        }
-
+        /// <summary>
+        /// Creates a line between two points on the grid.
+        /// </summary>
+        /// <param name="a">The initial point.</param>
+        /// <param name="b">The end point.</param>
         public void ConnectDots(Point a, Point b)
         {
             Pen pen = new Pen(Color.Yellow);
@@ -384,6 +577,11 @@ namespace Air_Traffic_Simulation
             g.DrawLine(pen, a, b);
         }
 
+        /// <summary>
+        /// The method that does the actual addition of checkpoints.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
             if (AddingCheckpoints == 1)
@@ -405,14 +603,24 @@ namespace Air_Traffic_Simulation
 
                         if (!exists)
                         {
-                            PaintCircle(p);
+                            if (c.Type == CellType.BORDER)
+                            {
+                                MessageBox.Show("Selected area is for airplanes only.");
+                            }
+                            else
+                            {
+                                PaintCircle(p);
 
-                            cpName++;
-                            string name = "cp" + cpName;
-                            Checkpoint a = new Checkpoint(name, p.X, p.Y);
-                            checkpoints.Add(a);
-                            MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" + a.CoordinateX +
-                                            "," + a.CoordinateY + ")");
+                                cpName++;
+                                string name = "cp" + cpName;
+
+                                Checkpoint a = new Checkpoint(name, p.X, p.Y, c, checkpoints, landingStrip);
+
+                                checkpoints.Add(a);
+                                MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" +
+                                                a.CoordinateX +
+                                                "," + a.CoordinateY + ")");
+                            }
                         }
                     }
                 }
@@ -438,6 +646,188 @@ namespace Air_Traffic_Simulation
                         }
                     }
                 }
+            }
+
+            else if (AddingAirplanes == 1)
+            {
+                foreach (Cell c in grid.listOfCells)
+                {
+                    if (c.ContainsPoint(e.X, e.Y) == true)
+                    {
+                        bool exists = false;
+                        Point p = c.GetCenter();
+                        foreach (Airplane mm in airplaneList)
+                        {
+                            if (mm.CoordinateX == p.X && mm.CoordinateY == p.Y)
+                            {
+                                MessageBox.Show("Airplane already exists at this location", "WARNING");
+                                exists = true;
+                            }
+                        }
+
+                        if (!exists)
+                        {
+                            if (c.Type == CellType.BORDER)
+                            {
+                                PaintRectangle(p);
+
+                                apName++;
+                                fnName += 6 * 2 / 3;
+                                string name = "Airplane" + apName;
+                                string flight = "fn" + fnName + "z";
+
+                                Airplane a = new Airplane(name, p.X, p.Y, Convert.ToDouble(nSpeed.Value), flight);
+                                a.OnAirportReached += airplaneHasReachedTheAirport;
+                                airplaneList.Add(a);
+                                MessageBox.Show("Added Airplane  " + a.Name + "\nCoordinates: \t(" + a.CoordinateX +
+                                                "," + a.CoordinateY + ")" + "\nFlight number: \t(" + flight + ") " +
+                                                "\nSpeed: \t\t(" + nSpeed.Value + "kmh)");
+                            }
+                            else
+                            {
+                                MessageBox.Show("This area is used for checkpoints only");
+                            }
+                        }
+                    }
+                }
+            }
+
+            else if (RemovingAirplanes == 1)
+            {
+                foreach (Cell c in grid.listOfCells)
+                {
+                    if (c.ContainsPoint(e.X, e.Y) == true)
+                    {
+                        Point p = c.GetCenter();
+                        foreach (Airplane bee in airplaneList)
+                        {
+                            if (bee.CoordinateX == p.X && bee.CoordinateY == p.Y)
+                            {
+                                PaintRectangleY(p);
+                                Airplane v = bee;
+                                airplaneList.Remove(bee);
+                                MessageBox.Show("Successfully removed Airplane " + v.Name + " With coordinates(" +
+                                                v.CoordinateX + "," + v.CoordinateY + ").");
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void btnAddAirplane_Click(object sender, EventArgs e)
+        {
+            if (btnAddAirplane.Text == "Add")
+            {
+                btnRemoveAirplane.Enabled = false;
+                btnAddCheckpoint.Enabled = false;
+                btnRemoveCheckpoint.Enabled = false;
+                trackBar1.Enabled = false;
+                nSpeed.Enabled = true;
+                AddingAirplanes = 1;
+                btnAddAirplane.Text = "Stop";
+            }
+            else if (btnAddAirplane.Text == "Stop")
+            {
+                btnRemoveAirplane.Enabled = true;
+                btnAddCheckpoint.Enabled = true;
+                btnRemoveCheckpoint.Enabled = true;
+                trackBar1.Enabled = true;
+                nSpeed.Enabled = false;
+                AddingAirplanes = 0;
+                btnAddAirplane.Text = "Add";
+            }
+        }
+
+        private void btnRemoveAirplane_Click(object sender, EventArgs e)
+        {
+            if (btnRemoveAirplane.Text == "Remove")
+            {
+                btnAddAirplane.Enabled = false;
+                btnAddCheckpoint.Enabled = false;
+                btnRemoveCheckpoint.Enabled = false;
+                trackBar1.Enabled = false;
+                RemovingAirplanes = 1;
+                btnRemoveAirplane.Text = "Stop";
+            }
+            else if (btnRemoveAirplane.Text == "Stop")
+            {
+                btnAddAirplane.Enabled = true;
+                btnAddCheckpoint.Enabled = true;
+                btnRemoveCheckpoint.Enabled = true;
+                trackBar1.Enabled = true;
+                RemovingAirplanes = 0;
+                btnRemoveAirplane.Text = "Remove";
+            }
+        }
+
+        private void trackBar1_ValueChanged(object sender, EventArgs e)
+        {
+            if (trackBar1.Value == 1)
+            {
+                btnAddAirplane.Enabled = false;
+                btnRemoveAirplane.Enabled = false;
+                RandomAirplane = 1;
+            }
+
+            if (trackBar1.Value == 0)
+            {
+                btnAddAirplane.Enabled = true;
+                btnRemoveAirplane.Enabled = true;
+                RandomAirplane = 0;
+            }
+        }
+
+
+        private void trackBarWindSpeed_Scroll(object sender, EventArgs e)
+        {
+            LabelChange();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            Refresh();
+            foreach (Checkpoint c in checkpoints)
+            {
+                foreach (Cell cl in grid.listOfCells)
+                {
+                    if (cl.ContainsPoint((int) c.CoordinateX, (int) c.CoordinateY) == true)
+                    {
+                        Point p = cl.GetCenter();
+                        PaintCircle(p);
+                    }
+                }
+            }
+
+            foreach (Airplane p in airplaneList.ToArray())
+            {
+                if (p.ShortestPath.Count != 0)
+                {
+                    p.MoveTowardsNextPoint();
+                    Pen pen = new Pen(Color.Red);
+                    Graphics g = this.pictureBox1.CreateGraphics();
+                    g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                }
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (timerPlaneMovement.Enabled)
+            {
+                timerPlaneMovement.Stop();
+            }
+            else
+            {
+                foreach (Airplane p in airplaneList)
+                {
+                    Pen pen = new Pen(Color.Red);
+                    Graphics g = this.pictureBox1.CreateGraphics();
+                    g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                }
+
+                timerPlaneMovement.Start();
             }
         }
 
@@ -475,8 +865,7 @@ namespace Air_Traffic_Simulation
 
                 checkpoints = null;
 
-                //checkpoints = (List<Checkpoint>) bformatter.Deserialize(filestream);
-                checkpoints = (List<AbstractCheckpoint>) bformatter.Deserialize(filestream);
+                checkpoints = (List<Checkpoint>) bformatter.Deserialize(filestream);
 
                 filestream.Close();
                 filestream = null;
@@ -501,15 +890,52 @@ namespace Air_Traffic_Simulation
             if (btnRemoveCheckpoint.Text == "Remove")
             {
                 btnAddCheckpoint.Enabled = false;
+                btnAddAirplane.Enabled = false;
+                btnRemoveAirplane.Enabled = false;
+                trackBar1.Enabled = false;
                 RemovingCheckpoints = 1;
                 btnRemoveCheckpoint.Text = "Stop";
             }
             else if (btnRemoveCheckpoint.Text == "Stop")
             {
                 btnAddCheckpoint.Enabled = true;
+                if (RandomAirplane == 0)
+                {
+                    btnAddAirplane.Enabled = true;
+                    btnRemoveAirplane.Enabled = true;
+                }
+
+                trackBar1.Enabled = true;
                 RemovingCheckpoints = 0;
                 btnRemoveCheckpoint.Text = "Remove";
             }
+        }
+
+
+        private void stopWeatherBtn_Click(object sender, EventArgs e)
+        {
+            if (timerWeather.Enabled)
+            {
+                timerWeather.Stop();
+            }
+            else
+            {
+                timerWeather.Start();
+            }
+		}
+        
+        //wind direction changed in combobox
+        private void comboBoxWindDirection_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            wdComboBox = (String)comboBoxWindDirection.SelectedItem;
+            LabelChange();
+        }
+
+        private void trackBarPrecipitation_ValueChanged_1(object sender, EventArgs e)
+        {
+            precIntencity = trackBarPrecipitation.Value;
+            labelPrec.Text = precIntencity.ToString() + "%";
+            LabelChange();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -535,183 +961,22 @@ namespace Air_Traffic_Simulation
 
         private void button3_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(probability.ToString());
+            MessageBox.Show(weather.Probability.ToString());
         }
 
         private void trackBarPrecipitation_ValueChanged(object sender, EventArgs e)
         {
-            prec = trackBarPrecipitation.Value;
-            labelPrec.Text = prec.ToString() + "%";
-            Simulate();
         }
 
         private void trackBarWindSpeed_ValueChanged(object sender, EventArgs e)
         {
-            wind = trackBarWindSpeed.Value;
-            labelWind.Text = wind.ToString() + "m/s";
-            Simulate();
+            windSpeed = trackBarWindSpeed.Value;
+            labelWind.Text = windSpeed.ToString() + "m/s";
+            LabelChange();
         }
 
         private void btnPlaySimulation_Click(object sender, EventArgs e)
         {
-        }
-
-        // SIMULATION ITSELF
-
-
-        private void Simulate()
-        {
-            // Airplanes gets performance loss for air that is 40c or more, cold air doesnt impact the take off or landing except if its snowing (when <0c and percipation is also around 15-30 and more) then sometimes airplanes wont take off or land.
-
-            // Wind speed is usually not a harm if it is a headwind or tailwind (From front or back), however if it is from side then if its around 15m/s or more the flight must be canceled (Keep in mind while choosing wind direction and checking the airstrip at which place it is placed.
-
-            // In here we calculate probability for a good flight (1 means it is 100percent safe and everyone is gonna fly happy, however less < 0.99 and so on will impact on the airplanes speed, take off, landing and etc.
-
-            probability = 1;
-
-            if (temp < 0)
-            {
-                probability -= (((temp * (-0.005)) * ((temp * (-0.005))) + ((prec * (0.015)) * (prec * (0.015))) +
-                                 ((wind * (0.01)) * (wind * (0.01)) * 2)));
-            }
-
-            if (temp >= 0 && temp <= 29)
-            {
-                probability -= (((temp * (0.007)) * ((temp * (0.007))) + ((prec * (0.005)) * (prec * (0.005))) +
-                                 ((wind * (0.008)) * (wind * (0.008)) * 2)));
-            }
-
-            if (temp >= 30 && temp <= 39)
-            {
-                probability -= (((temp * (0.013)) * ((temp * (0.013))) + ((prec * (0.005)) * (prec * (0.005))) +
-                                 ((wind * (0.008)) * (wind * (0.008)) * 2)));
-            }
-
-            if (temp >= 40)
-            {
-                probability -= (((temp * (0.016)) * ((temp * (0.016))) + ((prec * (0.005)) * (prec * (0.005))) +
-                                 ((wind * (0.008)) * (wind * (0.008)) * 2)));
-            }
-
-            if (probability < 0)
-            {
-                probability = 0;
-            }
-
-            prob.Text = probability.ToString();
-
-            //if (trackBarPrecipitation.Value < 10)
-            //{
-            //    if (trackBarTemperature.Value > 0 || trackBarTemperature.Value <= 39)
-            //    {
-            //        if (trackBarWindSpeed.Value <= 5)
-            //        {
-            //            probability -= 0;
-            //        }
-            //        if (trackBarWindSpeed.Value >=6 || trackBarWindSpeed.Value <= 10)
-            //        {
-            //            probability -= 0.01;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 11 || trackBarWindSpeed.Value <= 15)
-            //        {
-            //            probability -= 0.03;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 16 || trackBarWindSpeed.Value <= 20)
-            //        {
-            //            probability -= 0.06;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 21 || trackBarWindSpeed.Value <= 30)
-            //        {
-            //            probability -= 0.1;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 31 || trackBarWindSpeed.Value <= 50)
-            //        {
-            //            probability -= 0.2;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 51 || trackBarWindSpeed.Value <= 75)
-            //        {
-            //            probability -= 0.4;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 76 || trackBarWindSpeed.Value <= 100)
-            //        {
-            //            probability -= 0.8;
-            //        }
-            //    }
-            //    if (trackBarTemperature.Value <= 0)
-            //    {
-            //        if (trackBarWindSpeed.Value <= 5)
-            //        {
-            //            probability -= 0.02;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 6 || trackBarWindSpeed.Value <= 10)
-            //        {
-            //            probability -= 0.04;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 11 || trackBarWindSpeed.Value <= 15)
-            //        {
-            //            probability -= 0.08;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 16 || trackBarWindSpeed.Value <= 20)
-            //        {
-            //            probability -= 0.15;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 21 || trackBarWindSpeed.Value <= 30)
-            //        {
-            //            probability -= 0.25;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 31 || trackBarWindSpeed.Value <= 50)
-            //        {
-            //            probability -= 0.5;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 51 || trackBarWindSpeed.Value <= 75)
-            //        {
-            //            probability -= 0.7;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 76 || trackBarWindSpeed.Value <= 100)
-            //        {
-            //            probability -= 0.9;
-            //        }
-            //    }
-
-
-            //     if (trackBarTemperature.Value > 0)
-            //    {
-            //        if (trackBarWindSpeed.Value <= 5)
-            //        {
-            //            probability -= 0;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 6 || trackBarWindSpeed.Value <= 10)
-            //        {
-            //            probability -= 0.01;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 11 || trackBarWindSpeed.Value <= 15)
-            //        {
-            //            probability -= 0.03;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 16 || trackBarWindSpeed.Value <= 20)
-            //        {
-            //            probability -= 0.06;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 21 || trackBarWindSpeed.Value <= 30)
-            //        {
-            //            probability -= 0.1;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 31 || trackBarWindSpeed.Value <= 50)
-            //        {
-            //            probability -= 0.2;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 51 || trackBarWindSpeed.Value <= 75)
-            //        {
-            //            probability -= 0.4;
-            //        }
-            //        if (trackBarWindSpeed.Value >= 76 || trackBarWindSpeed.Value <= 100)
-            //        {
-            //            probability -= 0.8;
-            //        }
-            //    }
-
-
-            //}
         }
 
         public void PaintCircle(Point p)
@@ -720,7 +985,7 @@ namespace Air_Traffic_Simulation
             float y = p.Y - 3;
             float width = 2 * 3;
             float height = 2 * 3;
-            Pen pen = new Pen(Color.Yellow);
+            Pen pen = new Pen(Color.Blue);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawEllipse(pen, x, y, width, height);
         }
@@ -734,6 +999,37 @@ namespace Air_Traffic_Simulation
             Pen pen = new Pen(Color.Black);
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawEllipse(pen, x, y, width, height);
+        }
+
+        public void PaintRectangle(Point p)
+        {
+            float x = p.X - 3;
+            float y = p.Y - 3;
+            float width = 2 * 3;
+            float height = 2 * 3;
+            Pen pen = new Pen(Color.Red);
+            Graphics g = this.pictureBox1.CreateGraphics();
+            g.DrawRectangle(pen, x, y, width, height);
+        }
+
+        public void PaintRectangleY(Point p)
+        {
+            float x = p.X - 3;
+            float y = p.Y - 3;
+            float width = 2 * 3;
+            float height = 2 * 3;
+            Pen pen = new Pen(Color.Yellow);
+            Graphics g = this.pictureBox1.CreateGraphics();
+            g.DrawRectangle(pen, x, y, width, height);
+        }
+
+        public void LabelChange()
+        {
+            weather = new WeatherConditions(windSpeed, windDirection, temp, precIntencity);
+            weather.SetProbability();
+            lbPrecipitationType.Text = weather.GetPrecipitationType().ToString();
+            lbProbability.Text = weather.Probability.ToString();
+            lbVisibility.Text = weather.GetVisibility().ToString();
         }
     }
 }

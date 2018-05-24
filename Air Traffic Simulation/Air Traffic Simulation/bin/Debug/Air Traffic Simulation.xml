@@ -11,6 +11,19 @@
             <param name="a">The checkpoint we are looking for the distance from.</param>
             <returns>The distance between the two checkpoints given as arguments.</returns>
         </member>
+        <member name="M:Air_Traffic_Simulation.AbstractCheckpoint.AddAllPossibleDestinations(System.Collections.Generic.List{Air_Traffic_Simulation.AbstractCheckpoint})">
+            <summary>
+            Shouldn't have to use this one any more. 
+            
+            Adds all checkpoints from a list to the reachable destinations of  the checkpoint, from which the method has been called.
+            </summary>
+            <param name="checkpoints">All the checkpoints we would like to add as reachable destinations.</param>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Airplane.ktsPerSecond">
+            <summary>
+            The airplane's speed for knots per second. Used for calculation of movement.
+            </summary>
+        </member>
         <member name="F:Air_Traffic_Simulation.Airstrip._takeOffDirection">
             <summary>
             This is any help written.
@@ -20,6 +33,47 @@
             <summary>
             Changes the take off/landing direction to the opposite.
             </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Cell.Width">
+            <summary>
+            The side of the cell, width = height.
+            </summary>
+        </member>
+        <member name="P:Air_Traffic_Simulation.Cell.Type">
+            <summary>
+            Marks the type of cell. Depending on this, min and max speeds and altitudes will be defined.
+            </summary>
+        </member>
+        <member name="P:Air_Traffic_Simulation.Checkpoint.ParentCellType">
+            <summary>
+            The type of cell the checkpoint is situated in.
+            </summary>
+        </member>
+        <member name="M:Air_Traffic_Simulation.Form1.makeAirstrip">
+            <summary>
+            Initializes and draws the airstrip.
+            </summary>
+        </member>
+        <member name="M:Air_Traffic_Simulation.Form1.calcRouteBtn_Click(System.Object,System.EventArgs)">
+            <summary>
+            Generates and draws the route between the example airplane and the airfield.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:Air_Traffic_Simulation.Form1.ConnectDots(System.Drawing.Point,System.Drawing.Point)">
+            <summary>
+            Creates a line between two points on the grid.
+            </summary>
+            <param name="a">The initial point.</param>
+            <param name="b">The end point.</param>
+        </member>
+        <member name="M:Air_Traffic_Simulation.Form1.pictureBox1_MouseUp(System.Object,System.Windows.Forms.MouseEventArgs)">
+            <summary>
+            The method that does the actual addition of checkpoints.
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
         </member>
         <member name="F:Air_Traffic_Simulation.Form1.components">
             <summary>
@@ -36,6 +90,50 @@
             <summary>
             Required method for Designer support - do not modify
             the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Form2.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:Air_Traffic_Simulation.Form2.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:Air_Traffic_Simulation.Form2.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Grid.columnsOfCells">
+            <summary>
+            The number of columns the grid is going to have.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Grid.rowsOfCells">
+            <summary>
+            The number of rows the grid is going to have.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Grid.totalNumberOfCells">
+            <summary>
+            The total number of cells the grid is going to have.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Grid.PixelsPerMileHorizontally">
+            <summary>
+            The amount of pixels which corresponds on a nautical mile
+            per our grid, when we are considering horizontal movement.
+            </summary>
+        </member>
+        <member name="F:Air_Traffic_Simulation.Grid.PixelsPerMileVertically">
+            <summary>
+            The amount of pixels which corresponds on a nautical mile
+            per our grid, when we are considering vertical movement.
             </summary>
         </member>
         <member name="M:Air_Traffic_Simulation.Program.Main">

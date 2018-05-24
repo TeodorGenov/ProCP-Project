@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace Air_Traffic_Simulation
 {
-    public enum PrecipitationType
+    public enum CellType
     {
-
-        CLEAR,
-        RAIN,
-        SNOW,
-        HAIL,
+        UNASSIGNED,
+        BORDER,
+        UPPER,
+        MIDDLE,
+        LOWER,
+        FINAL
     }
 }
