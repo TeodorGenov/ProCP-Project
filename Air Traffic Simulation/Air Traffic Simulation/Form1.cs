@@ -148,11 +148,7 @@ namespace Air_Traffic_Simulation
 
         private void Form1_Load(object sender, EventArgs e)
         {
-<<<<<<< HEAD
             //GRID VALUES
-=======
-            
->>>>>>> saving_data
             width = this.pictureBox1.Width;
             height = this.pictureBox1.Height;
             grid = new Grid(width, height);
@@ -327,6 +323,7 @@ namespace Air_Traffic_Simulation
         
         private void airplaneHasReachedTheAirport(Object sender, EventArgs e)
         {
+            ((Airplane) sender).OnAirportReached -= airplaneHasReachedTheAirport;
             this.planesOnTheGround.Add((Airplane) sender);
             this.airplaneList.Remove((Airplane) sender);
             Refresh();

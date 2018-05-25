@@ -1,15 +1,3 @@
-D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.config
-D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.xml
-D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe
-D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.pdb
-D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Form1.resources
-D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Form2.resources
-D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.Properties.Resources.resources
-D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.WindDirection.resources
-D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.GenerateResource.Cache
-D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.CoreCompileInputs.cache
-D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.exe
-D:\Uni\Eindhoven\procp\ProCP_Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.pdb
 C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.exe.config
 C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Air Traffic Simulation.xml
 C:\Users\Monika\Desktop\University Stuff\Fontys\Project Core phase\Project\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.exe
