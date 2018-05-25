@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -81,6 +82,7 @@ namespace Air_Traffic_Simulation
 
             if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Cell.Width &&
                 Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Cell.Width &&
+                target.Value.GetType() == typeof(Airstrip) &&
                 OnAirportReached != null)
             {
                 OnAirportReached(this, EventArgs.Empty);
@@ -166,6 +168,19 @@ namespace Air_Traffic_Simulation
 
                 settledCheckpoints.Add(currentCheckpnt);
             }
+        }
+
+        public override string ToString()
+        {
+            return this.Name + " -- " + this.FlightNumber;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var airplane = obj as Airplane;
+            return airplane != null &&
+                   Name == airplane.Name &&
+                   FlightNumber == airplane.FlightNumber;
         }
     }
 }

@@ -114,6 +114,7 @@
     <EmbeddedResource Include="WindDirection.resx">
       <DependentUpon>WindDirection.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\Form1.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
