@@ -14,6 +14,12 @@ namespace Air_Traffic_Simulation
 {
     public partial class Form1 : Form
     {
+
+        //AIRPLAIN GRAPHICS
+
+        Image airplaneImage;
+        Rectangle airplaneRect;
+
         //RADAR
 
         Random r = new Random();
@@ -144,6 +150,7 @@ namespace Air_Traffic_Simulation
             // airplaneList.Add(testPlane2);
             InitializeComponent();
             nSpeed.Enabled = false;
+            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -339,14 +346,7 @@ namespace Air_Traffic_Simulation
                 {
                     Point p = c.GetCenter();
 
-                    //slightly, uh, artistically collaborated PaintCircle
-                    float x = p.X - 3;
-                    float y = p.Y - 3;
-                    float width = 2 * 3;
-                    float height = 2 * 3;
-                    Pen pen = new Pen(Color.Red);
-                    Graphics g = this.pictureBox1.CreateGraphics();
-                    g.DrawRectangle(pen, x, y, width, height);
+                    PaintAirplane(p);
                 }
             }
         }
@@ -673,7 +673,7 @@ namespace Air_Traffic_Simulation
                         {
                             if (c.Type == CellType.BORDER)
                             {
-                                PaintRectangle(p);
+                                PaintAirplane(p);
 
                                 apName++;
                                 fnName += 6 * 2 / 3;
@@ -821,9 +821,8 @@ namespace Air_Traffic_Simulation
                 if (p.ShortestPath.Count != 0)
                 {
                     p.MoveTowardsNextPoint();
-                    Pen pen = new Pen(Color.Red);
-                    Graphics g = this.pictureBox1.CreateGraphics();
-                    g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                    Point point = new Point((int)p.CoordinateX, (int)p.CoordinateY);
+                    PaintAirplane(point);
                 }
               
                
@@ -840,9 +839,8 @@ namespace Air_Traffic_Simulation
             {
                 foreach (Airplane p in airplaneList)
                 {
-                    Pen pen = new Pen(Color.Red);
-                    Graphics g = this.pictureBox1.CreateGraphics();
-                    g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
+                    Point point = new Point((int)p.CoordinateX, (int)p.CoordinateY);
+                    PaintAirplane(point);
                 }
 
                 timerPlaneMovement.Start();
@@ -985,6 +983,11 @@ namespace Air_Traffic_Simulation
             LabelChange();
         }
 
+        private void testAirplaneAndStrip_Click(object sender, EventArgs e)
+        {
+
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             string checks = "";
@@ -1048,15 +1051,14 @@ namespace Air_Traffic_Simulation
             g.DrawEllipse(pen, x, y, width, height);
         }
 
-        public void PaintRectangle(Point p)
+        public void PaintAirplane(Point p)
         {
-            float x = p.X - 3;
-            float y = p.Y - 3;
-            float width = 2 * 3;
-            float height = 2 * 3;
-            Pen pen = new Pen(Color.Red);
+            int x = p.X - 3;
+            int y = p.Y - 3;
             Graphics g = this.pictureBox1.CreateGraphics();
-            g.DrawRectangle(pen, x, y, width, height);
+            airplaneImage = Properties.Resources.airplanePic;
+            airplaneRect = new Rectangle(x, y, 40, 40);
+            g.DrawImage(airplaneImage, airplaneRect);
         }
 
         public void PaintRectangleY(Point p)

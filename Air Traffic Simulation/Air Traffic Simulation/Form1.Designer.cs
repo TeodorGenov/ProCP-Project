@@ -776,6 +776,7 @@
             this.testAirplaneAndStrip.TabIndex = 4;
             this.testAirplaneAndStrip.Text = "Add test airplane and strip";
             this.testAirplaneAndStrip.UseVisualStyleBackColor = true;
+            this.testAirplaneAndStrip.Click += new System.EventHandler(this.testAirplaneAndStrip_Click);
             // 
             // calcRouteBtn
             // 
