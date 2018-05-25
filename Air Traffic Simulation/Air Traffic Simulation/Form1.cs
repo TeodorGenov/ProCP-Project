@@ -333,7 +333,6 @@ namespace Air_Traffic_Simulation
             ((Airplane) sender).OnAirportReached -= airplaneHasReachedTheAirport;
             this.planesOnTheGround.Add((Airplane) sender);
             this.airplaneList.Remove((Airplane) sender);
-            Refresh();
         }
 
         private void addTestAirplaneAndStrip(object sender, EventArgs e)
@@ -782,7 +781,7 @@ namespace Air_Traffic_Simulation
                 }
                 foreach (Airplane a in airplaneList)
                 {
-                    PaintRectangle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
+                    PaintAirplane(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
                     a.OnAirportReached += airplaneHasReachedTheAirport;
                 }
             }
@@ -908,7 +907,7 @@ namespace Air_Traffic_Simulation
                 {
                     apName++;
                     fnName += 6 * 2 / 3;
-                    PaintRectangle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
+                    PaintAirplane(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
                         a.OnAirportReached += airplaneHasReachedTheAirport;
                 }
                 }
