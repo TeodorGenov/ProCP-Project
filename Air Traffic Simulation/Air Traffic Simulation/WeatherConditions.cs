@@ -110,25 +110,5 @@ namespace Air_Traffic_Simulation
                 this.probability = 0;
             }
         }
-
-        //public void ChangeWeather()
-        //{
-        //    if (TemperatureC > 0 && PrecipitationIntensity > 20)
-        //    {
-        //        PrecipitationType = PrecipitationType.RAIN;
-        //    }
-        //    else if (TemperatureC <= 0 && PrecipitationIntensity <= 40)
-        //    {
-        //        PrecipitationType = PrecipitationType.SNOW;
-        //    }
-        //    else if (TemperatureC <= 0 && PrecipitationIntensity > 40)
-        //    {
-        //        PrecipitationType = PrecipitationType.HAIL;
-        //    }
-        //    else
-        //    {
-        //        PrecipitationType = PrecipitationType.CLEAR;
-        //    }
-        //}
     }
 }

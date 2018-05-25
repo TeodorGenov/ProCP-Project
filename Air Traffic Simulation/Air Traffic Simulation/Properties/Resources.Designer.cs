@@ -61,11 +61,51 @@ namespace Air_Traffic_Simulation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap for the airplane.
         /// </summary>
         internal static System.Drawing.Bitmap airplanePic {
             get {
                 object obj = ResourceManager.GetObject("airplanePic", resourceCulture);
+				return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+		
+		/// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap for clear weather.
+        /// </summary>
+        internal static System.Drawing.Bitmap clear {
+            get {
+                object obj = ResourceManager.GetObject("clear", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap for a hailstorm.
+        /// </summary>
+        internal static System.Drawing.Bitmap hail {
+            get {
+                object obj = ResourceManager.GetObject("hail", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap for rainy weather.
+        /// </summary>
+        internal static System.Drawing.Bitmap rain {
+            get {
+                object obj = ResourceManager.GetObject("rain", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap for snowy weather.
+        /// </summary>
+        internal static System.Drawing.Bitmap snow {
+            get {
+                object obj = ResourceManager.GetObject("snow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
