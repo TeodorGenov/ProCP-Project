@@ -61,17 +61,17 @@ namespace Air_Traffic_Simulation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap for the airplane.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap airplanePic {
             get {
                 object obj = ResourceManager.GetObject("airplanePic", resourceCulture);
-				return ((System.Drawing.Bitmap)(obj));
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
-		
-		/// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap for clear weather.
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap clear {
             get {
@@ -81,7 +81,7 @@ namespace Air_Traffic_Simulation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap for a hailstorm.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap hail {
             get {
@@ -91,7 +91,7 @@ namespace Air_Traffic_Simulation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap for rainy weather.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap rain {
             get {
@@ -101,7 +101,17 @@ namespace Air_Traffic_Simulation.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap for snowy weather.
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SelectedairplanePic {
+            get {
+                object obj = ResourceManager.GetObject("SelectedairplanePic", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
         internal static System.Drawing.Bitmap snow {
             get {
