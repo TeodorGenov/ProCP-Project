@@ -51,9 +51,9 @@ namespace Air_Traffic_Simulation
             //diameter of our airspace is 40 miles
             int diameterOfAirspaceInMiles = 40;
 
-            int diameterOfAirspaceInPixelsHorizontally = (ColumnsOfCells - 2) * Cell.Width;
+            int diameterOfAirspaceInPixelsHorizontally = (ColumnsOfCells - 1) * Cell.Width;
 
-            int diameterOfAirspaceInPixelsVertically = (RowsOfCells - 2) * Cell.Width;
+            int diameterOfAirspaceInPixelsVertically = (RowsOfCells - 1) * Cell.Width;
 
             PixelsPerMileHorizontally = (double) diameterOfAirspaceInPixelsHorizontally / diameterOfAirspaceInMiles;
             PixelsPerMileVertically = (double) diameterOfAirspaceInPixelsVertically / diameterOfAirspaceInMiles;

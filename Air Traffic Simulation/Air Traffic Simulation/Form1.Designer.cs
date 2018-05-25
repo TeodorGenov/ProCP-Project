@@ -791,7 +791,7 @@
             // 
             // panelBeneathGrid
             // 
-            this.panelBeneathGrid.BackColor = System.Drawing.Color.Maroon;
+            this.panelBeneathGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
             this.panelBeneathGrid.Controls.Add(this.planeInfoTextBox);
             this.panelBeneathGrid.Controls.Add(this.toggleWeatherBtn);
             this.panelBeneathGrid.Controls.Add(this.calcRouteBtn);

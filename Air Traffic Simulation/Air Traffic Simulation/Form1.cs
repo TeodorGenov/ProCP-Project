@@ -1061,23 +1061,15 @@ namespace Air_Traffic_Simulation
             }
 
             planeInfoTextBox.Text =
-                $"{selectedAirplane} - flying{Environment.NewLine}Path: {planePath}{Environment.NewLine}Coordinates: ({selectedAirplane.CoordinateX}, {selectedAirplane.CoordinateY}){Environment.NewLine}Speed: {selectedAirplane.Speed}";
+                $"{selectedAirplane} - flying{Environment.NewLine}Path: {planePath}{Environment.NewLine}Coordinates: ({selectedAirplane.CoordinateX}, {selectedAirplane.CoordinateY})   Speed: {selectedAirplane.Speed}";
         }
 
         private void landedAirplanesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             selectedAirplane = (Airplane) allFlightsListBox.SelectedItem;
 
-            var ppp = selectedAirplane.ShortestPath.Last;
-            string planePath = String.Empty;
-            while (ppp != null)
-            {
-                planePath += ppp.Value.Name + "--> ";
-                ppp = ppp.Previous;
-            }
-
             planeInfoTextBox.Text =
-                $"{selectedAirplane} - landed{Environment.NewLine}Path: {planePath}";
+                $"{selectedAirplane} - landed{Environment.NewLine}";
         }
 
         private void trackBarWindSpeed_ValueChanged(object sender, EventArgs e)
@@ -1198,13 +1190,14 @@ namespace Air_Traffic_Simulation
         /// </summary>
         private void CreateRandomAirplane()
         {
-            Refresh();
+           // Refresh();
             int speed = 5;
             int s;
             int x;
             int y;
             Boolean exists = false;
-            do
+
+            do 
             {
                 Random random = new Random();
                 speed = 5;
@@ -1215,47 +1208,47 @@ namespace Air_Traffic_Simulation
 
                 while (speed % 25 != 0)
                 {
-                    speed = random.Next(100, 3000);
+                    speed = random.Next(100, 400);
                 }
 
                 if (s == 1)
                 {
-                    while (x % 12 != 6)
+                    while (x % Cell.Width != Cell.Width/2)
                     {
-                        x = random.Next(6, 1434);
+                        x = random.Next(Cell.Width / 2, (grid.ColumnsOfCells + 1) * Cell.Width);
                     }
 
-                    y = 6;
+                    y = Cell.Width;
                 }
 
                 else if (s == 2)
                 {
-                    while (x % 12 != 6)
+                    while (x % Cell.Width != Cell.Width / 2)
                     {
-                        x = random.Next(6, 1434);
+                        x = random.Next(Cell.Width / 2, (grid.ColumnsOfCells + 1) * Cell.Width);
                     }
 
-                    y = 930;
+                    y = (grid.RowsOfCells + 1)* Cell.Width;
                 }
 
                 else if (s == 3)
                 {
-                    while (y % 12 != 6)
+                    while (y % Cell.Width != Cell.Width / 2)
                     {
-                        y = random.Next(6, 930);
+                        y = random.Next(Cell.Width / 2, (grid.RowsOfCells + 1) * Cell.Width);
                     }
 
-                    x = 1434;
+                    x = (grid.ColumnsOfCells + 1) * Cell.Width;
                 }
 
                 else if (s == 4)
                 {
-                    while (y % 12 != 6)
+                    while (y % Cell.Width != Cell.Width / 2)
                     {
-                        y = random.Next(6, 930);
+                        y = random.Next(Cell.Width / 2, (grid.RowsOfCells + 1) * Cell.Width);
                     }
 
-                    x = 6;
+                    x = Cell.Width;
                 }
 
                 if (airplaneList.Count > 0)
