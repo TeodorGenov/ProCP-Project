@@ -848,6 +848,21 @@ namespace Air_Traffic_Simulation
                 if (p.Equals(selectedAirplane))
                 {
                     PaintSelectedAirplane(point);
+
+                    Point a = new Point(Convert.ToInt32(landingStrip.CoordinateX),
+                        Convert.ToInt32(landingStrip.CoordinateY));
+
+                    var ppp = selectedAirplane.ShortestPath.Last;
+                    string planePath = String.Empty;
+                    while (ppp != null)
+                    {
+                        Point b = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
+                        ConnectDots(a, b);
+                        a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
+
+
+                        ppp = ppp.Previous;
+                    }
                 }
                 else
                 {
@@ -1052,12 +1067,12 @@ namespace Air_Traffic_Simulation
             //row = c.id / grid.RowsOfCells;
             //column = c.id % (grid.ColumnsOfCells+1);
 
-            var ppp = selectedAirplane.ShortestPath.Last;
+            var ppp = selectedAirplane.ShortestPath.First;
             string planePath = String.Empty;
             while (ppp != null)
             {
-                planePath += ppp.Value.Name + "--> ";
-                ppp = ppp.Previous;
+                planePath += ppp.Value.Name + " --> ";
+                ppp = ppp.Next;
             }
 
             planeInfoTextBox.Text =
