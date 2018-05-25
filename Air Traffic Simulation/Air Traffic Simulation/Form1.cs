@@ -118,10 +118,10 @@ namespace Air_Traffic_Simulation
         private Airplane testPlane2;
         private Airstrip landingStrip;
 
-        List<Airplane> airplanes;
+        List<Airplane> airplanes;   
 
         List<Checkpoint> checkpoints;
-        List<Airplane> airplaneList;
+        List<Airplane> airplaneList;  
         private List<Airplane> planesOnTheGround;
 
 
@@ -148,7 +148,11 @@ namespace Air_Traffic_Simulation
 
         private void Form1_Load(object sender, EventArgs e)
         {
+<<<<<<< HEAD
             //GRID VALUES
+=======
+            
+>>>>>>> saving_data
             width = this.pictureBox1.Width;
             height = this.pictureBox1.Height;
             grid = new Grid(width, height);
@@ -320,7 +324,7 @@ namespace Air_Traffic_Simulation
             g.FillEllipse(weatherBrush, weatherBlock);
         }
 
-
+        
         private void airplaneHasReachedTheAirport(Object sender, EventArgs e)
         {
             this.planesOnTheGround.Add((Airplane) sender);
@@ -474,6 +478,8 @@ namespace Air_Traffic_Simulation
 
         private void btnSaveData_Click(object sender, EventArgs e)
         {
+            SavingObjects so = new SavingObjects(airplaneList, planesOnTheGround, checkpoints);
+
             SaveFileDialog SaveFileDialogMain = new SaveFileDialog();
             SaveFileDialogMain.Filter = "Binary Files (*.bin)|*.bin";
             SaveFileDialogMain.DefaultExt = "bin";
@@ -483,9 +489,10 @@ namespace Air_Traffic_Simulation
                 var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
                 string filename = SaveFileDialogMain.FileName;
                 FileStream filestream = new FileStream(filename, FileMode.Create, FileAccess.Write);
-                bformatter.Serialize(filestream, checkpoints);
+                bformatter.Serialize(filestream, so);
                 filestream.Close();
                 filestream = null;
+                
             }
 
             //using (Stream stream = File.Open(serializationFile, FileMode.Create))
@@ -766,9 +773,21 @@ namespace Air_Traffic_Simulation
         {
             if (trackBar1.Value == 1)
             {
+                airplaneList.Clear();
                 btnAddAirplane.Enabled = false;
                 btnRemoveAirplane.Enabled = false;
                 RandomAirplane = 1;
+                Random random = new Random();
+                int rnd = random.Next(1, 10);
+                for (int i = 0; i < rnd; i++)
+                {
+                    CreateRandomAirplane();
+                }
+                foreach (Airplane a in airplaneList)
+                {
+                    PaintRectangle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
+                    a.OnAirportReached += airplaneHasReachedTheAirport;
+                }
             }
 
             if (trackBar1.Value == 0)
@@ -809,6 +828,8 @@ namespace Air_Traffic_Simulation
                     Graphics g = this.pictureBox1.CreateGraphics();
                     g.DrawRectangle(pen, (float) p.CoordinateX, (float) p.CoordinateY, 10, 10);
                 }
+              
+               
             }
         }
 
@@ -862,20 +883,49 @@ namespace Air_Traffic_Simulation
                     PaintCircleB(p);
                     cpName = 0;
                 }
+                
 
                 checkpoints = null;
+                airplaneList = null;
+                planesOnTheGround = null;
 
-                checkpoints = (List<Checkpoint>) bformatter.Deserialize(filestream);
+                SavingObjects so = null;
+
+                so = (SavingObjects) bformatter.Deserialize(filestream);
+                checkpoints = so.getCheckpoints;
+                airplaneList = so.getAirplanes;
+                planesOnTheGround = so.getGroundplanes;
 
                 filestream.Close();
                 filestream = null;
 
-
-                foreach (Checkpoint a in checkpoints)
+                if(checkpoints != null)
                 {
-                    PaintCircle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
-                    cpName++;
+                    foreach (Checkpoint a in checkpoints)
+                    {
+                        PaintCircle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
+                        cpName++;
+                    }
                 }
+                if(airplaneList != null)
+                {
+                    foreach(Airplane a in airplaneList)
+                {
+                    apName++;
+                    fnName += 6 * 2 / 3;
+                    PaintRectangle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
+                        a.OnAirportReached += airplaneHasReachedTheAirport;
+                }
+                }
+                if(planesOnTheGround != null)
+                {
+                    foreach (Airplane a in planesOnTheGround)
+                    {
+                        allFlightsListBox.Items.Add(a.Name + "\t" + a.FlightNumber);
+                    }
+                }
+                
+                
             }
 
             //foreach (Checkpoint a in checkpoints)
@@ -1030,6 +1080,89 @@ namespace Air_Traffic_Simulation
             lbPrecipitationType.Text = weather.GetPrecipitationType().ToString();
             lbProbability.Text = weather.Probability.ToString();
             lbVisibility.Text = weather.GetVisibility().ToString();
+		}
+		
+        /// <summary>
+        /// Method to create random airplane on border area.
+        /// </summary>
+        private void CreateRandomAirplane()
+        {
+            Refresh();
+            int speed = 5;
+            int s;
+            int x;
+            int y;
+            Boolean exists = false;
+            do
+            {
+                Random random = new Random();
+                speed = 5;
+                s = random.Next(1, 5);
+                x = 1;
+                y = 1;
+                exists = false;
+
+                while (speed % 25 != 0)
+                {
+                    speed = random.Next(100, 3000);
+                }
+
+                if (s == 1)
+                {
+                    while (x % 12 != 6)
+                    {
+                        x = random.Next(6, 1434);
+                    }
+                    y = 6;
+                }
+
+                else if (s == 2)
+                {
+                    while (x % 12 != 6)
+                    {
+                        x = random.Next(6, 1434);
+                    }
+                    y = 930;
+                }
+
+                else if (s == 3)
+                {
+                    while (y % 12 != 6)
+                    {
+                        y = random.Next(6, 930);
+                    }
+                    x = 1434;
+                }
+
+                else if (s == 4)
+                {
+                    while (y % 12 != 6)
+                    {
+                        y = random.Next(6, 930);
+                    }
+                    x = 6;
+                }
+
+                if (airplaneList.Count > 0)
+                {
+                    foreach (Airplane mm in airplaneList)
+                    {
+                        if (mm.CoordinateX == x && mm.CoordinateY == y)
+                        {
+                            exists = true;
+                        }
+                    }
+                }
+            } while (exists == true);
+            
+            
+
+            apName++;
+            fnName += 6 * 2 / 3;
+            string name = "Airplane" + apName;
+            string flight = "fn" + fnName + "z";
+            Airplane one = new Airplane(name, x, y, speed, flight);
+            airplaneList.Add(one);
         }
     }
 }

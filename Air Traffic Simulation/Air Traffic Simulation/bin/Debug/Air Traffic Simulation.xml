@@ -75,6 +75,11 @@
             <param name="sender"></param>
             <param name="e"></param>
         </member>
+        <member name="M:Air_Traffic_Simulation.Form1.CreateRandomAirplane">
+            <summary>
+            Method to create random airplane on border area.
+            </summary>
+        </member>
         <member name="F:Air_Traffic_Simulation.Form1.components">
             <summary>
             Required designer variable.

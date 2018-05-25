@@ -92,6 +92,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RainType.cs" />
+    <Compile Include="SavingObjects.cs" />
     <Compile Include="WeatherConditions.cs" />
     <Compile Include="WindDirection.cs" />
     <EmbeddedResource Include="Form1.resx">
