@@ -8,7 +8,7 @@ using System.Windows.Forms;
 namespace Air_Traffic_Simulation
 {
     [Serializable]
-    class Checkpoint : AbstractCheckpoint
+    public class Checkpoint : AbstractCheckpoint
     {
         public override string Name { get; }
         public override double CoordinateX { get; set; }
@@ -25,6 +25,8 @@ namespace Air_Traffic_Simulation
         /// The type of cell the checkpoint is situated in.
         /// </summary>
         public CellType ParentCellType { get; }
+
+        public event EventHandler OnWeatherPassing;
 
         public Checkpoint(string name, double coordinateX, double coordinateY, Cell c, List<Checkpoint> allCheckpoints, Airstrip strip)
         {

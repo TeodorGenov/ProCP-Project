@@ -92,6 +92,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RainType.cs" />
+    <Compile Include="SavingObjects.cs" />
     <Compile Include="WeatherConditions.cs" />
     <Compile Include="WindDirection.cs" />
     <EmbeddedResource Include="Form1.resx">
@@ -108,10 +109,12 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="WindDirection.resx">
       <DependentUpon>WindDirection.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\DataSources\Form1.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -124,6 +127,24 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\airplanePic.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\hail.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\rain.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\snow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\clear.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SelectedairplanePic.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

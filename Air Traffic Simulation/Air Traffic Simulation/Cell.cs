@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Air_Traffic_Simulation
 {
-    class Cell
+    public class Cell
     {
         public int id;
         public int x, y;

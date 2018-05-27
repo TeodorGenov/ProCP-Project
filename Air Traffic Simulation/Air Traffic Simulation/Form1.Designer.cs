@@ -56,6 +56,10 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.landedAirplanesListBox = new System.Windows.Forms.ListBox();
+            this.panel8 = new System.Windows.Forms.Panel();
+            this.simSpeedComboBox = new System.Windows.Forms.ComboBox();
+            this.simSpeedLb = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
             this.btnUploadData = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
@@ -85,18 +89,18 @@
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panelBeneathGrid = new System.Windows.Forms.Panel();
-            this.stopWeatherBtn = new System.Windows.Forms.Button();
-            this.btnStartPlaneMovement = new System.Windows.Forms.Button();
-            this.testAirplaneAndStrip = new System.Windows.Forms.Button();
+            this.planeInfoTextBox = new System.Windows.Forms.TextBox();
+            this.toggleWeatherBtn = new System.Windows.Forms.Button();
             this.calcRouteBtn = new System.Windows.Forms.Button();
-            this.timerWeather = new System.Windows.Forms.Timer(this.components);
-            this.timerPlaneMovement = new System.Windows.Forms.Timer(this.components);
+            this.timerSimRunning = new System.Windows.Forms.Timer(this.components);
+            this.panelAllFlights = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel8.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nSpeed)).BeginInit();
@@ -107,15 +111,16 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
             this.panelBeneathGrid.SuspendLayout();
+            this.panelAllFlights.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panelAllFlights);
             this.panel1.Controls.Add(this.lbPrecipitationType);
             this.panel1.Controls.Add(this.lbVisibility);
             this.panel1.Controls.Add(this.lbPrecipitationTypeGUI);
             this.panel1.Controls.Add(this.lbVisibilityGUI);
-            this.panel1.Controls.Add(this.allFlightsListBox);
             this.panel1.Controls.Add(this.lbProbability);
             this.panel1.Controls.Add(this.labelWind);
             this.panel1.Controls.Add(this.labelPrec);
@@ -146,7 +151,7 @@
             this.lbPrecipitationType.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.lbPrecipitationType.Location = new System.Drawing.Point(222, 455);
             this.lbPrecipitationType.Name = "lbPrecipitationType";
-            this.lbPrecipitationType.Size = new System.Drawing.Size(0, 17);
+            this.lbPrecipitationType.Size = new System.Drawing.Size(0, 21);
             this.lbPrecipitationType.TabIndex = 23;
             // 
             // lbVisibility
@@ -155,7 +160,7 @@
             this.lbVisibility.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.lbVisibility.Location = new System.Drawing.Point(71, 455);
             this.lbVisibility.Name = "lbVisibility";
-            this.lbVisibility.Size = new System.Drawing.Size(0, 17);
+            this.lbVisibility.Size = new System.Drawing.Size(0, 21);
             this.lbVisibility.TabIndex = 22;
             // 
             // lbPrecipitationTypeGUI
@@ -164,7 +169,7 @@
             this.lbPrecipitationTypeGUI.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.lbPrecipitationTypeGUI.Location = new System.Drawing.Point(93, 455);
             this.lbPrecipitationTypeGUI.Name = "lbPrecipitationTypeGUI";
-            this.lbPrecipitationTypeGUI.Size = new System.Drawing.Size(126, 17);
+            this.lbPrecipitationTypeGUI.Size = new System.Drawing.Size(163, 21);
             this.lbPrecipitationTypeGUI.TabIndex = 21;
             this.lbPrecipitationTypeGUI.Text = "Precipitation type:";
             // 
@@ -174,20 +179,20 @@
             this.lbVisibilityGUI.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.lbVisibilityGUI.Location = new System.Drawing.Point(4, 455);
             this.lbVisibilityGUI.Name = "lbVisibilityGUI";
-            this.lbVisibilityGUI.Size = new System.Drawing.Size(61, 17);
+            this.lbVisibilityGUI.Size = new System.Drawing.Size(77, 21);
             this.lbVisibilityGUI.TabIndex = 20;
             this.lbVisibilityGUI.Text = "Visibility:";
             // 
             // allFlightsListBox
             // 
-            this.allFlightsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this.allFlightsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.allFlightsListBox.FormattingEnabled = true;
-            this.allFlightsListBox.ItemHeight = 21;
-            this.allFlightsListBox.Location = new System.Drawing.Point(7, 599);
+            this.allFlightsListBox.ItemHeight = 23;
+            this.allFlightsListBox.Location = new System.Drawing.Point(0, 0);
             this.allFlightsListBox.Name = "allFlightsListBox";
-            this.allFlightsListBox.Size = new System.Drawing.Size(259, 88);
+            this.allFlightsListBox.Size = new System.Drawing.Size(272, 115);
             this.allFlightsListBox.TabIndex = 19;
+            this.allFlightsListBox.SelectedIndexChanged += new System.EventHandler(this.allFlightsListBox_SelectedIndexChanged);
             // 
             // lbProbability
             // 
@@ -196,7 +201,7 @@
             this.lbProbability.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.lbProbability.Location = new System.Drawing.Point(34, 430);
             this.lbProbability.Name = "lbProbability";
-            this.lbProbability.Size = new System.Drawing.Size(0, 19);
+            this.lbProbability.Size = new System.Drawing.Size(0, 21);
             this.lbProbability.TabIndex = 18;
             // 
             // labelWind
@@ -206,7 +211,7 @@
             this.labelWind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.labelWind.Location = new System.Drawing.Point(34, 371);
             this.labelWind.Name = "labelWind";
-            this.labelWind.Size = new System.Drawing.Size(0, 19);
+            this.labelWind.Size = new System.Drawing.Size(0, 21);
             this.labelWind.TabIndex = 17;
             // 
             // labelPrec
@@ -216,7 +221,7 @@
             this.labelPrec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.labelPrec.Location = new System.Drawing.Point(34, 325);
             this.labelPrec.Name = "labelPrec";
-            this.labelPrec.Size = new System.Drawing.Size(0, 19);
+            this.labelPrec.Size = new System.Drawing.Size(0, 21);
             this.labelPrec.TabIndex = 16;
             // 
             // labelTemp
@@ -226,7 +231,7 @@
             this.labelTemp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.labelTemp.Location = new System.Drawing.Point(34, 267);
             this.labelTemp.Name = "labelTemp";
-            this.labelTemp.Size = new System.Drawing.Size(0, 19);
+            this.labelTemp.Size = new System.Drawing.Size(0, 21);
             this.labelTemp.TabIndex = 15;
             // 
             // trackBarPrecipitation
@@ -234,7 +239,7 @@
             this.trackBarPrecipitation.Location = new System.Drawing.Point(121, 294);
             this.trackBarPrecipitation.Maximum = 100;
             this.trackBarPrecipitation.Name = "trackBarPrecipitation";
-            this.trackBarPrecipitation.Size = new System.Drawing.Size(148, 45);
+            this.trackBarPrecipitation.Size = new System.Drawing.Size(148, 56);
             this.trackBarPrecipitation.TabIndex = 14;
             this.trackBarPrecipitation.TabStop = false;
             this.trackBarPrecipitation.Value = 24;
@@ -254,7 +259,7 @@
             this.comboBoxWindDirection.FormattingEnabled = true;
             this.comboBoxWindDirection.Location = new System.Drawing.Point(131, 393);
             this.comboBoxWindDirection.Name = "comboBoxWindDirection";
-            this.comboBoxWindDirection.Size = new System.Drawing.Size(128, 29);
+            this.comboBoxWindDirection.Size = new System.Drawing.Size(128, 31);
             this.comboBoxWindDirection.TabIndex = 12;
             this.comboBoxWindDirection.TabStop = false;
             this.comboBoxWindDirection.SelectedIndexChanged += new System.EventHandler(this.comboBoxWindDirection_SelectedIndexChanged);
@@ -264,7 +269,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(3, 396);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(122, 21);
+            this.label6.Size = new System.Drawing.Size(146, 23);
             this.label6.TabIndex = 11;
             this.label6.Text = "Wind direction";
             // 
@@ -273,7 +278,7 @@
             this.trackBarWindSpeed.Location = new System.Drawing.Point(121, 345);
             this.trackBarWindSpeed.Maximum = 75;
             this.trackBarWindSpeed.Name = "trackBarWindSpeed";
-            this.trackBarWindSpeed.Size = new System.Drawing.Size(148, 45);
+            this.trackBarWindSpeed.Size = new System.Drawing.Size(148, 56);
             this.trackBarWindSpeed.TabIndex = 9;
             this.trackBarWindSpeed.TabStop = false;
             this.trackBarWindSpeed.Scroll += new System.EventHandler(this.trackBarWindSpeed_Scroll);
@@ -284,7 +289,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(3, 345);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(101, 21);
+            this.label5.Size = new System.Drawing.Size(124, 23);
             this.label5.TabIndex = 8;
             this.label5.Text = "Wind speed";
             // 
@@ -293,7 +298,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 243);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(112, 21);
+            this.label4.Size = new System.Drawing.Size(135, 23);
             this.label4.TabIndex = 7;
             this.label4.Text = "Temperature";
             // 
@@ -302,7 +307,7 @@
             this.lbWeatherConditions.AutoSize = true;
             this.lbWeatherConditions.Location = new System.Drawing.Point(54, 207);
             this.lbWeatherConditions.Name = "lbWeatherConditions";
-            this.lbWeatherConditions.Size = new System.Drawing.Size(165, 21);
+            this.lbWeatherConditions.Size = new System.Drawing.Size(199, 23);
             this.lbWeatherConditions.TabIndex = 6;
             this.lbWeatherConditions.Text = "Weather Conditions";
             // 
@@ -312,7 +317,7 @@
             this.trackBarTemperature.Maximum = 50;
             this.trackBarTemperature.Minimum = -30;
             this.trackBarTemperature.Name = "trackBarTemperature";
-            this.trackBarTemperature.Size = new System.Drawing.Size(148, 45);
+            this.trackBarTemperature.Size = new System.Drawing.Size(148, 56);
             this.trackBarTemperature.TabIndex = 5;
             this.trackBarTemperature.TabStop = false;
             this.trackBarTemperature.Value = 24;
@@ -321,10 +326,11 @@
             // rbTakeOff
             // 
             this.rbTakeOff.AutoSize = true;
+            this.rbTakeOff.Enabled = false;
             this.rbTakeOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbTakeOff.Location = new System.Drawing.Point(177, 168);
+            this.rbTakeOff.Location = new System.Drawing.Point(145, 168);
             this.rbTakeOff.Name = "rbTakeOff";
-            this.rbTakeOff.Size = new System.Drawing.Size(92, 25);
+            this.rbTakeOff.Size = new System.Drawing.Size(110, 27);
             this.rbTakeOff.TabIndex = 4;
             this.rbTakeOff.Text = "Take Off";
             this.rbTakeOff.UseVisualStyleBackColor = true;
@@ -346,10 +352,11 @@
             // rbLanding
             // 
             this.rbLanding.AutoSize = true;
+            this.rbLanding.Enabled = false;
             this.rbLanding.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.rbLanding.Location = new System.Drawing.Point(12, 168);
             this.rbLanding.Name = "rbLanding";
-            this.rbLanding.Size = new System.Drawing.Size(90, 25);
+            this.rbLanding.Size = new System.Drawing.Size(107, 27);
             this.rbLanding.TabIndex = 3;
             this.rbLanding.Text = "Landing";
             this.rbLanding.UseVisualStyleBackColor = true;
@@ -371,7 +378,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(158)))), ((int)(((byte)(209)))));
             this.label1.Location = new System.Drawing.Point(8, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(251, 63);
+            this.label1.Size = new System.Drawing.Size(312, 80);
             this.label1.TabIndex = 0;
             this.label1.Text = "Air Traffic";
             // 
@@ -380,12 +387,14 @@
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(49, 128);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(170, 21);
+            this.label2.Size = new System.Drawing.Size(208, 23);
             this.label2.TabIndex = 2;
             this.label2.Text = "Simulation Outcome";
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.landedAirplanesListBox);
+            this.panel2.Controls.Add(this.panel8);
             this.panel2.Controls.Add(this.panel7);
             this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.button1);
@@ -396,6 +405,55 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 707);
             this.panel2.TabIndex = 1;
+            // 
+            // landedAirplanesListBox
+            // 
+            this.landedAirplanesListBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.landedAirplanesListBox.FormattingEnabled = true;
+            this.landedAirplanesListBox.ItemHeight = 23;
+            this.landedAirplanesListBox.Location = new System.Drawing.Point(0, 611);
+            this.landedAirplanesListBox.Name = "landedAirplanesListBox";
+            this.landedAirplanesListBox.Size = new System.Drawing.Size(200, 96);
+            this.landedAirplanesListBox.TabIndex = 23;
+            this.landedAirplanesListBox.SelectedIndexChanged += new System.EventHandler(this.landedAirplanesListBox_SelectedIndexChanged);
+            // 
+            // panel8
+            // 
+            this.panel8.Controls.Add(this.simSpeedComboBox);
+            this.panel8.Controls.Add(this.simSpeedLb);
+            this.panel8.Location = new System.Drawing.Point(1, 500);
+            this.panel8.Name = "panel8";
+            this.panel8.Size = new System.Drawing.Size(200, 100);
+            this.panel8.TabIndex = 22;
+            // 
+            // simSpeedComboBox
+            // 
+            this.simSpeedComboBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.simSpeedComboBox.FormattingEnabled = true;
+            this.simSpeedComboBox.Items.AddRange(new object[] {
+            "0.33",
+            "0.50",
+            "1",
+            "2",
+            "3"});
+            this.simSpeedComboBox.Location = new System.Drawing.Point(71, 54);
+            this.simSpeedComboBox.Name = "simSpeedComboBox";
+            this.simSpeedComboBox.Size = new System.Drawing.Size(63, 31);
+            this.simSpeedComboBox.TabIndex = 20;
+            this.simSpeedComboBox.SelectedIndexChanged += new System.EventHandler(this.simSpeedComboBox_SelectedIndexChanged);
+            // 
+            // simSpeedLb
+            // 
+            this.simSpeedLb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.simSpeedLb.AutoSize = true;
+            this.simSpeedLb.Location = new System.Drawing.Point(7, 14);
+            this.simSpeedLb.Name = "simSpeedLb";
+            this.simSpeedLb.Size = new System.Drawing.Size(180, 23);
+            this.simSpeedLb.TabIndex = 21;
+            this.simSpeedLb.Text = "SImulation Speed";
             // 
             // panel7
             // 
@@ -427,7 +485,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(49, 13);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(100, 21);
+            this.label11.Size = new System.Drawing.Size(120, 23);
             this.label11.TabIndex = 15;
             this.label11.Text = "Data Menu";
             // 
@@ -450,9 +508,9 @@
             this.button3.FlatAppearance.BorderSize = 0;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(-2, 526);
+            this.button3.Location = new System.Drawing.Point(3, 457);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(199, 37);
+            this.button3.Size = new System.Drawing.Size(195, 37);
             this.button3.TabIndex = 19;
             this.button3.TabStop = false;
             this.button3.Text = "Show probability";
@@ -464,7 +522,7 @@
             this.button1.FlatAppearance.BorderSize = 0;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.Location = new System.Drawing.Point(0, 481);
+            this.button1.Location = new System.Drawing.Point(1, 412);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(199, 39);
             this.button1.TabIndex = 18;
@@ -500,7 +558,7 @@
             0,
             0});
             this.nSpeed.Name = "nSpeed";
-            this.nSpeed.Size = new System.Drawing.Size(67, 27);
+            this.nSpeed.Size = new System.Drawing.Size(67, 32);
             this.nSpeed.TabIndex = 26;
             this.nSpeed.Value = new decimal(new int[] {
             500,
@@ -515,7 +573,7 @@
             this.label15.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label15.Location = new System.Drawing.Point(164, 79);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(26, 19);
+            this.label15.Size = new System.Drawing.Size(33, 21);
             this.label15.TabIndex = 25;
             this.label15.Text = "kts";
             // 
@@ -525,7 +583,7 @@
             this.label14.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label14.Location = new System.Drawing.Point(25, 77);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(60, 21);
+            this.label14.Size = new System.Drawing.Size(74, 23);
             this.label14.TabIndex = 23;
             this.label14.Text = "Speed";
             // 
@@ -536,7 +594,7 @@
             this.label13.ForeColor = System.Drawing.Color.Silver;
             this.label13.Location = new System.Drawing.Point(121, 50);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(28, 19);
+            this.label13.Size = new System.Drawing.Size(34, 21);
             this.label13.TabIndex = 22;
             this.label13.Text = "No";
             // 
@@ -547,7 +605,7 @@
             this.label12.ForeColor = System.Drawing.Color.Silver;
             this.label12.Location = new System.Drawing.Point(119, 31);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(30, 19);
+            this.label12.Size = new System.Drawing.Size(39, 21);
             this.label12.TabIndex = 21;
             this.label12.Text = "Yes";
             // 
@@ -557,7 +615,7 @@
             this.label10.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label10.Location = new System.Drawing.Point(25, 42);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(77, 21);
+            this.label10.Size = new System.Drawing.Size(94, 23);
             this.label10.TabIndex = 20;
             this.label10.Text = "Random";
             // 
@@ -568,7 +626,7 @@
             this.trackBar1.Maximum = 1;
             this.trackBar1.Name = "trackBar1";
             this.trackBar1.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.trackBar1.Size = new System.Drawing.Size(45, 42);
+            this.trackBar1.Size = new System.Drawing.Size(56, 42);
             this.trackBar1.TabIndex = 19;
             this.trackBar1.TabStop = false;
             this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.TopLeft;
@@ -607,7 +665,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(33, 3);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(125, 21);
+            this.label9.Size = new System.Drawing.Size(152, 23);
             this.label9.TabIndex = 17;
             this.label9.Text = "Airplane Menu";
             // 
@@ -655,7 +713,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(25, 3);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(151, 21);
+            this.label8.Size = new System.Drawing.Size(183, 23);
             this.label8.TabIndex = 15;
             this.label8.Text = "Checkpoint Menu";
             // 
@@ -733,10 +791,9 @@
             // 
             // panelBeneathGrid
             // 
-            this.panelBeneathGrid.BackColor = System.Drawing.Color.Maroon;
-            this.panelBeneathGrid.Controls.Add(this.stopWeatherBtn);
-            this.panelBeneathGrid.Controls.Add(this.btnStartPlaneMovement);
-            this.panelBeneathGrid.Controls.Add(this.testAirplaneAndStrip);
+            this.panelBeneathGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
+            this.panelBeneathGrid.Controls.Add(this.planeInfoTextBox);
+            this.panelBeneathGrid.Controls.Add(this.toggleWeatherBtn);
             this.panelBeneathGrid.Controls.Add(this.calcRouteBtn);
             this.panelBeneathGrid.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBeneathGrid.Location = new System.Drawing.Point(0, 607);
@@ -744,44 +801,33 @@
             this.panelBeneathGrid.Size = new System.Drawing.Size(855, 100);
             this.panelBeneathGrid.TabIndex = 3;
             // 
-            // stopWeatherBtn
+            // planeInfoTextBox
             // 
-            this.stopWeatherBtn.Location = new System.Drawing.Point(160, 12);
-            this.stopWeatherBtn.Name = "stopWeatherBtn";
-            this.stopWeatherBtn.Size = new System.Drawing.Size(218, 51);
-            this.stopWeatherBtn.TabIndex = 5;
-            this.stopWeatherBtn.Text = "stop weather timer";
-            this.stopWeatherBtn.UseVisualStyleBackColor = true;
-            this.stopWeatherBtn.Click += new System.EventHandler(this.stopWeatherBtn_Click);
+            this.planeInfoTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.planeInfoTextBox.Location = new System.Drawing.Point(231, 14);
+            this.planeInfoTextBox.Multiline = true;
+            this.planeInfoTextBox.Name = "planeInfoTextBox";
+            this.planeInfoTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.planeInfoTextBox.Size = new System.Drawing.Size(425, 74);
+            this.planeInfoTextBox.TabIndex = 6;
             // 
-            // btnStartPlaneMovement
+            // toggleWeatherBtn
             // 
-            this.btnStartPlaneMovement.Location = new System.Drawing.Point(33, 26);
-            this.btnStartPlaneMovement.Name = "btnStartPlaneMovement";
-            this.btnStartPlaneMovement.Size = new System.Drawing.Size(75, 23);
-            this.btnStartPlaneMovement.TabIndex = 3;
-            this.btnStartPlaneMovement.Text = "btnStartPlaneMovement";
-            this.btnStartPlaneMovement.UseVisualStyleBackColor = true;
-            this.btnStartPlaneMovement.Click += new System.EventHandler(this.button5_Click);
-            // 
-            // testAirplaneAndStrip
-            // 
-            this.testAirplaneAndStrip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.testAirplaneAndStrip.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
-            this.testAirplaneAndStrip.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.testAirplaneAndStrip.Font = new System.Drawing.Font("Century Gothic", 10F);
-            this.testAirplaneAndStrip.Location = new System.Drawing.Point(660, 25);
-            this.testAirplaneAndStrip.Name = "testAirplaneAndStrip";
-            this.testAirplaneAndStrip.Size = new System.Drawing.Size(187, 54);
-            this.testAirplaneAndStrip.TabIndex = 4;
-            this.testAirplaneAndStrip.Text = "Add test airplane and strip";
-            this.testAirplaneAndStrip.UseVisualStyleBackColor = true;
+            this.toggleWeatherBtn.Location = new System.Drawing.Point(6, 14);
+            this.toggleWeatherBtn.Name = "toggleWeatherBtn";
+            this.toggleWeatherBtn.Size = new System.Drawing.Size(218, 51);
+            this.toggleWeatherBtn.TabIndex = 5;
+            this.toggleWeatherBtn.Text = "Disable weather";
+            this.toggleWeatherBtn.UseVisualStyleBackColor = true;
+            this.toggleWeatherBtn.Click += new System.EventHandler(this.toggleWeatherBtn_Click);
             // 
             // calcRouteBtn
             // 
             this.calcRouteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.calcRouteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
-            this.calcRouteBtn.Location = new System.Drawing.Point(467, 26);
+            this.calcRouteBtn.Location = new System.Drawing.Point(662, 12);
             this.calcRouteBtn.Name = "calcRouteBtn";
             this.calcRouteBtn.Size = new System.Drawing.Size(187, 51);
             this.calcRouteBtn.TabIndex = 3;
@@ -789,16 +835,19 @@
             this.calcRouteBtn.UseVisualStyleBackColor = true;
             this.calcRouteBtn.Click += new System.EventHandler(this.calcRouteBtn_Click);
             // 
-            // timerWeather
+            // timerSimRunning
             // 
-            this.timerWeather.Enabled = true;
-            this.timerWeather.Interval = 10;
-            this.timerWeather.Tick += new System.EventHandler(this.timerWeather_Tick);
+            this.timerSimRunning.Interval = 1000;
+            this.timerSimRunning.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // timerPlaneMovement
+            // panelAllFlights
             // 
-            this.timerPlaneMovement.Interval = 1000;
-            this.timerPlaneMovement.Tick += new System.EventHandler(this.timer2_Tick);
+            this.panelAllFlights.Controls.Add(this.allFlightsListBox);
+            this.panelAllFlights.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelAllFlights.Location = new System.Drawing.Point(0, 592);
+            this.panelAllFlights.Name = "panelAllFlights";
+            this.panelAllFlights.Size = new System.Drawing.Size(272, 115);
+            this.panelAllFlights.TabIndex = 20;
             // 
             // Form1
             // 
@@ -824,6 +873,8 @@
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel8.ResumeLayout(false);
+            this.panel8.PerformLayout();
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             this.panel4.ResumeLayout(false);
@@ -837,6 +888,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panelBeneathGrid.ResumeLayout(false);
+            this.panelBeneathGrid.PerformLayout();
+            this.panelAllFlights.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -893,17 +946,20 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.NumericUpDown nSpeed;
         private System.Windows.Forms.Panel panelBeneathGrid;
-        private System.Windows.Forms.Button testAirplaneAndStrip;
         private System.Windows.Forms.Button calcRouteBtn;
         private System.Windows.Forms.ListBox allFlightsListBox;
-        private System.Windows.Forms.Timer timerWeather;
-        private System.Windows.Forms.Timer timerPlaneMovement;
-        private System.Windows.Forms.Button btnStartPlaneMovement;
-        private System.Windows.Forms.Button stopWeatherBtn;
+        private System.Windows.Forms.Timer timerSimRunning;
+        private System.Windows.Forms.Button toggleWeatherBtn;
         private System.Windows.Forms.Label lbPrecipitationTypeGUI;
         private System.Windows.Forms.Label lbVisibilityGUI;
         private System.Windows.Forms.Label lbPrecipitationType;
         private System.Windows.Forms.Label lbVisibility;
+        private System.Windows.Forms.ComboBox simSpeedComboBox;
+        private System.Windows.Forms.Panel panel8;
+        private System.Windows.Forms.Label simSpeedLb;
+        private System.Windows.Forms.ListBox landedAirplanesListBox;
+        private System.Windows.Forms.TextBox planeInfoTextBox;
+        private System.Windows.Forms.Panel panelAllFlights;
     }
 }
 

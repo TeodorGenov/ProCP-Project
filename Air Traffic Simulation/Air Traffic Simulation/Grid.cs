@@ -15,12 +15,12 @@ namespace Air_Traffic_Simulation
         /// <summary>
         /// The number of columns the grid is going to have.
         /// </summary>
-        private readonly int columnsOfCells;
+        public int ColumnsOfCells { get; private set; }
 
         /// <summary>
         /// The number of rows the grid is going to have.
         /// </summary>
-        private readonly int rowsOfCells;
+        public int RowsOfCells { get; private set; }
 
         /// <summary>
         /// The total number of cells the grid is going to have.
@@ -41,9 +41,9 @@ namespace Air_Traffic_Simulation
 
         public Grid(int pictureBoxWidth, int pictureBoxHeight)
         {
-            this.columnsOfCells = pictureBoxWidth / Cell.Width;
-            this.rowsOfCells = pictureBoxHeight / Cell.Width;
-            this.totalNumberOfCells = this.columnsOfCells * this.rowsOfCells;
+            this.ColumnsOfCells = pictureBoxWidth / Cell.Width;
+            this.RowsOfCells = pictureBoxHeight / Cell.Width;
+            this.totalNumberOfCells = this.ColumnsOfCells * this.RowsOfCells;
 
             //that's the diameter of the space covered between the inner sides
             //of the BORDER cells; our grid is based on real life numbers and in real life
@@ -51,22 +51,12 @@ namespace Air_Traffic_Simulation
             //diameter of our airspace is 40 miles
             int diameterOfAirspaceInMiles = 40;
 
-            int diameterOfAirspaceInPixelsHorizontally = (columnsOfCells - 2) * Cell.Width;
+            int diameterOfAirspaceInPixelsHorizontally = (ColumnsOfCells - 1) * Cell.Width;
 
-            int diameterOfAirspaceInPixelsVertically = (rowsOfCells - 2) * Cell.Width;
+            int diameterOfAirspaceInPixelsVertically = (RowsOfCells - 1) * Cell.Width;
 
             PixelsPerMileHorizontally = (double) diameterOfAirspaceInPixelsHorizontally / diameterOfAirspaceInMiles;
             PixelsPerMileVertically = (double) diameterOfAirspaceInPixelsVertically / diameterOfAirspaceInMiles;
-
-            Console.WriteLine($"diameter: {diameterOfAirspaceInMiles} miles");
-            Console.WriteLine($"diameter hor: {diameterOfAirspaceInPixelsHorizontally} pixels");
-            Console.WriteLine($"diameter vert: {diameterOfAirspaceInPixelsVertically} pixels");
-            Console.WriteLine($"ppm hor: {PixelsPerMileHorizontally} pixels");
-            Console.WriteLine($"ppm vert: {PixelsPerMileVertically} pixels");
-
-
-            //TODO: Remove cw
-            Console.WriteLine($"columns: {columnsOfCells} rows: {rowsOfCells}");
         }
 
         public Cell GetCell(int xmouse, int ymouse)
@@ -87,7 +77,7 @@ namespace Air_Traffic_Simulation
             Cell c;
             for (int i = 1; i <= totalNumberOfCells; i++)
             {
-                if (i % columnsOfCells != 0)
+                if (i % ColumnsOfCells != 0)
                 {
                     c = new Cell(id, xs, ys);
                     listOfCells.Add(c);
@@ -109,41 +99,41 @@ namespace Air_Traffic_Simulation
 
         private void assignZoneToCell(Cell c)
         {
-            if ((c.id % columnsOfCells >= Math.Floor(0.9 * columnsOfCells / 2)) &&
-                (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.9 * columnsOfCells / 2)) &&
-                (c.id > (Math.Floor(0.9 * rowsOfCells / 2) - 1) * columnsOfCells) &&
-                (c.id < (rowsOfCells - Math.Floor(0.9 * rowsOfCells / 2)) * columnsOfCells))
+            if ((c.id % ColumnsOfCells >= Math.Floor(0.9 * ColumnsOfCells / 2)) &&
+                (c.id % ColumnsOfCells <= ColumnsOfCells - Math.Floor(0.9 * ColumnsOfCells / 2)) &&
+                (c.id > (Math.Floor(0.9 * RowsOfCells / 2) - 1) * ColumnsOfCells) &&
+                (c.id < (RowsOfCells - Math.Floor(0.9 * RowsOfCells / 2)) * ColumnsOfCells))
             {
                 c.Type = CellType.FINAL;
             }
-            else if ((c.id % columnsOfCells >= Math.Floor(0.7 * columnsOfCells / 2)) &&
-                     (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.7 * columnsOfCells / 2)) &&
-                     (c.id > Math.Floor((0.7 * rowsOfCells / 2) - 1) * columnsOfCells) &&
-                     (c.id < (rowsOfCells - Math.Floor(0.7 * rowsOfCells / 2)) * columnsOfCells))
+            else if ((c.id % ColumnsOfCells >= Math.Floor(0.7 * ColumnsOfCells / 2)) &&
+                     (c.id % ColumnsOfCells <= ColumnsOfCells - Math.Floor(0.7 * ColumnsOfCells / 2)) &&
+                     (c.id > Math.Floor((0.7 * RowsOfCells / 2) - 1) * ColumnsOfCells) &&
+                     (c.id < (RowsOfCells - Math.Floor(0.7 * RowsOfCells / 2)) * ColumnsOfCells))
             {
                 c.Type = CellType.LOWER;
             }
-            else if ((c.id % columnsOfCells >= Math.Floor(0.4 * columnsOfCells / 2)) &&
-                     (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.4 * columnsOfCells / 2)) &&
-                     (c.id > Math.Floor((0.4 * rowsOfCells / 2) - 1) * columnsOfCells) &&
-                     (c.id < (rowsOfCells - Math.Floor(0.4 * rowsOfCells / 2)) * columnsOfCells))
+            else if ((c.id % ColumnsOfCells >= Math.Floor(0.4 * ColumnsOfCells / 2)) &&
+                     (c.id % ColumnsOfCells <= ColumnsOfCells - Math.Floor(0.4 * ColumnsOfCells / 2)) &&
+                     (c.id > Math.Floor((0.4 * RowsOfCells / 2) - 1) * ColumnsOfCells) &&
+                     (c.id < (RowsOfCells - Math.Floor(0.4 * RowsOfCells / 2)) * ColumnsOfCells))
             {
                 c.Type = CellType.MIDDLE;
             }
-            else if (c.id <= this.columnsOfCells)
+            else if (c.id <= this.ColumnsOfCells)
             {
                 c.Type = CellType.BORDER;
             }
-            else if (c.id % this.columnsOfCells == 1)
+            else if (c.id % this.ColumnsOfCells == 1)
             {
                 c.Type = CellType.BORDER;
             }
-            else if (c.id % this.columnsOfCells == 0)
+            else if (c.id % this.ColumnsOfCells == 0)
             {
                 c.Type = CellType.BORDER;
             }
             //last row
-            else if (c.id > this.columnsOfCells * (this.rowsOfCells - 1))
+            else if (c.id > this.ColumnsOfCells * (this.RowsOfCells - 1))
             {
                 c.Type = CellType.BORDER;
             }
@@ -152,10 +142,10 @@ namespace Air_Traffic_Simulation
                 c.Type = CellType.UPPER;
             }
 
-            //                else if ((c.id % columnsOfCells >= Math.Floor(0.1 * columnsOfCells / 2)) &&
-            //                         (c.id % columnsOfCells <= columnsOfCells - Math.Floor(0.1 * columnsOfCells / 2)) &&
-            //                         (c.id > Math.Floor((0.1 * rowsOfCells / 2) - 1) * columnsOfCells) &&
-            //                         (c.id < (rowsOfCells - Math.Floor(0.1 * rowsOfCells / 2)) * columnsOfCells))
+            //                else if ((c.id % ColumnsOfCells >= Math.Floor(0.1 * ColumnsOfCells / 2)) &&
+            //                         (c.id % ColumnsOfCells <= ColumnsOfCells - Math.Floor(0.1 * ColumnsOfCells / 2)) &&
+            //                         (c.id > Math.Floor((0.1 * RowsOfCells / 2) - 1) * ColumnsOfCells) &&
+            //                         (c.id < (RowsOfCells - Math.Floor(0.1 * RowsOfCells / 2)) * ColumnsOfCells))
             //                {
             //                    c.Type = CellType.UPPER;
             //                }
