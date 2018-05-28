@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -7,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace Air_Traffic_Simulation
 {
+
+    [Serializable]
     public class Airplane : AbstractCheckpoint
     {
         public override string Name { get; }
@@ -33,7 +36,7 @@ namespace Air_Traffic_Simulation
                 speed = value;
             }
         }
-
+        [field: NonSerialized]
         public event EventHandler OnAirportReached;
 
         /// <summary>
@@ -64,6 +67,7 @@ namespace Air_Traffic_Simulation
         private bool first = true;
         private double leapx = 0;
         private double leapy = 0;
+        [NonSerialized]
         private LinkedListNode<AbstractCheckpoint> target;
 
         public void MoveTowardsNextPoint()
@@ -78,6 +82,7 @@ namespace Air_Traffic_Simulation
 
             if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Cell.Width &&
                 Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Cell.Width &&
+                target.Value.GetType() == typeof(Airstrip) &&
                 OnAirportReached != null)
             {
                 OnAirportReached(this, EventArgs.Empty);
@@ -163,6 +168,19 @@ namespace Air_Traffic_Simulation
 
                 settledCheckpoints.Add(currentCheckpnt);
             }
+        }
+
+        public override string ToString()
+        {
+            return this.Name + " -- " + this.FlightNumber;
+        }
+
+        public override bool Equals(object obj)
+        {
+            var airplane = obj as Airplane;
+            return airplane != null &&
+                   Name == airplane.Name &&
+                   FlightNumber == airplane.FlightNumber;
         }
     }
 }
