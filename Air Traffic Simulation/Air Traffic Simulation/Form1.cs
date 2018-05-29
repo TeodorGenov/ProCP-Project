@@ -563,8 +563,7 @@ namespace Air_Traffic_Simulation
 
             foreach (Airplane plane in airplaneList)
             {
-                plane.calculateShortestPath(this.checkpoints);
-
+                plane.calculateShortestPath(this.checkpoints, this.landingStrip);
 
                 Point a = new Point(Convert.ToInt32(landingStrip.CoordinateX),
                     Convert.ToInt32(landingStrip.CoordinateY));
@@ -582,8 +581,7 @@ namespace Air_Traffic_Simulation
                     ppp = ppp.Previous;
                 }
 
-                //TODO: remove planepath print
-                Console.WriteLine(planePath);
+                planePath = planePath.Substring(0, planePath.Length - 4);
             }
         }
 
