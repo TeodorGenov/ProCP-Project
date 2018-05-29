@@ -577,7 +577,6 @@ namespace Air_Traffic_Simulation
                     a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
                     ppp = ppp.Previous;
                 }
-
             }
         }
 
