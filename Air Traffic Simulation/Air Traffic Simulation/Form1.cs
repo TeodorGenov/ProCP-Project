@@ -336,7 +336,11 @@ namespace Air_Traffic_Simulation
             Point weatherPoint = new Point(weatherRect.X, weatherRect.Y);
             PaintWeather(weatherPoint);
         }
-
+        /// <summary>
+        /// Event handling method that triggers when the airplane has reached it's final destination.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void airplaneHasReachedTheAirport(Object sender, EventArgs e)
         {
             ((Airplane) sender).OnAirportReached -= airplaneHasReachedTheAirport;
@@ -345,7 +349,13 @@ namespace Air_Traffic_Simulation
             this.airplaneList.Remove((Airplane) sender);
             allFlightsListBox.Items.Remove(sender);
         }
-
+        private void airplaneCrashed(Object sender, string message)
+        {
+            ((Airplane)sender).OnCrash -= airplaneCrashed;
+            this.airplaneList.Remove((Airplane)sender);
+            allFlightsListBox.Items.Remove(sender);
+            Console.WriteLine(((Airplane)sender).Name + " has " + message);
+        }
         //RADAR METHOD
         private void t_Tick(object sender, EventArgs e)
         {
@@ -693,6 +703,7 @@ namespace Air_Traffic_Simulation
 
                                 Airplane a = new Airplane(name, p.X, p.Y, Convert.ToDouble(nSpeed.Value), flight);
                                 a.OnAirportReached += airplaneHasReachedTheAirport;
+                                a.OnCrash += airplaneCrashed;
                                 airplaneList.Add(a);
                                 allFlightsListBox.Items.Add(a);
 
@@ -725,6 +736,7 @@ namespace Air_Traffic_Simulation
                                 PaintRectangleY(p);
                                 Airplane v = bee;
                                 bee.OnAirportReached -= airplaneHasReachedTheAirport;
+                                bee.OnCrash -= airplaneCrashed;
                                 airplaneList.Remove(bee);
                                 allFlightsListBox.Items.Remove(bee);
 
@@ -846,6 +858,13 @@ namespace Air_Traffic_Simulation
                 }
                 Point point = new Point((int) p.CoordinateX, (int) p.CoordinateY);
                 DrawDangerArea(p);
+                for (int i = 0; i < airplaneList.Count(); i++)
+                {
+                    if (airplaneList[i] == p)
+                    {
+                        p.DangerCheck(airplaneList[i]);
+                    }
+                }
 
                 if (p.Equals(selectedAirplane))
                 {
@@ -939,6 +958,7 @@ namespace Air_Traffic_Simulation
                         fnName += 6 * 2 / 3;
                         PaintAirplane(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
                         a.OnAirportReached += airplaneHasReachedTheAirport;
+                        a.OnCrash += airplaneCrashed;
                     }
                 }
 
@@ -1290,6 +1310,7 @@ namespace Air_Traffic_Simulation
 
             PaintAirplane(new Point(Convert.ToInt32(one.CoordinateX - 20), Convert.ToInt32(one.CoordinateY - 20)));
             one.OnAirportReached += airplaneHasReachedTheAirport;
+            one.OnCrash += airplaneCrashed;
             allFlightsListBox.Items.Add(one);
         }
 

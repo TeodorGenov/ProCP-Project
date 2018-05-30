@@ -36,7 +36,10 @@ namespace Air_Traffic_Simulation
             }
         }
 
-        [field: NonSerialized] public event EventHandler OnAirportReached;
+        [field: NonSerialized]
+        public event EventHandler OnAirportReached;
+        public delegate void CrashHandler(Object sender, string msg);
+        public event CrashHandler OnCrash;
 
         /// <summary>
         /// The airplane's speed for knots per second. Used for calculation of movement.
@@ -69,6 +72,16 @@ namespace Air_Traffic_Simulation
         private double leapx = 0;
         private double leapy = 0;
         [NonSerialized] private LinkedListNode<AbstractCheckpoint> target;
+        /// <summary>
+        /// Checks if the distance between two airplanes is safe or not. If the distance is not safe, the OnCrash event triggers
+        /// </summary>
+        /// <param name="p"></param>
+        public void DangerCheck(Airplane p)
+        {
+            if (OnCrash != null)
+                if (Math.Sqrt(Math.Pow(CoordinateX - p.CoordinateX, 2) + Math.Pow(CoordinateY - p.CoordinateY, 2)) <= Area * 2)
+                    OnCrash(this, "Crashed");
+        }
 
         public void MoveTowardsNextPoint()
         {
@@ -93,6 +106,8 @@ namespace Air_Traffic_Simulation
             {
                 OnAirportReached(this, EventArgs.Empty);
                 return;
+
+                
             }
 
             if (first)
