@@ -563,27 +563,20 @@ namespace Air_Traffic_Simulation
 
             foreach (Airplane plane in airplaneList)
             {
-                plane.calculateShortestPath(this.checkpoints);
-
+                plane.calculateShortestPath(this.checkpoints, this.landingStrip);
 
                 Point a = new Point(Convert.ToInt32(landingStrip.CoordinateX),
                     Convert.ToInt32(landingStrip.CoordinateY));
 
 
                 var ppp = plane.ShortestPath.Last;
-                string planePath = String.Empty;
                 while (ppp != null)
                 {
-                    planePath += ppp.Value.Name + " -> ";
-
                     Point b = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
                     ConnectDots(a, b);
                     a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
                     ppp = ppp.Previous;
                 }
-
-                //TODO: remove planepath print
-                Console.WriteLine(planePath);
             }
         }
 

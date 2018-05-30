@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Air_Traffic_Simulation
 {
-
     [Serializable]
     public class Airplane : AbstractCheckpoint
     {
@@ -36,8 +35,8 @@ namespace Air_Traffic_Simulation
                 speed = value;
             }
         }
-        [field: NonSerialized]
-        public event EventHandler OnAirportReached;
+
+        [field: NonSerialized] public event EventHandler OnAirportReached;
 
         /// <summary>
         /// The airplane's speed for knots per second. Used for calculation of movement.
@@ -67,8 +66,7 @@ namespace Air_Traffic_Simulation
         private bool first = true;
         private double leapx = 0;
         private double leapy = 0;
-        [NonSerialized]
-        private LinkedListNode<AbstractCheckpoint> target;
+        [NonSerialized] private LinkedListNode<AbstractCheckpoint> target;
 
         public void MoveTowardsNextPoint()
         {
@@ -80,6 +78,12 @@ namespace Air_Traffic_Simulation
             //airplane ..which will f things up if the weather disables checkpoint a before reaching it..
             //think about this later..
 
+            if (target == null)
+            {
+                target = ShortestPath.First;
+                target = target.Next;
+            }
+
             if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Cell.Width &&
                 Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Cell.Width &&
                 target.Value.GetType() == typeof(Airstrip) &&
@@ -87,12 +91,6 @@ namespace Air_Traffic_Simulation
             {
                 OnAirportReached(this, EventArgs.Empty);
                 return;
-            }
-
-            if (target == null)
-            {
-                target = ShortestPath.First;
-                target = target.Next;
             }
 
             if (first)
@@ -124,7 +122,13 @@ namespace Air_Traffic_Simulation
             CoordinateY += leapy;
         }
 
-        public void calculateShortestPath(List<Checkpoint> points)
+
+        /// <summary>
+        /// Calculates the shortest path between the airplane and its final destination - the airstrip.
+        /// </summary>
+        /// <param name="points">All the checkpoints in the airspace. No airstrips, no airplanes.</param>
+        /// <param name="landingStrip">The landing strip the airplane is going for.</param>
+        public void calculateShortestPath(List<Checkpoint> points, Airstrip landingStrip)
         {
             this.ReachableNodes.Clear();
             this.ShortestPath.Clear();
@@ -137,7 +141,14 @@ namespace Air_Traffic_Simulation
                     this.AddSingleDestination(point, CalculateTimeBetweenPoints(point));
                     point.AddSingleDestination(this, CalculateTimeBetweenPoints(this));
                 }
+
+                point.ShortestPath.Clear();
+                point.DistanceFromSource = int.MaxValue;
             }
+
+
+            landingStrip.DistanceFromSource = int.MaxValue;
+            landingStrip.ShortestPath.Clear();
 
             HashSet<AbstractCheckpoint> settledCheckpoints = new HashSet<AbstractCheckpoint>();
             HashSet<AbstractCheckpoint> unsettledCheckpoints = new HashSet<AbstractCheckpoint> {this};
@@ -152,14 +163,21 @@ namespace Air_Traffic_Simulation
                     AbstractCheckpoint reachableCheckpoint = pair.Key;
                     double edgeWeight = pair.Value;
 
-
                     if (!settledCheckpoints.Contains(reachableCheckpoint))
                     {
                         var shortestPath = CalculateMinDistance(reachableCheckpoint, edgeWeight, currentCheckpnt);
                         if (shortestPath != null && reachableCheckpoint.GetType() == typeof(Airstrip))
                         {
                             shortestPath.AddLast(reachableCheckpoint);
-                            this.ShortestPath = shortestPath;
+
+                            this.ShortestPath = new LinkedList<AbstractCheckpoint>();
+                            var pathNode = shortestPath.First;
+
+                            while (pathNode != null)
+                            {
+                                this.ShortestPath.AddLast(pathNode.Value);
+                                pathNode = pathNode.Next;
+                            }
                         }
 
                         unsettledCheckpoints.Add(reachableCheckpoint);

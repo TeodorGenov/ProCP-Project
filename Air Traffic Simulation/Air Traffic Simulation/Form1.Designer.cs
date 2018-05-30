@@ -31,11 +31,12 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.panelAllFlights = new System.Windows.Forms.Panel();
+            this.allFlightsListBox = new System.Windows.Forms.ListBox();
             this.lbPrecipitationType = new System.Windows.Forms.Label();
             this.lbVisibility = new System.Windows.Forms.Label();
             this.lbPrecipitationTypeGUI = new System.Windows.Forms.Label();
             this.lbVisibilityGUI = new System.Windows.Forms.Label();
-            this.allFlightsListBox = new System.Windows.Forms.ListBox();
             this.lbProbability = new System.Windows.Forms.Label();
             this.labelWind = new System.Windows.Forms.Label();
             this.labelPrec = new System.Windows.Forms.Label();
@@ -93,8 +94,8 @@
             this.toggleWeatherBtn = new System.Windows.Forms.Button();
             this.calcRouteBtn = new System.Windows.Forms.Button();
             this.timerSimRunning = new System.Windows.Forms.Timer(this.components);
-            this.panelAllFlights = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
+            this.panelAllFlights.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).BeginInit();
@@ -111,7 +112,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
             this.panelBeneathGrid.SuspendLayout();
-            this.panelAllFlights.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -144,6 +144,26 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(272, 707);
             this.panel1.TabIndex = 0;
+            // 
+            // panelAllFlights
+            // 
+            this.panelAllFlights.Controls.Add(this.allFlightsListBox);
+            this.panelAllFlights.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelAllFlights.Location = new System.Drawing.Point(0, 592);
+            this.panelAllFlights.Name = "panelAllFlights";
+            this.panelAllFlights.Size = new System.Drawing.Size(272, 115);
+            this.panelAllFlights.TabIndex = 20;
+            // 
+            // allFlightsListBox
+            // 
+            this.allFlightsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.allFlightsListBox.FormattingEnabled = true;
+            this.allFlightsListBox.ItemHeight = 23;
+            this.allFlightsListBox.Location = new System.Drawing.Point(0, 0);
+            this.allFlightsListBox.Name = "allFlightsListBox";
+            this.allFlightsListBox.Size = new System.Drawing.Size(272, 115);
+            this.allFlightsListBox.TabIndex = 19;
+            this.allFlightsListBox.SelectedIndexChanged += new System.EventHandler(this.allFlightsListBox_SelectedIndexChanged);
             // 
             // lbPrecipitationType
             // 
@@ -182,17 +202,6 @@
             this.lbVisibilityGUI.Size = new System.Drawing.Size(77, 21);
             this.lbVisibilityGUI.TabIndex = 20;
             this.lbVisibilityGUI.Text = "Visibility:";
-            // 
-            // allFlightsListBox
-            // 
-            this.allFlightsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.allFlightsListBox.FormattingEnabled = true;
-            this.allFlightsListBox.ItemHeight = 23;
-            this.allFlightsListBox.Location = new System.Drawing.Point(0, 0);
-            this.allFlightsListBox.Name = "allFlightsListBox";
-            this.allFlightsListBox.Size = new System.Drawing.Size(272, 115);
-            this.allFlightsListBox.TabIndex = 19;
-            this.allFlightsListBox.SelectedIndexChanged += new System.EventHandler(this.allFlightsListBox_SelectedIndexChanged);
             // 
             // lbProbability
             // 
@@ -437,7 +446,14 @@
             "0.50",
             "1",
             "2",
-            "3"});
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9",
+            "10"});
             this.simSpeedComboBox.Location = new System.Drawing.Point(71, 54);
             this.simSpeedComboBox.Name = "simSpeedComboBox";
             this.simSpeedComboBox.Size = new System.Drawing.Size(63, 31);
@@ -840,15 +856,6 @@
             this.timerSimRunning.Interval = 1000;
             this.timerSimRunning.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // panelAllFlights
-            // 
-            this.panelAllFlights.Controls.Add(this.allFlightsListBox);
-            this.panelAllFlights.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelAllFlights.Location = new System.Drawing.Point(0, 592);
-            this.panelAllFlights.Name = "panelAllFlights";
-            this.panelAllFlights.Size = new System.Drawing.Size(272, 115);
-            this.panelAllFlights.TabIndex = 20;
-            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -867,6 +874,7 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panelAllFlights.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).EndInit();
@@ -889,7 +897,6 @@
             this.panel5.ResumeLayout(false);
             this.panelBeneathGrid.ResumeLayout(false);
             this.panelBeneathGrid.PerformLayout();
-            this.panelAllFlights.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
