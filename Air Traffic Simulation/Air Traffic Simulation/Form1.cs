@@ -860,9 +860,10 @@ namespace Air_Traffic_Simulation
                 DrawDangerArea(p);
                 for (int i = 0; i < airplaneList.Count(); i++)
                 {
-                    if (airplaneList[i] == p)
+                    if (airplaneList[i] != p)
                     {
                         p.DangerCheck(airplaneList[i]);
+                        airplaneList[i].DangerCheck(p);
                     }
                 }
 
