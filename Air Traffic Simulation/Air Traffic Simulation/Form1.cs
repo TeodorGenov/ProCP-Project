@@ -813,7 +813,16 @@ namespace Air_Traffic_Simulation
         {
             LabelChange();
         }
-
+        /// <summary>
+        /// Drawign danger zone around airplane
+        /// </summary>
+        /// <param name="airplane"></param>
+        public void DrawDangerArea(Airplane airplane)
+        {
+            Pen p = new Pen(Color.Black);
+            Graphics g = this.pictureBox1.CreateGraphics();
+            g.DrawEllipse(p, airplane.Rect);
+        }
         private void timer2_Tick(object sender, EventArgs e)
         {
             Refresh();
@@ -835,8 +844,8 @@ namespace Air_Traffic_Simulation
                 {
                     p.MoveTowardsNextPoint();
                 }
-
                 Point point = new Point((int) p.CoordinateX, (int) p.CoordinateY);
+                DrawDangerArea(p);
 
                 if (p.Equals(selectedAirplane))
                 {

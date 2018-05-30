@@ -23,9 +23,9 @@ namespace Air_Traffic_Simulation
         public override int MinSpeed { get; }
         public override int MaxAltitude { get; }
         public override int MinAltitude { get; }
-
         private double speed;
-
+        public int Area { get; set; }
+        public Rectangle Rect { get; set; }
         public double Speed
         {
             get { return speed; }
@@ -50,6 +50,8 @@ namespace Air_Traffic_Simulation
             this.CoordinateY = coordinateY;
             this.speed = speed;
             FlightNumber = flightNumber;
+            Area = 20;
+            Rect = new Rectangle((int)CoordinateX - Area, (int)CoordinateY - Area, Area * 2, Area * 2);
 
             ShortestPath = new LinkedList<AbstractCheckpoint>();
             DistanceFromSource = 0;
@@ -120,6 +122,7 @@ namespace Air_Traffic_Simulation
 
             CoordinateX += leapx;
             CoordinateY += leapy;
+            this.Rect = new Rectangle((int)CoordinateX - Area, (int)CoordinateY - Area, Area * 2, Area * 2);
         }
 
 
