@@ -72,6 +72,9 @@ namespace Air_Traffic_Simulation
 
         private Airplane selectedAirplane;
 
+        //Crashed airplanes list
+        List<Airplane> crashedAirplanes;
+        Image explosionImage;
 
         // PAINT GRID
         private void PaintGrid()
@@ -133,6 +136,7 @@ namespace Air_Traffic_Simulation
             airplanes = new List<Airplane>();
             checkpoints = new List<Checkpoint>();
             airplaneList = new List<Airplane>();
+            crashedAirplanes = new List<Airplane>();
             landedAirplanes = new List<Airplane>();
             InitializeComponent();
             nSpeed.Enabled = false;
@@ -349,11 +353,17 @@ namespace Air_Traffic_Simulation
             this.airplaneList.Remove((Airplane) sender);
             allFlightsListBox.Items.Remove(sender);
         }
+        /// <summary>
+        /// Event handling method that triggers when the danger zones of two or more aiplanes have collided and they take part in a crash.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="message"></param>
         private void airplaneCrashed(Object sender, string message)
         {
             ((Airplane)sender).OnCrash -= airplaneCrashed;
             this.airplaneList.Remove((Airplane)sender);
             allFlightsListBox.Items.Remove(sender);
+            crashedAirplanes.Add((Airplane)sender);
             Console.WriteLine(((Airplane)sender).Name + " has " + message);
         }
         //RADAR METHOD
@@ -477,7 +487,11 @@ namespace Air_Traffic_Simulation
             labelTemp.Text = temp.ToString() + "°C";
             LabelChange();
         }
-
+        /// <summary>
+        /// Function that saves the current state of the application to a file, that can be loaded afterword.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSaveData_Click(object sender, EventArgs e)
         {
             SavingObjects so = new SavingObjects(airplaneList, landedAirplanes, checkpoints);
@@ -866,7 +880,6 @@ namespace Air_Traffic_Simulation
                         airplaneList[i].DangerCheck(p);
                     }
                 }
-
                 if (p.Equals(selectedAirplane))
                 {
                     PaintSelectedAirplane(point);
@@ -1135,6 +1148,38 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        private void bunifuLabel1_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
+        private void btExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            
+            if (timerSimRunning.Enabled)
+            {
+                MessageBox.Show("Simulation is running, please stop simulation and try again!");
+            }
+            else if(timerSimRunning.Enabled == false)
+            {
+                Refresh();
+                checkpoints.Clear();
+                airplaneList.Clear();
+                MessageBox.Show("Simulation cleared!");
+                //ToDo: add a method that saves and overview to a file!
+            }
+        }
+
+        private void panel9_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         public void PaintCircle(Point p)
         {
             float x = p.X - 3;
@@ -1156,7 +1201,15 @@ namespace Air_Traffic_Simulation
             Graphics g = this.pictureBox1.CreateGraphics();
             g.DrawEllipse(pen, x, y, width, height);
         }
-
+        public void PaintSelectedCrashSight(Point p)
+        {
+            int x = p.X - 3;
+            int y = p.Y - 3;
+            Graphics g = this.pictureBox1.CreateGraphics();
+            explosionImage = Properties.Resources.explosion;
+            airplaneRect = new Rectangle(x - 20, y - 20, 40, 40);
+            g.DrawImage(explosionImage, airplaneRect);
+        }
         public void PaintSelectedAirplane(Point p)
         {
             int x = p.X - 3;
