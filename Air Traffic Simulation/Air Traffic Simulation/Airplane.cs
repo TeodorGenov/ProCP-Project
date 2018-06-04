@@ -218,5 +218,9 @@ namespace Air_Traffic_Simulation
                    Name == airplane.Name &&
                    FlightNumber == airplane.FlightNumber;
         }
+        public void RevertPath()
+        {
+            ShortestPath.Reverse();
+        }
     }
 }

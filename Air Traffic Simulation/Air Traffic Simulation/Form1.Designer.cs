@@ -31,8 +31,8 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panelAllFlights = new System.Windows.Forms.Panel();
             this.btClear = new System.Windows.Forms.Button();
+            this.panelAllFlights = new System.Windows.Forms.Panel();
             this.allFlightsListBox = new System.Windows.Forms.ListBox();
             this.lbPrecipitationType = new System.Windows.Forms.Label();
             this.lbVisibility = new System.Windows.Forms.Label();
@@ -58,6 +58,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.btTakeOff = new System.Windows.Forms.Button();
             this.landedAirplanesListBox = new System.Windows.Forms.ListBox();
             this.panel8 = new System.Windows.Forms.Panel();
             this.simSpeedComboBox = new System.Windows.Forms.ComboBox();
@@ -84,7 +85,9 @@
             this.btnAddCheckpoint = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.Header = new System.Windows.Forms.Panel();
+            this.panel10 = new System.Windows.Forms.Panel();
             this.bunifuLabel1 = new Bunifu.UI.WinForms.BunifuLabel();
+            this.panel9 = new System.Windows.Forms.Panel();
             this.btExit = new Bunifu.UI.WinForms.BunifuLabel();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
@@ -95,8 +98,6 @@
             this.toggleWeatherBtn = new System.Windows.Forms.Button();
             this.calcRouteBtn = new System.Windows.Forms.Button();
             this.timerSimRunning = new System.Windows.Forms.Timer(this.components);
-            this.panel9 = new System.Windows.Forms.Panel();
-            this.panel10 = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panelAllFlights.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
@@ -111,12 +112,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panel6.SuspendLayout();
             this.Header.SuspendLayout();
+            this.panel10.SuspendLayout();
+            this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
             this.panelBeneathGrid.SuspendLayout();
-            this.panel9.SuspendLayout();
-            this.panel10.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -151,15 +152,6 @@
             this.panel1.Size = new System.Drawing.Size(272, 707);
             this.panel1.TabIndex = 0;
             // 
-            // panelAllFlights
-            // 
-            this.panelAllFlights.Controls.Add(this.allFlightsListBox);
-            this.panelAllFlights.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelAllFlights.Location = new System.Drawing.Point(0, 592);
-            this.panelAllFlights.Name = "panelAllFlights";
-            this.panelAllFlights.Size = new System.Drawing.Size(272, 115);
-            this.panelAllFlights.TabIndex = 20;
-            // 
             // btClear
             // 
             this.btClear.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
@@ -170,6 +162,15 @@
             this.btClear.Text = "Clear";
             this.btClear.UseVisualStyleBackColor = true;
             this.btClear.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // panelAllFlights
+            // 
+            this.panelAllFlights.Controls.Add(this.allFlightsListBox);
+            this.panelAllFlights.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panelAllFlights.Location = new System.Drawing.Point(0, 592);
+            this.panelAllFlights.Name = "panelAllFlights";
+            this.panelAllFlights.Size = new System.Drawing.Size(272, 115);
+            this.panelAllFlights.TabIndex = 20;
             // 
             // allFlightsListBox
             // 
@@ -419,6 +420,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btTakeOff);
             this.panel2.Controls.Add(this.landedAirplanesListBox);
             this.panel2.Controls.Add(this.panel8);
             this.panel2.Controls.Add(this.panel7);
@@ -431,6 +433,16 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(200, 707);
             this.panel2.TabIndex = 1;
+            // 
+            // btTakeOff
+            // 
+            this.btTakeOff.Location = new System.Drawing.Point(53, 592);
+            this.btTakeOff.Name = "btTakeOff";
+            this.btTakeOff.Size = new System.Drawing.Size(94, 34);
+            this.btTakeOff.TabIndex = 24;
+            this.btTakeOff.Text = "Take-off";
+            this.btTakeOff.UseVisualStyleBackColor = true;
+            this.btTakeOff.Click += new System.EventHandler(this.btTakeOff_Click);
             // 
             // landedAirplanesListBox
             // 
@@ -764,6 +776,15 @@
             this.Header.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Header_MouseMove);
             this.Header.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Header_MouseUp);
             // 
+            // panel10
+            // 
+            this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel10.Controls.Add(this.bunifuLabel1);
+            this.panel10.Location = new System.Drawing.Point(1255, 0);
+            this.panel10.Name = "panel10";
+            this.panel10.Size = new System.Drawing.Size(35, 43);
+            this.panel10.TabIndex = 4;
+            // 
             // bunifuLabel1
             // 
             this.bunifuLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -780,6 +801,16 @@
             this.bunifuLabel1.Text = "_";
             this.bunifuLabel1.TextAlign = Bunifu.UI.WinForms.BunifuLabel.TextAlignments.Left;
             this.bunifuLabel1.Click += new System.EventHandler(this.bunifuLabel1_Click);
+            // 
+            // panel9
+            // 
+            this.panel9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.panel9.Controls.Add(this.btExit);
+            this.panel9.Location = new System.Drawing.Point(1290, 0);
+            this.panel9.Name = "panel9";
+            this.panel9.Size = new System.Drawing.Size(35, 43);
+            this.panel9.TabIndex = 4;
+            this.panel9.Click += new System.EventHandler(this.panel9_Click);
             // 
             // btExit
             // 
@@ -879,25 +910,6 @@
             this.timerSimRunning.Interval = 1000;
             this.timerSimRunning.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // panel9
-            // 
-            this.panel9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel9.Controls.Add(this.btExit);
-            this.panel9.Location = new System.Drawing.Point(1290, 0);
-            this.panel9.Name = "panel9";
-            this.panel9.Size = new System.Drawing.Size(35, 43);
-            this.panel9.TabIndex = 4;
-            this.panel9.Click += new System.EventHandler(this.panel9_Click);
-            // 
-            // panel10
-            // 
-            this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel10.Controls.Add(this.bunifuLabel1);
-            this.panel10.Location = new System.Drawing.Point(1255, 0);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(35, 43);
-            this.panel10.TabIndex = 4;
-            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -934,15 +946,15 @@
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.Header.ResumeLayout(false);
+            this.panel10.ResumeLayout(false);
+            this.panel10.PerformLayout();
+            this.panel9.ResumeLayout(false);
+            this.panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panelBeneathGrid.ResumeLayout(false);
             this.panelBeneathGrid.PerformLayout();
-            this.panel9.ResumeLayout(false);
-            this.panel9.PerformLayout();
-            this.panel10.ResumeLayout(false);
-            this.panel10.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1016,6 +1028,7 @@
         private System.Windows.Forms.Button btClear;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel10;
+        private System.Windows.Forms.Button btTakeOff;
     }
 }
 

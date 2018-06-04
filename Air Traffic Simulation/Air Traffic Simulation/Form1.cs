@@ -597,6 +597,7 @@ namespace Air_Traffic_Simulation
             foreach (Airplane plane in airplaneList)
             {
                 plane.calculateShortestPath(this.checkpoints, this.landingStrip);
+
             }
         }
 
@@ -1167,19 +1168,58 @@ namespace Air_Traffic_Simulation
             else if(timerSimRunning.Enabled == false)
             {
                 Refresh();
-                checkpoints.Clear();
-                airplaneList.Clear();
-                landedAirplanes.Clear();
+                ClearListboxes();
+                ClearLists();
                 MessageBox.Show("Simulation cleared!");
                 //ToDo: add a method that saves and overview to a file!
             }
         }
-
+        /// <summary>
+        /// Clear all lisboxes.
+        /// </summary>
+        private void ClearListboxes()
+        {
+            landedAirplanesListBox.Items.Clear();
+            allFlightsListBox.Items.Clear();
+        }
+        /// <summary>
+        /// Clear all lists.
+        /// </summary>
+        private void ClearLists()
+        {
+            checkpoints.Clear();
+            airplaneList.Clear();
+            landedAirplanes.Clear();
+            crashedAirplanes.Clear();
+        }
         private void panel9_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+        private void btTakeOff_Click(object sender, EventArgs e)
+        {
+            Airplane temp = landedAirplanesListBox.SelectedItem as Airplane;
+            temp.RevertPath();
+            landedAirplanes.Remove(temp);
+            airplaneList.Add(temp);
+            ClearListboxes();
+            UpdateListboxes();
+        }
+        /// <summary>
+        /// Updates lisboxes with updated data.
+        /// </summary>
+        public void UpdateListboxes()
+        {
+            foreach (var item in landedAirplanes)
+            {
+                landedAirplanesListBox.Items.Add(item);
+            }
+            foreach (var item in airplaneList)
+            {
+                allFlightsListBox.Items.Add(item);
+            }
+        }
         public void PaintCircle(Point p)
         {
             float x = p.X - 3;
