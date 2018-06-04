@@ -356,15 +356,24 @@ namespace Air_Traffic_Simulation
         /// <summary>
         /// Event handling method that triggers when the danger zones of two or more aiplanes have collided and they take part in a crash.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="message"></param>
-        private void airplaneCrashed(Object sender, string message)
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
+        private void airplaneCrashed(Object p1, Object p2)
         {
-            ((Airplane)sender).OnCrash -= airplaneCrashed;
-            this.airplaneList.Remove((Airplane)sender);
-            allFlightsListBox.Items.Remove(sender);
-            crashedAirplanes.Add((Airplane)sender);
-            Console.WriteLine(((Airplane)sender).Name + " has " + message);
+            UnsubscribePlane(p1);
+            UnsubscribePlane(p2);
+        }
+        /// <summary>
+        /// Unsubscribes an airplane from the event handler
+        /// </summary>
+        /// <param name="p1"></param>
+        private void UnsubscribePlane(Object p1)
+        {
+            ((Airplane)p1).OnCrash -= airplaneCrashed;
+            this.airplaneList.Remove((Airplane)p1);
+            allFlightsListBox.Items.Remove(p1);
+            crashedAirplanes.Add((Airplane)p1);
+            Console.WriteLine(((Airplane)p1).Name + " has crashed!");
         }
         //RADAR METHOD
         private void t_Tick(object sender, EventArgs e)
@@ -588,19 +597,6 @@ namespace Air_Traffic_Simulation
             foreach (Airplane plane in airplaneList)
             {
                 plane.calculateShortestPath(this.checkpoints, this.landingStrip);
-
-                Point a = new Point(Convert.ToInt32(landingStrip.CoordinateX),
-                    Convert.ToInt32(landingStrip.CoordinateY));
-
-
-                var ppp = plane.ShortestPath.Last;
-                while (ppp != null)
-                {
-                    Point b = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
-                    ConnectDots(a, b);
-                    a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
-                    ppp = ppp.Previous;
-                }
             }
         }
 
@@ -872,12 +868,15 @@ namespace Air_Traffic_Simulation
                 }
                 Point point = new Point((int) p.CoordinateX, (int) p.CoordinateY);
                 DrawDangerArea(p);
-                for (int i = 0; i < airplaneList.Count(); i++)
+                if (airplaneList.Count() != 0)
                 {
-                    if (airplaneList[i] != p)
+                    for (int i = 0; i < airplaneList.Count(); i++)
                     {
-                        p.DangerCheck(airplaneList[i]);
-                        airplaneList[i].DangerCheck(p);
+                        if (p!=airplaneList[i])
+                        {
+                            p.DangerCheck(airplaneList[i]);
+                        }
+                            
                     }
                 }
                 if (p.Equals(selectedAirplane))
@@ -1170,6 +1169,7 @@ namespace Air_Traffic_Simulation
                 Refresh();
                 checkpoints.Clear();
                 airplaneList.Clear();
+                landedAirplanes.Clear();
                 MessageBox.Show("Simulation cleared!");
                 //ToDo: add a method that saves and overview to a file!
             }

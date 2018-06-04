@@ -38,7 +38,7 @@ namespace Air_Traffic_Simulation
 
         [field: NonSerialized]
         public event EventHandler OnAirportReached;
-        public delegate void CrashHandler(Object sender, string msg);
+        public delegate void CrashHandler(Object p1, Object p2);
         public event CrashHandler OnCrash;
 
         /// <summary>
@@ -80,7 +80,7 @@ namespace Air_Traffic_Simulation
         {
             if (OnCrash != null)
                 if (Math.Sqrt(Math.Pow(CoordinateX - p.CoordinateX, 2) + Math.Pow(CoordinateY - p.CoordinateY, 2)) <= Area * 2)
-                    OnCrash(this, "Crashed");
+                    OnCrash(this, p);
         }
 
         public void MoveTowardsNextPoint()

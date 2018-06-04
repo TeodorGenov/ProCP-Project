@@ -121,6 +121,7 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btClear);
             this.panel1.Controls.Add(this.panelAllFlights);
             this.panel1.Controls.Add(this.lbPrecipitationType);
             this.panel1.Controls.Add(this.lbVisibility);
@@ -152,7 +153,6 @@
             // 
             // panelAllFlights
             // 
-            this.panelAllFlights.Controls.Add(this.btClear);
             this.panelAllFlights.Controls.Add(this.allFlightsListBox);
             this.panelAllFlights.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelAllFlights.Location = new System.Drawing.Point(0, 592);
@@ -162,7 +162,8 @@
             // 
             // btClear
             // 
-            this.btClear.Location = new System.Drawing.Point(75, -7);
+            this.btClear.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btClear.Location = new System.Drawing.Point(58, 549);
             this.btClear.Name = "btClear";
             this.btClear.Size = new System.Drawing.Size(116, 39);
             this.btClear.TabIndex = 20;
