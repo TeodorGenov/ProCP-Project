@@ -196,28 +196,11 @@
         AWAVMQSAVcQQAFYRQwBYRQwBYBUxBIBVxBAAVhFDAFjDY8/7X3jv8WYy6vd4AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="button4.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAV
-        oAAAFaABcnVpUQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAACbSURBVGhD7dmx
-        DYQwEERRp3Rz9VxEkRRwJdHB4QmQVhs4QMNiof+kSb38mAYAmNHS95lk+pbL9MB/kulbLnttyF68eNsW
-        ooerxRhChBATQjJCTAjJCDEhJCPEhJCMEBNCMkJMCMlGIVvfzzy9GZWExCOujW4QIqOQb99qnt6MSkIq
-        EJIRYnJLyBlTuXjbGvLkCJHX/HoDANygtQNbb8nkbzPwHgAAAABJRU5ErkJggg==
-</value>
+  <data name="bunifuLabel1.BaseStylesheet" xml:space="preserve">
+    <value>#bunifu-label { padding: 1.2px;font-family: 'Microsoft Sans Serif'; font-size: 12pt; width: 100%; height: 100%; font-style: normal; font-weight: normal; text-decoration: none; color: #879ED1; text-align: left; }</value>
   </data>
-  <data name="button2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAV
-        oAAAFaABcnVpUQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGnSURBVGhD7Za7
-        SsRAFIbj/YK9hZ0voKDY2lr7Tvai4AUR1ELFC17QQq30MXwFQRvBTv3/sAeG4WR3doln4nI++IoNEzbf
-        niSzheM4jtNEJuFCQ+S19Mw8/GmIvJae6cuQb/huLL+z9pAPHjCG3+khIR5SEx4SkxqyCLfgUPkpjTG4
-        AafLTzqmIcvwE3LNBRyBnZiAT5DnvMIZqGEacgxlDT2C7SbDSdzB8Jw1qGEawglcQVlHz+EwjOEkHmG4
-        dhsOQA3TEDIKr6GspWcwjNEidmBVBDEPIYy5gbKeSgwjHlrHxAM4CNuRJYRov/o+jANPoXbrxWQLIZzM
-        LZTzYlMmIWQNIVUxhzA1gjQiJL6d6B78NyHagx2a+nyQbCHaZqc97KmTyRIyBZ+hrKf8L8V9gjv9SeuY
-        mDIZ8xBGvEBZSzdhuNlp/wA6xZiGpEQI3caYhfBi76GsoXwm2t3/4zB+GaxDDdOJrMAvyDVVk4gJX89v
-        cA5qmIaQVbgLu9kj+Jq+hEvlJx3zkL/CQ2I8pCY8JCYMya2HkL4J4Q482xB5LY7jOE6TKIpfaOcERjAi
-        xq8AAAAASUVORK5CYII=
-</value>
+  <data name="btExit.BaseStylesheet" xml:space="preserve">
+    <value>#bunifu-label { padding: 1.2px;font-family: 'Microsoft Sans Serif'; font-size: 12pt; width: 100%; height: 100%; font-style: normal; font-weight: normal; text-decoration: none; color: #879ED1; text-align: left; }</value>
   </data>
   <metadata name="fileSystemWatcher1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>167, 17</value>
@@ -229,6 +212,6 @@
     <value>358, 17</value>
   </metadata>
   <metadata name="timerSimRunning.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>459, 17</value>
+    <value>478, 16</value>
   </metadata>
 </root>

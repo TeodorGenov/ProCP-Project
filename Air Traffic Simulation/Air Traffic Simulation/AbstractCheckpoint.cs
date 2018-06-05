@@ -30,13 +30,13 @@ namespace Air_Traffic_Simulation
         /// </summary>
         /// <param name="a">The checkpoint we are looking for the distance from.</param>
         /// <returns>The distance between the two checkpoints given as arguments.</returns>
-        protected virtual double CalculateDistanceBetweenPoints(AbstractCheckpoint a)
+        public virtual double CalculateDistanceBetweenPoints(AbstractCheckpoint a)
         {
             return Math.Sqrt(Math.Pow(Math.Abs(this.CoordinateX - a.CoordinateX), 2) +
                              Math.Pow(Math.Abs(this.CoordinateY - a.CoordinateY), 2));
         }
 
-        protected virtual double CalculateTimeBetweenPoints(AbstractCheckpoint a)
+        public virtual double CalculateTimeBetweenPoints(AbstractCheckpoint a)
         {
             return CalculateDistanceBetweenPoints(a) / this.MaxSpeed;
         }
@@ -66,7 +66,7 @@ namespace Air_Traffic_Simulation
         }
 
 
-        protected virtual AbstractCheckpoint GetLowestDistanceNode(HashSet<AbstractCheckpoint> unsettledCheckpoints)
+        public virtual AbstractCheckpoint GetLowestDistanceNode(HashSet<AbstractCheckpoint> unsettledCheckpoints)
         {
             AbstractCheckpoint lowestDistanceCP = null;
             double lowestDist = Int32.MaxValue;
@@ -86,7 +86,7 @@ namespace Air_Traffic_Simulation
         }
 
 
-        protected virtual LinkedList<AbstractCheckpoint> CalculateMinDistance(AbstractCheckpoint evaluationCheckpoint, double edgeWeight,
+        public virtual LinkedList<AbstractCheckpoint> CalculateMinDistance(AbstractCheckpoint evaluationCheckpoint, double edgeWeight,
             AbstractCheckpoint sourceCheckpoint)
         {
             double sourceDistance = sourceCheckpoint.DistanceFromSource;

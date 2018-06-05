@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 
 namespace Air_Traffic_Simulation
 {
-
     [Serializable]
     public class Airplane : AbstractCheckpoint
     {
@@ -24,9 +23,9 @@ namespace Air_Traffic_Simulation
         public override int MinSpeed { get; }
         public override int MaxAltitude { get; }
         public override int MinAltitude { get; }
-
         private double speed;
-
+        public int Area { get; set; }
+        public Rectangle Rect { get; set; }
         public double Speed
         {
             get { return speed; }
@@ -36,8 +35,11 @@ namespace Air_Traffic_Simulation
                 speed = value;
             }
         }
+
         [field: NonSerialized]
         public event EventHandler OnAirportReached;
+        public delegate void CrashHandler(Object p1, Object p2);
+        public event CrashHandler OnCrash;
 
         /// <summary>
         /// The airplane's speed for knots per second. Used for calculation of movement.
@@ -51,6 +53,8 @@ namespace Air_Traffic_Simulation
             this.CoordinateY = coordinateY;
             this.speed = speed;
             FlightNumber = flightNumber;
+            Area = 20;
+            Rect = new Rectangle((int)CoordinateX - Area, (int)CoordinateY - Area, Area * 2, Area * 2);
 
             ShortestPath = new LinkedList<AbstractCheckpoint>();
             DistanceFromSource = 0;
@@ -67,8 +71,17 @@ namespace Air_Traffic_Simulation
         private bool first = true;
         private double leapx = 0;
         private double leapy = 0;
-        [NonSerialized]
-        private LinkedListNode<AbstractCheckpoint> target;
+        [NonSerialized] private LinkedListNode<AbstractCheckpoint> target;
+        /// <summary>
+        /// Checks if the distance between two airplanes is safe or not. If the distance is not safe, the OnCrash event triggers
+        /// </summary>
+        /// <param name="p"></param>
+        public void DangerCheck(Airplane p)
+        {
+            if (OnCrash != null)
+                if (Math.Sqrt(Math.Pow(CoordinateX - p.CoordinateX, 2) + Math.Pow(CoordinateY - p.CoordinateY, 2)) <= Area * 2)
+                    OnCrash(this, p);
+        }
 
         public void MoveTowardsNextPoint()
         {
@@ -80,6 +93,12 @@ namespace Air_Traffic_Simulation
             //airplane ..which will f things up if the weather disables checkpoint a before reaching it..
             //think about this later..
 
+            if (target == null)
+            {
+                target = ShortestPath.First;
+                target = target.Next;
+            }
+
             if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Cell.Width &&
                 Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Cell.Width &&
                 target.Value.GetType() == typeof(Airstrip) &&
@@ -87,12 +106,8 @@ namespace Air_Traffic_Simulation
             {
                 OnAirportReached(this, EventArgs.Empty);
                 return;
-            }
 
-            if (target == null)
-            {
-                target = ShortestPath.First;
-                target = target.Next;
+                
             }
 
             if (first)
@@ -122,9 +137,16 @@ namespace Air_Traffic_Simulation
 
             CoordinateX += leapx;
             CoordinateY += leapy;
+            this.Rect = new Rectangle((int)CoordinateX - Area, (int)CoordinateY - Area, Area * 2, Area * 2);
         }
 
-        public void calculateShortestPath(List<Checkpoint> points)
+
+        /// <summary>
+        /// Calculates the shortest path between the airplane and its final destination - the airstrip.
+        /// </summary>
+        /// <param name="points">All the checkpoints in the airspace. No airstrips, no airplanes.</param>
+        /// <param name="landingStrip">The landing strip the airplane is going for.</param>
+        public void calculateShortestPath(List<Checkpoint> points, Airstrip landingStrip)
         {
             this.ReachableNodes.Clear();
             this.ShortestPath.Clear();
@@ -137,7 +159,14 @@ namespace Air_Traffic_Simulation
                     this.AddSingleDestination(point, CalculateTimeBetweenPoints(point));
                     point.AddSingleDestination(this, CalculateTimeBetweenPoints(this));
                 }
+
+                point.ShortestPath.Clear();
+                point.DistanceFromSource = int.MaxValue;
             }
+
+
+            landingStrip.DistanceFromSource = int.MaxValue;
+            landingStrip.ShortestPath.Clear();
 
             HashSet<AbstractCheckpoint> settledCheckpoints = new HashSet<AbstractCheckpoint>();
             HashSet<AbstractCheckpoint> unsettledCheckpoints = new HashSet<AbstractCheckpoint> {this};
@@ -152,14 +181,21 @@ namespace Air_Traffic_Simulation
                     AbstractCheckpoint reachableCheckpoint = pair.Key;
                     double edgeWeight = pair.Value;
 
-
                     if (!settledCheckpoints.Contains(reachableCheckpoint))
                     {
                         var shortestPath = CalculateMinDistance(reachableCheckpoint, edgeWeight, currentCheckpnt);
                         if (shortestPath != null && reachableCheckpoint.GetType() == typeof(Airstrip))
                         {
                             shortestPath.AddLast(reachableCheckpoint);
-                            this.ShortestPath = shortestPath;
+
+                            this.ShortestPath = new LinkedList<AbstractCheckpoint>();
+                            var pathNode = shortestPath.First;
+
+                            while (pathNode != null)
+                            {
+                                this.ShortestPath.AddLast(pathNode.Value);
+                                pathNode = pathNode.Next;
+                            }
                         }
 
                         unsettledCheckpoints.Add(reachableCheckpoint);
@@ -181,6 +217,10 @@ namespace Air_Traffic_Simulation
             return airplane != null &&
                    Name == airplane.Name &&
                    FlightNumber == airplane.FlightNumber;
+        }
+        public void RevertPath()
+        {
+            ShortestPath.Reverse();
         }
     }
 }
