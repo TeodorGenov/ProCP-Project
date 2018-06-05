@@ -23,9 +23,9 @@ namespace Air_Traffic_Simulation
         public override int MinSpeed { get; }
         public override int MaxAltitude { get; }
         public override int MinAltitude { get; }
-
         private double speed;
-
+        public int Area { get; set; }
+        public Rectangle Rect { get; set; }
         public double Speed
         {
             get { return speed; }
@@ -36,7 +36,10 @@ namespace Air_Traffic_Simulation
             }
         }
 
-        [field: NonSerialized] public event EventHandler OnAirportReached;
+        [field: NonSerialized]
+        public event EventHandler OnAirportReached;
+        public delegate void CrashHandler(Object p1, Object p2);
+        public event CrashHandler OnCrash;
 
         /// <summary>
         /// The airplane's speed for knots per second. Used for calculation of movement.
@@ -50,6 +53,8 @@ namespace Air_Traffic_Simulation
             this.CoordinateY = coordinateY;
             this.speed = speed;
             FlightNumber = flightNumber;
+            Area = 20;
+            Rect = new Rectangle((int)CoordinateX - Area, (int)CoordinateY - Area, Area * 2, Area * 2);
 
             ShortestPath = new LinkedList<AbstractCheckpoint>();
             DistanceFromSource = 0;
@@ -67,6 +72,16 @@ namespace Air_Traffic_Simulation
         private double leapx = 0;
         private double leapy = 0;
         [NonSerialized] private LinkedListNode<AbstractCheckpoint> target;
+        /// <summary>
+        /// Checks if the distance between two airplanes is safe or not. If the distance is not safe, the OnCrash event triggers
+        /// </summary>
+        /// <param name="p"></param>
+        public void DangerCheck(Airplane p)
+        {
+            if (OnCrash != null)
+                if (Math.Sqrt(Math.Pow(CoordinateX - p.CoordinateX, 2) + Math.Pow(CoordinateY - p.CoordinateY, 2)) <= Area * 2)
+                    OnCrash(this, p);
+        }
 
         public void MoveTowardsNextPoint()
         {
@@ -91,6 +106,8 @@ namespace Air_Traffic_Simulation
             {
                 OnAirportReached(this, EventArgs.Empty);
                 return;
+
+                
             }
 
             if (first)
@@ -120,6 +137,7 @@ namespace Air_Traffic_Simulation
 
             CoordinateX += leapx;
             CoordinateY += leapy;
+            this.Rect = new Rectangle((int)CoordinateX - Area, (int)CoordinateY - Area, Area * 2, Area * 2);
         }
 
 
@@ -199,6 +217,10 @@ namespace Air_Traffic_Simulation
             return airplane != null &&
                    Name == airplane.Name &&
                    FlightNumber == airplane.FlightNumber;
+        }
+        public void RevertPath()
+        {
+            ShortestPath.Reverse();
         }
     }
 }
