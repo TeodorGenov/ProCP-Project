@@ -1214,10 +1214,7 @@ namespace Air_Traffic_Simulation
             }
         }
 
-        private void bunifuLabel1_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-        }
+  
 
         private void btExit_Click(object sender, EventArgs e)
         {
@@ -1286,6 +1283,17 @@ namespace Air_Traffic_Simulation
                 allFlightsListBox.Items.Add(item);
             }
         }
+
+        private void btExit_Click_1(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void bunifuCustomLabel1_Click(object sender, EventArgs e)
+        {
+            WindowState = FormWindowState.Minimized;
+        }
+
         public void PaintCircle(Point p)
         {
             float x = p.X - 3;

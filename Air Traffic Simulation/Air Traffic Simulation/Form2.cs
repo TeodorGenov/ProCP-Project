@@ -18,8 +18,6 @@ namespace Air_Traffic_Simulation
         public Form2()
         {
             InitializeComponent();
-            bunifuMaterialTextbox1.Text = "Name";
-            bunifuMaterialTextbox2.Text = "Password";
             loggedIn = false;
             dbConnection = new Database();
         }
@@ -28,32 +26,38 @@ namespace Air_Traffic_Simulation
         {
         }
 
-        private void bunifuLabel3_Click(object sender, EventArgs e)
+       
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void panel2_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void bunifuButton1_Click(object sender, EventArgs e)
+        private void btExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btLogIn_Click(object sender, EventArgs e)
         {
             var newForm = new Form1();
             newForm.Show();
             this.Hide();
 
-//            if (dbConnection.GetLogin(bunifuMaterialTextbox1.Text, bunifuMaterialTextbox1.Text) == true)
-//            {
-//                MessageBox.Show("Login successfull.");
-//                loggedIn = true;
-//
-//            }
-//            else
-//            {
-//                MessageBox.Show("Login denied.");
-//            }
-        }
-
-        private void bunifuGauge1_Load(object sender, EventArgs e)
-        {
-
+            //            if (dbConnection.GetLogin(bunifuMaterialTextbox1.Text, bunifuMaterialTextbox1.Text) == true)
+            //            {
+            //                MessageBox.Show("Login successfull.");
+            //                loggedIn = true;
+            //
+            //            }
+            //            else
+            //            {
+            //                MessageBox.Show("Login denied.");
+            //            }
         }
     }
 }

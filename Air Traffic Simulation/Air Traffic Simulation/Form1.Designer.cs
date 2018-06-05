@@ -86,9 +86,7 @@
             this.label8 = new System.Windows.Forms.Label();
             this.Header = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
-            this.bunifuLabel1 = new Bunifu.UI.WinForms.BunifuLabel();
             this.panel9 = new System.Windows.Forms.Panel();
-            this.btExit = new Bunifu.UI.WinForms.BunifuLabel();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -98,6 +96,8 @@
             this.toggleWeatherBtn = new System.Windows.Forms.Button();
             this.calcRouteBtn = new System.Windows.Forms.Button();
             this.timerSimRunning = new System.Windows.Forms.Timer(this.components);
+            this.btExit = new Bunifu.Framework.UI.BunifuCustomLabel();
+            this.bunifuCustomLabel1 = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.panel1.SuspendLayout();
             this.panelAllFlights.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
@@ -779,28 +779,11 @@
             // panel10
             // 
             this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel10.Controls.Add(this.bunifuLabel1);
+            this.panel10.Controls.Add(this.bunifuCustomLabel1);
             this.panel10.Location = new System.Drawing.Point(1255, 0);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(35, 43);
             this.panel10.TabIndex = 4;
-            // 
-            // bunifuLabel1
-            // 
-            this.bunifuLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.bunifuLabel1.CursorType = null;
-            this.bunifuLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.bunifuLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(158)))), ((int)(((byte)(209)))));
-            this.bunifuLabel1.Location = new System.Drawing.Point(11, 8);
-            this.bunifuLabel1.Name = "bunifuLabel1";
-            this.bunifuLabel1.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.bunifuLabel1.Size = new System.Drawing.Size(14, 27);
-            this.bunifuLabel1.TabIndex = 10;
-            this.bunifuLabel1.Text = "_";
-            this.bunifuLabel1.TextAlign = Bunifu.UI.WinForms.BunifuLabel.TextAlignments.Left;
-            this.bunifuLabel1.Click += new System.EventHandler(this.bunifuLabel1_Click);
             // 
             // panel9
             // 
@@ -811,23 +794,6 @@
             this.panel9.Size = new System.Drawing.Size(35, 43);
             this.panel9.TabIndex = 4;
             this.panel9.Click += new System.EventHandler(this.panel9_Click);
-            // 
-            // btExit
-            // 
-            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.btExit.CursorType = null;
-            this.btExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.btExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(158)))), ((int)(((byte)(209)))));
-            this.btExit.Location = new System.Drawing.Point(10, 7);
-            this.btExit.Name = "btExit";
-            this.btExit.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btExit.Size = new System.Drawing.Size(17, 27);
-            this.btExit.TabIndex = 9;
-            this.btExit.Text = "X";
-            this.btExit.TextAlign = Bunifu.UI.WinForms.BunifuLabel.TextAlignments.Left;
-            this.btExit.Click += new System.EventHandler(this.btExit_Click);
             // 
             // fileSystemWatcher1
             // 
@@ -909,6 +875,36 @@
             // 
             this.timerSimRunning.Interval = 1000;
             this.timerSimRunning.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // btExit
+            // 
+            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btExit.AutoSize = true;
+            this.btExit.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(122)))), ((int)(((byte)(183)))));
+            this.btExit.Location = new System.Drawing.Point(7, 13);
+            this.btExit.Name = "btExit";
+            this.btExit.Size = new System.Drawing.Size(22, 23);
+            this.btExit.TabIndex = 9;
+            this.btExit.Text = "X";
+            this.btExit.Click += new System.EventHandler(this.btExit_Click_1);
+            // 
+            // bunifuCustomLabel1
+            // 
+            this.bunifuCustomLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bunifuCustomLabel1.AutoSize = true;
+            this.bunifuCustomLabel1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bunifuCustomLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(122)))), ((int)(((byte)(183)))));
+            this.bunifuCustomLabel1.Location = new System.Drawing.Point(7, 13);
+            this.bunifuCustomLabel1.Name = "bunifuCustomLabel1";
+            this.bunifuCustomLabel1.Size = new System.Drawing.Size(20, 23);
+            this.bunifuCustomLabel1.TabIndex = 10;
+            this.bunifuCustomLabel1.Text = "_";
+            this.bunifuCustomLabel1.Click += new System.EventHandler(this.bunifuCustomLabel1_Click);
             // 
             // Form1
             // 
@@ -1023,12 +1019,12 @@
         private System.Windows.Forms.ListBox landedAirplanesListBox;
         private System.Windows.Forms.TextBox planeInfoTextBox;
         private System.Windows.Forms.Panel panelAllFlights;
-        private Bunifu.UI.WinForms.BunifuLabel bunifuLabel1;
-        private Bunifu.UI.WinForms.BunifuLabel btExit;
         private System.Windows.Forms.Button btClear;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Button btTakeOff;
+        private Bunifu.Framework.UI.BunifuCustomLabel bunifuCustomLabel1;
+        private Bunifu.Framework.UI.BunifuCustomLabel btExit;
     }
 }
 

@@ -33,6 +33,7 @@ D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Tra
 D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air_Traffic_Simulation.WindDirection.resources
 D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.GenerateResource.cache
 D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.CoreCompileInputs.cache
-D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.CopyComplete
 D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.exe
 D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.pdb
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\bin\Debug\Bunifu_UI_v1.5.3.dll
+D:\university stuff\4th semester\block1\ProCp\git\Air Traffic Simulation\Air Traffic Simulation\obj\Debug\Air Traffic Simulation.csproj.CopyComplete
