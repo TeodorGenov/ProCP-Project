@@ -272,24 +272,6 @@ namespace Air_Traffic_Simulation
 
         private void weatherMovement()
         {
-            //if (weather.PrecipitationType == PrecipitationType.RAIN)
-            //{
-            //    weatherBrush.Color = Color.FromArgb(125, 92, 92, 92);
-            //}
-            //else if (weather.PrecipitationType == PrecipitationType.SNOW)
-            //{
-            //    weatherBrush.Color = Color.FromArgb(125, 205, 205, 205);
-            //}
-            //else if (weather.PrecipitationType == PrecipitationType.HAIL)
-            //{
-            //    weatherBrush.Color = Color.FromArgb(125, 175, 75, 75);
-            //}
-            //else
-            //{
-            //    weatherBrush.Color = Color.FromArgb(0, 250, 75, 75);
-            //}
-
-            //Pen p = new Pen(Color.Black);
 
             if (weatherRect.X < 0 || weatherRect.Y < 0)
             {
@@ -325,7 +307,7 @@ namespace Air_Traffic_Simulation
                             }
                             else
                             {
-                                pictureBox1.Invalidate();
+                                //pictureBox1.Invalidate();
                             }
                         }
                     }
@@ -532,8 +514,6 @@ namespace Air_Traffic_Simulation
         /// <param name="e"></param>
         private void calcRouteBtn_Click(object sender, EventArgs e)
         {
-            pictureBox1.Invalidate();
-
             #region MissingCheckpointsErrorDisplay
 
             //generates the message box that informs the user that some areas are missing points
@@ -567,7 +547,7 @@ namespace Air_Traffic_Simulation
 
             if (allZonesCheck.Contains(false))
             {
-                MessageBox.Show(
+                MessageBox.Show(this,
                     $"There seem to be no checkpoints in the following zones:{Environment.NewLine}{Environment.NewLine}{lacking}",
                     "Missing Checkpoint", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
@@ -579,7 +559,8 @@ namespace Air_Traffic_Simulation
                 plane.calculateShortestPath(this.checkpoints, this.landingStrip);
             }
 
-            pictureBox1.Invalidate();
+            this.Invalidate();
+            //pictureBox1.Invalidate();
         }
 
         /// <summary>

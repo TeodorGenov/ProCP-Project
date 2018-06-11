@@ -99,8 +99,8 @@ namespace Air_Traffic_Simulation
                 target = target.Next;
             }
 
-            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Cell.Width &&
-                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Cell.Width &&
+            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Cell.Width*3 &&
+                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Cell.Width*3 &&
                 target.Value.GetType() == typeof(Airstrip) &&
                 OnAirportReached != null)
             {
@@ -125,9 +125,11 @@ namespace Air_Traffic_Simulation
                 first = false;
             }
 
-            if (Math.Abs(CoordinateX - target.Value.CoordinateX) < Cell.Width &&
-                Math.Abs(CoordinateY - target.Value.CoordinateY) < Cell.Width)
+            if (Math.Abs(CoordinateX - target.Value.CoordinateX) < Cell.Width*3 &&
+                Math.Abs(CoordinateY - target.Value.CoordinateY) < Cell.Width*3)
             {
+                var toRemove = target;
+                ShortestPath.Remove(toRemove.Value);
                 target = target.Next;
                 if (target != null)
                     speed = target.Value.MaxSpeed;
