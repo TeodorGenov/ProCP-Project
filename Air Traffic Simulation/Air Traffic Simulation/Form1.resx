@@ -196,12 +196,6 @@
         AWAVMQSAVcQQAFYRQwBYRQwBYBUxBIBVxBAAVhFDAFjDY8/7X3jv8WYy6vd4AAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="bunifuLabel1.BaseStylesheet" xml:space="preserve">
-    <value>#bunifu-label { padding: 1.2px;font-family: 'Microsoft Sans Serif'; font-size: 12pt; width: 100%; height: 100%; font-style: normal; font-weight: normal; text-decoration: none; color: #879ED1; text-align: left; }</value>
-  </data>
-  <data name="btExit.BaseStylesheet" xml:space="preserve">
-    <value>#bunifu-label { padding: 1.2px;font-family: 'Microsoft Sans Serif'; font-size: 12pt; width: 100%; height: 100%; font-style: normal; font-weight: normal; text-decoration: none; color: #879ED1; text-align: left; }</value>
-  </data>
   <metadata name="fileSystemWatcher1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>167, 17</value>
   </metadata>

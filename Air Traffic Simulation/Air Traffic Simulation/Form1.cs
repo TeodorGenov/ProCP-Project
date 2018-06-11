@@ -1075,11 +1075,6 @@ namespace Air_Traffic_Simulation
             }
         }
 
-        private void bunifuLabel1_Click(object sender, EventArgs e)
-        {
-            WindowState = FormWindowState.Minimized;
-        }
-
         private void btExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -1202,6 +1197,16 @@ namespace Air_Traffic_Simulation
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btClose_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+        private void btMinimize_Click(object sender, EventArgs e)
+        {
+            this.WindowState = FormWindowState.Minimized;
         }
 
         public void PaintCircle(Point p, PaintEventArgs e)

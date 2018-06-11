@@ -34,47 +34,19 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bunifu.UI.WinForms.BunifuCheckBox">
-      <HintPath>..\..\..\..\..\..\Downloads\Bunifu UI WinForms 1.5.5.3\Bunifu UI WinForms 1.5.5.3\Bunifu.UI.WinForms.BunifuCheckBox.dll</HintPath>
+    <Reference Include="Bunifu_UI_v1.5.3">
+      <HintPath>lib\Bunifu_UI_v1.5.3.dll</HintPath>
     </Reference>
-    <Reference Include="Bunifu.UI.WinForms.BunifuDropdown">
-      <HintPath>..\..\..\..\..\..\Downloads\Bunifu UI WinForms 1.5.5.3\Bunifu UI WinForms 1.5.5.3\Bunifu.UI.WinForms.BunifuDropdown.dll</HintPath>
-    </Reference>
-    <Reference Include="Bunifu.UI.WinForms.BunifuProgressBar">
-      <HintPath>..\..\..\..\..\..\Downloads\Bunifu UI WinForms 1.5.5.3\Bunifu UI WinForms 1.5.5.3\Bunifu.UI.WinForms.BunifuProgressBar.dll</HintPath>
-    </Reference>
-    <Reference Include="Bunifu.UI.WinForms.BunifuRadioButton">
-      <HintPath>..\..\..\..\..\..\Downloads\Bunifu UI WinForms 1.5.5.3\Bunifu UI WinForms 1.5.5.3\Bunifu.UI.WinForms.BunifuRadioButton.dll</HintPath>
-    </Reference>
-    <Reference Include="Bunifu.UI.WinForms.BunifuScrollBar">
-      <HintPath>..\..\..\..\..\..\Downloads\Bunifu UI WinForms 1.5.5.3\Bunifu UI WinForms 1.5.5.3\Bunifu.UI.WinForms.BunifuScrollBar.dll</HintPath>
-    </Reference>
-    <Reference Include="Bunifu.UI.WinForms.ToggleSwitch">
-      <HintPath>..\..\..\..\..\..\Downloads\Bunifu UI WinForms 1.5.5.3\Bunifu UI WinForms 1.5.5.3\Bunifu.UI.WinForms.ToggleSwitch.dll</HintPath>
-    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="MySql.Data, Version=6.10.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySql.Data.Entity.EF6, Version=6.10.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySQL.Data.EntityFrameworkCore, Version=6.10.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySQL.Data.EntityFrameworkCore.Design, Version=6.10.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
     <Reference Include="MySql.Web, Version=6.10.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="Bunifu.Core">
-      <HintPath>..\..\..\..\..\..\Downloads\Bunifu UI WinForms 1.5.5.3\Bunifu UI WinForms 1.5.5.3\Bunifu.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Bunifu.UI.WinForms.BunifuButton">
-      <HintPath>..\..\..\..\..\..\Downloads\Bunifu UI WinForms 1.5.5.3\Bunifu UI WinForms 1.5.5.3\Bunifu.UI.WinForms.BunifuButton.dll</HintPath>
-    </Reference>
-    <Reference Include="Bunifu.UI.WinForms.BunifuLabel">
-      <HintPath>..\..\..\..\..\..\Downloads\Bunifu UI WinForms 1.5.5.3\Bunifu UI WinForms 1.5.5.3\Bunifu.UI.WinForms.BunifuLabel.dll</HintPath>
-    </Reference>
-    <Reference Include="Bunifu.UI.WinForms.BunifuTextbox">
-      <HintPath>..\..\..\..\..\..\Downloads\Bunifu UI WinForms 1.5.5.3\Bunifu UI WinForms 1.5.5.3\Bunifu.UI.WinForms.BunifuTextbox.dll</HintPath>
-    </Reference>
-    <Reference Include="Bunifu_UI_v1.5.3">
-      <HintPath>C:\Users\blood\Desktop\Bunifu UI WinForms 1.5.5.2\Bunifu UI WinForms 1.5.5.2\Bunifu_UI_v1.5.3.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -118,6 +90,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Form2.resx">
       <DependentUpon>Form2.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
