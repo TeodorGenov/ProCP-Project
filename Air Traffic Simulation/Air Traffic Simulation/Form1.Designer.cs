@@ -96,8 +96,8 @@
             this.toggleWeatherBtn = new System.Windows.Forms.Button();
             this.calcRouteBtn = new System.Windows.Forms.Button();
             this.timerSimRunning = new System.Windows.Forms.Timer(this.components);
-            this.btClose = new System.Windows.Forms.Label();
-            this.btMinimize = new System.Windows.Forms.Label();
+            this.btExit = new Bunifu.Framework.UI.BunifuCustomLabel();
+            this.bunifuCustomLabel1 = new Bunifu.Framework.UI.BunifuCustomLabel();
             this.panel1.SuspendLayout();
             this.panelAllFlights.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
@@ -779,7 +779,7 @@
             // panel10
             // 
             this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel10.Controls.Add(this.btMinimize);
+            this.panel10.Controls.Add(this.bunifuCustomLabel1);
             this.panel10.Location = new System.Drawing.Point(1255, 0);
             this.panel10.Name = "panel10";
             this.panel10.Size = new System.Drawing.Size(35, 43);
@@ -788,7 +788,7 @@
             // panel9
             // 
             this.panel9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel9.Controls.Add(this.btClose);
+            this.panel9.Controls.Add(this.btExit);
             this.panel9.Location = new System.Drawing.Point(1290, 0);
             this.panel9.Name = "panel9";
             this.panel9.Size = new System.Drawing.Size(35, 43);
@@ -813,8 +813,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // panel5
@@ -878,25 +876,35 @@
             this.timerSimRunning.Interval = 1000;
             this.timerSimRunning.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // btClose
+            // btExit
             // 
-            this.btClose.AutoSize = true;
-            this.btClose.Location = new System.Drawing.Point(7, 10);
-            this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(22, 23);
-            this.btClose.TabIndex = 5;
-            this.btClose.Text = "X";
-            this.btClose.Click += new System.EventHandler(this.btClose_Click);
+            this.btExit.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.btExit.AutoSize = true;
+            this.btExit.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btExit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(122)))), ((int)(((byte)(183)))));
+            this.btExit.Location = new System.Drawing.Point(7, 13);
+            this.btExit.Name = "btExit";
+            this.btExit.Size = new System.Drawing.Size(22, 23);
+            this.btExit.TabIndex = 9;
+            this.btExit.Text = "X";
+            this.btExit.Click += new System.EventHandler(this.btExit_Click_1);
             // 
-            // btMinimize
+            // bunifuCustomLabel1
             // 
-            this.btMinimize.AutoSize = true;
-            this.btMinimize.Location = new System.Drawing.Point(9, 10);
-            this.btMinimize.Name = "btMinimize";
-            this.btMinimize.Size = new System.Drawing.Size(20, 23);
-            this.btMinimize.TabIndex = 5;
-            this.btMinimize.Text = "_";
-            this.btMinimize.Click += new System.EventHandler(this.btMinimize_Click);
+            this.bunifuCustomLabel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bunifuCustomLabel1.AutoSize = true;
+            this.bunifuCustomLabel1.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bunifuCustomLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(122)))), ((int)(((byte)(183)))));
+            this.bunifuCustomLabel1.Location = new System.Drawing.Point(7, 13);
+            this.bunifuCustomLabel1.Name = "bunifuCustomLabel1";
+            this.bunifuCustomLabel1.Size = new System.Drawing.Size(20, 23);
+            this.bunifuCustomLabel1.TabIndex = 10;
+            this.bunifuCustomLabel1.Text = "_";
+            this.bunifuCustomLabel1.Click += new System.EventHandler(this.bunifuCustomLabel1_Click);
             // 
             // Form1
             // 
@@ -1015,8 +1023,8 @@
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Button btTakeOff;
-        private System.Windows.Forms.Label btMinimize;
-        private System.Windows.Forms.Label btClose;
+        private Bunifu.Framework.UI.BunifuCustomLabel bunifuCustomLabel1;
+        private Bunifu.Framework.UI.BunifuCustomLabel btExit;
     }
 }
 

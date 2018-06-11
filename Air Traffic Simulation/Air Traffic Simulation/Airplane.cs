@@ -71,7 +71,7 @@ namespace Air_Traffic_Simulation
         private bool first = true;
         private double leapx = 0;
         private double leapy = 0;
-        [NonSerialized] public LinkedListNode<AbstractCheckpoint> target;
+        [NonSerialized] private LinkedListNode<AbstractCheckpoint> target;
         /// <summary>
         /// Checks if the distance between two airplanes is safe or not. If the distance is not safe, the OnCrash event triggers
         /// </summary>
@@ -99,8 +99,8 @@ namespace Air_Traffic_Simulation
                 target = target.Next;
             }
 
-            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Cell.Width*3 &&
-                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Cell.Width*3 &&
+            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Cell.Width &&
+                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Cell.Width &&
                 target.Value.GetType() == typeof(Airstrip) &&
                 OnAirportReached != null)
             {
@@ -125,11 +125,9 @@ namespace Air_Traffic_Simulation
                 first = false;
             }
 
-            if (Math.Abs(CoordinateX - target.Value.CoordinateX) < Cell.Width*3 &&
-                Math.Abs(CoordinateY - target.Value.CoordinateY) < Cell.Width*3)
+            if (Math.Abs(CoordinateX - target.Value.CoordinateX) < Cell.Width &&
+                Math.Abs(CoordinateY - target.Value.CoordinateY) < Cell.Width)
             {
-                var toRemove = target;
-                ShortestPath.Remove(toRemove.Value);
                 target = target.Next;
                 if (target != null)
                     speed = target.Value.MaxSpeed;
