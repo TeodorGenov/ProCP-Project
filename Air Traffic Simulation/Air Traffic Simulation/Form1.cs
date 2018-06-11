@@ -1207,7 +1207,7 @@ namespace Air_Traffic_Simulation
                 foreach (Airplane p in airplaneList)
                 {
                     Point point = new Point((int) p.CoordinateX, (int) p.CoordinateY);
-                    PaintAirplane(point);
+                    //PaintAirplane(point);
                 }
 
                 timerSimRunning.Start();
