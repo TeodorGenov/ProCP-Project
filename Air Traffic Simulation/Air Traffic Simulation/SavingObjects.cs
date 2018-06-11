@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Air_Traffic_Simulation
 {
     [Serializable]
-    public class SavingObjects
+    class SavingObjects
     {
         List<Airplane> airplanes;
         List<Checkpoint> checkpoints;

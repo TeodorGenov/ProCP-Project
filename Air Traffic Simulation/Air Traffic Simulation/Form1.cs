@@ -156,50 +156,45 @@ namespace Air_Traffic_Simulation
             labelTemp.Text = trackBarTemperature.Value.ToString() + "°C";
             labelPrec.Text = trackBarPrecipitation.Value.ToString() + "%";
             comboBoxWindDirection.Items.AddRange(new object[]
-                {"NORTH", "NORTHEAST", "NORTHWEST", "SOUTH", "SOUTHEAST", "SOUTHWEST", "EAST", "WEST"});
+                {"NORTH", "NORTH-EAST", "NORTH-WEST", "SOUTH", "SOUTH-EAST", "SOUTH-WEST", "EAST", "WEST"});
 
-            Array values = Enum.GetValues(typeof(WindDirection));
-            Random random = new Random();
-            WindDirection randomDirection = (WindDirection)values.GetValue(random.Next(values.Length));
-            comboBoxWindDirection.SelectedItem = randomDirection.ToString();
+
             //WEATHER VALUES
             windSpeed = trackBarWindSpeed.Value;
             temp = trackBarTemperature.Value;
             precIntencity = trackBarPrecipitation.Value;
-            
-            //switch (comboBoxWindDirection.SelectedItem.ToString())
-            //{
-            //    case "NORTH":
-            //        windDirection = WindDirection.NORTH;
-            //        break;
-            //    case "NORTHEAST":
-            //        windDirection = WindDirection.NORTHEAST;
-            //        break;
-            //    case "NORTHWEST":
-            //        windDirection = WindDirection.NORTHWEST;
-            //        break;
-            //    case "SOUTH":
-            //        windDirection = WindDirection.SOUTH;
-            //        break;
-            //    case "SOUTHEAST":
-            //        windDirection = WindDirection.SOUTHEAST;
-            //        break;
-            //    case "SOUTHWEST":
-            //        windDirection = WindDirection.SOUTHWEST;
-            //        break;
-            //    case "EAST":
-            //        windDirection = WindDirection.EAST;
-            //        break;
-            //    case "WEST":
-            //        windDirection = WindDirection.WEST;
-            //        break;
-            //}
-            
+
+            switch (wdComboBox)
+            {
+                case "NORTH":
+                    windDirection = WindDirection.NORTH;
+                    break;
+                case "NORTH-EAST":
+                    windDirection = WindDirection.NORTHEAST;
+                    break;
+                case "NORTH-WEST":
+                    windDirection = WindDirection.NORTHWEST;
+                    break;
+                case "SOUTH":
+                    windDirection = WindDirection.SOUTH;
+                    break;
+                case "SOUTH-EAST":
+                    windDirection = WindDirection.SOUTHEAST;
+                    break;
+                case "SOUTH-WEST":
+                    windDirection = WindDirection.SOUTHWEST;
+                    break;
+                case "EAST":
+                    windDirection = WindDirection.EAST;
+                    break;
+                case "WEST":
+                    windDirection = WindDirection.WEST;
+                    break;
+            }
 
             weather = new WeatherConditions(windSpeed, windDirection, temp, precIntencity);
-            //LabelChange();
-            weatherRect.X = r.Next(grid.ColumnsOfCells * Cell.Width - Cell.Width);
-            weatherRect.Y = r.Next(grid.RowsOfCells * Cell.Width - Cell.Width);
+            LabelChange();
+
 
             //RADAR
 
@@ -277,76 +272,24 @@ namespace Air_Traffic_Simulation
 
         private void weatherMovement()
         {
-            //if (weather.PrecipitationType == PrecipitationType.RAIN)
-            //{
-            //    weatherBrush.Color = Color.FromArgb(125, 92, 92, 92);
-            //}
-            //else if (weather.PrecipitationType == PrecipitationType.SNOW)
-            //{
-            //    weatherBrush.Color = Color.FromArgb(125, 205, 205, 205);
-            //}
-            //else if (weather.PrecipitationType == PrecipitationType.HAIL)
-            //{
-            //    weatherBrush.Color = Color.FromArgb(125, 175, 75, 75);
-            //}
-            //else
-            //{
-            //    weatherBrush.Color = Color.FromArgb(0, 250, 75, 75);
-            //}
 
-            //Pen p = new Pen(Color.Black);
-            Array values = Enum.GetValues(typeof(WindDirection));
-            Random random = new Random();
-            WindDirection randomDirection = (WindDirection)values.GetValue(random.Next(values.Length));
-            
-            foreach (Cell c in grid.listOfCells)
+            if (weatherRect.X < 0 || weatherRect.Y < 0)
             {
-                if (c.Type == CellType.BORDER)
-                {
-                    if (weatherRect.Contains(c.x, c.y))
-                    {
-                        weather.WindDirection = randomDirection;
-                        comboBoxWindDirection.SelectedItem = randomDirection;
+                weatherRect.X += r.Next(20);
+                weatherRect.Y += r.Next(20);
+            }
+            else if (weatherRect.X > 580 || weatherRect.Y > 580)
+            {
+                weatherRect.X -= r.Next(-20, 0);
+                weatherRect.Y -= r.Next(-20, 0);
+            }
+            else
+            {
+                weatherRect.X += r.Next(-20, 20);
+                weatherRect.Y += r.Next(-20, 20);
+            }
 
-                    }
-                }
-            }
-            if (windDirection == WindDirection.NORTH)
-            {
-                weatherRect.Y += 10;
-            }
-            else if (windDirection == WindDirection.NORTHEAST)
-            {
-                weatherRect.Y += 10;
-                weatherRect.X -= 10;
-            }
-            else if (windDirection == WindDirection.NORTHWEST)
-            {
-                weatherRect.Y += 10;
-                weatherRect.X += 10;
-            }
-            else if (windDirection == WindDirection.SOUTH)
-            {
-                weatherRect.Y -= 10;
-            }
-            else if (windDirection == WindDirection.SOUTHEAST)
-            {
-                weatherRect.Y -= 10;
-                weatherRect.X -= 10;
-            }
-            else if(windDirection == WindDirection.SOUTHWEST)
-            {
-                weatherRect.Y -= 10;
-                weatherRect.X += 10;
-            }
-            else if(windDirection == WindDirection.EAST)
-            {
-                weatherRect.Y -= 10;
-            }
-            else if(windDirection.Equals(WindDirection.WEST))
-            {
-                weatherRect.X += 10;
-            }
+
             //Graphics g = this.pictureBox1.CreateGraphics();
             //g.DrawEllipse(p, weatherBlock);
             //g.FillEllipse(weatherBrush, weatherBlock);
@@ -364,8 +307,7 @@ namespace Air_Traffic_Simulation
                             }
                             else
                             {
-                                Point point = cl.GetCenter();
-                                PaintCircle(point);
+                                //pictureBox1.Invalidate();
                             }
                         }
                     }
@@ -572,8 +514,6 @@ namespace Air_Traffic_Simulation
         /// <param name="e"></param>
         private void calcRouteBtn_Click(object sender, EventArgs e)
         {
-            Refresh();
-
             #region MissingCheckpointsErrorDisplay
 
             //generates the message box that informs the user that some areas are missing points
@@ -607,37 +547,20 @@ namespace Air_Traffic_Simulation
 
             if (allZonesCheck.Contains(false))
             {
-                MessageBox.Show(
+                MessageBox.Show(this,
                     $"There seem to be no checkpoints in the following zones:{Environment.NewLine}{Environment.NewLine}{lacking}",
                     "Missing Checkpoint", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
 
             #endregion
-
-            foreach (Checkpoint c in checkpoints)
-            {
-                foreach (Cell cl in grid.listOfCells)
-                {
-                    if (cl.ContainsPoint((int) c.CoordinateX, (int) c.CoordinateY) == true)
-                    {
-                        Point p = cl.GetCenter();
-                        PaintCircle(p);
-                    }
-                }
-            }
-
-            foreach (Airplane p in airplaneList.ToArray())
-            {
-                Point point = new Point((int) p.CoordinateX, (int) p.CoordinateY);
-                PaintAirplane(point);
-            }
-
-
+            
             foreach (Airplane plane in airplaneList)
             {
                 plane.calculateShortestPath(this.checkpoints, this.landingStrip);
-
             }
+
+            this.Invalidate();
+            //pictureBox1.Invalidate();
         }
 
         /// <summary>
@@ -645,11 +568,10 @@ namespace Air_Traffic_Simulation
         /// </summary>
         /// <param name="a">The initial point.</param>
         /// <param name="b">The end point.</param>
-        public void ConnectDots(Point a, Point b)
+        public void ConnectDots(Point a, Point b, PaintEventArgs e)
         {
             Pen pen = new Pen(Color.Yellow);
-            Graphics g = this.pictureBox1.CreateGraphics();
-            g.DrawLine(pen, a, b);
+            e.Graphics.DrawLine(pen, a, b);
         }
 
         /// <summary>
@@ -684,8 +606,9 @@ namespace Air_Traffic_Simulation
                             }
                             else
                             {
-                                PaintCircle(p);
+                                //PaintCircle(p);
 
+                                pictureBox1.Invalidate();
                                 cpName++;
                                 string name = "cp" + cpName;
 
@@ -744,7 +667,7 @@ namespace Air_Traffic_Simulation
                         {
                             if (c.Type == CellType.BORDER)
                             {
-                                PaintAirplane(p);
+                                pictureBox1.Invalidate();
 
                                 apName++;
                                 fnName += 6 * 2 / 3;
@@ -879,26 +802,16 @@ namespace Air_Traffic_Simulation
         /// Drawign danger zone around airplane
         /// </summary>
         /// <param name="airplane"></param>
-        public void DrawDangerArea(Airplane airplane)
+        public void DrawDangerArea(Airplane airplane, PaintEventArgs e)
         {
             Pen p = new Pen(Color.Black);
-            Graphics g = this.pictureBox1.CreateGraphics();
-            g.DrawEllipse(p, airplane.Rect);
+            e.Graphics.DrawEllipse(p, airplane.Rect);
         }
         private void timer2_Tick(object sender, EventArgs e)
         {
-            Refresh();
-            foreach (Checkpoint c in checkpoints)
-            {
-                foreach (Cell cl in grid.listOfCells)
-                {
-                    if (cl.ContainsPoint((int) c.CoordinateX, (int) c.CoordinateY) == true)
-                    {
-                        Point p = cl.GetCenter();
-                        PaintCircle(p);
-                    }
-                }
-            }
+
+            pictureBox1.Invalidate();
+
 
             foreach (Airplane p in airplaneList.ToArray())
             {
@@ -906,8 +819,6 @@ namespace Air_Traffic_Simulation
                 {
                     p.MoveTowardsNextPoint();
                 }
-                Point point = new Point((int) p.CoordinateX, (int) p.CoordinateY);
-                DrawDangerArea(p);
                 if (airplaneList.Count() != 0)
                 {
                     for (int i = 0; i < airplaneList.Count(); i++)
@@ -919,29 +830,7 @@ namespace Air_Traffic_Simulation
                             
                     }
                 }
-                if (p.Equals(selectedAirplane))
-                {
-                    PaintSelectedAirplane(point);
-
-                    Point a = new Point(Convert.ToInt32(landingStrip.CoordinateX),
-                        Convert.ToInt32(landingStrip.CoordinateY));
-
-                    var ppp = selectedAirplane.ShortestPath.Last;
-                    string planePath = String.Empty;
-                    while (ppp != null)
-                    {
-                        Point b = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
-                        ConnectDots(a, b);
-                        a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
-
-
-                        ppp = ppp.Previous;
-                    }
-                }
-                else
-                {
-                    PaintAirplane(point);
-                }
+               
             }
 
             if (weatherActive)
@@ -998,7 +887,9 @@ namespace Air_Traffic_Simulation
                 {
                     foreach (Checkpoint a in checkpoints)
                     {
-                        PaintCircle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
+
+                        pictureBox1.Invalidate();
+                        //PaintCircle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
                         cpName++;
                     }
                 }
@@ -1009,10 +900,10 @@ namespace Air_Traffic_Simulation
                     {
                         apName++;
                         fnName += 6 * 2 / 3;
-                        PaintAirplane(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
                         a.OnAirportReached += airplaneHasReachedTheAirport;
                         a.OnCrash += airplaneCrashed;
                     }
+                    pictureBox1.Invalidate();
                 }
 
                 if (landedAirplanes != null)
@@ -1075,34 +966,7 @@ namespace Air_Traffic_Simulation
         //wind direction changed in combobox
         private void comboBoxWindDirection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //wdComboBox = (String) comboBoxWindDirection.SelectedItem;
-            switch (comboBoxWindDirection.SelectedItem.ToString())
-            {
-                case "NORTH":
-                    windDirection = WindDirection.NORTH;
-                    break;
-                case "NORTHEAST":
-                    windDirection = WindDirection.NORTHEAST;
-                    break;
-                case "NORTHWEST":
-                    windDirection = WindDirection.NORTHWEST;
-                    break;
-                case "SOUTH":
-                    windDirection = WindDirection.SOUTH;
-                    break;
-                case "SOUTHEAST":
-                    windDirection = WindDirection.SOUTHEAST;
-                    break;
-                case "SOUTHWEST":
-                    windDirection = WindDirection.SOUTHWEST;
-                    break;
-                case "EAST":
-                    windDirection = WindDirection.EAST;
-                    break;
-                case "WEST":
-                    windDirection = WindDirection.WEST;
-                    break;
-            }
+            wdComboBox = (String) comboBoxWindDirection.SelectedItem;
             LabelChange();
         }
 
@@ -1204,17 +1068,12 @@ namespace Air_Traffic_Simulation
             }
             else
             {
-                foreach (Airplane p in airplaneList)
-                {
-                    Point point = new Point((int) p.CoordinateX, (int) p.CoordinateY);
-                    PaintAirplane(point);
-                }
+
+                pictureBox1.Invalidate();
 
                 timerSimRunning.Start();
             }
         }
-
-  
 
         private void btExit_Click(object sender, EventArgs e)
         {
@@ -1230,7 +1089,8 @@ namespace Air_Traffic_Simulation
             }
             else if(timerSimRunning.Enabled == false)
             {
-                Refresh();
+
+                pictureBox1.Invalidate();
                 ClearListboxes();
                 ClearLists();
                 MessageBox.Show("Simulation cleared!");
@@ -1284,25 +1144,79 @@ namespace Air_Traffic_Simulation
             }
         }
 
-        private void btExit_Click_1(object sender, EventArgs e)
+        private void pictureBox1_Paint(object sender, PaintEventArgs e)
+        {
+            foreach (Checkpoint c in checkpoints)
+            {
+                foreach (Cell cl in grid.listOfCells)
+                {
+                    if (cl.ContainsPoint((int)c.CoordinateX, (int)c.CoordinateY) == true)
+                    {
+                        Point p = cl.GetCenter();
+                        PaintCircle(p, e);
+                    }
+                }
+            }
+            foreach (var p in airplaneList)
+            {
+                DrawDangerArea(p, e);
+            }
+            foreach (Airplane p in airplaneList.ToArray())
+            {
+               
+                Point point = new Point((int)p.CoordinateX, (int)p.CoordinateY);
+                
+                if (p.Equals(selectedAirplane))
+                {
+                    PaintSelectedAirplane(point, e);
+
+                    Point a = new Point(Convert.ToInt32(landingStrip.CoordinateX),
+                        Convert.ToInt32(landingStrip.CoordinateY));
+
+                    var ppp = selectedAirplane.ShortestPath.Last;
+                    while (ppp != null)
+                    {
+                        Point b = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
+                        ConnectDots(a, b, e);
+                        a = new Point(Convert.ToInt32(ppp.Value.CoordinateX), Convert.ToInt32(ppp.Value.CoordinateY));
+
+
+                        ppp = ppp.Previous;
+                    }
+                }
+                else
+                {
+                    PaintAirplane(point, e);
+                }
+            }
+
+            if (weatherActive)
+                weatherMovement();
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void bunifuCustomLabel1_Click(object sender, EventArgs e)
+        private void btMinimize_Click(object sender, EventArgs e)
         {
-            WindowState = FormWindowState.Minimized;
+            this.WindowState = FormWindowState.Minimized;
         }
 
-        public void PaintCircle(Point p)
+        public void PaintCircle(Point p, PaintEventArgs e)
         {
             float x = p.X - 3;
             float y = p.Y - 3;
             float width = 2 * 3;
             float height = 2 * 3;
             Pen pen = new Pen(Color.Blue);
-            Graphics g = this.pictureBox1.CreateGraphics();
-            g.DrawEllipse(pen, x, y, width, height);
+            e.Graphics.DrawEllipse(pen, x, y, width, height);
         }
 
         public void PaintCircleB(Point p)
@@ -1324,24 +1238,22 @@ namespace Air_Traffic_Simulation
             airplaneRect = new Rectangle(x - 20, y - 20, 40, 40);
             g.DrawImage(explosionImage, airplaneRect);
         }
-        public void PaintSelectedAirplane(Point p)
+        public void PaintSelectedAirplane(Point p, PaintEventArgs e)
         {
             int x = p.X - 3;
             int y = p.Y - 3;
-            Graphics g = this.pictureBox1.CreateGraphics();
             airplaneImage = Properties.Resources.SelectedairplanePic;
             airplaneRect = new Rectangle(x - 20, y - 20, 40, 40);
-            g.DrawImage(airplaneImage, airplaneRect);
+            e.Graphics.DrawImage(airplaneImage, airplaneRect);
         }
 
-        public void PaintAirplane(Point p)
+        public void PaintAirplane(Point p, PaintEventArgs e)
         {
             int x = p.X - 3;
             int y = p.Y - 3;
-            Graphics g = this.pictureBox1.CreateGraphics();
             airplaneImage = Properties.Resources.airplanePic;
             airplaneRect = new Rectangle(x - 20, y - 20, 40, 40);
-            g.DrawImage(airplaneImage, airplaneRect);
+            e.Graphics.DrawImage(airplaneImage, airplaneRect);
         }
 
         public void PaintWeather(Point p)
@@ -1388,7 +1300,6 @@ namespace Air_Traffic_Simulation
             lbPrecipitationType.Text = weather.GetPrecipitationType().ToString();
             lbProbability.Text = weather.Probability.ToString();
             lbVisibility.Text = weather.GetVisibility().ToString();
-            //MessageBox.Show(windDirection.ToString());
         }
 
         /// <summary>
@@ -1477,7 +1388,7 @@ namespace Air_Traffic_Simulation
             Airplane one = new Airplane(name, x, y, speed, flight);
             airplaneList.Add(one);
 
-            PaintAirplane(new Point(Convert.ToInt32(one.CoordinateX - 20), Convert.ToInt32(one.CoordinateY - 20)));
+            this.Invalidate();
             one.OnAirportReached += airplaneHasReachedTheAirport;
             one.OnCrash += airplaneCrashed;
             allFlightsListBox.Items.Add(one);

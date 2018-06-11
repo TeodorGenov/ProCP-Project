@@ -18,31 +18,18 @@ namespace Air_Traffic_Simulation
         public Form2()
         {
             InitializeComponent();
+            tbUsername.Text = "Name";
+            tbPassword.Text = "Password";
             loggedIn = false;
             dbConnection = new Database();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-        }
-
-       
-        private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
-
-        private void panel2_Click(object sender, EventArgs e)
+        private void btClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        private void btExit_Click(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        private void btLogIn_Click(object sender, EventArgs e)
+        private void btLogin_Click(object sender, EventArgs e)
         {
             var newForm = new Form1();
             newForm.Show();
