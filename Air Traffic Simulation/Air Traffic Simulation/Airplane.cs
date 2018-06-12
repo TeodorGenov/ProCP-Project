@@ -26,6 +26,7 @@ namespace Air_Traffic_Simulation
         private double speed;
         public int Area { get; set; }
         public Rectangle Rect { get; set; }
+
         public double Speed
         {
             get { return speed; }
@@ -36,10 +37,23 @@ namespace Air_Traffic_Simulation
             }
         }
 
-        [field: NonSerialized]
-        public event EventHandler OnAirportReached;
+        [field: NonSerialized] public event EventHandler OnAirportReached;
+
+        public event EventHandler OnAirspaceExit;
+
         public delegate void CrashHandler(Object p1, Object p2);
+
         public event CrashHandler OnCrash;
+
+        /// <summary>
+        /// Shows if the plane is on its way to land.
+        /// </summary>
+        public bool IsLanding { get; set; }
+
+        /// <summary>
+        /// The point through which the airplane will leave the airspace.
+        /// </summary>
+        public Checkpoint exitDestination { get; set; }
 
         /// <summary>
         /// The airplane's speed for knots per second. Used for calculation of movement.
@@ -48,13 +62,14 @@ namespace Air_Traffic_Simulation
 
         public Airplane(string name, double coordinateX, double coordinateY, double speed, string flightNumber)
         {
+            IsLanding = true;
             Name = name;
             this.CoordinateX = coordinateX;
             this.CoordinateY = coordinateY;
             this.speed = speed;
             FlightNumber = flightNumber;
             Area = 20;
-            Rect = new Rectangle((int)CoordinateX - Area, (int)CoordinateY - Area, Area * 2, Area * 2);
+            Rect = new Rectangle((int) CoordinateX - Area, (int) CoordinateY - Area, Area * 2, Area * 2);
 
             ShortestPath = new LinkedList<AbstractCheckpoint>();
             DistanceFromSource = 0;
@@ -72,6 +87,7 @@ namespace Air_Traffic_Simulation
         private double leapx = 0;
         private double leapy = 0;
         [NonSerialized] public LinkedListNode<AbstractCheckpoint> target;
+
         /// <summary>
         /// Checks if the distance between two airplanes is safe or not. If the distance is not safe, the OnCrash event triggers
         /// </summary>
@@ -79,7 +95,8 @@ namespace Air_Traffic_Simulation
         public void DangerCheck(Airplane p)
         {
             if (OnCrash != null)
-                if (Math.Sqrt(Math.Pow(CoordinateX - p.CoordinateX, 2) + Math.Pow(CoordinateY - p.CoordinateY, 2)) <= Area * 2)
+                if (Math.Sqrt(Math.Pow(CoordinateX - p.CoordinateX, 2) + Math.Pow(CoordinateY - p.CoordinateY, 2)) <=
+                    Area * 2)
                     OnCrash(this, p);
         }
 
@@ -99,15 +116,21 @@ namespace Air_Traffic_Simulation
                 target = target.Next;
             }
 
-            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Cell.Width*3 &&
-                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Cell.Width*3 &&
+            if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Cell.Width * 3 &&
+                Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Cell.Width * 3 &&
                 target.Value.GetType() == typeof(Airstrip) &&
                 OnAirportReached != null)
             {
+                target = null;
                 OnAirportReached(this, EventArgs.Empty);
                 return;
-
-                
+            }
+            else if (Math.Abs(CoordinateX - ShortestPath.Last.Value.CoordinateX) < Cell.Width * 3 &&
+                     Math.Abs(CoordinateY - ShortestPath.Last.Value.CoordinateY) < Cell.Width * 3 &&
+                     target.Value.GetType() == typeof(Checkpoint) && OnAirspaceExit != null)
+            {
+                OnAirspaceExit(this, EventArgs.Empty);
+                return;
             }
 
             if (first)
@@ -125,12 +148,14 @@ namespace Air_Traffic_Simulation
                 first = false;
             }
 
-            if (Math.Abs(CoordinateX - target.Value.CoordinateX) < Cell.Width*3 &&
-                Math.Abs(CoordinateY - target.Value.CoordinateY) < Cell.Width*3)
+            //if the airplane goes through a checkpoint
+            if (Math.Abs(CoordinateX - target.Value.CoordinateX) < Cell.Width * 3 &&
+                Math.Abs(CoordinateY - target.Value.CoordinateY) < Cell.Width * 3)
             {
                 var toRemove = target;
                 ShortestPath.Remove(toRemove.Value);
                 target = target.Next;
+
                 if (target != null)
                     speed = target.Value.MaxSpeed;
 
@@ -139,7 +164,7 @@ namespace Air_Traffic_Simulation
 
             CoordinateX += leapx;
             CoordinateY += leapy;
-            this.Rect = new Rectangle((int)CoordinateX - Area, (int)CoordinateY - Area, Area * 2, Area * 2);
+            this.Rect = new Rectangle((int) CoordinateX - Area, (int) CoordinateY - Area, Area * 2, Area * 2);
         }
 
 
@@ -148,19 +173,30 @@ namespace Air_Traffic_Simulation
         /// </summary>
         /// <param name="points">All the checkpoints in the airspace. No airstrips, no airplanes.</param>
         /// <param name="landingStrip">The landing strip the airplane is going for.</param>
-        public void calculateShortestPath(List<Checkpoint> points, Airstrip landingStrip)
+        public void CalculateShortestPathToAirstrip(List<Checkpoint> points, Airstrip landingStrip)
         {
             this.ReachableNodes.Clear();
+
             this.ShortestPath.Clear();
 
             foreach (Checkpoint point in points)
             {
-                if (point.ParentCellType == CellType.UPPER ||
-                    point.ParentCellType == CellType.UNASSIGNED)
+                if (target == null && (point.ParentCellType == CellType.UPPER ||
+                                       point.ParentCellType == CellType.UNASSIGNED))
                 {
                     this.AddSingleDestination(point, CalculateTimeBetweenPoints(point));
-                    point.AddSingleDestination(this, CalculateTimeBetweenPoints(this));
                 }
+                else if (target != null && target.GetType() == typeof(Airstrip))
+                {
+                    ShortestPath.Clear();
+                    ShortestPath.AddFirst(target);
+                    return;
+                }
+                else if (target != null && point.ParentCellType == ((Checkpoint) target.Value).ParentCellType)
+                {
+                    this.AddSingleDestination(point, CalculateTimeBetweenPoints(point));
+                }
+
 
                 point.ShortestPath.Clear();
                 point.DistanceFromSource = int.MaxValue;
@@ -220,9 +256,83 @@ namespace Air_Traffic_Simulation
                    Name == airplane.Name &&
                    FlightNumber == airplane.FlightNumber;
         }
+
         public void RevertPath()
         {
             ShortestPath.Reverse();
+        }
+
+        /// <summary>
+        /// Calculates the shortest path between the airplane and the point through which it has to leave the airspace.
+        /// </summary>
+        /// <param name="points">All the checkpoints in the airspace. No airstrips, no airplanes.</param>
+        /// <param name="exitCheckpoint">The checkpoint through which the plane has to leave the airspace.</param>
+        public void FindShortestPathLeavingAirspace(List<Checkpoint> points)
+        {
+            this.ReachableNodes.Clear();
+            this.ShortestPath.Clear();
+
+            foreach (Checkpoint point in points)
+            {
+                if (target == null && point.ParentCellType == CellType.FINAL)
+                {
+                    this.AddSingleDestination(point, CalculateTimeBetweenPoints(point));
+                }
+                else if (target != null && target.Equals(ShortestPath.Last)) //if this doesn't work: ((Checkpoint)target.Value).ParentCellType == Cell.BORDER
+                {
+                    ShortestPath.Clear();
+                    ShortestPath.AddFirst(target);
+                    return;
+                }
+                else if (target != null && point.ParentCellType == ((Checkpoint)target.Value).ParentCellType)
+                {
+                    this.AddSingleDestination(point, CalculateTimeBetweenPoints(point));
+                }
+
+                point.ShortestPath.Clear();
+                point.DistanceFromSource = int.MaxValue;
+            }
+
+            exitDestination.DistanceFromSource = int.MaxValue;
+            exitDestination.ShortestPath.Clear();
+
+            HashSet<AbstractCheckpoint> settledCheckpoints = new HashSet<AbstractCheckpoint>();
+            HashSet<AbstractCheckpoint> unsettledCheckpoints = new HashSet<AbstractCheckpoint> {this};
+
+
+            while (unsettledCheckpoints.Count != 0)
+            {
+                AbstractCheckpoint currentCheckpnt = this.GetLowestDistanceNode(unsettledCheckpoints);
+                unsettledCheckpoints.Remove(currentCheckpnt);
+                foreach (var pair in currentCheckpnt.ReachableNodes)
+                {
+                    AbstractCheckpoint reachableCheckpoint = pair.Key;
+                    double edgeWeight = pair.Value;
+
+                    if (!settledCheckpoints.Contains(reachableCheckpoint))
+                    {
+                        var shortestPath = CalculateMinDistance(reachableCheckpoint, edgeWeight, currentCheckpnt);
+                        if (shortestPath != null && reachableCheckpoint.GetType() == typeof(Checkpoint) &&
+                            ((Checkpoint) reachableCheckpoint).ParentCellType == CellType.BORDER)
+                        {
+                            shortestPath.AddLast(reachableCheckpoint);
+
+                            this.ShortestPath = new LinkedList<AbstractCheckpoint>();
+                            var pathNode = shortestPath.First;
+
+                            while (pathNode != null)
+                            {
+                                this.ShortestPath.AddLast(pathNode.Value);
+                                pathNode = pathNode.Next;
+                            }
+                        }
+
+                        unsettledCheckpoints.Add(reachableCheckpoint);
+                    }
+                }
+
+                settledCheckpoints.Add(currentCheckpnt);
+            }
         }
     }
 }

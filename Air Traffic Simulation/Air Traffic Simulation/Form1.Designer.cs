@@ -86,7 +86,9 @@
             this.label8 = new System.Windows.Forms.Label();
             this.Header = new System.Windows.Forms.Panel();
             this.panel10 = new System.Windows.Forms.Panel();
+            this.btMinimize = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
+            this.btClose = new System.Windows.Forms.Label();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -96,8 +98,6 @@
             this.toggleWeatherBtn = new System.Windows.Forms.Button();
             this.calcRouteBtn = new System.Windows.Forms.Button();
             this.timerSimRunning = new System.Windows.Forms.Timer(this.components);
-            this.btClose = new System.Windows.Forms.Label();
-            this.btMinimize = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panelAllFlights.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
@@ -436,6 +436,7 @@
             // 
             // btTakeOff
             // 
+            this.btTakeOff.Enabled = false;
             this.btTakeOff.Location = new System.Drawing.Point(53, 592);
             this.btTakeOff.Name = "btTakeOff";
             this.btTakeOff.Size = new System.Drawing.Size(94, 34);
@@ -785,6 +786,16 @@
             this.panel10.Size = new System.Drawing.Size(35, 43);
             this.panel10.TabIndex = 4;
             // 
+            // btMinimize
+            // 
+            this.btMinimize.AutoSize = true;
+            this.btMinimize.Location = new System.Drawing.Point(9, 10);
+            this.btMinimize.Name = "btMinimize";
+            this.btMinimize.Size = new System.Drawing.Size(20, 23);
+            this.btMinimize.TabIndex = 5;
+            this.btMinimize.Text = "_";
+            this.btMinimize.Click += new System.EventHandler(this.btMinimize_Click);
+            // 
             // panel9
             // 
             this.panel9.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -794,6 +805,16 @@
             this.panel9.Size = new System.Drawing.Size(35, 43);
             this.panel9.TabIndex = 4;
             this.panel9.Click += new System.EventHandler(this.panel9_Click);
+            // 
+            // btClose
+            // 
+            this.btClose.AutoSize = true;
+            this.btClose.Location = new System.Drawing.Point(7, 10);
+            this.btClose.Name = "btClose";
+            this.btClose.Size = new System.Drawing.Size(22, 23);
+            this.btClose.TabIndex = 5;
+            this.btClose.Text = "X";
+            this.btClose.Click += new System.EventHandler(this.btClose_Click);
             // 
             // fileSystemWatcher1
             // 
@@ -813,7 +834,6 @@
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
@@ -877,26 +897,6 @@
             // 
             this.timerSimRunning.Interval = 1000;
             this.timerSimRunning.Tick += new System.EventHandler(this.timer2_Tick);
-            // 
-            // btClose
-            // 
-            this.btClose.AutoSize = true;
-            this.btClose.Location = new System.Drawing.Point(7, 10);
-            this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(22, 23);
-            this.btClose.TabIndex = 5;
-            this.btClose.Text = "X";
-            this.btClose.Click += new System.EventHandler(this.btClose_Click);
-            // 
-            // btMinimize
-            // 
-            this.btMinimize.AutoSize = true;
-            this.btMinimize.Location = new System.Drawing.Point(9, 10);
-            this.btMinimize.Name = "btMinimize";
-            this.btMinimize.Size = new System.Drawing.Size(20, 23);
-            this.btMinimize.TabIndex = 5;
-            this.btMinimize.Text = "_";
-            this.btMinimize.Click += new System.EventHandler(this.btMinimize_Click);
             // 
             // Form1
             // 

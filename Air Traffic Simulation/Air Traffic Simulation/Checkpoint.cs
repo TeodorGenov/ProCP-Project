@@ -7,10 +7,26 @@ using System.Windows.Forms;
 
 namespace Air_Traffic_Simulation
 {
+    /// <summary>
+    /// A Checkpoint is a point on our <see cref="Grid"/>, in the vicinity of which
+    /// an <see cref="Airplane"/> needs to fly in order to get from its initial location
+    /// to its final destination (either an <see cref="Airstrip"/>, or a point at the
+    /// border of the <see cref="Grid"/>).
+    /// 
+    /// These checkpoints are used both for purely showing the path the <see cref="Airplane"/>
+    /// will ahve to follow and for assigning the speed and altitude at which this should be done.
+    /// </summary>
     [Serializable]
     public class Checkpoint : AbstractCheckpoint
     {
+        /// <summary>
+        /// The name of the <see cref="T:Air_Traffic_Simulation.Checkpoint" />.
+        /// </summary>
         public override string Name { get; }
+
+        /// <summary>
+        /// The horizontal coordinates of the <see cref="Checkpoint"/>. (Upper left corner)
+        /// </summary>
         public override double CoordinateX { get; set; }
         public override double CoordinateY { get; set; }
         public override LinkedList<AbstractCheckpoint> ShortestPath { get; set; }
@@ -28,7 +44,7 @@ namespace Air_Traffic_Simulation
 
         public event EventHandler OnWeatherPassing;
 
-        public Checkpoint(string name, double coordinateX, double coordinateY, Cell c, List<Checkpoint> allCheckpoints, Airstrip strip)
+        public Checkpoint(string name, double coordinateX, double coordinateY, Cell c, List<Checkpoint> allCheckpoints, Airstrip strip, List<Checkpoint> exitCheckpoints)
         {
             this.Name = name;
             this.CoordinateX = coordinateX;
@@ -43,11 +59,16 @@ namespace Air_Traffic_Simulation
             switch (c.Type)
             {
                 case CellType.BORDER:
+                    MinSpeed = 500;
+                    MaxSpeed = 800;
+                    MaxAltitude = 7500;
+                    MinAltitude = 6500;
+                    break;
                 case CellType.UNASSIGNED:
                     MinSpeed = 330;
                     MaxSpeed = Int32.MaxValue;
                     MaxAltitude = 8000;
-                    MinAltitude = 5800;
+                    MinAltitude = 6100;
                     break;
                 case CellType.UPPER:
                     MinSpeed = 310;
@@ -77,10 +98,10 @@ namespace Air_Traffic_Simulation
                     break;
             }
 
-            AddReachables(allCheckpoints, strip);
+            AddReachables(allCheckpoints, strip, exitCheckpoints);
         }
 
-        public void AddReachables(List<Checkpoint> allCheckpoints, Airstrip strip)
+        public void AddReachables(List<Checkpoint> allCheckpoints, Airstrip strip, List<Checkpoint> exitCheckpoints)
         {
             switch (ParentCellType)
             {
@@ -99,7 +120,7 @@ namespace Air_Traffic_Simulation
 
                     break;
                 case CellType.UPPER:
-                    foreach (Checkpoint point in allCheckpoints)
+                    foreach (Checkpoint point in allCheckpoints.Concat(exitCheckpoints))
                     {
                         if (point.ParentCellType == CellType.BORDER ||
                             point.ParentCellType == CellType.UNASSIGNED ||
