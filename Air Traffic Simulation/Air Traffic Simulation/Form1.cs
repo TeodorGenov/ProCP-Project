@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
@@ -87,8 +89,8 @@ namespace Air_Traffic_Simulation
 
 
         private Airstrip landingStrip;
-        List<Checkpoint> checkpoints;
-        List<Airplane> airplaneList;
+        ObservableCollection<Checkpoint> checkpoints;
+        ObservableCollection<Airplane> airplaneList;
 
         /// <summary>
         /// A collection of checkpoints, which represent the places on the grid, for which an airplane can be aiming
@@ -97,6 +99,10 @@ namespace Air_Traffic_Simulation
         private List<Checkpoint> takeOffDirectionCheckpoints;
 
         private List<Airplane> landedAirplanes;
+
+        /// <summary>
+        /// A collection of the airplanes, which have successfully taken off and left the airspace
+        /// </summary>
         private List<Airplane> successfulylExitedAirspace;
 
 
@@ -105,10 +111,10 @@ namespace Air_Traffic_Simulation
             dir = @"..\..\Saved";
             serializationFile = Path.Combine(dir, "Checkpoints.bin");
 
-            
 
-            checkpoints = new List<Checkpoint>();
-            airplaneList = new List<Airplane>();
+            checkpoints = new ObservableCollection<Checkpoint>();
+            checkpoints.CollectionChanged += numberOfCheckpointsHasChanged;
+            airplaneList = new ObservableCollection<Airplane>();
             crashedAirplanes = new List<Airplane>();
             landedAirplanes = new List<Airplane>();
             takeOffDirectionCheckpoints = new List<Checkpoint>();
@@ -116,6 +122,122 @@ namespace Air_Traffic_Simulation
             InitializeComponent();
             nSpeed.Enabled = false;
             weatherRect = new Rectangle(x, y, 60, 60);
+        }
+
+
+        /// <summary>
+        /// This method gets called when the number of <see cref="Airplanes"/>s changes. (It is made to work properly
+        /// with just 1 change at a time, keep it in mind!) It recalculates the paths for all of the 
+        /// <see cref="Airplane"/>s in the air./>.
+        /// </summary>
+        /// <param name="sender">The <see cref="Airplane"/> that caused the event? It is what caused the event, but
+        /// it is not exactly a <see cref="Airplane"/>, could not figure it out, honestly. - Vladimir</param>
+        /// <param name="e">The arguments of the event. This carries useful goodies such as the list of added/removed <see cref="Airplane"/>s</param>
+        private void numberOfAirplanesHasChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            foreach (Airplane plane in airplaneList)
+            {
+                if (plane.IsLanding)
+                {
+                    plane.CalculateShortestPathToAirstrip(this.checkpoints.ToList(), this.landingStrip);
+                }
+                else
+                {
+                    plane.FindShortestPathLeavingAirspace(checkpoints.ToList());
+                }
+            }
+
+            this.Invalidate();
+        }
+
+        /// <summary>
+        /// This method gets called when the number of <see cref="Checkpoint"/>s changes. (It is made to work properly
+        /// with just 1 change at a time, keep it in mind!) It adds/removes the <see cref="Checkpoint"/> to/from all the other 
+        /// <see cref="AbstractCheckpoint.ReachableNodes"/> on the <see cref="Grid"/>. Also recalculates the paths for all of
+        /// the <see cref="Airplane"/>s in the air.
+        /// </summary>
+        /// <param name="sender">The <see cref="Checkpoint"/> that caused the event? It is what caused the event, but
+        /// it is not exactly a <see cref="Checkpoint"/>, could not figure it out, honestly. - Vladimir</param>
+        /// <param name="e">The arguments of the event. This carries useful goodies such as the list of added/removed <see cref="Checkpoint"/>s</param>
+        private void numberOfCheckpointsHasChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == NotifyCollectionChangedAction.Remove)
+            {
+                Checkpoint removedCp = (Checkpoint) e.OldItems[0];
+
+                foreach (var cp in checkpoints)
+                {
+                    cp.ReachableNodes.Remove(removedCp);
+                }
+
+                landingStrip.ReachableNodes.Remove(removedCp);
+            }
+            else if (e.Action == NotifyCollectionChangedAction.Add)
+            {
+                //when a new checkpoint is added - add it to the reachable point of all other points
+                Checkpoint addedCp = (Checkpoint) e.NewItems[0];
+
+                foreach (var cp in checkpoints)
+                {
+                    cp.AddSingleReachableIfItIsTheCorrectType(addedCp);
+                }
+            }
+
+            /*
+            #region MissingCheckpointsErrorDisplay
+
+            //generates the message box that informs the user that some areas are missing points
+            bool[] allZonesCheck = new bool[] { false, false, false, false };
+            string lacking =
+                $"   - UPPER{Environment.NewLine}   - MIDDLE{Environment.NewLine}   - LOWER{Environment.NewLine}   - FINAL";
+
+            foreach (Checkpoint point in checkpoints)
+            {
+                if (point.ParentCellType == CellType.UPPER)
+                {
+                    lacking = lacking.Replace($"   - UPPER{Environment.NewLine}", string.Empty);
+                    allZonesCheck[0] = true;
+                }
+                else if (point.ParentCellType == CellType.MIDDLE)
+                {
+                    lacking = lacking.Replace($"   - MIDDLE{Environment.NewLine}", string.Empty);
+                    allZonesCheck[1] = true;
+                }
+                else if (point.ParentCellType == CellType.LOWER)
+                {
+                    lacking = lacking.Replace($"   - LOWER{Environment.NewLine}", string.Empty);
+                    allZonesCheck[2] = true;
+                }
+                else if (point.ParentCellType == CellType.FINAL)
+                {
+                    lacking = lacking.Replace("   - FINAL", string.Empty);
+                    allZonesCheck[3] = true;
+                }
+            }
+
+            if (allZonesCheck.Contains(false))
+            {
+                MessageBox.Show(this,
+                    $"There seem to be no checkpoints in the following zones:{Environment.NewLine}{Environment.NewLine}{lacking}",
+                    "Missing Checkpoint", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+
+            #endregion
+            */
+
+            foreach (Airplane plane in airplaneList)
+            {
+                if (plane.IsLanding)
+                {
+                    plane.CalculateShortestPathToAirstrip(this.checkpoints.ToList(), this.landingStrip);
+                }
+                else
+                {
+                    plane.FindShortestPathLeavingAirspace(checkpoints.ToList());
+                }
+            }
+
+            this.Invalidate();
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -134,7 +256,7 @@ namespace Air_Traffic_Simulation
                 {"NORTH", "NORTH-EAST", "NORTH-WEST", "SOUTH", "SOUTH-EAST", "SOUTH-WEST", "EAST", "WEST"});
 
             Array values = Enum.GetValues(typeof(WindDirection));
-            WindDirection randomDirection = (WindDirection)values.GetValue(r.Next(values.Length));
+            WindDirection randomDirection = (WindDirection) values.GetValue(r.Next(values.Length));
             comboBoxWindDirection.SelectedItem = randomDirection.ToString();
             //WEATHER VALUES
             windSpeed = trackBarWindSpeed.Value;
@@ -143,7 +265,6 @@ namespace Air_Traffic_Simulation
             weatherRect.X = r.Next(grid.ColumnsOfCells * Cell.Width - Cell.Width);
             weatherRect.Y = r.Next(grid.RowsOfCells * Cell.Width - Cell.Width);
 
-            
 
             weather = new WeatherConditions(windSpeed, windDirection, temp, precIntencity);
             //LabelChange();
@@ -218,7 +339,8 @@ namespace Air_Traffic_Simulation
                 {
                     string name = "outer checkpoint" + takeOffDirectionsCounter++;
 
-                    Checkpoint a = new Checkpoint(name, c.GetCenter().X, c.GetCenter().Y, c, checkpoints, landingStrip,
+                    Checkpoint a = new Checkpoint(name, c.GetCenter().X, c.GetCenter().Y, c, checkpoints.ToList(),
+                        landingStrip,
                         takeOffDirectionCheckpoints);
                     takeOffDirectionCheckpoints.Add(a);
                 }
@@ -562,11 +684,11 @@ namespace Air_Traffic_Simulation
             {
                 if (plane.IsLanding)
                 {
-                    plane.CalculateShortestPathToAirstrip(this.checkpoints, this.landingStrip);
+                    plane.CalculateShortestPathToAirstrip(this.checkpoints.ToList(), this.landingStrip);
                 }
                 else
                 {
-                    plane.FindShortestPathLeavingAirspace(checkpoints);
+                    plane.FindShortestPathLeavingAirspace(checkpoints.ToList());
                 }
             }
 
@@ -625,7 +747,7 @@ namespace Air_Traffic_Simulation
                                 cpName++;
                                 string name = "cp" + cpName;
 
-                                Checkpoint a = new Checkpoint(name, p.X, p.Y, c, checkpoints, landingStrip,
+                                Checkpoint a = new Checkpoint(name, p.X, p.Y, c, checkpoints.ToList(), landingStrip,
                                     takeOffDirectionCheckpoints);
                                 a.OnWeatherPassing += weatherOnCheckpoint;
                                 checkpoints.Add(a);
@@ -761,7 +883,7 @@ namespace Air_Traffic_Simulation
                             selectedAirplane.IsLanding = false;
                             airplaneList.Add(selectedAirplane);
                             landedAirplanes.Remove(selectedAirplane);
-                            selectedAirplane.FindShortestPathLeavingAirspace(checkpoints);
+                            selectedAirplane.FindShortestPathLeavingAirspace(checkpoints.ToList());
                             selectedAirplane.OnAirspaceExit += airplaneHasReachedTheEndOfTheAirspace;
                             ClearListboxes();
                             UpdateListboxes();
@@ -1047,6 +1169,7 @@ namespace Air_Traffic_Simulation
                     windDirection = WindDirection.WEST;
                     break;
             }
+
             LabelChange();
         }
 
@@ -1274,7 +1397,7 @@ namespace Air_Traffic_Simulation
             if (weatherActive)
             {
                 Point weatherPoint = new Point(weatherRect.X, weatherRect.Y);
-                PaintWeather(weatherPoint, e); 
+                PaintWeather(weatherPoint, e);
             }
         }
 
@@ -1339,7 +1462,6 @@ namespace Air_Traffic_Simulation
 
         public void PaintWeather(Point p, PaintEventArgs e)
         {
-            
             int x = p.X - 3;
             int y = p.Y - 3;
 

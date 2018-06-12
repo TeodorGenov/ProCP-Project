@@ -16,6 +16,7 @@ namespace Air_Traffic_Simulation
     /// These checkpoints are used both for purely showing the path the <see cref="Airplane"/>
     /// will ahve to follow and for assigning the speed and altitude at which this should be done.
     /// </summary>
+    /// <inheritdoc cref="AbstractCheckpoint"/>
     [Serializable]
     public class Checkpoint : AbstractCheckpoint
     {
@@ -28,6 +29,7 @@ namespace Air_Traffic_Simulation
         /// The horizontal coordinates of the <see cref="Checkpoint"/>. (Upper left corner)
         /// </summary>
         public override double CoordinateX { get; set; }
+
         public override double CoordinateY { get; set; }
         public override LinkedList<AbstractCheckpoint> ShortestPath { get; set; }
         public override double DistanceFromSource { get; set; }
@@ -42,9 +44,14 @@ namespace Air_Traffic_Simulation
         /// </summary>
         public CellType ParentCellType { get; }
 
+        /// <summary>
+        /// This is the event that needs to be raised in case the bad weather cloud
+        /// moves on top of the current checkpoint.
+        /// </summary>
         public event EventHandler OnWeatherPassing;
 
-        public Checkpoint(string name, double coordinateX, double coordinateY, Cell c, List<Checkpoint> allCheckpoints, Airstrip strip, List<Checkpoint> exitCheckpoints)
+        public Checkpoint(string name, double coordinateX, double coordinateY, Cell c, List<Checkpoint> allCheckpoints,
+            Airstrip strip, List<Checkpoint> exitCheckpoints)
         {
             this.Name = name;
             this.CoordinateX = coordinateX;
@@ -101,6 +108,15 @@ namespace Air_Traffic_Simulation
             AddReachables(allCheckpoints, strip, exitCheckpoints);
         }
 
+        /// <summary>
+        /// Adds all the checkpoints existing in the <see cref="Grid"/> to the current checkpoint's reachables.
+        /// Also adds the current checkpoint to those others' reachables. The addition goes through only if their
+        /// <see cref="ParentCellType"/>s allow it. Does the same with the landing strip.
+        /// </summary>
+        /// <param name="allCheckpoints">The list of all other checkpoints already on the <see cref="Grid"/>.</param>
+        /// <param name="strip">The <see cref="Airstrip"/> on which the <see cref="Airplane"/> will be landing.</param>
+        /// <param name="exitCheckpoints">The list of checkpoints, for which an <see cref="Airplane"/> can be aiming in order
+        /// to exit the airspace.</param>
         public void AddReachables(List<Checkpoint> allCheckpoints, Airstrip strip, List<Checkpoint> exitCheckpoints)
         {
             switch (ParentCellType)
@@ -181,6 +197,77 @@ namespace Air_Traffic_Simulation
                         MessageBox.Show(
                             $"A strip needs to be added before{Environment.NewLine}adding a checkpoint in the final zone.",
                             "No strip found.", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Adds a Checkpoint to the current Checkpoint's reachables (and vice versa), but only
+        /// if their <see cref="ParentCellType"/>s allow it.
+        /// </summary>
+        /// <param name="point">The Checkpoint that is to be added to the current Checkpoint's reachables.</param>
+        public void AddSingleReachableIfItIsTheCorrectType(Checkpoint point)
+        {
+            if (point.ParentCellType == this.ParentCellType)
+            {
+                this.AddSingleDestination(point, CalculateDistanceBetweenPoints(point));
+                point.AddSingleDestination(this, CalculateDistanceBetweenPoints(this));
+            }
+
+            switch (ParentCellType)
+            {
+                case CellType.BORDER:
+                case CellType.UNASSIGNED:
+                    if (point.ParentCellType == CellType.BORDER ||
+                        point.ParentCellType == CellType.UNASSIGNED ||
+                        point.ParentCellType == CellType.UPPER)
+                    {
+                        this.AddSingleDestination(point, CalculateDistanceBetweenPoints(point));
+                        point.AddSingleDestination(this, CalculateDistanceBetweenPoints(this));
+                    }
+
+                    break;
+                case CellType.UPPER:
+                    if (point.ParentCellType == CellType.BORDER ||
+                        point.ParentCellType == CellType.UNASSIGNED ||
+                        point.ParentCellType == CellType.UPPER ||
+                        point.ParentCellType == CellType.MIDDLE)
+                    {
+                        this.AddSingleDestination(point, CalculateDistanceBetweenPoints(point));
+                        point.AddSingleDestination(this, CalculateDistanceBetweenPoints(this));
+                    }
+
+                    break;
+                case CellType.MIDDLE:
+                    if (point.ParentCellType == CellType.UPPER ||
+                        point.ParentCellType == CellType.MIDDLE ||
+                        point.ParentCellType == CellType.LOWER)
+                    {
+                        this.AddSingleDestination(point, CalculateDistanceBetweenPoints(point));
+                        point.AddSingleDestination(this, CalculateDistanceBetweenPoints(this));
+                    }
+
+                    break;
+                case CellType.LOWER:
+                    if (point.ParentCellType == CellType.MIDDLE ||
+                        point.ParentCellType == CellType.LOWER ||
+                        point.ParentCellType == CellType.FINAL)
+                    {
+                        this.AddSingleDestination(point, CalculateDistanceBetweenPoints(point));
+                        point.AddSingleDestination(this, CalculateDistanceBetweenPoints(this));
+                    }
+
+                    break;
+                case CellType.FINAL:
+                    if (point.ParentCellType == CellType.LOWER ||
+                        point.ParentCellType == CellType.FINAL)
+                    {
+                        this.AddSingleDestination(point, CalculateDistanceBetweenPoints(point));
+                        point.AddSingleDestination(this, CalculateDistanceBetweenPoints(this));
                     }
 
                     break;
