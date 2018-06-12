@@ -115,6 +115,7 @@ namespace Air_Traffic_Simulation
             checkpoints = new ObservableCollection<Checkpoint>();
             checkpoints.CollectionChanged += numberOfCheckpointsHasChanged;
             airplaneList = new ObservableCollection<Airplane>();
+            airplaneList.CollectionChanged += numberOfAirplanesHasChanged;
             crashedAirplanes = new List<Airplane>();
             landedAirplanes = new List<Airplane>();
             takeOffDirectionCheckpoints = new List<Checkpoint>();
@@ -640,61 +641,7 @@ namespace Air_Traffic_Simulation
         /// <param name="e"></param>
         private void calcRouteBtn_Click(object sender, EventArgs e)
         {
-            #region MissingCheckpointsErrorDisplay
-
-            //generates the message box that informs the user that some areas are missing points
-            bool[] allZonesCheck = new bool[] {false, false, false, false};
-            string lacking =
-                $"   - UPPER{Environment.NewLine}   - MIDDLE{Environment.NewLine}   - LOWER{Environment.NewLine}   - FINAL";
-
-            foreach (Checkpoint point in checkpoints)
-            {
-                if (point.ParentCellType == CellType.UPPER)
-                {
-                    lacking = lacking.Replace($"   - UPPER{Environment.NewLine}", string.Empty);
-                    allZonesCheck[0] = true;
-                }
-                else if (point.ParentCellType == CellType.MIDDLE)
-                {
-                    lacking = lacking.Replace($"   - MIDDLE{Environment.NewLine}", string.Empty);
-                    allZonesCheck[1] = true;
-                }
-                else if (point.ParentCellType == CellType.LOWER)
-                {
-                    lacking = lacking.Replace($"   - LOWER{Environment.NewLine}", string.Empty);
-                    allZonesCheck[2] = true;
-                }
-                else if (point.ParentCellType == CellType.FINAL)
-                {
-                    lacking = lacking.Replace("   - FINAL", string.Empty);
-                    allZonesCheck[3] = true;
-                }
-            }
-
-            if (allZonesCheck.Contains(false))
-            {
-                MessageBox.Show(this,
-                    $"There seem to be no checkpoints in the following zones:{Environment.NewLine}{Environment.NewLine}{lacking}",
-                    "Missing Checkpoint", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-
-            #endregion
-
-            foreach (Airplane plane in airplaneList)
-            {
-                if (plane.IsLanding)
-                {
-                    plane.CalculateShortestPathToAirstrip(this.checkpoints.ToList(), this.landingStrip);
-                }
-                else
-                {
-                    plane.FindShortestPathLeavingAirspace(checkpoints.ToList());
-                }
-            }
-
-
-            this.Invalidate();
-            //pictureBox1.Invalidate();
+            MessageBox.Show(selectedAirplane.target.Value.ToString());
         }
 
         /// <summary>
