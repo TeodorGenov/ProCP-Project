@@ -53,8 +53,12 @@
     <Compile Include="AbstractCheckpointUnitTest.cs" />
     <Compile Include="AirplaneUnitTest.cs" />
     <Compile Include="CellUnitTest.cs" />
+    <Compile Include="CheckpointUnitTest.cs" />
+    <Compile Include="GridUnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AirstripUnitTest.cs" />
+    <Compile Include="SavingObjectsUnitTest.cs" />
+    <Compile Include="WeatherConditionsUnitTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

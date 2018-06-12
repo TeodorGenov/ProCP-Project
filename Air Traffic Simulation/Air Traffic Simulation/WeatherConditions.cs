@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Air_Traffic_Simulation
 {
-    class WeatherConditions
+    public class WeatherConditions
     {
         private double probability = 1;
 

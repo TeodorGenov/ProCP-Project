@@ -7,7 +7,7 @@ using System.Drawing;
 
 namespace Air_Traffic_Simulation
 {
-    class Grid
+    public class Grid
     {
         public List<Cell> listOfCells = new List<Cell>();
         private int xs = 0, ys = 0, id = 1;
