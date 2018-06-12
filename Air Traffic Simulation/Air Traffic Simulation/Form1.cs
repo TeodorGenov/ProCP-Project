@@ -105,6 +105,7 @@ namespace Air_Traffic_Simulation
             dir = @"..\..\Saved";
             serializationFile = Path.Combine(dir, "Checkpoints.bin");
 
+            
 
             checkpoints = new List<Checkpoint>();
             airplaneList = new List<Airplane>();
@@ -132,42 +133,20 @@ namespace Air_Traffic_Simulation
             comboBoxWindDirection.Items.AddRange(new object[]
                 {"NORTH", "NORTH-EAST", "NORTH-WEST", "SOUTH", "SOUTH-EAST", "SOUTH-WEST", "EAST", "WEST"});
 
-
+            Array values = Enum.GetValues(typeof(WindDirection));
+            WindDirection randomDirection = (WindDirection)values.GetValue(r.Next(values.Length));
+            comboBoxWindDirection.SelectedItem = randomDirection.ToString();
             //WEATHER VALUES
             windSpeed = trackBarWindSpeed.Value;
             temp = trackBarTemperature.Value;
             precIntencity = trackBarPrecipitation.Value;
+            weatherRect.X = r.Next(grid.ColumnsOfCells * Cell.Width - Cell.Width);
+            weatherRect.Y = r.Next(grid.RowsOfCells * Cell.Width - Cell.Width);
 
-            switch (wdComboBox)
-            {
-                case "NORTH":
-                    windDirection = WindDirection.NORTH;
-                    break;
-                case "NORTH-EAST":
-                    windDirection = WindDirection.NORTHEAST;
-                    break;
-                case "NORTH-WEST":
-                    windDirection = WindDirection.NORTHWEST;
-                    break;
-                case "SOUTH":
-                    windDirection = WindDirection.SOUTH;
-                    break;
-                case "SOUTH-EAST":
-                    windDirection = WindDirection.SOUTHEAST;
-                    break;
-                case "SOUTH-WEST":
-                    windDirection = WindDirection.SOUTHWEST;
-                    break;
-                case "EAST":
-                    windDirection = WindDirection.EAST;
-                    break;
-                case "WEST":
-                    windDirection = WindDirection.WEST;
-                    break;
-            }
+            
 
             weather = new WeatherConditions(windSpeed, windDirection, temp, precIntencity);
-            LabelChange();
+            //LabelChange();
 
 
             //RADAR
@@ -267,23 +246,6 @@ namespace Air_Traffic_Simulation
 
         private void weatherMovement()
         {
-            if (weatherRect.X < 0 || weatherRect.Y < 0)
-            {
-                weatherRect.X += r.Next(20);
-                weatherRect.Y += r.Next(20);
-            }
-            else if (weatherRect.X > 580 || weatherRect.Y > 580)
-            {
-                weatherRect.X -= r.Next(-20, 0);
-                weatherRect.Y -= r.Next(-20, 0);
-            }
-            else
-            {
-                weatherRect.X += r.Next(-20, 20);
-                weatherRect.Y += r.Next(-20, 20);
-            }
-
-
             //Graphics g = this.pictureBox1.CreateGraphics();
             //g.DrawEllipse(p, weatherBlock);
             //g.FillEllipse(weatherBrush, weatherBlock);
@@ -301,7 +263,42 @@ namespace Air_Traffic_Simulation
                             }
                             else
                             {
-                                //pictureBox1.Invalidate();
+                                if (windDirection == WindDirection.NORTH)
+                                {
+                                    weatherRect.Y += 10;
+                                }
+                                else if (windDirection == WindDirection.NORTHEAST)
+                                {
+                                    weatherRect.Y += 10;
+                                    weatherRect.X -= 10;
+                                }
+                                else if (windDirection == WindDirection.NORTHWEST)
+                                {
+                                    weatherRect.Y += 10;
+                                    weatherRect.X += 10;
+                                }
+                                else if (windDirection == WindDirection.SOUTH)
+                                {
+                                    weatherRect.Y -= 10;
+                                }
+                                else if (windDirection == WindDirection.SOUTHEAST)
+                                {
+                                    weatherRect.Y -= 10;
+                                    weatherRect.X -= 10;
+                                }
+                                else if (windDirection == WindDirection.SOUTHWEST)
+                                {
+                                    weatherRect.Y -= 10;
+                                    weatherRect.X += 10;
+                                }
+                                else if (windDirection == WindDirection.EAST)
+                                {
+                                    weatherRect.X -= 10;
+                                }
+                                else if (windDirection == WindDirection.WEST)
+                                {
+                                    weatherRect.X += 10;
+                                }
                             }
                         }
                     }
@@ -312,8 +309,8 @@ namespace Air_Traffic_Simulation
                 MessageBox.Show("Something went wrong with checkpoints list.");
             }
 
-            Point weatherPoint = new Point(weatherRect.X, weatherRect.Y);
-            PaintWeather(weatherPoint);
+            //Point weatherPoint = new Point(weatherRect.X, weatherRect.Y);
+            //PaintWeather(weatherPoint, e);
         }
 
         /// <summary>
@@ -888,7 +885,10 @@ namespace Air_Traffic_Simulation
             }
 
             if (weatherActive)
+            {
+                pictureBox1.Invalidate();
                 weatherMovement();
+            }
         }
 
         private void btnUploadData_Click(object sender, EventArgs e)
@@ -1020,7 +1020,33 @@ namespace Air_Traffic_Simulation
         //wind direction changed in combobox
         private void comboBoxWindDirection_SelectedIndexChanged(object sender, EventArgs e)
         {
-            wdComboBox = (String) comboBoxWindDirection.SelectedItem;
+            switch (comboBoxWindDirection.SelectedItem.ToString())
+            {
+                case "NORTH":
+                    windDirection = WindDirection.NORTH;
+                    break;
+                case "NORTH-EAST":
+                    windDirection = WindDirection.NORTHEAST;
+                    break;
+                case "NORTH-WEST":
+                    windDirection = WindDirection.NORTHWEST;
+                    break;
+                case "SOUTH":
+                    windDirection = WindDirection.SOUTH;
+                    break;
+                case "SOUTH-EAST":
+                    windDirection = WindDirection.SOUTHEAST;
+                    break;
+                case "SOUTH-WEST":
+                    windDirection = WindDirection.SOUTHWEST;
+                    break;
+                case "EAST":
+                    windDirection = WindDirection.EAST;
+                    break;
+                case "WEST":
+                    windDirection = WindDirection.WEST;
+                    break;
+            }
             LabelChange();
         }
 
@@ -1246,7 +1272,10 @@ namespace Air_Traffic_Simulation
             }
 
             if (weatherActive)
-                weatherMovement();
+            {
+                Point weatherPoint = new Point(weatherRect.X, weatherRect.Y);
+                PaintWeather(weatherPoint, e); 
+            }
         }
 
         private void btClose_Click(object sender, EventArgs e)
@@ -1308,8 +1337,9 @@ namespace Air_Traffic_Simulation
             e.Graphics.DrawImage(airplaneImage, airplaneRect);
         }
 
-        public void PaintWeather(Point p)
+        public void PaintWeather(Point p, PaintEventArgs e)
         {
+            
             int x = p.X - 3;
             int y = p.Y - 3;
 
@@ -1331,7 +1361,7 @@ namespace Air_Traffic_Simulation
                 weatherImage = Properties.Resources.clear;
             }
 
-            g.DrawImage(weatherImage, weatherRect);
+            e.Graphics.DrawImage(weatherImage, weatherRect);
         }
 
         public void PaintRectangleY(Point p)
@@ -1352,6 +1382,7 @@ namespace Air_Traffic_Simulation
             lbPrecipitationType.Text = weather.GetPrecipitationType().ToString();
             lbProbability.Text = weather.Probability.ToString();
             lbVisibility.Text = weather.GetVisibility().ToString();
+            //MessageBox.Show(windDirection.ToString());
         }
 
         /// <summary>
