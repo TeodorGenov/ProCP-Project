@@ -635,16 +635,6 @@ namespace Air_Traffic_Simulation
         }
 
         /// <summary>
-        /// Generates and draws the route between the example airplane and the airfield.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void calcRouteBtn_Click(object sender, EventArgs e)
-        {
-            MessageBox.Show(selectedAirplane.target.Value.ToString());
-        }
-
-        /// <summary>
         /// Creates a line between two points on the grid.
         /// </summary>
         /// <param name="a">The initial point.</param>

@@ -5,9 +5,12 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.VisualBasic.Logging;
 
 namespace Air_Traffic_Simulation
 {
+    ///A representation of the airplanes moving through the airspace.
+    /// <inheritdoc />
     [Serializable]
     public class Airplane : AbstractCheckpoint
     {
@@ -18,15 +21,24 @@ namespace Air_Traffic_Simulation
         public override double CoordinateX { get; set; }
         public override double CoordinateY { get; set; }
         public List<AbstractCheckpoint> Route { get; private set; }
+
+        /// <summary>
+        /// A unique identifier of the airplane, similar to the name.
+        /// </summary>
         public string FlightNumber { get; private set; }
+
         public override int MaxSpeed { get; }
         public override int MinSpeed { get; }
         public override int MaxAltitude { get; }
         public override int MinAltitude { get; }
-        private double speed;
         public int Area { get; set; }
         public Rectangle Rect { get; set; }
 
+        private double speed;
+
+        /// <summary>
+        /// The speed at which the airplane is currently moving.
+        /// </summary>
         public double Speed
         {
             get { return speed; }
@@ -37,14 +49,34 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        /// <summary>
+        /// The altitude at which the airplane is currently moving.
+        /// </summary>
         public int Altitude { get; private set; }
 
-        [field: NonSerialized] public event EventHandler OnAirportReached;
+        /// <summary>
+        /// The event that gets risen once the airplane lands.
+        /// </summary>
+        [field: NonSerialized]
+        public event EventHandler OnAirportReached;
 
+        /// <summary>
+        /// The event that gets risen once the airplane exits the airspace through
+        /// its target location.
+        /// </summary>
         public event EventHandler OnAirspaceExit;
 
+        /// <summary>
+        /// The delegate for the <see cref="OnCrash"/> event.
+        /// </summary>
+        /// <param name="p1"></param>
+        /// <param name="p2"></param>
         public delegate void CrashHandler(Object p1, Object p2);
 
+        /// <summary>
+        /// The event that gets risen in case two airplanes turn up to be
+        /// in the same spot at the same altitude.
+        /// </summary>
         public event CrashHandler OnCrash;
 
         /// <summary>
@@ -85,9 +117,25 @@ namespace Air_Traffic_Simulation
             this.ktsPerSecond = speed / 360;
         }
 
-        private bool first = true;
+        /// <summary>
+        /// A variable showing if the direction of movement of the aircraft has changed.
+        /// In other words, if the airplane has to aim for a different <see cref="Checkpoint"/>/<see cref="Airstrip"/> now.
+        /// </summary>
+        private bool movingDirectionHasChanged = true;
+
+        /// <summary>
+        /// The horizontal dislocation an airplane needs to make (repetetively) to get to its target destiantion.
+        /// </summary>
         private double leapx = 0;
+
+        /// <summary>
+        /// The horizontal dislocation an airplane needs to make (repetetively) to get to its target destiantion.
+        /// </summary>
         private double leapy = 0;
+
+        /// <summary>
+        /// The <see cref="Checkpoint"/> or <see cref="Airstrip"/>, towards which the airplane is currently moving.
+        /// </summary>
         [NonSerialized] public LinkedListNode<AbstractCheckpoint> target;
 
         /// <summary>
@@ -131,7 +179,7 @@ namespace Air_Traffic_Simulation
                 return;
             }
 
-            if (first)
+            if (movingDirectionHasChanged)
             {
                 double a = (target.Value.CoordinateY - CoordinateY) / Grid.PixelsPerMileVertically;
                 double b = (target.Value.CoordinateX - CoordinateX) / Grid.PixelsPerMileHorizontally;
@@ -143,7 +191,7 @@ namespace Air_Traffic_Simulation
                             .PixelsPerMileHorizontally; //the x speed of the airplane in miles times pixels per mile 
                 leapy = (a / t) * Grid.PixelsPerMileVertically; //the y speed of the airplane in miles
 
-                first = false;
+                movingDirectionHasChanged = false;
             }
 
             //if the airplane goes through a checkpoint
@@ -163,7 +211,7 @@ namespace Air_Traffic_Simulation
 
                 ShortestPath.Remove(toRemove.Value);
 
-                first = true;
+                movingDirectionHasChanged = true;
             }
 
             CoordinateX += leapx;
@@ -190,7 +238,7 @@ namespace Air_Traffic_Simulation
                 {
                     this.AddSingleDestination(point, CalculateTimeBetweenPoints(point));
                 }
-                else if (target != null && target.GetType() == typeof(Airstrip))
+                else if (target != null && target.Value.GetType() == typeof(Airstrip))
                 {
                     ShortestPath.Clear();
                     ShortestPath.AddFirst(target);
@@ -247,9 +295,11 @@ namespace Air_Traffic_Simulation
                 settledCheckpoints.Add(currentCheckpnt);
             }
 
-            target = ShortestPath.First;
-            target = target.Next;
-            first = true;
+            if(this.ShortestPath.Count != 0) { 
+                movingDirectionHasChanged = true;
+                target = ShortestPath.First;
+                target = target.Next;
+            }
         }
 
 
@@ -350,9 +400,20 @@ namespace Air_Traffic_Simulation
                 settledCheckpoints.Add(currentCheckpnt);
             }
 
-            target = ShortestPath.First;
-            target = target.Next;
-            first = true;
+            if (this.ShortestPath.Count != 0)
+            {
+                movingDirectionHasChanged = true;
+                target = ShortestPath.First;
+                target = target.Next;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 1980789528;
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(FlightNumber);
+            return hashCode;
         }
     }
 }

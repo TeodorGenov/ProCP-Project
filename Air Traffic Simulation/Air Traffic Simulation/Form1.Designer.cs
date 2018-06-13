@@ -96,7 +96,6 @@
             this.panelBeneathGrid = new System.Windows.Forms.Panel();
             this.planeInfoTextBox = new System.Windows.Forms.TextBox();
             this.toggleWeatherBtn = new System.Windows.Forms.Button();
-            this.calcRouteBtn = new System.Windows.Forms.Button();
             this.timerSimRunning = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.panelAllFlights.SuspendLayout();
@@ -852,7 +851,6 @@
             this.panelBeneathGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
             this.panelBeneathGrid.Controls.Add(this.planeInfoTextBox);
             this.panelBeneathGrid.Controls.Add(this.toggleWeatherBtn);
-            this.panelBeneathGrid.Controls.Add(this.calcRouteBtn);
             this.panelBeneathGrid.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelBeneathGrid.Location = new System.Drawing.Point(0, 607);
             this.panelBeneathGrid.Name = "panelBeneathGrid";
@@ -880,18 +878,6 @@
             this.toggleWeatherBtn.Text = "Disable weather";
             this.toggleWeatherBtn.UseVisualStyleBackColor = true;
             this.toggleWeatherBtn.Click += new System.EventHandler(this.toggleWeatherBtn_Click);
-            // 
-            // calcRouteBtn
-            // 
-            this.calcRouteBtn.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.calcRouteBtn.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
-            this.calcRouteBtn.Location = new System.Drawing.Point(662, 12);
-            this.calcRouteBtn.Name = "calcRouteBtn";
-            this.calcRouteBtn.Size = new System.Drawing.Size(187, 51);
-            this.calcRouteBtn.TabIndex = 3;
-            this.calcRouteBtn.Text = "Calculate Route";
-            this.calcRouteBtn.UseVisualStyleBackColor = true;
-            this.calcRouteBtn.Click += new System.EventHandler(this.calcRouteBtn_Click);
             // 
             // timerSimRunning
             // 
@@ -997,7 +983,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.NumericUpDown nSpeed;
         private System.Windows.Forms.Panel panelBeneathGrid;
-        private System.Windows.Forms.Button calcRouteBtn;
         private System.Windows.Forms.ListBox allFlightsListBox;
         private System.Windows.Forms.Timer timerSimRunning;
         private System.Windows.Forms.Button toggleWeatherBtn;
