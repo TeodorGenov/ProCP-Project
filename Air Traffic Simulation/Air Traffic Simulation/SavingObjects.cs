@@ -13,6 +13,7 @@ namespace Air_Traffic_Simulation
         List<Checkpoint> checkpoints;
         List<Airplane> groundplanes;
 
+
         public SavingObjects()
         {
             airplanes = null;

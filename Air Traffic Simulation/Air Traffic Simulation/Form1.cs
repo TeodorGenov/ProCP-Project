@@ -9,6 +9,7 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
+using Excel = Microsoft.Office.Interop.Excel;
 using System.Windows.Forms;
 
 namespace Air_Traffic_Simulation
@@ -452,15 +453,17 @@ namespace Air_Traffic_Simulation
         {
             if (btnAddCheckpoint.Text == "Add")
             {
+                btTakeOff.Enabled = false;
                 btnRemoveCheckpoint.Enabled = false;
                 btnAddAirplane.Enabled = false;
                 btnRemoveAirplane.Enabled = false;
-                trackBar1.Enabled = false;
+                btnRandom.Enabled = false;
                 AddingCheckpoints = 1;
                 btnAddCheckpoint.Text = "Stop";
             }
             else if (btnAddCheckpoint.Text == "Stop")
             {
+                btTakeOff.Enabled = true;
                 btnRemoveCheckpoint.Enabled = true;
                 if (RandomAirplane == 0)
                 {
@@ -468,7 +471,7 @@ namespace Air_Traffic_Simulation
                     btnRemoveAirplane.Enabled = true;
                 }
 
-                trackBar1.Enabled = true;
+                btnRandom.Enabled = true;
                 AddingCheckpoints = 0;
                 btnAddCheckpoint.Text = "Add";
             }
@@ -737,6 +740,20 @@ namespace Air_Traffic_Simulation
             {
                 setAirplaneTakeOffDirection(e);
                 settingTakeOffDirection = false;
+
+                btnRemoveAirplane.Enabled = true;
+                btnAddCheckpoint.Enabled = true;
+                btnRemoveCheckpoint.Enabled = true;
+                btnRandom.Enabled = true;
+                btnAddAirplane.Enabled = true;
+                btnUploadData.Enabled = true;
+                btnSaveData.Enabled = true;
+                button1.Enabled = true;
+                button3.Enabled = true;
+                toggleWeatherBtn.Enabled = true;
+                calcRouteBtn.Enabled = true;
+                btClear.Enabled = true;
+                btnPlaySimulation.Enabled = true;
             }
         }
 
@@ -757,15 +774,23 @@ namespace Air_Traffic_Simulation
                         if (Math.Abs(exitPoint.CoordinateX - c.GetCenter().X) < 2 &&
                             Math.Abs(exitPoint.CoordinateY - c.GetCenter().Y) < 2)
                         {
-                            this.selectedAirplane.exitDestination = exitPoint;
-                            selectedAirplane.IsLanding = false;
-                            airplaneList.Add(selectedAirplane);
-                            landedAirplanes.Remove(selectedAirplane);
-                            selectedAirplane.FindShortestPathLeavingAirspace(checkpoints);
-                            selectedAirplane.OnAirspaceExit += airplaneHasReachedTheEndOfTheAirspace;
-                            ClearListboxes();
-                            UpdateListboxes();
-                            break;
+                            try
+                            {
+                                this.selectedAirplane.exitDestination = exitPoint;
+                                selectedAirplane.IsLanding = false;
+                                airplaneList.Add(selectedAirplane);
+                                landedAirplanes.Remove(selectedAirplane);
+                                selectedAirplane.FindShortestPathLeavingAirspace(checkpoints);
+                                selectedAirplane.OnAirspaceExit += airplaneHasReachedTheEndOfTheAirspace;
+                                ClearListboxes();
+                                UpdateListboxes();
+                                break;
+                            }
+                            catch (NullReferenceException)
+                            {
+                                MessageBox.Show("No airplane selected on the list");
+                            }
+                            
                         }
                     }
 
@@ -778,20 +803,22 @@ namespace Air_Traffic_Simulation
         {
             if (btnAddAirplane.Text == "Add")
             {
+                btTakeOff.Enabled = false;
                 btnRemoveAirplane.Enabled = false;
                 btnAddCheckpoint.Enabled = false;
                 btnRemoveCheckpoint.Enabled = false;
-                trackBar1.Enabled = false;
+                btnRandom.Enabled = false;
                 nSpeed.Enabled = true;
                 AddingAirplanes = 1;
                 btnAddAirplane.Text = "Stop";
             }
             else if (btnAddAirplane.Text == "Stop")
             {
+                btTakeOff.Enabled = true;
                 btnRemoveAirplane.Enabled = true;
                 btnAddCheckpoint.Enabled = true;
                 btnRemoveCheckpoint.Enabled = true;
-                trackBar1.Enabled = true;
+                btnRandom.Enabled = true;
                 nSpeed.Enabled = false;
                 AddingAirplanes = 0;
                 btnAddAirplane.Text = "Add";
@@ -802,47 +829,27 @@ namespace Air_Traffic_Simulation
         {
             if (btnRemoveAirplane.Text == "Remove")
             {
+                btTakeOff.Enabled = false;
                 btnAddAirplane.Enabled = false;
                 btnAddCheckpoint.Enabled = false;
                 btnRemoveCheckpoint.Enabled = false;
-                trackBar1.Enabled = false;
+                btnRandom.Enabled = false;
                 RemovingAirplanes = 1;
                 btnRemoveAirplane.Text = "Stop";
             }
             else if (btnRemoveAirplane.Text == "Stop")
             {
+                btTakeOff.Enabled = true;
                 btnAddAirplane.Enabled = true;
                 btnAddCheckpoint.Enabled = true;
                 btnRemoveCheckpoint.Enabled = true;
-                trackBar1.Enabled = true;
+                btnRandom.Enabled = true;
                 RemovingAirplanes = 0;
                 btnRemoveAirplane.Text = "Remove";
             }
         }
 
-        private void trackBar1_ValueChanged(object sender, EventArgs e)
-        {
-            if (trackBar1.Value == 1)
-            {
-                //airplaneList.Clear();
-                btnAddAirplane.Enabled = false;
-                btnRemoveAirplane.Enabled = false;
-                RandomAirplane = 1;
-                Random random = new Random();
-                int rnd = random.Next(1, 10);
-                for (int i = 0; i < rnd; i++)
-                {
-                    CreateRandomAirplane();
-                }
-            }
-
-            if (trackBar1.Value == 0)
-            {
-                btnAddAirplane.Enabled = true;
-                btnRemoveAirplane.Enabled = true;
-                RandomAirplane = 0;
-            }
-        }
+        
 
 
         private void trackBarWindSpeed_Scroll(object sender, EventArgs e)
@@ -981,15 +988,17 @@ namespace Air_Traffic_Simulation
         {
             if (btnRemoveCheckpoint.Text == "Remove")
             {
+                btTakeOff.Enabled = false;
                 btnAddCheckpoint.Enabled = false;
                 btnAddAirplane.Enabled = false;
                 btnRemoveAirplane.Enabled = false;
-                trackBar1.Enabled = false;
+                btnRandom.Enabled = false;
                 RemovingCheckpoints = 1;
                 btnRemoveCheckpoint.Text = "Stop";
             }
             else if (btnRemoveCheckpoint.Text == "Stop")
             {
+                btTakeOff.Enabled = true;
                 btnAddCheckpoint.Enabled = true;
                 if (RandomAirplane == 0)
                 {
@@ -997,7 +1006,7 @@ namespace Air_Traffic_Simulation
                     btnRemoveAirplane.Enabled = true;
                 }
 
-                trackBar1.Enabled = true;
+                btnRandom.Enabled = true;
                 RemovingCheckpoints = 0;
                 btnRemoveCheckpoint.Text = "Remove";
             }
@@ -1152,6 +1161,105 @@ namespace Air_Traffic_Simulation
             }
             else if (timerSimRunning.Enabled == false)
             {
+                Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+                if (xlApp == null)
+                {
+                    MessageBox.Show("Excel is not installed in your system, and therefore we can't generate a report file for you");
+                    Refresh();
+                    ClearListboxes();
+                    ClearLists();
+                    MessageBox.Show("Simulation cleared!");
+                }
+                else
+                {
+                    double landed = 0;
+                    double crashed = 0;
+                    double totalperc = 0;
+                    double landedperc = 0;
+                    double crashedperc = 0;
+                    if (landedAirplanes != null)
+                    {
+                        landed = landedAirplanes.Count;
+                    }
+                    if (crashedAirplanes != null)
+                    {
+                        crashed = crashedAirplanes.Count;
+                    }
+
+                    double total = landed + crashed;
+                    if (total != 0)
+                    {
+                        totalperc = total / total * 100;
+                        totalperc = System.Math.Round(totalperc, 2);
+                        landedperc = landed / total * 100;
+                        landedperc = System.Math.Round(landedperc, 2);
+                        crashedperc = crashed / total * 100;
+                        crashedperc = System.Math.Round(crashedperc, 2);
+                    }
+
+
+
+                    //ToDo: add a method that saves and overview to a file!
+                    Excel.Workbook xlWorkBook;
+                    Excel.Worksheet xlWorkSheet;
+                    object misValue = System.Reflection.Missing.Value;
+
+                    xlWorkBook = xlApp.Workbooks.Add(misValue);
+                    xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+
+                    xlWorkSheet.Cells[1, 2] = "Simulation Results";
+                    xlWorkSheet.Cells[2, 7] = "Number";
+                    xlWorkSheet.Cells[2, 9] = "Percent";
+                    xlWorkSheet.Cells[3, 2] = "Total Airplanes:";
+                    xlWorkSheet.Cells[3, 7] = total;
+                    xlWorkSheet.Cells[3, 9] = totalperc + "%";
+                    xlWorkSheet.Cells[4, 2] = "Successfully landed Airplanes:";
+                    xlWorkSheet.Cells[4, 7] = landed;
+                    xlWorkSheet.Cells[4, 9] = landedperc + "%";
+                    xlWorkSheet.Cells[5, 2] = "Crashed Airplanes:";
+                    xlWorkSheet.Cells[5, 7] = crashed;
+                    xlWorkSheet.Cells[5, 9] = crashedperc + "%";
+                    xlWorkSheet.Cells[7, 2] = "Simulation Analysis:";
+                    if (crashedperc >= 50)
+                    {
+                        xlWorkSheet.Cells[7, 7] = "Very bad, more than half of the planes were destroyed.";
+                        xlWorkSheet.Cells[8, 7] = "Please try to lower the amount of airplanes moving in the airspace at the time.";
+                    }
+                    else if (crashedperc >= 20 && crashedperc < 50)
+                    {
+                        xlWorkSheet.Cells[7, 7] = "It is bad, most of the airplanes managed to land, however some of them crashed.";
+                        xlWorkSheet.Cells[8, 7] = "Please try to add more checkpoints so the airplanes would have more options to choose";
+                        xlWorkSheet.Cells[9, 7] = "from where should they go.";
+                    }
+                    else if (crashedperc >= 1 && crashedperc < 20)
+                    {
+                        xlWorkSheet.Cells[7, 7] = "It's not bad, almost all airplanes managed to land without any circumstances.";
+                        xlWorkSheet.Cells[8, 7] = "To improve it further please adjust other airplanes speed so they wouldn't overlap on each other.";
+                    }
+                    else if (crashedperc == 0)
+                    {
+                        xlWorkSheet.Cells[7, 7] = "The simulation ran perfectly, no airplanes were crashed.";
+                        xlWorkSheet.Cells[8, 7] = "Every airplanes managed to land successfully because of the good job";
+                        xlWorkSheet.Cells[9, 7] = "that you did as an airspace manager!";
+                    }
+
+
+
+                    xlWorkBook.SaveAs("d:\\csharp-Excel.xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    xlWorkBook.Close(true, misValue, misValue);
+                    xlApp.Quit();
+
+                    xlWorkSheet = null;
+                    xlWorkBook = null;
+                    xlApp = null;
+
+                    Refresh();
+                    ClearListboxes();
+                    ClearLists();
+                    MessageBox.Show("Simulation cleared!");
+                }
+
+
                 pictureBox1.Invalidate();
                 ClearListboxes();
                 ClearLists();
@@ -1194,6 +1302,20 @@ namespace Air_Traffic_Simulation
             }
             else
             {
+                btnRemoveAirplane.Enabled = false;
+                btnAddCheckpoint.Enabled = false;
+                btnRemoveCheckpoint.Enabled = false;
+                btnRandom.Enabled = false;
+                btnAddAirplane.Enabled = false;
+                btnUploadData.Enabled = false;
+                btnSaveData.Enabled = false;
+                button1.Enabled = false;
+                button3.Enabled = false;
+                toggleWeatherBtn.Enabled = false;
+                calcRouteBtn.Enabled = false;
+                btClear.Enabled = false;
+                btnPlaySimulation.Enabled = false;
+
                 MessageBox.Show(
                     "Please select a cell from the outermost circle, through which you would like to see the airplane exit the airspace.",
                     "Take off set-up. Airplane: " + selectedAirplane, MessageBoxButtons.OK);
@@ -1297,6 +1419,17 @@ namespace Air_Traffic_Simulation
             float height = 2 * 3;
             Pen pen = new Pen(Color.Blue);
             e.Graphics.DrawEllipse(pen, x, y, width, height);
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            RandomAirplane = 1;
+            Random random = new Random();
+            int rnd = random.Next(1, 10);
+            for (int i = 0; i < rnd; i++)
+            {
+                CreateRandomAirplane();
+            }
         }
 
         public void PaintCircleB(Point p)
@@ -1464,7 +1597,7 @@ namespace Air_Traffic_Simulation
                 }
             } while (exists == true);
 
-
+            pictureBox1.Invalidate();
             apName++;
             fnName += 6 * 2 / 3;
             string name = "Airplane" + apName;
