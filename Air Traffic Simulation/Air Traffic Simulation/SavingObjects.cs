@@ -25,14 +25,25 @@ namespace Air_Traffic_Simulation
             checkpoints = cp;
         }
 
+        /// <summary>
+        /// Returns list of airplanes
+        /// </summary>
         public List<Airplane> getAirplanes
         {
             get { return airplanes; }
         }
+
+        /// <summary>
+        /// Returns list of checkpoints
+        /// </summary>
         public List<Checkpoint> getCheckpoints
         {
             get { return checkpoints; }
         }
+
+        /// <summary>
+        /// Return list of ground planes
+        /// </summary>
         public List<Airplane> getGroundplanes
         {
             get { return groundplanes; }

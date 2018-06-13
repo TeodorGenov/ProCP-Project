@@ -38,6 +38,10 @@ namespace Air_Traffic_Simulation
             this.PrecipitationIntensity = precipitationIntensity;
         }
 
+        /// <summary>
+        /// Returns visibility
+        /// </summary>
+        /// <returns></returns>
         public double GetVisibility()
         {
             if (PrecipitationType != PrecipitationType.CLEAR)
@@ -59,6 +63,10 @@ namespace Air_Traffic_Simulation
             return 100;
         }
 
+        /// <summary>
+        /// Returns precipitation type
+        /// </summary>
+        /// <returns></returns>
         public PrecipitationType GetPrecipitationType()
         {
             if (TemperatureC > 0 && PrecipitationIntensity > 20)
@@ -75,6 +83,10 @@ namespace Air_Traffic_Simulation
             }
             return PrecipitationType.CLEAR;
         }
+
+        /// <summary>
+        /// Sets probability based on temperature, precipitation and wind speed
+        /// </summary>
         public void SetProbability()
         {
             if (TemperatureC < 0)

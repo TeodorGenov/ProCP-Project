@@ -244,11 +244,11 @@ namespace Air_Traffic_Simulation
             gGrid.FillRectangle(pen, p.X, p.Y, Cell.Width, Cell.Width);
         }
 
+        /// <summary>
+        /// Moves the weather based on wind direction
+        /// </summary>
         private void weatherMovement()
         {
-            //Graphics g = this.pictureBox1.CreateGraphics();
-            //g.DrawEllipse(p, weatherBlock);
-            //g.FillEllipse(weatherBrush, weatherBlock);
             try
             {
                 foreach (Checkpoint c in this.checkpoints)
@@ -308,9 +308,6 @@ namespace Air_Traffic_Simulation
             {
                 MessageBox.Show("Something went wrong with checkpoints list.");
             }
-
-            //Point weatherPoint = new Point(weatherRect.X, weatherRect.Y);
-            //PaintWeather(weatherPoint, e);
         }
 
         /// <summary>
@@ -327,6 +324,11 @@ namespace Air_Traffic_Simulation
             allFlightsListBox.Items.Remove(sender);
         }
 
+        /// <summary>
+        /// Event handling method that triggers when the airplane has reached the end of airspace
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void airplaneHasReachedTheEndOfTheAirspace(Object sender, EventArgs e)
         {
             ((Airplane) sender).OnAirspaceExit -= airplaneHasReachedTheEndOfTheAirspace;
@@ -359,62 +361,9 @@ namespace Air_Traffic_Simulation
             Console.WriteLine(((Airplane) p1).Name + " has crashed!");
         }
 
-        //RADAR METHOD
+        
         private void t_Tick(object sender, EventArgs e)
         {
-            p = new Pen(Color.Green, 1f);
-            g = Graphics.FromImage(bmp);
-
-            //calculate x & y coordinates of hand
-            int tu = (u - lim) % 360;
-
-            if (u >= 0 && u <= 180)
-            {
-                //right half
-                //u in degree is converted into radian
-                x = cx + (int) (hand * Math.Sin(Math.PI * u / 180));
-                y = cy - (int) (hand * Math.Cos(Math.PI * u / 180));
-            }
-            else
-            {
-                x = cx - (int) (hand * -Math.Sin(Math.PI * u / 180));
-                y = cy - (int) (hand * Math.Cos(Math.PI * u / 180));
-            }
-
-            if (tu >= 0 && tu <= 180)
-            {
-                //right half
-                //u in degree is converted into radian
-                tx = cx + (int) (hand * Math.Sin(Math.PI * tu / 180));
-                ty = cy - (int) (hand * Math.Cos(Math.PI * tu / 180));
-            }
-            else
-            {
-                tx = cx - (int) (hand * -Math.Sin(Math.PI * tu / 180));
-                ty = cy - (int) (hand * Math.Cos(Math.PI * tu / 180));
-            }
-
-            //draw circle
-            g.DrawEllipse(p, 0, 0, width, height); //bigger circle
-            g.DrawEllipse(p, 80, 80, width - 160, height - 160); //smaller circle
-
-            //draw hand
-            g.DrawLine(new Pen(Color.Black, 1f), new Point(cx, cy), new Point(tx, ty));
-            g.DrawLine(p, new Point(cx, cy), new Point(x, y));
-
-            //load bitmap in picturebox
-            pictureBox1.Image = bmp;
-
-            //dispose
-            p.Dispose();
-            g.Dispose();
-
-            //update
-            u++;
-            if (u == 360)
-            {
-                u = 0;
-            }
         }
 
         private void Header_MouseDown(object sender, MouseEventArgs e)
@@ -438,16 +387,27 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        /// <summary>
+        /// Exits the application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button2_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
 
         private void button4_Click(object sender, EventArgs e)
         {
             WindowState = FormWindowState.Minimized;
         }
 
+        /// <summary>
+        /// Enables menu for adding checkpoints
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddCheckpoint_Click(object sender, EventArgs e)
         {
             if (btnAddCheckpoint.Text == "Add")
@@ -474,6 +434,11 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        /// <summary>
+        /// Sets new value for the temperature if trackBar value is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void trackBarTemperature_ValueChanged(object sender, EventArgs e)
         {
             temp = trackBarTemperature.Value;
@@ -774,6 +739,11 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        /// <summary>
+        /// Enables menu for adding airplanes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnAddAirplane_Click(object sender, EventArgs e)
         {
             if (btnAddAirplane.Text == "Add")
@@ -798,6 +768,11 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        /// <summary>
+        /// Enables to remove airplanes
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRemoveAirplane_Click(object sender, EventArgs e)
         {
             if (btnRemoveAirplane.Text == "Remove")
@@ -844,7 +819,11 @@ namespace Air_Traffic_Simulation
             }
         }
 
-
+        /// <summary>
+        /// Changes value for wind label when trackbar value is changed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void trackBarWindSpeed_Scroll(object sender, EventArgs e)
         {
             LabelChange();
@@ -891,6 +870,11 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        /// <summary>
+        /// Uploads data from a file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnUploadData_Click(object sender, EventArgs e)
         {
             //using (Stream stream = File.Open(serializationFile, FileMode.Open))
@@ -977,6 +961,11 @@ namespace Air_Traffic_Simulation
             //}
         }
 
+        /// <summary>
+        /// Enables to remove checkpoints
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnRemoveCheckpoint_Click(object sender, EventArgs e)
         {
             if (btnRemoveCheckpoint.Text == "Remove")
@@ -1003,7 +992,11 @@ namespace Air_Traffic_Simulation
             }
         }
 
-
+        /// <summary>
+        /// Enables or disables weather movement
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void toggleWeatherBtn_Click(object sender, EventArgs e)
         {
             if (weatherActive)
@@ -1018,7 +1011,11 @@ namespace Air_Traffic_Simulation
             weatherActive = !weatherActive;
         }
 
-        //wind direction changed in combobox
+        /// <summary>
+        /// Changes wind direction from combobox
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void comboBoxWindDirection_SelectedIndexChanged(object sender, EventArgs e)
         {
             switch (comboBoxWindDirection.SelectedItem.ToString())
@@ -1088,6 +1085,11 @@ namespace Air_Traffic_Simulation
         {
         }
 
+        /// <summary>
+        /// Changes speed of the simulation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void simSpeedComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             timerSimRunning.Interval = (int) (1000 / Convert.ToDouble(simSpeedComboBox.SelectedItem.ToString()));
@@ -1109,6 +1111,7 @@ namespace Air_Traffic_Simulation
                 $"{selectedAirplane} - flying{Environment.NewLine}Path: {planePath}{Environment.NewLine}Coordinates: ({selectedAirplane.CoordinateX}, {selectedAirplane.CoordinateY})   Speed: {selectedAirplane.Speed}";
         }
 
+
         private void landedAirplanesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             btTakeOff.Enabled = true;
@@ -1119,6 +1122,11 @@ namespace Air_Traffic_Simulation
                 $"{selectedAirplane} - landed{Environment.NewLine}";
         }
 
+        /// <summary>
+        /// Changes wind speed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void trackBarWindSpeed_ValueChanged(object sender, EventArgs e)
         {
             windSpeed = trackBarWindSpeed.Value;
@@ -1126,6 +1134,11 @@ namespace Air_Traffic_Simulation
             LabelChange();
         }
 
+        /// <summary>
+        /// Starts simlation
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnPlaySimulation_Click(object sender, EventArgs e)
         {
             if (timerSimRunning.Enabled)
@@ -1139,6 +1152,11 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        /// <summary>
+        /// Exits application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -1279,6 +1297,11 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        /// <summary>
+        /// Closes application
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btClose_Click(object sender, EventArgs e)
         {
             Application.Exit();
@@ -1320,6 +1343,11 @@ namespace Air_Traffic_Simulation
             g.DrawImage(explosionImage, airplaneRect);
         }
 
+        /// <summary>
+        /// Paints selected airplane
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="e"></param>
         public void PaintSelectedAirplane(Point p, PaintEventArgs e)
         {
             int x = p.X - 3;
@@ -1329,6 +1357,11 @@ namespace Air_Traffic_Simulation
             e.Graphics.DrawImage(airplaneImage, airplaneRect);
         }
 
+        /// <summary>
+        /// Paints airplane
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="e"></param>
         public void PaintAirplane(Point p, PaintEventArgs e)
         {
             int x = p.X - 3;
@@ -1338,6 +1371,11 @@ namespace Air_Traffic_Simulation
             e.Graphics.DrawImage(airplaneImage, airplaneRect);
         }
 
+        /// <summary>
+        /// Paints weather condition
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="e"></param>
         public void PaintWeather(Point p, PaintEventArgs e)
         {
             
@@ -1376,6 +1414,9 @@ namespace Air_Traffic_Simulation
             g.DrawRectangle(pen, x, y, width, height);
         }
 
+        /// <summary>
+        /// Changes label text
+        /// </summary>
         public void LabelChange()
         {
             weather = new WeatherConditions(windSpeed, windDirection, temp, precIntencity);
@@ -1484,6 +1525,10 @@ namespace Air_Traffic_Simulation
         }
 
         // PAINT GRID
+
+        /// <summary>
+        /// Paints grid with different zones
+        /// </summary>
         private void PaintGrid()
         {
             Rectangle rect;
