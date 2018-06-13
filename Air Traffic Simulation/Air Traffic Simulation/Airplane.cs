@@ -12,6 +12,7 @@ namespace Air_Traffic_Simulation
     public class Airplane : AbstractCheckpoint
     {
         public override string Name { get; }
+        [field: NonSerialized]
         public override LinkedList<AbstractCheckpoint> ShortestPath { get; set; }
         public override double DistanceFromSource { get; set; }
         public override Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }
@@ -37,12 +38,13 @@ namespace Air_Traffic_Simulation
             }
         }
 
-        [field: NonSerialized] public event EventHandler OnAirportReached;
-
+        [field: NonSerialized]
+        public event EventHandler OnAirportReached;
+        [field: NonSerialized]
         public event EventHandler OnAirspaceExit;
-
+        [field: NonSerialized]
         public delegate void CrashHandler(Object p1, Object p2);
-
+        [field: NonSerialized]
         public event CrashHandler OnCrash;
 
         /// <summary>

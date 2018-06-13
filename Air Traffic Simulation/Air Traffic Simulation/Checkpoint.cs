@@ -29,6 +29,7 @@ namespace Air_Traffic_Simulation
         /// </summary>
         public override double CoordinateX { get; set; }
         public override double CoordinateY { get; set; }
+        [field: NonSerialized]
         public override LinkedList<AbstractCheckpoint> ShortestPath { get; set; }
         public override double DistanceFromSource { get; set; }
         public override Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }
@@ -41,7 +42,7 @@ namespace Air_Traffic_Simulation
         /// The type of cell the checkpoint is situated in.
         /// </summary>
         public CellType ParentCellType { get; }
-
+        [field: NonSerialized]
         public event EventHandler OnWeatherPassing;
 
         public Checkpoint(string name, double coordinateX, double coordinateY, Cell c, List<Checkpoint> allCheckpoints, Airstrip strip, List<Checkpoint> exitCheckpoints)

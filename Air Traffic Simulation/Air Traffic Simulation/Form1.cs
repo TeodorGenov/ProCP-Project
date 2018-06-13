@@ -955,6 +955,7 @@ namespace Air_Traffic_Simulation
                         fnName += 6 * 2 / 3;
                         a.OnAirportReached += airplaneHasReachedTheAirport;
                         a.OnCrash += airplaneCrashed;
+                        allFlightsListBox.Items.Add(a);
                     }
 
                     pictureBox1.Invalidate();
