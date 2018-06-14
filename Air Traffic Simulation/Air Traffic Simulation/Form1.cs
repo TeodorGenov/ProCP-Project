@@ -908,6 +908,26 @@ namespace Air_Traffic_Simulation
 
         private void timer2_Tick(object sender, EventArgs e)
         {
+            if (airplaneList.Count == 0 && landedAirplanes.Count != 0)
+            {
+                btnPlaySimulation.Image = Air_Traffic_Simulation.Properties.Resources.playbutton;
+                timerSimRunning.Stop();
+                MessageBox.Show("There is no more airplanes flying in the airspace, please take-off all airplanes to finish simulation");
+                
+            }
+            if (airplaneList.Count == 0 && landedAirplanes.Count == 0 && crashedAirplanes.Count == 0)
+            {
+                btnPlaySimulation.Image = Air_Traffic_Simulation.Properties.Resources.playbutton;
+                timerSimRunning.Stop();
+                MessageBox.Show("There is no way to start the simulation with current known airplanes and checkpoints");
+            }
+            //if(airplaneList.Count == 0 && landedAirplanes.Count == 0)
+           // {
+           //     btnPlaySimulation.Image = Air_Traffic_Simulation.Properties.Resources.playbutton;
+          //      timerSimRunning.Stop();
+          //      
+         //   }
+            
             pictureBox1.Invalidate();
 
 
@@ -974,6 +994,8 @@ namespace Air_Traffic_Simulation
 
                 so = (SavingObjects) bformatter.Deserialize(filestream);
                 //       checkpoints = so.getCheckpoints;
+                airplaneList = so.getAirplanes;
+                landedAirplanes = so.getGroundplanes;
                 foreach (var checkpoint in so.getCheckpoints)
                 {
                     foreach (Cell c in grid.listOfCells)
@@ -987,8 +1009,7 @@ namespace Air_Traffic_Simulation
 
                 cpName = Convert.ToInt32(so.getCheckpoints[so.getCheckpoints.Count - 1].Name.Substring(2));
 
-                airplaneList = so.getAirplanes;
-                landedAirplanes = so.getGroundplanes;
+                
 
                 filestream.Close();
                 filestream = null;
@@ -1378,6 +1399,18 @@ namespace Air_Traffic_Simulation
             {
                 //TODO: log that the take off has been cancelled
                 settingTakeOffDirection = false;
+                btnRemoveAirplane.Enabled = true;
+                btnAddCheckpoint.Enabled = true;
+                btnRemoveCheckpoint.Enabled = true;
+                btnRandom.Enabled = true;
+                btnAddAirplane.Enabled = true;
+                btnUploadData.Enabled = true;
+                btnSaveData.Enabled = true;
+                button1.Enabled = true;
+                button3.Enabled = true;
+                toggleWeatherBtn.Enabled = true;
+                btClear.Enabled = true;
+                btnPlaySimulation.Enabled = true;
             }
             else
             {

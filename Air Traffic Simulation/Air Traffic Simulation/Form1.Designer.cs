@@ -31,8 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.lbAddedAirplanesList = new System.Windows.Forms.Label();
-            this.panelAllFlights = new System.Windows.Forms.Panel();
-            this.allFlightsListBox = new System.Windows.Forms.ListBox();
             this.lbPrecipitationType = new System.Windows.Forms.Label();
             this.lbVisibility = new System.Windows.Forms.Label();
             this.lbPrecipitationTypeGUI = new System.Windows.Forms.Label();
@@ -51,7 +49,6 @@
             this.lbWeatherConditions = new System.Windows.Forms.Label();
             this.trackBarTemperature = new System.Windows.Forms.TrackBar();
             this.rbTakeOff = new System.Windows.Forms.RadioButton();
-            this.btnPlaySimulation = new System.Windows.Forms.Button();
             this.rbLanding = new System.Windows.Forms.RadioButton();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
@@ -89,14 +86,16 @@
             this.btClose = new System.Windows.Forms.Label();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panelBeneathGrid = new System.Windows.Forms.Panel();
             this.planeInfoTextBox = new System.Windows.Forms.TextBox();
             this.toggleWeatherBtn = new System.Windows.Forms.Button();
             this.timerSimRunning = new System.Windows.Forms.Timer(this.components);
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.btnPlaySimulation = new System.Windows.Forms.Button();
+            this.allFlightsListBox = new System.Windows.Forms.ListBox();
+            this.panelAllFlights = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
-            this.panelAllFlights.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).BeginInit();
@@ -111,9 +110,10 @@
             this.panel10.SuspendLayout();
             this.panel9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
             this.panelBeneathGrid.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panelAllFlights.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -150,6 +150,7 @@
             // 
             // lbAddedAirplanesList
             // 
+            this.lbAddedAirplanesList.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.lbAddedAirplanesList.AutoSize = true;
             this.lbAddedAirplanesList.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.lbAddedAirplanesList.Location = new System.Drawing.Point(4, 572);
@@ -157,26 +158,6 @@
             this.lbAddedAirplanesList.Size = new System.Drawing.Size(188, 17);
             this.lbAddedAirplanesList.TabIndex = 24;
             this.lbAddedAirplanesList.Text = "Added airplanes to the field";
-            // 
-            // panelAllFlights
-            // 
-            this.panelAllFlights.Controls.Add(this.allFlightsListBox);
-            this.panelAllFlights.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelAllFlights.Location = new System.Drawing.Point(0, 592);
-            this.panelAllFlights.Name = "panelAllFlights";
-            this.panelAllFlights.Size = new System.Drawing.Size(272, 115);
-            this.panelAllFlights.TabIndex = 20;
-            // 
-            // allFlightsListBox
-            // 
-            this.allFlightsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.allFlightsListBox.FormattingEnabled = true;
-            this.allFlightsListBox.ItemHeight = 21;
-            this.allFlightsListBox.Location = new System.Drawing.Point(0, 0);
-            this.allFlightsListBox.Name = "allFlightsListBox";
-            this.allFlightsListBox.Size = new System.Drawing.Size(272, 115);
-            this.allFlightsListBox.TabIndex = 19;
-            this.allFlightsListBox.SelectedIndexChanged += new System.EventHandler(this.allFlightsListBox_SelectedIndexChanged);
             // 
             // lbPrecipitationType
             // 
@@ -357,20 +338,6 @@
             this.rbTakeOff.Text = "Take Off";
             this.rbTakeOff.UseVisualStyleBackColor = true;
             // 
-            // btnPlaySimulation
-            // 
-            this.btnPlaySimulation.FlatAppearance.BorderSize = 0;
-            this.btnPlaySimulation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnPlaySimulation.ForeColor = System.Drawing.Color.White;
-            this.btnPlaySimulation.Image = global::Air_Traffic_Simulation.Properties.Resources.playbutton;
-            this.btnPlaySimulation.Location = new System.Drawing.Point(12, 475);
-            this.btnPlaySimulation.Name = "btnPlaySimulation";
-            this.btnPlaySimulation.Size = new System.Drawing.Size(247, 93);
-            this.btnPlaySimulation.TabIndex = 1;
-            this.btnPlaySimulation.TabStop = false;
-            this.btnPlaySimulation.UseVisualStyleBackColor = true;
-            this.btnPlaySimulation.Click += new System.EventHandler(this.btnPlaySimulation_Click);
-            // 
             // rbLanding
             // 
             this.rbLanding.AutoSize = true;
@@ -415,7 +382,7 @@
             // 
             // btClear
             // 
-            this.btClear.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.btClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.btClear.Location = new System.Drawing.Point(22, 56);
             this.btClear.Name = "btClear";
             this.btClear.Size = new System.Drawing.Size(182, 38);
@@ -426,6 +393,7 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.btTakeOff);
             this.panel2.Controls.Add(this.lbLandedAirplanesList);
             this.panel2.Controls.Add(this.landedAirplanesListBox);
             this.panel2.Controls.Add(this.panel8);
@@ -444,7 +412,7 @@
             // 
             this.lbLandedAirplanesList.AutoSize = true;
             this.lbLandedAirplanesList.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.lbLandedAirplanesList.Location = new System.Drawing.Point(3, 599);
+            this.lbLandedAirplanesList.Location = new System.Drawing.Point(3, 632);
             this.lbLandedAirplanesList.Name = "lbLandedAirplanesList";
             this.lbLandedAirplanesList.Size = new System.Drawing.Size(119, 17);
             this.lbLandedAirplanesList.TabIndex = 24;
@@ -452,12 +420,12 @@
             // 
             // landedAirplanesListBox
             // 
-            this.landedAirplanesListBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.landedAirplanesListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.landedAirplanesListBox.FormattingEnabled = true;
             this.landedAirplanesListBox.ItemHeight = 21;
             this.landedAirplanesListBox.Location = new System.Drawing.Point(0, 661);
             this.landedAirplanesListBox.Name = "landedAirplanesListBox";
-            this.landedAirplanesListBox.Size = new System.Drawing.Size(200, 46);
+            this.landedAirplanesListBox.Size = new System.Drawing.Size(200, 193);
             this.landedAirplanesListBox.TabIndex = 23;
             this.landedAirplanesListBox.SelectedIndexChanged += new System.EventHandler(this.landedAirplanesListBox_SelectedIndexChanged);
             // 
@@ -732,8 +700,9 @@
             // 
             // btTakeOff
             // 
+            this.btTakeOff.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btTakeOff.Enabled = false;
-            this.btTakeOff.Location = new System.Drawing.Point(662, 56);
+            this.btTakeOff.Location = new System.Drawing.Point(6, 587);
             this.btTakeOff.Name = "btTakeOff";
             this.btTakeOff.Size = new System.Drawing.Size(187, 39);
             this.btTakeOff.TabIndex = 24;
@@ -803,18 +772,6 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.t_Tick);
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(855, 607);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
-            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
-            // 
             // panel5
             // 
             this.panel5.Controls.Add(this.pictureBox1);
@@ -828,7 +785,6 @@
             // panelBeneathGrid
             // 
             this.panelBeneathGrid.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(73)))));
-            this.panelBeneathGrid.Controls.Add(this.btTakeOff);
             this.panelBeneathGrid.Controls.Add(this.btClear);
             this.panelBeneathGrid.Controls.Add(this.planeInfoTextBox);
             this.panelBeneathGrid.Controls.Add(this.toggleWeatherBtn);
@@ -843,11 +799,11 @@
             this.planeInfoTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.planeInfoTextBox.Location = new System.Drawing.Point(231, 14);
+            this.planeInfoTextBox.Location = new System.Drawing.Point(221, 14);
             this.planeInfoTextBox.Multiline = true;
             this.planeInfoTextBox.Name = "planeInfoTextBox";
             this.planeInfoTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.planeInfoTextBox.Size = new System.Drawing.Size(425, 86);
+            this.planeInfoTextBox.Size = new System.Drawing.Size(593, 86);
             this.planeInfoTextBox.TabIndex = 6;
             // 
             // toggleWeatherBtn
@@ -864,6 +820,52 @@
             // 
             this.timerSimRunning.Interval = 1000;
             this.timerSimRunning.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox1.Location = new System.Drawing.Point(0, 0);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(855, 607);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
+            // 
+            // btnPlaySimulation
+            // 
+            this.btnPlaySimulation.FlatAppearance.BorderSize = 0;
+            this.btnPlaySimulation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnPlaySimulation.ForeColor = System.Drawing.Color.White;
+            this.btnPlaySimulation.Image = global::Air_Traffic_Simulation.Properties.Resources.playbutton;
+            this.btnPlaySimulation.Location = new System.Drawing.Point(12, 475);
+            this.btnPlaySimulation.Name = "btnPlaySimulation";
+            this.btnPlaySimulation.Size = new System.Drawing.Size(247, 93);
+            this.btnPlaySimulation.TabIndex = 1;
+            this.btnPlaySimulation.TabStop = false;
+            this.btnPlaySimulation.UseVisualStyleBackColor = true;
+            this.btnPlaySimulation.Click += new System.EventHandler(this.btnPlaySimulation_Click);
+            // 
+            // allFlightsListBox
+            // 
+            this.allFlightsListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.allFlightsListBox.FormattingEnabled = true;
+            this.allFlightsListBox.ItemHeight = 21;
+            this.allFlightsListBox.Location = new System.Drawing.Point(0, 11);
+            this.allFlightsListBox.Name = "allFlightsListBox";
+            this.allFlightsListBox.Size = new System.Drawing.Size(272, 109);
+            this.allFlightsListBox.TabIndex = 19;
+            this.allFlightsListBox.SelectedIndexChanged += new System.EventHandler(this.allFlightsListBox_SelectedIndexChanged);
+            // 
+            // panelAllFlights
+            // 
+            this.panelAllFlights.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.panelAllFlights.Controls.Add(this.allFlightsListBox);
+            this.panelAllFlights.Location = new System.Drawing.Point(0, 592);
+            this.panelAllFlights.Name = "panelAllFlights";
+            this.panelAllFlights.Size = new System.Drawing.Size(272, 115);
+            this.panelAllFlights.TabIndex = 20;
             // 
             // Form1
             // 
@@ -883,7 +885,6 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panelAllFlights.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarWindSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).EndInit();
@@ -906,10 +907,11 @@
             this.panel9.ResumeLayout(false);
             this.panel9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.fileSystemWatcher1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.panel5.ResumeLayout(false);
             this.panelBeneathGrid.ResumeLayout(false);
             this.panelBeneathGrid.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panelAllFlights.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -960,7 +962,6 @@
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.NumericUpDown nSpeed;
         private System.Windows.Forms.Panel panelBeneathGrid;
-        private System.Windows.Forms.ListBox allFlightsListBox;
         private System.Windows.Forms.Timer timerSimRunning;
         private System.Windows.Forms.Button toggleWeatherBtn;
         private System.Windows.Forms.Label lbPrecipitationTypeGUI;
@@ -972,7 +973,6 @@
         private System.Windows.Forms.Label simSpeedLb;
         private System.Windows.Forms.ListBox landedAirplanesListBox;
         private System.Windows.Forms.TextBox planeInfoTextBox;
-        private System.Windows.Forms.Panel panelAllFlights;
         private System.Windows.Forms.Button btClear;
         private System.Windows.Forms.Panel panel9;
         private System.Windows.Forms.Panel panel10;
@@ -982,6 +982,8 @@
         private System.Windows.Forms.Label lbAddedAirplanesList;
         private System.Windows.Forms.Label lbLandedAirplanesList;
         private System.Windows.Forms.Button btnRandom;
+        private System.Windows.Forms.Panel panelAllFlights;
+        private System.Windows.Forms.ListBox allFlightsListBox;
     }
 }
 

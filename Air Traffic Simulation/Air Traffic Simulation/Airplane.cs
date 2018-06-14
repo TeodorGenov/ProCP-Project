@@ -65,6 +65,7 @@ namespace Air_Traffic_Simulation
         /// The event that gets risen once the airplane exits the airspace through
         /// its target location.
         /// </summary>
+        [field: NonSerialized]
         public event EventHandler OnAirspaceExit;
 
         /// <summary>
@@ -72,12 +73,14 @@ namespace Air_Traffic_Simulation
         /// </summary>
         /// <param name="p1"></param>
         /// <param name="p2"></param>
+        [field: NonSerialized]
         public delegate void CrashHandler(Object p1, Object p2);
 
         /// <summary>
         /// The event that gets risen in case two airplanes turn up to be
         /// in the same spot at the same altitude.
         /// </summary>
+        [field: NonSerialized]
         public event CrashHandler OnCrash;
 
         /// <summary>
