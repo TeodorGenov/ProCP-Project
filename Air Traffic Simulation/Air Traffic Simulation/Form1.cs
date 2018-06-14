@@ -900,18 +900,10 @@ namespace Air_Traffic_Simulation
 
         private void btnUploadData_Click(object sender, EventArgs e)
         {
-            //using (Stream stream = File.Open(serializationFile, FileMode.Open))
-            //{
-            //    var bformatter = new System.Runtime.Serialization.Formatters.Binary.BinaryFormatter();
-            //    checkpoints = (List<Checkpoint>)bformatter.Deserialize(stream);
-            //}
-
-
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.Filter = "Binary Files (*.bin)|*.bin";
             ofd.DefaultExt = "bin";
             ofd.AddExtension = true;
-            //using (Stream stream = File.Open(serializationFile, FileMode.Create))
 
 
             if (ofd.ShowDialog() == DialogResult.OK)
@@ -931,38 +923,44 @@ namespace Air_Traffic_Simulation
                 }
 
 
-                checkpoints = null;
+                checkpoints.Clear();
                 airplaneList = null;
                 landedAirplanes = null;
                 SavingObjects so = null;
 
                 so = (SavingObjects) bformatter.Deserialize(filestream);
-                checkpoints = so.getCheckpoints;
+                //       checkpoints = so.getCheckpoints;
+                foreach (var checkpoint in so.getCheckpoints)
+                {
+                    foreach (Cell c in grid.listOfCells)
+                    {
+                        if (c.ContainsPoint((int) checkpoint.CoordinateX, (int) checkpoint.CoordinateY))
+                        {
+                            checkpoints.Add(new Checkpoint(checkpoint.Name, checkpoint.CoordinateX, checkpoint.CoordinateY, c, checkpoints, landingStrip, this.takeOffDirectionCheckpoints));
+                        }
+                    }
+                }
+
+                cpName = Convert.ToInt32(so.getCheckpoints[so.getCheckpoints.Count - 1].Name.Substring(2));
+
                 airplaneList = so.getAirplanes;
                 landedAirplanes = so.getGroundplanes;
 
                 filestream.Close();
                 filestream = null;
-
-                if (checkpoints != null)
-                {
-                    foreach (Checkpoint a in checkpoints)
-                    {
-                        pictureBox1.Invalidate();
-                        //PaintCircle(new Point(Convert.ToInt32(a.CoordinateX), Convert.ToInt32(a.CoordinateY)));
-                        cpName++;
-                    }
-                }
-
+                
                 if (airplaneList != null)
                 {
-                    foreach (Airplane a in airplaneList)
+                    for(int i = 0; i < airplaneList.Count; i++)
                     {
-                        apName++;
-                        fnName += 6 * 2 / 3;
-                        a.OnAirportReached += airplaneHasReachedTheAirport;
-                        a.OnCrash += airplaneCrashed;
-                        allFlightsListBox.Items.Add(a);
+                        airplaneList[i].OnAirportReached += airplaneHasReachedTheAirport;
+                        airplaneList[i].OnCrash += airplaneCrashed;
+                        allFlightsListBox.Items.Add(airplaneList[i]);
+                        if (i == airplaneList.Count - 1)
+                        {
+                            apName = Convert.ToInt32(airplaneList[i].Name.Substring("Airplane".Length));
+                            fnName = apName * 4;
+                        }
                     }
 
                     pictureBox1.Invalidate();
@@ -1599,7 +1597,7 @@ namespace Air_Traffic_Simulation
 
             pictureBox1.Invalidate();
             apName++;
-            fnName += 6 * 2 / 3;
+            fnName += 4;
             string name = "Airplane" + apName;
             string flight = "fn" + fnName + "z";
             Airplane one = new Airplane(name, x, y, speed, flight);
