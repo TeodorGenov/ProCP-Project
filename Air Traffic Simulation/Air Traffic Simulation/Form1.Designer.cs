@@ -48,11 +48,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.lbWeatherConditions = new System.Windows.Forms.Label();
             this.trackBarTemperature = new System.Windows.Forms.TrackBar();
-            this.rbTakeOff = new System.Windows.Forms.RadioButton();
-            this.rbLanding = new System.Windows.Forms.RadioButton();
             this.panel3 = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.btClear = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.lbLandedAirplanesList = new System.Windows.Forms.Label();
@@ -64,7 +61,6 @@
             this.btnUploadData = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.btnSaveData = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
             this.btnRandom = new System.Windows.Forms.Button();
@@ -137,11 +133,8 @@
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.lbWeatherConditions);
             this.panel1.Controls.Add(this.trackBarTemperature);
-            this.panel1.Controls.Add(this.rbTakeOff);
             this.panel1.Controls.Add(this.btnPlaySimulation);
-            this.panel1.Controls.Add(this.rbLanding);
             this.panel1.Controls.Add(this.panel3);
-            this.panel1.Controls.Add(this.label2);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel1.Location = new System.Drawing.Point(0, 42);
             this.panel1.Name = "panel1";
@@ -326,30 +319,6 @@
             this.trackBarTemperature.Value = 24;
             this.trackBarTemperature.ValueChanged += new System.EventHandler(this.trackBarTemperature_ValueChanged);
             // 
-            // rbTakeOff
-            // 
-            this.rbTakeOff.AutoSize = true;
-            this.rbTakeOff.Enabled = false;
-            this.rbTakeOff.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbTakeOff.Location = new System.Drawing.Point(145, 168);
-            this.rbTakeOff.Name = "rbTakeOff";
-            this.rbTakeOff.Size = new System.Drawing.Size(92, 25);
-            this.rbTakeOff.TabIndex = 4;
-            this.rbTakeOff.Text = "Take Off";
-            this.rbTakeOff.UseVisualStyleBackColor = true;
-            // 
-            // rbLanding
-            // 
-            this.rbLanding.AutoSize = true;
-            this.rbLanding.Enabled = false;
-            this.rbLanding.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.rbLanding.Location = new System.Drawing.Point(12, 168);
-            this.rbLanding.Name = "rbLanding";
-            this.rbLanding.Size = new System.Drawing.Size(90, 25);
-            this.rbLanding.TabIndex = 3;
-            this.rbLanding.Text = "Landing";
-            this.rbLanding.UseVisualStyleBackColor = true;
-            // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(56)))), ((int)(((byte)(55)))), ((int)(((byte)(79)))));
@@ -371,15 +340,6 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Air Traffic";
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(49, 128);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(170, 21);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Simulation Outcome";
-            // 
             // btClear
             // 
             this.btClear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -398,7 +358,6 @@
             this.panel2.Controls.Add(this.landedAirplanesListBox);
             this.panel2.Controls.Add(this.panel8);
             this.panel2.Controls.Add(this.panel7);
-            this.panel2.Controls.Add(this.button3);
             this.panel2.Controls.Add(this.button1);
             this.panel2.Controls.Add(this.panel4);
             this.panel2.Controls.Add(this.panel6);
@@ -521,20 +480,6 @@
             this.btnSaveData.Text = "Save";
             this.btnSaveData.UseVisualStyleBackColor = true;
             this.btnSaveData.Click += new System.EventHandler(this.btnSaveData_Click);
-            // 
-            // button3
-            // 
-            this.button3.FlatAppearance.BorderSize = 0;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.Location = new System.Drawing.Point(3, 457);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(195, 37);
-            this.button3.TabIndex = 19;
-            this.button3.TabStop = false;
-            this.button3.Text = "Show probability";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button1
             // 
@@ -924,11 +869,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel Header;
         private System.IO.FileSystemWatcher fileSystemWatcher1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton rbLanding;
         private System.Windows.Forms.Label lbWeatherConditions;
         private System.Windows.Forms.TrackBar trackBarTemperature;
-        private System.Windows.Forms.RadioButton rbTakeOff;
         private System.Windows.Forms.Button btnPlaySimulation;
         private System.Windows.Forms.TrackBar trackBarWindSpeed;
         private System.Windows.Forms.Label label5;
@@ -950,7 +892,6 @@
         private System.Windows.Forms.Label labelWind;
         private System.Windows.Forms.Label labelPrec;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label lbProbability;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.PictureBox pictureBox1;

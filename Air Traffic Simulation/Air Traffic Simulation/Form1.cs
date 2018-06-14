@@ -328,7 +328,6 @@ namespace Air_Traffic_Simulation
             populateTakeOffDirections();
 
             simSpeedComboBox.SelectedIndex = 2;
-            rbLanding.Checked = true;
         }
 
         /// <summary>
@@ -776,7 +775,6 @@ namespace Air_Traffic_Simulation
                 btnUploadData.Enabled = true;
                 btnSaveData.Enabled = true;
                 button1.Enabled = true;
-                button3.Enabled = true;
                 toggleWeatherBtn.Enabled = true;
                 btClear.Enabled = true;
                 btnPlaySimulation.Enabled = true;
@@ -1272,6 +1270,8 @@ namespace Air_Traffic_Simulation
                 }
                 else
                 {
+                    
+                    
                     double landed = 0;
                     double crashed = 0;
                     double totalperc = 0;
@@ -1306,7 +1306,6 @@ namespace Air_Traffic_Simulation
 
                     xlWorkBook = xlApp.Workbooks.Add(misValue);
                     xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-
                     xlWorkSheet.Cells[1, 2] = "Simulation Results";
                     xlWorkSheet.Cells[2, 7] = "Number";
                     xlWorkSheet.Cells[2, 9] = "Percent";
@@ -1343,9 +1342,18 @@ namespace Air_Traffic_Simulation
                         xlWorkSheet.Cells[9, 7] = "that you did as an airspace manager!";
                     }
 
-
-
-                    xlWorkBook.SaveAs("d:\\csharp-Excel.xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    try
+                    {
+                        string path = null;
+                        SaveFileDialog SaveFileDialogMain = new SaveFileDialog();
+                        SaveFileDialogMain.Filter = "Excel Files (*.xls)|*.xls";
+                        SaveFileDialogMain.DefaultExt = "xls";
+                        SaveFileDialogMain.AddExtension = true;
+                        if (SaveFileDialogMain.ShowDialog() == DialogResult.OK)
+                        {
+                            path = SaveFileDialogMain.FileName;
+                        }
+                            xlWorkBook.SaveAs(path, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
                     xlWorkBook.Close(true, misValue, misValue);
                     xlApp.Quit();
 
@@ -1357,14 +1365,15 @@ namespace Air_Traffic_Simulation
                     ClearListboxes();
                     ClearLists();
                     MessageBox.Show("Simulation cleared!");
+                    }
+                    catch (System.Runtime.InteropServices.COMException)
+                    {
+                        MessageBox.Show("Please exit your excel file that is running in the background");
+                    }
+
+                   
                 }
-
-
-                pictureBox1.Invalidate();
-                ClearListboxes();
-                ClearLists();
-                MessageBox.Show("Simulation cleared!");
-                //ToDo: add a method that saves and overview to a file!
+                
             }
         }
 
@@ -1407,7 +1416,6 @@ namespace Air_Traffic_Simulation
                 btnUploadData.Enabled = true;
                 btnSaveData.Enabled = true;
                 button1.Enabled = true;
-                button3.Enabled = true;
                 toggleWeatherBtn.Enabled = true;
                 btClear.Enabled = true;
                 btnPlaySimulation.Enabled = true;
@@ -1422,7 +1430,6 @@ namespace Air_Traffic_Simulation
                 btnUploadData.Enabled = false;
                 btnSaveData.Enabled = false;
                 button1.Enabled = false;
-                button3.Enabled = false;
                 toggleWeatherBtn.Enabled = false;
                 btClear.Enabled = false;
                 btnPlaySimulation.Enabled = false;
