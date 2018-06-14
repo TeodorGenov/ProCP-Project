@@ -273,7 +273,7 @@ namespace Air_Traffic_Simulation
 
             weather = new WeatherConditions(windSpeed, windDirection, temp, precIntencity);
             //LabelChange();
-
+            btnPlaySimulation.Image = Air_Traffic_Simulation.Properties.Resources.playbutton;
 
             //RADAR
 
@@ -1212,11 +1212,13 @@ namespace Air_Traffic_Simulation
             if (timerSimRunning.Enabled)
             {
                 timerSimRunning.Stop();
+                btnPlaySimulation.Image = Air_Traffic_Simulation.Properties.Resources.playbutton;
             }
             else
             {
                 pictureBox1.Invalidate();
                 timerSimRunning.Start();
+                btnPlaySimulation.Image = Air_Traffic_Simulation.Properties.Resources.pause;
             }
         }
 
