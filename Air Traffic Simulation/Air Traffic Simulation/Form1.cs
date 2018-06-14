@@ -92,6 +92,7 @@ namespace Air_Traffic_Simulation
         private Airstrip landingStrip;
         ObservableCollection<Checkpoint> checkpoints;
         ObservableCollection<Airplane> airplaneList;
+        ObservableCollection<Airplane> PlanesTakingOff;
 
         /// <summary>
         /// A collection of checkpoints, which represent the places on the grid, for which an airplane can be aiming
@@ -117,6 +118,7 @@ namespace Air_Traffic_Simulation
             checkpoints.CollectionChanged += numberOfCheckpointsHasChanged;
             airplaneList = new ObservableCollection<Airplane>();
             airplaneList.CollectionChanged += numberOfAirplanesHasChanged;
+            PlanesTakingOff = new ObservableCollection<Airplane>();
             crashedAirplanes = new List<Airplane>();
             landedAirplanes = new List<Airplane>();
             takeOffDirectionCheckpoints = new List<Checkpoint>();
@@ -806,6 +808,7 @@ namespace Air_Traffic_Simulation
                                 landedAirplanes.Remove(selectedAirplane);
                                 selectedAirplane.FindShortestPathLeavingAirspace(checkpoints.ToList());
                                 selectedAirplane.OnAirspaceExit += airplaneHasReachedTheEndOfTheAirspace;
+                                PlanesTakingOff.Add(selectedAirplane);
                                 ClearListboxes();
                                 UpdateListboxes();
                                 break;
@@ -928,7 +931,32 @@ namespace Air_Traffic_Simulation
             
             pictureBox1.Invalidate();
 
+            Airplane lol;
+            if(PlanesTakingOff.Count != 0)
+            {
+                lol = PlanesTakingOff[0];
+                if(lol.ShortestPath.Count == 0)
+                {
+                    PlanesTakingOff.RemoveAt(0);
+                }
+                if (lol.ShortestPath.Count != 0)
+                {
+                    lol.MoveTowardsNextPoint();
+                }
 
+                if (PlanesTakingOff.Count() != 0)
+                {
+                    for (int i = 0; i < PlanesTakingOff.Count(); i++)
+                    {
+                        if (lol != PlanesTakingOff[i])
+                        {
+                            lol.DangerCheck(PlanesTakingOff[i]);
+                        }
+                    }
+                }
+            }
+            else
+            {
             foreach (Airplane p in airplaneList.ToArray())
             {
                 if (p.ShortestPath.Count != 0)
@@ -947,6 +975,9 @@ namespace Air_Traffic_Simulation
                     }
                 }
             }
+            }
+
+            
 
             if (weatherActive)
             {
