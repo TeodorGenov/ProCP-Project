@@ -88,7 +88,8 @@ namespace Air_Traffic_Simulation
         private bool first = true;
         private double leapx = 0;
         private double leapy = 0;
-        [NonSerialized] public LinkedListNode<AbstractCheckpoint> target;
+        [field: NonSerialized]
+        public LinkedListNode<AbstractCheckpoint> target;
 
         /// <summary>
         /// Checks if the distance between two airplanes is safe or not. If the distance is not safe, the OnCrash event triggers

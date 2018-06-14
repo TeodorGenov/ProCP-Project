@@ -73,7 +73,7 @@
             this.nSpeed = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
+			this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
@@ -100,6 +100,7 @@
             this.timerSimRunning = new System.Windows.Forms.Timer(this.components);
             this.lbAddedAirplanesList = new System.Windows.Forms.Label();
             this.lbLandedAirplanesList = new System.Windows.Forms.Label();
+            this.btnRandom = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panelAllFlights.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
@@ -111,7 +112,7 @@
             this.panel7.SuspendLayout();
             this.panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nSpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.panel6.SuspendLayout();
             this.Header.SuspendLayout();
             this.panel10.SuspendLayout();
@@ -581,10 +582,11 @@
             // 
             // panel4
             // 
+            this.panel4.Controls.Add(this.btnRandom);
             this.panel4.Controls.Add(this.nSpeed);
             this.panel4.Controls.Add(this.label15);
             this.panel4.Controls.Add(this.label14);
-            this.panel4.Controls.Add(this.label13);
+			this.panel4.Controls.Add(this.label13);
             this.panel4.Controls.Add(this.label12);
             this.panel4.Controls.Add(this.label10);
             this.panel4.Controls.Add(this.trackBar1);
@@ -921,6 +923,16 @@
             this.lbLandedAirplanesList.Size = new System.Drawing.Size(119, 17);
             this.lbLandedAirplanesList.TabIndex = 24;
             this.lbLandedAirplanesList.Text = "Landed airplanes";
+            //
+			// btnRandom
+            // 
+            this.btnRandom.Location = new System.Drawing.Point(46, 27);
+            this.btnRandom.Name = "btnRandom";
+            this.btnRandom.Size = new System.Drawing.Size(103, 32);
+            this.btnRandom.TabIndex = 27;
+            this.btnRandom.Text = "Random";
+            this.btnRandom.UseVisualStyleBackColor = true;
+            this.btnRandom.Click += new System.EventHandler(this.button2_Click_2);
             // 
             // Form1
             // 
@@ -955,7 +967,7 @@
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nSpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
             this.Header.ResumeLayout(false);
@@ -1011,7 +1023,7 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Panel panel7;
-        private System.Windows.Forms.Label label13;
+		private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.TrackBar trackBar1;
@@ -1044,6 +1056,7 @@
         private System.Windows.Forms.Label btClose;
         private System.Windows.Forms.Label lbAddedAirplanesList;
         private System.Windows.Forms.Label lbLandedAirplanesList;
+        private System.Windows.Forms.Button btnRandom;
     }
 }
 
