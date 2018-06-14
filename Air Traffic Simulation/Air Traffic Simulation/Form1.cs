@@ -164,23 +164,26 @@ namespace Air_Traffic_Simulation
         {
             if (e.Action == NotifyCollectionChangedAction.Remove)
             {
-                Checkpoint removedCp = (Checkpoint) e.OldItems[0];
-
-                foreach (var cp in checkpoints)
+                foreach (Checkpoint removedCp in e.OldItems)
                 {
-                    cp.ReachableNodes.Remove(removedCp);
-                }
+                    foreach (var cp in checkpoints)
+                    {
+                        cp.ReachableNodes.Remove(removedCp);
+                    }
 
-                landingStrip.ReachableNodes.Remove(removedCp);
+                    landingStrip.ReachableNodes.Remove(removedCp);
+                }
             }
             else if (e.Action == NotifyCollectionChangedAction.Add)
             {
                 //when a new checkpoint is added - add it to the reachable point of all other points
-                Checkpoint addedCp = (Checkpoint) e.NewItems[0];
 
-                foreach (var cp in checkpoints)
+                foreach (Checkpoint addedCp in e.NewItems)
                 {
-                    cp.AddSingleReachableIfItIsTheCorrectType(addedCp);
+                    foreach (var cp in checkpoints)
+                    {
+                        cp.AddSingleReachableIfItIsTheCorrectType(addedCp);
+                    }
                 }
             }
 
