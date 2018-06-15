@@ -15,8 +15,7 @@ namespace Air_Traffic_Simulation
     public class Airplane : AbstractCheckpoint
     {
         public override string Name { get; }
-        [field: NonSerialized]
-        public override LinkedList<AbstractCheckpoint> ShortestPath { get; set; }
+        [field: NonSerialized] public override LinkedList<AbstractCheckpoint> ShortestPath { get; set; }
         public override double DistanceFromSource { get; set; }
         public override Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }
         public override double CoordinateX { get; set; }
@@ -28,32 +27,51 @@ namespace Air_Traffic_Simulation
         /// </summary>
         public string FlightNumber { get; private set; }
 
-        public override int MaxSpeed { get; }
-        public override int MinSpeed { get; }
-        public override int MaxAltitude { get; }
-        public override int MinAltitude { get; }
+        public override int MaxSpeed { get; set; }
+        public override int MinSpeed { get; set; }
+        public override int MaxAltitude { get; set; }
+        public override int MinAltitude { get; set; }
         public int Area { get; set; }
         public Rectangle Rect { get; set; }
 
-        private double speed;
+        private double speedInKts;
 
         /// <summary>
-        /// The speed at which the airplane is currently moving.
+        /// The speedInKts at which the airplane is currently moving.
         /// </summary>
-        public double Speed
+        public double SpeedInKts
         {
-            get { return speed; }
-            private set
+            get { return speedInKts; }
+            set
             {
+                movingDirectionHasChanged = true;
                 ktsPerSecond = value / 360;
-                speed = value;
+                speedInKts = value;
             }
         }
 
         /// <summary>
+        /// The airplane's speedInKts for knots per second. Used for calculation of movement.
+        /// </summary>
+        private double ktsPerSecond;
+
+        /// <summary>
         /// The altitude at which the airplane is currently moving.
         /// </summary>
-        public int Altitude { get; private set; }
+        public int Altitude { get; set; }
+
+
+        /// <summary>
+        /// Shows if the plane is on its way to land.
+        /// </summary>
+        public bool IsLanding { get; set; }
+
+        /// <summary>
+        /// The point through which the airplane will leave the airspace.
+        /// </summary>
+        public Checkpoint exitDestination { get; set; }
+
+        //EVENTS:
 
         /// <summary>
         /// The event that gets risen once the airplane lands.
@@ -65,6 +83,7 @@ namespace Air_Traffic_Simulation
         /// The event that gets risen once the airplane exits the airspace through
         /// its target location.
         /// </summary>
+        [field: NonSerialized]
         public event EventHandler OnAirspaceExit;
 
         /// <summary>
@@ -78,30 +97,26 @@ namespace Air_Traffic_Simulation
         /// The event that gets risen in case two airplanes turn up to be
         /// in the same spot at the same altitude.
         /// </summary>
+        [field: NonSerialized]
         public event CrashHandler OnCrash;
 
         /// <summary>
-        /// Shows if the plane is on its way to land.
+        /// Initializes a new instance of the <see cref="Airplane"/> class.
         /// </summary>
-        public bool IsLanding { get; set; }
-
-        /// <summary>
-        /// The point through which the airplane will leave the airspace.
-        /// </summary>
-        public Checkpoint exitDestination { get; set; }
-
-        /// <summary>
-        /// The airplane's speed for knots per second. Used for calculation of movement.
-        /// </summary>
-        private double ktsPerSecond;
-
-        public Airplane(string name, double coordinateX, double coordinateY, double speed, string flightNumber)
+        /// <param name="name">The name.</param>
+        /// <param name="coordinateX">The coordinate x.</param>
+        /// <param name="coordinateY">The coordinate y.</param>
+        /// <param name="speedInKts">The spped in knots/nautical miles.</param>
+        /// <param name="altitudeInFt">The altitude of the airplane in feet.</param>
+        /// <param name="flightNumber">The flight number.</param>
+        public Airplane(string name, double coordinateX, double coordinateY, double speedInKts, int altitudeInFt, string flightNumber)
         {
             IsLanding = true;
             Name = name;
             this.CoordinateX = coordinateX;
             this.CoordinateY = coordinateY;
-            this.speed = speed;
+            this.speedInKts = speedInKts;
+            this.Altitude = altitudeInFt;
             FlightNumber = flightNumber;
             Area = 20;
             Rect = new Rectangle((int) CoordinateX - Area, (int) CoordinateY - Area, Area * 2, Area * 2);
@@ -111,11 +126,12 @@ namespace Air_Traffic_Simulation
             ReachableNodes = new Dictionary<AbstractCheckpoint, double>();
             Route = new List<AbstractCheckpoint>();
 
-            //yeah.. reconsider that.
-            MaxSpeed = 2;
-            MaxAltitude = 6500;
+            MinSpeed = 500;
+            MaxSpeed = 800;
+            MaxAltitude = 7500;
+            MinAltitude = 6500;
 
-            this.ktsPerSecond = speed / 360;
+            this.ktsPerSecond = speedInKts / 360;
         }
 
         /// <summary>
@@ -145,9 +161,10 @@ namespace Air_Traffic_Simulation
         /// <param name="p"></param>
         public void DangerCheck(Airplane p)
         {
+            //1000 ft is a normal safe vertical distance for commercial aircraft
             if (OnCrash != null)
                 if ((Math.Sqrt(Math.Pow(CoordinateX - p.CoordinateX, 2) + Math.Pow(CoordinateY - p.CoordinateY, 2)) <=
-                     Area * 2) && this.Altitude == p.Altitude)
+                     Area * 2) && (this.Altitude - 1000 <= p.Altitude && this.Altitude + 1000 >= p.Altitude))
                     OnCrash(this, p);
         }
 
@@ -182,15 +199,18 @@ namespace Air_Traffic_Simulation
 
             if (movingDirectionHasChanged)
             {
-                double a = (target.Value.CoordinateY - CoordinateY) / Grid.PixelsPerMileVertically;
-                double b = (target.Value.CoordinateX - CoordinateX) / Grid.PixelsPerMileHorizontally;
-                double c = Math.Sqrt(Math.Pow(a, 2) + Math.Pow(b, 2)); //the distance the plane has to fly in miles
+                double a = (target.Value.CoordinateY - CoordinateY) / Grid.PixelsPerMileVertically; //"side a" in miles
+                double b = (target.Value.CoordinateX - CoordinateX) /
+                           Grid.PixelsPerMileHorizontally; //"side b" in miles
+                double
+                    c = Math.Sqrt(Math.Pow(a, 2) +
+                                  Math.Pow(b, 2)); //the distance the plane has to fly in miles; Pythagoras again
 
                 double t = c / ktsPerSecond; //the time which the plane will need to fly this distance
 
                 leapx = (b / t) * Grid
-                            .PixelsPerMileHorizontally; //the x speed of the airplane in miles times pixels per mile 
-                leapy = (a / t) * Grid.PixelsPerMileVertically; //the y speed of the airplane in miles
+                            .PixelsPerMileHorizontally; //the x speedInKts of the airplane in miles times pixels per mile 
+                leapy = (a / t) * Grid.PixelsPerMileVertically; //the y speedInKts of the airplane in miles
 
                 movingDirectionHasChanged = false;
             }
@@ -205,14 +225,20 @@ namespace Air_Traffic_Simulation
 
                 if (target != null)
                 {
-                    speed = target.Value.MaxSpeed;
+                    MinSpeed = target.Value.MinSpeed;
+                    MaxSpeed = target.Value.MaxSpeed;
+                    speedInKts = target.Value.MaxSpeed;
 
-                    Altitude = target.Value.MaxAltitude;
+                    MinAltitude = target.Value.MinAltitude;
+                    MaxAltitude = target.Value.MaxAltitude;
+                    Altitude = target.Value.MaxAltitude-1;
                 }
 
                 ShortestPath.Remove(toRemove.Value);
 
                 movingDirectionHasChanged = true;
+
+
             }
 
             CoordinateX += leapx;
@@ -296,7 +322,8 @@ namespace Air_Traffic_Simulation
                 settledCheckpoints.Add(currentCheckpnt);
             }
 
-            if(this.ShortestPath.Count != 0) { 
+            if (this.ShortestPath.Count != 0)
+            {
                 movingDirectionHasChanged = true;
                 target = ShortestPath.First;
                 target = target.Next;

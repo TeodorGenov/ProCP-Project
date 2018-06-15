@@ -14,7 +14,7 @@ namespace AirTrafficSimulationUnitTest
             Assert.AreEqual(test.Name, "Test");
             Assert.AreEqual(test.CoordinateX, 1);
             Assert.AreEqual(test.CoordinateY, 1);
-            Assert.AreEqual(test.Speed, 100);
+            Assert.AreEqual(test.SpeedInKts, 100);
             Assert.AreEqual(test.FlightNumber, "t1");
         }
 

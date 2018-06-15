@@ -21,22 +21,14 @@ namespace Air_Traffic_Simulation
         //TODO: make sure the airplane spawns at the center of the airfield
 
         //AIRPLAIN GRAPHICS
-
         Image airplaneImage;
         Rectangle airplaneRect;
 
-        //RADAR
+        //RADAR VARIABLES, WHICH ARE NOW USED FOR THE WEATHER
         Random r = new Random();
         Timer t = new Timer();
         int width, height;
-        int hand = 150;
-        int u; //in degree
-        int cx, cy; //center of the circle
         int x, y; //hand coordinates
-        int tx, ty, lim = 20;
-        Bitmap bmp;
-        Pen p;
-        Graphics g;
 
 
         //GRID
@@ -45,12 +37,6 @@ namespace Air_Traffic_Simulation
         Pen pGrid;
         Graphics gGrid;
         Bitmap bmpGrid;
-
-
-        // CHECKPOINT CIRCLE POINT LOL
-        Graphics grCircle;
-        Pen pnCircle;
-
 
         //WEATHER VALUES
         string wdComboBox;
@@ -63,15 +49,14 @@ namespace Air_Traffic_Simulation
         private bool weatherActive = true;
 
 
-        //List<Checkpoint> checkpoints;
         string dir;
         string serializationFile;
         private bool settingTakeOffDirection = false;
-        int AddingCheckpoints = 0;
-        int RemovingCheckpoints = 0;
-        int AddingAirplanes = 0;
-        int RemovingAirplanes = 0;
-        int RandomAirplane = 0;
+        bool AddingCheckpoints = false;
+        bool RemovingCheckpoints = false;
+        bool AddingAirplanes = false;
+        bool RemovingAirplanes = false;
+        bool RandomAirplane = false;
         static int cpName = 0;
         static int apName = 0;
         static int fnName = 0;
@@ -188,29 +173,29 @@ namespace Air_Traffic_Simulation
                 }
             }
 
-            /*
+            
             #region MissingCheckpointsErrorDisplay
 
             //generates the message box that informs the user that some areas are missing points
             bool[] allZonesCheck = new bool[] { false, false, false, false };
             string lacking =
-                $"   - UPPER{Environment.NewLine}   - MIDDLE{Environment.NewLine}   - LOWER{Environment.NewLine}   - FINAL";
+                $"   - UPPER   - MIDDLE   - LOWER   - FINAL";
 
             foreach (Checkpoint point in checkpoints)
             {
                 if (point.ParentCellType == CellType.UPPER)
                 {
-                    lacking = lacking.Replace($"   - UPPER{Environment.NewLine}", string.Empty);
+                    lacking = lacking.Replace($"   - UPPER", string.Empty);
                     allZonesCheck[0] = true;
                 }
                 else if (point.ParentCellType == CellType.MIDDLE)
                 {
-                    lacking = lacking.Replace($"   - MIDDLE{Environment.NewLine}", string.Empty);
+                    lacking = lacking.Replace($"   - MIDDLE", string.Empty);
                     allZonesCheck[1] = true;
                 }
                 else if (point.ParentCellType == CellType.LOWER)
                 {
-                    lacking = lacking.Replace($"   - LOWER{Environment.NewLine}", string.Empty);
+                    lacking = lacking.Replace($"   - LOWER", string.Empty);
                     allZonesCheck[2] = true;
                 }
                 else if (point.ParentCellType == CellType.FINAL)
@@ -220,15 +205,18 @@ namespace Air_Traffic_Simulation
                 }
             }
 
+
             if (allZonesCheck.Contains(false))
             {
-                MessageBox.Show(this,
-                    $"There seem to be no checkpoints in the following zones:{Environment.NewLine}{Environment.NewLine}{lacking}",
-                    "Missing Checkpoint", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    warningsLbl.Text = "WARNING: missing checkpoints in zones: " + lacking;
+            }
+            else
+            {
+                warningsLbl.Text = "No missing checkpoint warnings.";
             }
 
             #endregion
-            */
+
 
             foreach (Airplane plane in airplaneList)
             {
@@ -272,29 +260,6 @@ namespace Air_Traffic_Simulation
 
 
             weather = new WeatherConditions(windSpeed, windDirection, temp, precIntencity);
-            //LabelChange();
-
-
-            //RADAR
-
-            //create bitmap
-            bmp = new Bitmap(width + 1, height + 1);
-
-            //background color
-            pictureBox1.BackColor = Color.Black;
-
-            //center
-            cx = width / 2;
-            cy = height / 2;
-
-            //initial degree of hand
-            u = 0;
-
-            //timer
-            //t.Interval = 1; //miliseconds
-            //t.Tick += new EventHandler(this.t_Tick);
-            //t.Start();
-
 
             //GRID
 
@@ -328,7 +293,6 @@ namespace Air_Traffic_Simulation
             populateTakeOffDirections();
 
             simSpeedComboBox.SelectedIndex = 2;
-            rbLanding.Checked = true;
         }
 
         /// <summary>
@@ -488,7 +452,7 @@ namespace Air_Traffic_Simulation
             Console.WriteLine(((Airplane) p1).Name + " has crashed!");
         }
 
-        
+
         private void t_Tick(object sender, EventArgs e)
         {
         }
@@ -544,21 +508,21 @@ namespace Air_Traffic_Simulation
                 btnAddAirplane.Enabled = false;
                 btnRemoveAirplane.Enabled = false;
                 btnRandom.Enabled = false;
-                AddingCheckpoints = 1;
+                AddingCheckpoints = true;
                 btnAddCheckpoint.Text = "Stop";
             }
             else if (btnAddCheckpoint.Text == "Stop")
             {
                 btTakeOff.Enabled = true;
                 btnRemoveCheckpoint.Enabled = true;
-                if (RandomAirplane == 0)
+                if (RandomAirplane == false)
                 {
                     btnAddAirplane.Enabled = true;
                     btnRemoveAirplane.Enabled = true;
                 }
 
                 btnRandom.Enabled = true;
-                AddingCheckpoints = 0;
+                AddingCheckpoints = false;
                 btnAddCheckpoint.Text = "Add";
             }
         }
@@ -624,144 +588,21 @@ namespace Air_Traffic_Simulation
         /// <param name="e">The MouseEventArgs that carries the coordinates of the mouse click on the grid</param>
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            if (AddingCheckpoints == 1)
+            if (AddingCheckpoints)
             {
-                foreach (Cell c in grid.listOfCells)
-                {
-                    if (c.ContainsPoint(e.X, e.Y) == true)
-                    {
-                        bool exists = false;
-                        Point p = c.GetCenter();
-                        foreach (Checkpoint mm in checkpoints)
-                        {
-                            if (mm.CoordinateX == p.X && mm.CoordinateY == p.Y)
-                            {
-                                MessageBox.Show("Checkpoint already exists at this location", "WARNING");
-                                exists = true;
-                            }
-                        }
-
-                        if (!exists)
-                        {
-                            if (c.Type == CellType.BORDER)
-                            {
-                                MessageBox.Show("Selected area is for airplanes only.");
-                            }
-                            else
-                            {
-                                //PaintCircle(p);
-
-                                pictureBox1.Invalidate();
-                                cpName++;
-                                string name = "cp" + cpName;
-
-                                Checkpoint a = new Checkpoint(name, p.X, p.Y, c, checkpoints.ToList(), landingStrip,
-                                    takeOffDirectionCheckpoints);
-                                a.OnWeatherPassing += weatherOnCheckpoint;
-                                checkpoints.Add(a);
-                                MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" +
-                                                a.CoordinateX +
-                                                "," + a.CoordinateY + ")");
-                            }
-                        }
-                    }
-                }
+                addCheckpointInsideClickedCell(e);
             }
-            else if (RemovingCheckpoints == 1)
+            else if (RemovingCheckpoints)
             {
-                foreach (Cell c in grid.listOfCells)
-                {
-                    if (c.ContainsPoint(e.X, e.Y) == true)
-                    {
-                        Point p = c.GetCenter();
-                        foreach (Checkpoint bee in checkpoints)
-                        {
-                            if (bee.CoordinateX == p.X && bee.CoordinateY == p.Y)
-                            {
-                                PaintCircleB(p);
-                                Checkpoint v = bee;
-                                checkpoints.Remove(bee);
-                                MessageBox.Show("Successfully removed checkpoint " + v.Name + " With coordinates(" +
-                                                v.CoordinateX + "," + v.CoordinateY + ").");
-                                break;
-                            }
-                        }
-                    }
-                }
+                removeCheckpointFromClickedCell(e);
             }
-            else if (AddingAirplanes == 1)
+            else if (AddingAirplanes)
             {
-                foreach (Cell c in grid.listOfCells)
-                {
-                    if (c.ContainsPoint(e.X, e.Y) == true)
-                    {
-                        bool exists = false;
-                        Point p = c.GetCenter();
-                        foreach (Airplane mm in airplaneList)
-                        {
-                            if (mm.CoordinateX == p.X && mm.CoordinateY == p.Y)
-                            {
-                                MessageBox.Show("Airplane already exists at this location", "WARNING");
-                                exists = true;
-                            }
-                        }
-
-                        if (!exists)
-                        {
-                            if (c.Type == CellType.BORDER)
-                            {
-                                pictureBox1.Invalidate();
-
-                                apName++;
-                                fnName += 6 * 2 / 3;
-                                string name = "Airplane" + apName;
-                                string flight = "fn" + fnName + "z";
-
-                                Airplane a = new Airplane(name, p.X, p.Y, Convert.ToDouble(nSpeed.Value), flight);
-                                a.OnAirportReached += airplaneHasReachedTheAirport;
-                                a.OnCrash += airplaneCrashed;
-                                airplaneList.Add(a);
-                                allFlightsListBox.Items.Add(a);
-
-                                allFlightsListBox.SelectedIndex = allFlightsListBox.Items.Count - 1;
-
-                                MessageBox.Show("Added Airplane  " + a.Name + "\nCoordinates: \t(" + a.CoordinateX +
-                                                "," + a.CoordinateY + ")" + "\nFlight number: \t(" + flight + ") " +
-                                                "\nSpeed: \t\t(" + nSpeed.Value + "kts)");
-                            }
-                            else
-                            {
-                                MessageBox.Show("This area is used for checkpoints only");
-                            }
-                        }
-                    }
-                }
+                addAirplaneAtMiddleOfClickedCells(e);
             }
-            else if (RemovingAirplanes == 1)
+            else if (RemovingAirplanes)
             {
-                foreach (Cell c in grid.listOfCells)
-                {
-                    if (c.ContainsPoint(e.X, e.Y) == true)
-                    {
-                        Point p = c.GetCenter();
-                        foreach (Airplane bee in airplaneList)
-                        {
-                            if (bee.CoordinateX == p.X && bee.CoordinateY == p.Y)
-                            {
-                                PaintRectangleY(p);
-                                Airplane v = bee;
-                                bee.OnAirportReached -= airplaneHasReachedTheAirport;
-                                bee.OnCrash -= airplaneCrashed;
-                                airplaneList.Remove(bee);
-                                allFlightsListBox.Items.Remove(bee);
-
-                                MessageBox.Show("Successfully removed Airplane " + v.Name + " With coordinates(" +
-                                                v.CoordinateX + "," + v.CoordinateY + ").");
-                                break;
-                            }
-                        }
-                    }
-                }
+                removeAirplaneFromClickedCell(e);
             }
             else if (settingTakeOffDirection)
             {
@@ -775,11 +616,171 @@ namespace Air_Traffic_Simulation
                 btnAddAirplane.Enabled = true;
                 btnUploadData.Enabled = true;
                 btnSaveData.Enabled = true;
-                button1.Enabled = true;
-                button3.Enabled = true;
+                getListBtn.Enabled = true;
+                showProbabilityBtn.Enabled = true;
                 toggleWeatherBtn.Enabled = true;
                 btClear.Enabled = true;
                 btnPlaySimulation.Enabled = true;
+            }
+        }
+
+        /// <summary>
+        /// Adds a <see cref="Checkpoint"/> to the <see cref="Grid"/> <see cref="Cell"/>, which has been clicked on 
+        /// (in case it doesn't contain a <see cref="Checkpoint"/> already.
+        /// </summary>
+        /// <param name="e">Carries information such as the coordinates of the mouse click on the <see cref="Grid"/>.</param>
+        private void addCheckpointInsideClickedCell(MouseEventArgs e)
+        {
+            foreach (Cell c in grid.listOfCells)
+            {
+                if (c.ContainsPoint(e.X, e.Y) == true)
+                {
+                    bool exists = false;
+                    Point p = c.GetCenter();
+                    foreach (Checkpoint mm in checkpoints)
+                    {
+                        if (mm.CoordinateX == p.X && mm.CoordinateY == p.Y)
+                        {
+                            MessageBox.Show("Checkpoint already exists at this location", "WARNING");
+                            exists = true;
+                        }
+                    }
+
+                    if (!exists)
+                    {
+                        if (c.Type == CellType.BORDER)
+                        {
+                            MessageBox.Show("Selected area is for airplanes only.");
+                        }
+                        else
+                        {
+                            pictureBox1.Invalidate();
+                            cpName++;
+                            string name = "cp" + cpName;
+
+                            Checkpoint a = new Checkpoint(name, p.X, p.Y, c, checkpoints.ToList(), landingStrip,
+                                takeOffDirectionCheckpoints);
+                            a.OnWeatherPassing += weatherOnCheckpoint;
+                            checkpoints.Add(a);
+                            MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" +
+                                            a.CoordinateX +
+                                            "," + a.CoordinateY + ")");
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// If the clicked <see cref="Cell"/> of the <see cref="Grid"/> contains a <see cref="Checkpoint"/>, it 
+        /// will be removed.
+        /// </summary>
+        /// <param name="e">Carries information such as the coordinates of the mouse click on the <see cref="Grid"/>.</param>
+        private void removeCheckpointFromClickedCell(MouseEventArgs e)
+        {
+            foreach (Cell c in grid.listOfCells)
+            {
+                if (c.ContainsPoint(e.X, e.Y) == true)
+                {
+                    Point p = c.GetCenter();
+                    foreach (Checkpoint bee in checkpoints)
+                    {
+                        if (bee.CoordinateX == p.X && bee.CoordinateY == p.Y)
+                        {
+                            PaintCircleB(p);
+                            Checkpoint v = bee;
+                            checkpoints.Remove(bee);
+                            MessageBox.Show("Successfully removed checkpoint " + v.Name + " With coordinates(" +
+                                            v.CoordinateX + "," + v.CoordinateY + ").");
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Adds an <see cref="Airplane"/> to the <see cref="Cell"/> of the <see cref="Grid"/> that has been clicked.
+        /// </summary>
+        /// <param name="e">Carries information such as the coordinates of the mouse click on the <see cref="Grid"/>.</param>
+        private void addAirplaneAtMiddleOfClickedCells(MouseEventArgs e)
+        {
+            foreach (Cell c in grid.listOfCells)
+            {
+                if (c.ContainsPoint(e.X, e.Y) == true)
+                {
+                    bool exists = false;
+                    Point p = c.GetCenter();
+                    foreach (Airplane mm in airplaneList)
+                    {
+                        if (mm.CoordinateX == p.X && mm.CoordinateY == p.Y)
+                        {
+                            MessageBox.Show("Airplane already exists at this location", "WARNING");
+                            exists = true;
+                        }
+                    }
+
+                    if (!exists)
+                    {
+                        if (c.Type == CellType.BORDER)
+                        {
+                            pictureBox1.Invalidate();
+
+                            apName++;
+                            fnName += 6 * 2 / 3;
+                            string name = "Airplane" + apName;
+                            string flight = "fn" + fnName + "z";
+
+                            Airplane a = new Airplane(name, p.X, p.Y, Convert.ToDouble(nSpeed.Value), (int) createAirplaneAltnumericUpDown.Value, flight);
+                            a.OnAirportReached += airplaneHasReachedTheAirport;
+                            a.OnCrash += airplaneCrashed;
+                            airplaneList.Add(a);
+                            allFlightsListBox.Items.Add(a);
+
+                            allFlightsListBox.SelectedIndex = allFlightsListBox.Items.Count - 1;
+
+                            MessageBox.Show("Added Airplane  " + a.Name + "\nCoordinates: \t(" + a.CoordinateX +
+                                            "," + a.CoordinateY + ")" + "\nFlight number: \t(" + flight + ") " +
+                                            "\nSpeed: \t\t(" + nSpeed.Value + "kts)");
+                        }
+                        else
+                        {
+                            MessageBox.Show("This area is used for checkpoints only");
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Removes the <see cref="Airplane"/> that has been clicked on. The removal takes place through
+        /// the <see cref="Cell"/> it is currently flying over.
+        /// </summary>
+        /// <param name="e">Carries information such as the coordinates of the mouse click on the <see cref="Grid"/>.</param>
+        private void removeAirplaneFromClickedCell(MouseEventArgs e)
+        {
+            foreach (Cell c in grid.listOfCells)
+            {
+                if (c.ContainsPoint(e.X, e.Y) == true)
+                {
+                    Point p = c.GetCenter();
+                    foreach (Airplane bee in airplaneList)
+                    {
+                        if (bee.CoordinateX == p.X && bee.CoordinateY == p.Y)
+                        {
+                            PaintRectangleY(p);
+                            Airplane v = bee;
+                            bee.OnAirportReached -= airplaneHasReachedTheAirport;
+                            bee.OnCrash -= airplaneCrashed;
+                            airplaneList.Remove(bee);
+                            allFlightsListBox.Items.Remove(bee);
+
+                            MessageBox.Show("Successfully removed Airplane " + v.Name + " With coordinates(" +
+                                            v.CoordinateX + "," + v.CoordinateY + ").");
+                            break;
+                        }
+                    }
+                }
             }
         }
 
@@ -790,7 +791,6 @@ namespace Air_Traffic_Simulation
         /// <param name="e">The MouseEventArgs that carries the coordinates of the mouse click on the grid.</param>
         private void setAirplaneTakeOffDirection(MouseEventArgs e)
         {
-            Console.WriteLine(this.selectedAirplane);
             foreach (Cell c in grid.listOfCells)
             {
                 if (c.ContainsPoint(e.X, e.Y) == true)
@@ -810,6 +810,7 @@ namespace Air_Traffic_Simulation
                                 selectedAirplane.OnAirspaceExit += airplaneHasReachedTheEndOfTheAirspace;
                                 ClearListboxes();
                                 UpdateListboxes();
+
                                 break;
                             }
                             catch (NullReferenceException)
@@ -839,7 +840,7 @@ namespace Air_Traffic_Simulation
                 btnRemoveCheckpoint.Enabled = false;
                 btnRandom.Enabled = false;
                 nSpeed.Enabled = true;
-                AddingAirplanes = 1;
+                AddingAirplanes = true;
                 btnAddAirplane.Text = "Stop";
             }
             else if (btnAddAirplane.Text == "Stop")
@@ -850,7 +851,7 @@ namespace Air_Traffic_Simulation
                 btnRemoveCheckpoint.Enabled = true;
                 btnRandom.Enabled = true;
                 nSpeed.Enabled = false;
-                AddingAirplanes = 0;
+                AddingAirplanes = true;
                 btnAddAirplane.Text = "Add";
             }
         }
@@ -869,7 +870,7 @@ namespace Air_Traffic_Simulation
                 btnAddCheckpoint.Enabled = false;
                 btnRemoveCheckpoint.Enabled = false;
                 btnRandom.Enabled = false;
-                RemovingAirplanes = 1;
+                RemovingAirplanes = true;
                 btnRemoveAirplane.Text = "Stop";
             }
             else if (btnRemoveAirplane.Text == "Stop")
@@ -879,12 +880,11 @@ namespace Air_Traffic_Simulation
                 btnAddCheckpoint.Enabled = true;
                 btnRemoveCheckpoint.Enabled = true;
                 btnRandom.Enabled = true;
-                RemovingAirplanes = 0;
+                RemovingAirplanes = false;
                 btnRemoveAirplane.Text = "Remove";
             }
         }
 
-        
 
         /// <summary>
         /// Changes value for wind label when trackbar value is changed
@@ -968,8 +968,8 @@ namespace Air_Traffic_Simulation
 
 
                 checkpoints.Clear();
-                airplaneList = null;
-                landedAirplanes = null;
+                airplaneList.Clear();
+                landedAirplanes.Clear();
                 SavingObjects so = null;
 
                 so = (SavingObjects) bformatter.Deserialize(filestream);
@@ -980,7 +980,9 @@ namespace Air_Traffic_Simulation
                     {
                         if (c.ContainsPoint((int) checkpoint.CoordinateX, (int) checkpoint.CoordinateY))
                         {
-                            checkpoints.Add(new Checkpoint(checkpoint.Name, checkpoint.CoordinateX, checkpoint.CoordinateY, c, checkpoints.ToList(), landingStrip, this.takeOffDirectionCheckpoints));
+                            checkpoints.Add(new Checkpoint(checkpoint.Name, checkpoint.CoordinateX,
+                                checkpoint.CoordinateY, c, checkpoints.ToList(), landingStrip,
+                                this.takeOffDirectionCheckpoints));
                         }
                     }
                 }
@@ -992,10 +994,10 @@ namespace Air_Traffic_Simulation
 
                 filestream.Close();
                 filestream = null;
-                
+
                 if (airplaneList != null)
                 {
-                    for(int i = 0; i < airplaneList.Count; i++)
+                    for (int i = 0; i < airplaneList.Count; i++)
                     {
                         airplaneList[i].OnAirportReached += airplaneHasReachedTheAirport;
                         airplaneList[i].OnCrash += airplaneCrashed;
@@ -1040,21 +1042,21 @@ namespace Air_Traffic_Simulation
                 btnAddAirplane.Enabled = false;
                 btnRemoveAirplane.Enabled = false;
                 btnRandom.Enabled = false;
-                RemovingCheckpoints = 1;
+                RemovingCheckpoints = true;
                 btnRemoveCheckpoint.Text = "Stop";
             }
             else if (btnRemoveCheckpoint.Text == "Stop")
             {
                 btTakeOff.Enabled = true;
                 btnAddCheckpoint.Enabled = true;
-                if (RandomAirplane == 0)
+                if (!RandomAirplane)
                 {
                     btnAddAirplane.Enabled = true;
                     btnRemoveAirplane.Enabled = true;
                 }
 
                 btnRandom.Enabled = true;
-                RemovingCheckpoints = 0;
+                RemovingCheckpoints = false;
                 btnRemoveCheckpoint.Text = "Remove";
             }
         }
@@ -1163,6 +1165,8 @@ namespace Air_Traffic_Simulation
             timerSimRunning.Interval = (int) (1000 / Convert.ToDouble(simSpeedComboBox.SelectedItem.ToString()));
         }
 
+
+
         private void allFlightsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             btTakeOff.Enabled = false;
@@ -1173,10 +1177,19 @@ namespace Air_Traffic_Simulation
                 return;
             }
 
+            modifyAirplaneSpeedNumericUpDown.Minimum = (Decimal) selectedAirplane.MinSpeed;
+            modifyAirplaneSpeedNumericUpDown.Maximum = (Decimal) selectedAirplane.MaxSpeed;
+            modifyAirplaneSpeedNumericUpDown.Value = (Decimal) selectedAirplane.SpeedInKts;
+
+            modifyAirplaneAltnumericUpDown.Minimum = (Decimal) selectedAirplane.MinAltitude;
+            modifyAirplaneAltnumericUpDown.Maximum = (Decimal) selectedAirplane.MaxAltitude;
+            modifyAirplaneAltnumericUpDown.Value = (Decimal)selectedAirplane.Altitude;
+
+
             string planePath = String.Join(" --> ", selectedAirplane.ShortestPath);
 
             planeInfoTextBox.Text =
-                $"{selectedAirplane} - flying{Environment.NewLine}Path: {planePath}{Environment.NewLine}Coordinates: ({selectedAirplane.CoordinateX}, {selectedAirplane.CoordinateY})   Speed: {selectedAirplane.Speed}";
+                $"{selectedAirplane} - flying{Environment.NewLine}Path: {planePath}{Environment.NewLine}Coordinates: ({selectedAirplane.CoordinateX}, {selectedAirplane.CoordinateY})   SpeedInKts: {selectedAirplane.SpeedInKts}";
         }
 
 
@@ -1185,6 +1198,17 @@ namespace Air_Traffic_Simulation
             btTakeOff.Enabled = true;
 
             selectedAirplane = (Airplane) landedAirplanesListBox.SelectedItem;
+
+            if (selectedAirplane == null)
+            {
+                return;
+            }
+
+            modifyAirplaneSpeedNumericUpDown.Minimum = (Decimal) selectedAirplane.MinSpeed;
+            modifyAirplaneSpeedNumericUpDown.Maximum = (Decimal) selectedAirplane.MaxSpeed;
+            modifyAirplaneSpeedNumericUpDown.Value = (Decimal) selectedAirplane.SpeedInKts;
+
+            airplaneControlsGroupBox.Name = selectedAirplane.Name;
 
             planeInfoTextBox.Text =
                 $"{selectedAirplane} - landed{Environment.NewLine}";
@@ -1241,7 +1265,8 @@ namespace Air_Traffic_Simulation
                 Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
                 if (xlApp == null)
                 {
-                    MessageBox.Show("Excel is not installed in your system, and therefore we can't generate a report file for you");
+                    MessageBox.Show(
+                        "Excel is not installed in your system, and therefore we can't generate a report file for you");
                     Refresh();
                     ClearListboxes();
                     ClearLists();
@@ -1258,6 +1283,7 @@ namespace Air_Traffic_Simulation
                     {
                         landed = landedAirplanes.Count;
                     }
+
                     if (crashedAirplanes != null)
                     {
                         crashed = crashedAirplanes.Count;
@@ -1275,14 +1301,13 @@ namespace Air_Traffic_Simulation
                     }
 
 
-
                     //ToDo: add a method that saves and overview to a file!
                     Excel.Workbook xlWorkBook;
                     Excel.Worksheet xlWorkSheet;
                     object misValue = System.Reflection.Missing.Value;
 
                     xlWorkBook = xlApp.Workbooks.Add(misValue);
-                    xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                    xlWorkSheet = (Excel.Worksheet) xlWorkBook.Worksheets.get_Item(1);
 
                     xlWorkSheet.Cells[1, 2] = "Simulation Results";
                     xlWorkSheet.Cells[2, 7] = "Number";
@@ -1300,29 +1325,36 @@ namespace Air_Traffic_Simulation
                     if (crashedperc >= 50)
                     {
                         xlWorkSheet.Cells[7, 7] = "Very bad, more than half of the planes were destroyed.";
-                        xlWorkSheet.Cells[8, 7] = "Please try to lower the amount of airplanes moving in the airspace at the time.";
+                        xlWorkSheet.Cells[8, 7] =
+                            "Please try to lower the amount of airplanes moving in the airspace at the time.";
                     }
                     else if (crashedperc >= 20 && crashedperc < 50)
                     {
-                        xlWorkSheet.Cells[7, 7] = "It is bad, most of the airplanes managed to land, however some of them crashed.";
-                        xlWorkSheet.Cells[8, 7] = "Please try to add more checkpoints so the airplanes would have more options to choose";
+                        xlWorkSheet.Cells[7, 7] =
+                            "It is bad, most of the airplanes managed to land, however some of them crashed.";
+                        xlWorkSheet.Cells[8, 7] =
+                            "Please try to add more checkpoints so the airplanes would have more options to choose";
                         xlWorkSheet.Cells[9, 7] = "from where should they go.";
                     }
                     else if (crashedperc >= 1 && crashedperc < 20)
                     {
-                        xlWorkSheet.Cells[7, 7] = "It's not bad, almost all airplanes managed to land without any circumstances.";
-                        xlWorkSheet.Cells[8, 7] = "To improve it further please adjust other airplanes speed so they wouldn't overlap on each other.";
+                        xlWorkSheet.Cells[7, 7] =
+                            "It's not bad, almost all airplanes managed to land without any circumstances.";
+                        xlWorkSheet.Cells[8, 7] =
+                            "To improve it further please adjust other airplanes speed so they wouldn't overlap on each other.";
                     }
                     else if (crashedperc == 0)
                     {
                         xlWorkSheet.Cells[7, 7] = "The simulation ran perfectly, no airplanes were crashed.";
-                        xlWorkSheet.Cells[8, 7] = "Every airplanes managed to land successfully because of the good job";
+                        xlWorkSheet.Cells[8, 7] =
+                            "Every airplanes managed to land successfully because of the good job";
                         xlWorkSheet.Cells[9, 7] = "that you did as an airspace manager!";
                     }
 
 
-
-                    xlWorkBook.SaveAs("d:\\csharp-Excel.xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    xlWorkBook.SaveAs("d:\\csharp-Excel.xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
+                        misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue,
+                        misValue, misValue);
                     xlWorkBook.Close(true, misValue, misValue);
                     xlApp.Quit();
 
@@ -1386,8 +1418,8 @@ namespace Air_Traffic_Simulation
                 btnAddAirplane.Enabled = false;
                 btnUploadData.Enabled = false;
                 btnSaveData.Enabled = false;
-                button1.Enabled = false;
-                button3.Enabled = false;
+                getListBtn.Enabled = false;
+                showProbabilityBtn.Enabled = false;
                 toggleWeatherBtn.Enabled = false;
                 btClear.Enabled = false;
                 btnPlaySimulation.Enabled = false;
@@ -1502,9 +1534,9 @@ namespace Air_Traffic_Simulation
             e.Graphics.DrawEllipse(pen, x, y, width, height);
         }
 
-        private void button2_Click_2(object sender, EventArgs e)
+        private void generateRandomAirplanesBtn_Click(object sender, EventArgs e)
         {
-            RandomAirplane = 1;
+            RandomAirplane = true;
             Random random = new Random();
             int rnd = random.Next(1, 10);
             for (int i = 0; i < rnd; i++)
@@ -1546,6 +1578,18 @@ namespace Air_Traffic_Simulation
             airplaneImage = Properties.Resources.SelectedairplanePic;
             airplaneRect = new Rectangle(x - 20, y - 20, 40, 40);
             e.Graphics.DrawImage(airplaneImage, airplaneRect);
+        }
+
+        private void modifyAirplaneSpeedNumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            if (selectedAirplane == null) return;
+
+            selectedAirplane.SpeedInKts = (Double) modifyAirplaneSpeedNumericUpDown.Value;
+        }
+
+        private void modifyAirplaneAltnumericUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            selectedAirplane.Altitude = (int) modifyAirplaneAltnumericUpDown.Value;
         }
 
         /// <summary>
@@ -1640,7 +1684,7 @@ namespace Air_Traffic_Simulation
 
                 while (speed % 25 != 0)
                 {
-                    speed = random.Next(100, 400);
+                    speed = random.Next(500, 800);
                 }
 
                 if (s == 1)
@@ -1695,15 +1739,17 @@ namespace Air_Traffic_Simulation
                 }
             } while (exists == true);
 
+            var altRandomizer = new Random();
+            int alt = altRandomizer.Next(6500, 7500);
+
             pictureBox1.Invalidate();
             apName++;
             fnName += 4;
             string name = "Airplane" + apName;
             string flight = "fn" + fnName + "z";
-            Airplane one = new Airplane(name, x, y, speed, flight);
+            Airplane one = new Airplane(name, x, y, speed, alt, flight);
             airplaneList.Add(one);
 
-            this.Invalidate();
             one.OnAirportReached += airplaneHasReachedTheAirport;
             one.OnCrash += airplaneCrashed;
             allFlightsListBox.Items.Add(one);
