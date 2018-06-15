@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
             this.logTextBox = new System.Windows.Forms.TextBox();
             this.lbAddedAirplanesList = new System.Windows.Forms.Label();
@@ -178,9 +177,9 @@
             this.lbAddedAirplanesList.AutoSize = true;
             this.lbAddedAirplanesList.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lbAddedAirplanesList.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.lbAddedAirplanesList.Location = new System.Drawing.Point(0, 571);
+            this.lbAddedAirplanesList.Location = new System.Drawing.Point(0, 575);
             this.lbAddedAirplanesList.Name = "lbAddedAirplanesList";
-            this.lbAddedAirplanesList.Size = new System.Drawing.Size(245, 21);
+            this.lbAddedAirplanesList.Size = new System.Drawing.Size(188, 17);
             this.lbAddedAirplanesList.TabIndex = 24;
             this.lbAddedAirplanesList.Text = "Added airplanes to the field";
             // 
@@ -197,7 +196,7 @@
             // 
             this.allFlightsListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.allFlightsListBox.FormattingEnabled = true;
-            this.allFlightsListBox.ItemHeight = 23;
+            this.allFlightsListBox.ItemHeight = 21;
             this.allFlightsListBox.Location = new System.Drawing.Point(0, 0);
             this.allFlightsListBox.Name = "allFlightsListBox";
             this.allFlightsListBox.Size = new System.Drawing.Size(272, 115);
@@ -210,7 +209,7 @@
             this.lbPrecipitationType.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.lbPrecipitationType.Location = new System.Drawing.Point(222, 379);
             this.lbPrecipitationType.Name = "lbPrecipitationType";
-            this.lbPrecipitationType.Size = new System.Drawing.Size(0, 21);
+            this.lbPrecipitationType.Size = new System.Drawing.Size(0, 17);
             this.lbPrecipitationType.TabIndex = 23;
             // 
             // lbVisibility
@@ -219,7 +218,7 @@
             this.lbVisibility.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.lbVisibility.Location = new System.Drawing.Point(71, 379);
             this.lbVisibility.Name = "lbVisibility";
-            this.lbVisibility.Size = new System.Drawing.Size(0, 21);
+            this.lbVisibility.Size = new System.Drawing.Size(0, 17);
             this.lbVisibility.TabIndex = 22;
             // 
             // lbPrecipitationTypeGUI
@@ -228,7 +227,7 @@
             this.lbPrecipitationTypeGUI.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.lbPrecipitationTypeGUI.Location = new System.Drawing.Point(93, 379);
             this.lbPrecipitationTypeGUI.Name = "lbPrecipitationTypeGUI";
-            this.lbPrecipitationTypeGUI.Size = new System.Drawing.Size(163, 21);
+            this.lbPrecipitationTypeGUI.Size = new System.Drawing.Size(126, 17);
             this.lbPrecipitationTypeGUI.TabIndex = 21;
             this.lbPrecipitationTypeGUI.Text = "Precipitation type:";
             // 
@@ -238,7 +237,7 @@
             this.lbVisibilityGUI.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.lbVisibilityGUI.Location = new System.Drawing.Point(4, 379);
             this.lbVisibilityGUI.Name = "lbVisibilityGUI";
-            this.lbVisibilityGUI.Size = new System.Drawing.Size(77, 21);
+            this.lbVisibilityGUI.Size = new System.Drawing.Size(61, 17);
             this.lbVisibilityGUI.TabIndex = 20;
             this.lbVisibilityGUI.Text = "Visibility:";
             // 
@@ -249,7 +248,7 @@
             this.lbProbability.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.lbProbability.Location = new System.Drawing.Point(34, 354);
             this.lbProbability.Name = "lbProbability";
-            this.lbProbability.Size = new System.Drawing.Size(0, 21);
+            this.lbProbability.Size = new System.Drawing.Size(0, 19);
             this.lbProbability.TabIndex = 18;
             // 
             // labelWind
@@ -259,7 +258,7 @@
             this.labelWind.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.labelWind.Location = new System.Drawing.Point(34, 295);
             this.labelWind.Name = "labelWind";
-            this.labelWind.Size = new System.Drawing.Size(0, 21);
+            this.labelWind.Size = new System.Drawing.Size(0, 19);
             this.labelWind.TabIndex = 17;
             // 
             // labelPrec
@@ -269,7 +268,7 @@
             this.labelPrec.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.labelPrec.Location = new System.Drawing.Point(34, 249);
             this.labelPrec.Name = "labelPrec";
-            this.labelPrec.Size = new System.Drawing.Size(0, 21);
+            this.labelPrec.Size = new System.Drawing.Size(0, 19);
             this.labelPrec.TabIndex = 16;
             // 
             // labelTemp
@@ -279,7 +278,7 @@
             this.labelTemp.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.labelTemp.Location = new System.Drawing.Point(34, 191);
             this.labelTemp.Name = "labelTemp";
-            this.labelTemp.Size = new System.Drawing.Size(0, 21);
+            this.labelTemp.Size = new System.Drawing.Size(0, 19);
             this.labelTemp.TabIndex = 15;
             // 
             // trackBarPrecipitation
@@ -287,7 +286,7 @@
             this.trackBarPrecipitation.Location = new System.Drawing.Point(121, 218);
             this.trackBarPrecipitation.Maximum = 100;
             this.trackBarPrecipitation.Name = "trackBarPrecipitation";
-            this.trackBarPrecipitation.Size = new System.Drawing.Size(148, 56);
+            this.trackBarPrecipitation.Size = new System.Drawing.Size(148, 45);
             this.trackBarPrecipitation.TabIndex = 14;
             this.trackBarPrecipitation.TabStop = false;
             this.trackBarPrecipitation.Value = 24;
@@ -307,7 +306,7 @@
             this.comboBoxWindDirection.FormattingEnabled = true;
             this.comboBoxWindDirection.Location = new System.Drawing.Point(131, 317);
             this.comboBoxWindDirection.Name = "comboBoxWindDirection";
-            this.comboBoxWindDirection.Size = new System.Drawing.Size(128, 31);
+            this.comboBoxWindDirection.Size = new System.Drawing.Size(128, 29);
             this.comboBoxWindDirection.TabIndex = 12;
             this.comboBoxWindDirection.TabStop = false;
             this.comboBoxWindDirection.SelectedIndexChanged += new System.EventHandler(this.comboBoxWindDirection_SelectedIndexChanged);
@@ -317,7 +316,7 @@
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(3, 320);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(146, 23);
+            this.label6.Size = new System.Drawing.Size(122, 21);
             this.label6.TabIndex = 11;
             this.label6.Text = "Wind direction";
             // 
@@ -326,7 +325,7 @@
             this.trackBarWindSpeed.Location = new System.Drawing.Point(121, 269);
             this.trackBarWindSpeed.Maximum = 75;
             this.trackBarWindSpeed.Name = "trackBarWindSpeed";
-            this.trackBarWindSpeed.Size = new System.Drawing.Size(148, 56);
+            this.trackBarWindSpeed.Size = new System.Drawing.Size(148, 45);
             this.trackBarWindSpeed.TabIndex = 9;
             this.trackBarWindSpeed.TabStop = false;
             this.trackBarWindSpeed.Scroll += new System.EventHandler(this.trackBarWindSpeed_Scroll);
@@ -337,7 +336,7 @@
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(3, 269);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(124, 23);
+            this.label5.Size = new System.Drawing.Size(101, 21);
             this.label5.TabIndex = 8;
             this.label5.Text = "Wind speed";
             // 
@@ -346,7 +345,7 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(3, 167);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(135, 23);
+            this.label4.Size = new System.Drawing.Size(112, 21);
             this.label4.TabIndex = 7;
             this.label4.Text = "Temperature";
             // 
@@ -355,7 +354,7 @@
             this.lbWeatherConditions.AutoSize = true;
             this.lbWeatherConditions.Location = new System.Drawing.Point(54, 131);
             this.lbWeatherConditions.Name = "lbWeatherConditions";
-            this.lbWeatherConditions.Size = new System.Drawing.Size(199, 23);
+            this.lbWeatherConditions.Size = new System.Drawing.Size(165, 21);
             this.lbWeatherConditions.TabIndex = 6;
             this.lbWeatherConditions.Text = "Weather Conditions";
             // 
@@ -365,7 +364,7 @@
             this.trackBarTemperature.Maximum = 50;
             this.trackBarTemperature.Minimum = -30;
             this.trackBarTemperature.Name = "trackBarTemperature";
-            this.trackBarTemperature.Size = new System.Drawing.Size(148, 56);
+            this.trackBarTemperature.Size = new System.Drawing.Size(148, 45);
             this.trackBarTemperature.TabIndex = 5;
             this.trackBarTemperature.TabStop = false;
             this.trackBarTemperature.Value = 24;
@@ -376,7 +375,7 @@
             this.btnPlaySimulation.FlatAppearance.BorderSize = 0;
             this.btnPlaySimulation.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPlaySimulation.ForeColor = System.Drawing.Color.White;
-            this.btnPlaySimulation.Image = ((System.Drawing.Image)(resources.GetObject("btnPlaySimulation.Image")));
+            this.btnPlaySimulation.Image = global::Air_Traffic_Simulation.Properties.Resources.playbutton;
             this.btnPlaySimulation.Location = new System.Drawing.Point(12, 399);
             this.btnPlaySimulation.Name = "btnPlaySimulation";
             this.btnPlaySimulation.Size = new System.Drawing.Size(247, 93);
@@ -402,7 +401,7 @@
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(158)))), ((int)(((byte)(209)))));
             this.label1.Location = new System.Drawing.Point(8, 28);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(312, 80);
+            this.label1.Size = new System.Drawing.Size(251, 63);
             this.label1.TabIndex = 0;
             this.label1.Text = "Air Traffic";
             // 
@@ -448,10 +447,10 @@
             // 
             this.landedAirplanesListBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.landedAirplanesListBox.FormattingEnabled = true;
-            this.landedAirplanesListBox.ItemHeight = 23;
-            this.landedAirplanesListBox.Location = new System.Drawing.Point(0, 21);
+            this.landedAirplanesListBox.ItemHeight = 21;
+            this.landedAirplanesListBox.Location = new System.Drawing.Point(0, 17);
             this.landedAirplanesListBox.Name = "landedAirplanesListBox";
-            this.landedAirplanesListBox.Size = new System.Drawing.Size(200, 33);
+            this.landedAirplanesListBox.Size = new System.Drawing.Size(200, 37);
             this.landedAirplanesListBox.TabIndex = 23;
             this.landedAirplanesListBox.SelectedIndexChanged += new System.EventHandler(this.landedAirplanesListBox_SelectedIndexChanged);
             // 
@@ -462,7 +461,7 @@
             this.lbLandedAirplanesList.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.lbLandedAirplanesList.Location = new System.Drawing.Point(0, 0);
             this.lbLandedAirplanesList.Name = "lbLandedAirplanesList";
-            this.lbLandedAirplanesList.Size = new System.Drawing.Size(155, 21);
+            this.lbLandedAirplanesList.Size = new System.Drawing.Size(119, 17);
             this.lbLandedAirplanesList.TabIndex = 24;
             this.lbLandedAirplanesList.Text = "Landed airplanes";
             // 
@@ -489,7 +488,7 @@
             this.modifyPlaneAltitudeFtLbl.ForeColor = System.Drawing.Color.White;
             this.modifyPlaneAltitudeFtLbl.Location = new System.Drawing.Point(164, 58);
             this.modifyPlaneAltitudeFtLbl.Name = "modifyPlaneAltitudeFtLbl";
-            this.modifyPlaneAltitudeFtLbl.Size = new System.Drawing.Size(23, 23);
+            this.modifyPlaneAltitudeFtLbl.Size = new System.Drawing.Size(22, 21);
             this.modifyPlaneAltitudeFtLbl.TabIndex = 5;
             this.modifyPlaneAltitudeFtLbl.Text = "ft";
             // 
@@ -499,7 +498,7 @@
             this.modifyAirplaneSpeedKtsLbl.ForeColor = System.Drawing.Color.White;
             this.modifyAirplaneSpeedKtsLbl.Location = new System.Drawing.Point(165, 28);
             this.modifyAirplaneSpeedKtsLbl.Name = "modifyAirplaneSpeedKtsLbl";
-            this.modifyAirplaneSpeedKtsLbl.Size = new System.Drawing.Size(35, 23);
+            this.modifyAirplaneSpeedKtsLbl.Size = new System.Drawing.Size(31, 21);
             this.modifyAirplaneSpeedKtsLbl.TabIndex = 4;
             this.modifyAirplaneSpeedKtsLbl.Text = "kts";
             // 
@@ -509,7 +508,7 @@
             this.modifyPlaneAltitudeLbl.ForeColor = System.Drawing.Color.White;
             this.modifyPlaneAltitudeLbl.Location = new System.Drawing.Point(9, 58);
             this.modifyPlaneAltitudeLbl.Name = "modifyPlaneAltitudeLbl";
-            this.modifyPlaneAltitudeLbl.Size = new System.Drawing.Size(37, 23);
+            this.modifyPlaneAltitudeLbl.Size = new System.Drawing.Size(33, 21);
             this.modifyPlaneAltitudeLbl.TabIndex = 3;
             this.modifyPlaneAltitudeLbl.Text = "Alt";
             // 
@@ -519,7 +518,7 @@
             this.modifyPlaneSpeedSpeedLbl.ForeColor = System.Drawing.Color.White;
             this.modifyPlaneSpeedSpeedLbl.Location = new System.Drawing.Point(7, 28);
             this.modifyPlaneSpeedSpeedLbl.Name = "modifyPlaneSpeedSpeedLbl";
-            this.modifyPlaneSpeedSpeedLbl.Size = new System.Drawing.Size(74, 23);
+            this.modifyPlaneSpeedSpeedLbl.Size = new System.Drawing.Size(60, 21);
             this.modifyPlaneSpeedSpeedLbl.TabIndex = 2;
             this.modifyPlaneSpeedSpeedLbl.Text = "Speed";
             // 
@@ -537,7 +536,7 @@
             0,
             0});
             this.modifyAirplaneAltnumericUpDown.Name = "modifyAirplaneAltnumericUpDown";
-            this.modifyAirplaneAltnumericUpDown.Size = new System.Drawing.Size(92, 32);
+            this.modifyAirplaneAltnumericUpDown.Size = new System.Drawing.Size(92, 27);
             this.modifyAirplaneAltnumericUpDown.TabIndex = 1;
             this.modifyAirplaneAltnumericUpDown.Value = new decimal(new int[] {
             6500,
@@ -565,7 +564,7 @@
             0,
             0});
             this.modifyAirplaneSpeedNumericUpDown.Name = "modifyAirplaneSpeedNumericUpDown";
-            this.modifyAirplaneSpeedNumericUpDown.Size = new System.Drawing.Size(79, 32);
+            this.modifyAirplaneSpeedNumericUpDown.Size = new System.Drawing.Size(79, 27);
             this.modifyAirplaneSpeedNumericUpDown.TabIndex = 0;
             this.modifyAirplaneSpeedNumericUpDown.Value = new decimal(new int[] {
             500,
@@ -646,7 +645,7 @@
             "10"});
             this.simSpeedComboBox.Location = new System.Drawing.Point(71, 39);
             this.simSpeedComboBox.Name = "simSpeedComboBox";
-            this.simSpeedComboBox.Size = new System.Drawing.Size(63, 31);
+            this.simSpeedComboBox.Size = new System.Drawing.Size(63, 29);
             this.simSpeedComboBox.TabIndex = 20;
             this.simSpeedComboBox.SelectedIndexChanged += new System.EventHandler(this.simSpeedComboBox_SelectedIndexChanged);
             // 
@@ -655,7 +654,7 @@
             this.simSpeedLb.AutoSize = true;
             this.simSpeedLb.Location = new System.Drawing.Point(24, 11);
             this.simSpeedLb.Name = "simSpeedLb";
-            this.simSpeedLb.Size = new System.Drawing.Size(180, 23);
+            this.simSpeedLb.Size = new System.Drawing.Size(146, 21);
             this.simSpeedLb.TabIndex = 21;
             this.simSpeedLb.Text = "SImulation Speed";
             // 
@@ -689,7 +688,7 @@
             this.label11.AutoSize = true;
             this.label11.Location = new System.Drawing.Point(49, 13);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(120, 23);
+            this.label11.Size = new System.Drawing.Size(100, 21);
             this.label11.TabIndex = 15;
             this.label11.Text = "Data Menu";
             // 
@@ -739,7 +738,7 @@
             0,
             0});
             this.createAirplaneAltnumericUpDown.Name = "createAirplaneAltnumericUpDown";
-            this.createAirplaneAltnumericUpDown.Size = new System.Drawing.Size(91, 32);
+            this.createAirplaneAltnumericUpDown.Size = new System.Drawing.Size(91, 27);
             this.createAirplaneAltnumericUpDown.TabIndex = 30;
             this.createAirplaneAltnumericUpDown.Value = new decimal(new int[] {
             6500,
@@ -754,7 +753,7 @@
             this.createAltitudeFtLbl.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.createAltitudeFtLbl.Location = new System.Drawing.Point(150, 98);
             this.createAltitudeFtLbl.Name = "createAltitudeFtLbl";
-            this.createAltitudeFtLbl.Size = new System.Drawing.Size(22, 21);
+            this.createAltitudeFtLbl.Size = new System.Drawing.Size(18, 19);
             this.createAltitudeFtLbl.TabIndex = 29;
             this.createAltitudeFtLbl.Text = "ft";
             // 
@@ -764,7 +763,7 @@
             this.createPlaneAltitudeLbl.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.createPlaneAltitudeLbl.Location = new System.Drawing.Point(8, 96);
             this.createPlaneAltitudeLbl.Name = "createPlaneAltitudeLbl";
-            this.createPlaneAltitudeLbl.Size = new System.Drawing.Size(37, 23);
+            this.createPlaneAltitudeLbl.Size = new System.Drawing.Size(33, 21);
             this.createPlaneAltitudeLbl.TabIndex = 28;
             this.createPlaneAltitudeLbl.Text = "Alt";
             // 
@@ -792,7 +791,7 @@
             0,
             0});
             this.nSpeed.Name = "nSpeed";
-            this.nSpeed.Size = new System.Drawing.Size(67, 32);
+            this.nSpeed.Size = new System.Drawing.Size(67, 27);
             this.nSpeed.TabIndex = 26;
             this.nSpeed.Value = new decimal(new int[] {
             500,
@@ -807,7 +806,7 @@
             this.label15.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label15.Location = new System.Drawing.Point(149, 62);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(33, 21);
+            this.label15.Size = new System.Drawing.Size(26, 19);
             this.label15.TabIndex = 25;
             this.label15.Text = "kts";
             // 
@@ -817,7 +816,7 @@
             this.label14.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label14.Location = new System.Drawing.Point(7, 60);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(74, 23);
+            this.label14.Size = new System.Drawing.Size(60, 21);
             this.label14.TabIndex = 23;
             this.label14.Text = "Speed";
             // 
@@ -856,7 +855,7 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(33, 3);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(152, 23);
+            this.label9.Size = new System.Drawing.Size(125, 21);
             this.label9.TabIndex = 17;
             this.label9.Text = "Airplane Menu";
             // 
@@ -904,7 +903,7 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(24, 3);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(183, 23);
+            this.label8.Size = new System.Drawing.Size(151, 21);
             this.label8.TabIndex = 15;
             this.label8.Text = "Checkpoint Menu";
             // 
@@ -940,7 +939,7 @@
             this.warningsLbl.AutoSize = true;
             this.warningsLbl.Location = new System.Drawing.Point(13, 10);
             this.warningsLbl.Name = "warningsLbl";
-            this.warningsLbl.Size = new System.Drawing.Size(323, 23);
+            this.warningsLbl.Size = new System.Drawing.Size(261, 21);
             this.warningsLbl.TabIndex = 5;
             this.warningsLbl.Text = "No missing checkpoint warnings.";
             // 
@@ -958,7 +957,7 @@
             this.btMinimize.AutoSize = true;
             this.btMinimize.Location = new System.Drawing.Point(9, 10);
             this.btMinimize.Name = "btMinimize";
-            this.btMinimize.Size = new System.Drawing.Size(20, 23);
+            this.btMinimize.Size = new System.Drawing.Size(18, 21);
             this.btMinimize.TabIndex = 5;
             this.btMinimize.Text = "_";
             this.btMinimize.Click += new System.EventHandler(this.btMinimize_Click);
@@ -978,7 +977,7 @@
             this.btClose.AutoSize = true;
             this.btClose.Location = new System.Drawing.Point(7, 10);
             this.btClose.Name = "btClose";
-            this.btClose.Size = new System.Drawing.Size(22, 23);
+            this.btClose.Size = new System.Drawing.Size(19, 21);
             this.btClose.TabIndex = 5;
             this.btClose.Text = "X";
             this.btClose.Click += new System.EventHandler(this.btClose_Click);

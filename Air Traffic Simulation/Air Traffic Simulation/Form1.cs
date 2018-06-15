@@ -998,7 +998,6 @@ namespace Air_Traffic_Simulation
                     {
                         airplaneList[i].OnAirportReached += airplaneHasReachedTheAirport;
                         airplaneList[i].OnCrash += airplaneCrashed;
-                        allFlightsListBox.Items.Add(airplaneList[i]);
                         if (i == airplaneList.Count - 1)
                         {
                             apName = Convert.ToInt32(airplaneList[i].Name.Substring("Airplane".Length));
@@ -1008,14 +1007,8 @@ namespace Air_Traffic_Simulation
 
                     pictureBox1.Invalidate();
                 }
-
-                if (landedAirplanes != null)
-                {
-                    foreach (Airplane a in landedAirplanes)
-                    {
-                        allFlightsListBox.Items.Add(a.Name + "\t" + a.FlightNumber);
-                    }
-                }
+                
+              UpdateListboxes();
             }
 
             //foreach (Checkpoint a in checkpoints)
@@ -1231,6 +1224,7 @@ namespace Air_Traffic_Simulation
         {
             if (timerSimRunning.Enabled)
             {
+                btnPlaySimulation.Image = Air_Traffic_Simulation.Properties.Resources.playbutton;
                 updateLogTextBox("Simulation interrupted.");
                 timerSimRunning.Stop();
             }
@@ -1239,6 +1233,8 @@ namespace Air_Traffic_Simulation
                 pictureBox1.Invalidate();
                 timerSimRunning.Start();
                 updateLogTextBox("Simulation started.");
+
+                btnPlaySimulation.Image = Air_Traffic_Simulation.Properties.Resources.pause;
             }
         }
 
