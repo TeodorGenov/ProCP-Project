@@ -963,7 +963,7 @@ namespace Air_Traffic_Simulation
                     cpName = 0;
                 }
 
-
+                ClearListboxes();
                 checkpoints = new ObservableCollection<Checkpoint>();
                 airplaneList = new ObservableCollection<Airplane>();
                 landedAirplanes.Clear();
