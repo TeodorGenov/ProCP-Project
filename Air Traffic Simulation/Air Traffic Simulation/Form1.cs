@@ -614,7 +614,7 @@ namespace Air_Traffic_Simulation
                 btnRemoveCheckpoint.Enabled = true;
                 btnRandom.Enabled = true;
                 btnAddAirplane.Enabled = true;
-                btnUploadData.Enabled = true;
+                btnLoadData.Enabled = true;
                 btnSaveData.Enabled = true;
                 getListBtn.Enabled = true;
                 showProbabilityBtn.Enabled = true;
@@ -967,8 +967,8 @@ namespace Air_Traffic_Simulation
                 }
 
 
-                checkpoints.Clear();
-                airplaneList.Clear();
+                checkpoints = new ObservableCollection<Checkpoint>();
+                airplaneList = new ObservableCollection<Airplane>();
                 landedAirplanes.Clear();
                 SavingObjects so = null;
 
@@ -1322,11 +1322,15 @@ namespace Air_Traffic_Simulation
                     xlWorkSheet.Cells[5, 7] = crashed;
                     xlWorkSheet.Cells[5, 9] = crashedperc + "%";
                     xlWorkSheet.Cells[7, 2] = "Simulation Analysis:";
+
+                    int lastLineNr = 0;
+
                     if (crashedperc >= 50)
                     {
                         xlWorkSheet.Cells[7, 7] = "Very bad, more than half of the planes were destroyed.";
                         xlWorkSheet.Cells[8, 7] =
                             "Please try to lower the amount of airplanes moving in the airspace at the time.";
+                        lastLineNr = 9;
                     }
                     else if (crashedperc >= 20 && crashedperc < 50)
                     {
@@ -1335,6 +1339,7 @@ namespace Air_Traffic_Simulation
                         xlWorkSheet.Cells[8, 7] =
                             "Please try to add more checkpoints so the airplanes would have more options to choose";
                         xlWorkSheet.Cells[9, 7] = "from where should they go.";
+                        lastLineNr = 10;
                     }
                     else if (crashedperc >= 1 && crashedperc < 20)
                     {
@@ -1342,15 +1347,18 @@ namespace Air_Traffic_Simulation
                             "It's not bad, almost all airplanes managed to land without any circumstances.";
                         xlWorkSheet.Cells[8, 7] =
                             "To improve it further please adjust other airplanes speed so they wouldn't overlap on each other.";
+                        lastLineNr = 9;
                     }
                     else if (crashedperc == 0)
                     {
                         xlWorkSheet.Cells[7, 7] = "The simulation ran perfectly, no airplanes were crashed.";
                         xlWorkSheet.Cells[8, 7] =
                             "Every airplanes managed to land successfully because of the good job";
-                        xlWorkSheet.Cells[9, 7] = "that you did as an airspace manager!";
+                        xlWorkSheet.Cells[9, 7] = "that you did as an air traffic controller!";
+                        lastLineNr = 10;
                     }
 
+                    xlWorkSheet.Cells[++lastLineNr, 7] = $"Final mark for the run: {100 - crashedperc}/100 points";
 
                     xlWorkBook.SaveAs("d:\\csharp-Excel.xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
                         misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue,
@@ -1365,14 +1373,14 @@ namespace Air_Traffic_Simulation
                     Refresh();
                     ClearListboxes();
                     ClearLists();
-                    MessageBox.Show("Simulation cleared!");
+                //    MessageBox.Show("Simulation cleared!");
                 }
 
 
-                pictureBox1.Invalidate();
+               // pictureBox1.Invalidate();
                 ClearListboxes();
                 ClearLists();
-                MessageBox.Show("Simulation cleared!");
+                MessageBox.Show(this, "Simulation cleared!");
                 //ToDo: add a method that saves and overview to a file!
             }
         }
@@ -1391,8 +1399,8 @@ namespace Air_Traffic_Simulation
         /// </summary>
         private void ClearLists()
         {
-            checkpoints.Clear();
-            airplaneList.Clear();
+            checkpoints = new ObservableCollection<Checkpoint>();
+            airplaneList = new ObservableCollection<Airplane>();
             landedAirplanes.Clear();
             crashedAirplanes.Clear();
         }
@@ -1416,7 +1424,7 @@ namespace Air_Traffic_Simulation
                 btnRemoveCheckpoint.Enabled = false;
                 btnRandom.Enabled = false;
                 btnAddAirplane.Enabled = false;
-                btnUploadData.Enabled = false;
+                btnLoadData.Enabled = false;
                 btnSaveData.Enabled = false;
                 getListBtn.Enabled = false;
                 showProbabilityBtn.Enabled = false;

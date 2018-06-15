@@ -72,7 +72,7 @@
             this.simSpeedComboBox = new System.Windows.Forms.ComboBox();
             this.simSpeedLb = new System.Windows.Forms.Label();
             this.panel7 = new System.Windows.Forms.Panel();
-            this.btnUploadData = new System.Windows.Forms.Button();
+            this.btnLoadData = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.btnSaveData = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -634,7 +634,7 @@
             // 
             // panel7
             // 
-            this.panel7.Controls.Add(this.btnUploadData);
+            this.panel7.Controls.Add(this.btnLoadData);
             this.panel7.Controls.Add(this.label11);
             this.panel7.Controls.Add(this.btnSaveData);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
@@ -643,19 +643,19 @@
             this.panel7.Size = new System.Drawing.Size(200, 116);
             this.panel7.TabIndex = 18;
             // 
-            // btnUploadData
+            // btnLoadData
             // 
-            this.btnUploadData.FlatAppearance.BorderSize = 0;
-            this.btnUploadData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUploadData.ForeColor = System.Drawing.Color.White;
-            this.btnUploadData.Location = new System.Drawing.Point(1, 77);
-            this.btnUploadData.Name = "btnUploadData";
-            this.btnUploadData.Size = new System.Drawing.Size(199, 36);
-            this.btnUploadData.TabIndex = 17;
-            this.btnUploadData.TabStop = false;
-            this.btnUploadData.Text = "Upload";
-            this.btnUploadData.UseVisualStyleBackColor = true;
-            this.btnUploadData.Click += new System.EventHandler(this.btnUploadData_Click);
+            this.btnLoadData.FlatAppearance.BorderSize = 0;
+            this.btnLoadData.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLoadData.ForeColor = System.Drawing.Color.White;
+            this.btnLoadData.Location = new System.Drawing.Point(1, 77);
+            this.btnLoadData.Name = "btnLoadData";
+            this.btnLoadData.Size = new System.Drawing.Size(199, 36);
+            this.btnLoadData.TabIndex = 17;
+            this.btnLoadData.TabStop = false;
+            this.btnLoadData.Text = "Load";
+            this.btnLoadData.UseVisualStyleBackColor = true;
+            this.btnLoadData.Click += new System.EventHandler(this.btnUploadData_Click);
             // 
             // label11
             // 
@@ -1121,7 +1121,7 @@
         private System.Windows.Forms.Button btnAddCheckpoint;
         private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Button btnUploadData;
+        private System.Windows.Forms.Button btnLoadData;
         private System.Windows.Forms.Button btnSaveData;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label labelTemp;
