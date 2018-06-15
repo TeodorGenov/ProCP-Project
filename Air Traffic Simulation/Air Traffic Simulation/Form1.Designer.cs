@@ -165,7 +165,7 @@
             // 
             // logTextBox
             // 
-            this.logTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.logTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
             this.logTextBox.Location = new System.Drawing.Point(0, 498);
             this.logTextBox.Multiline = true;
             this.logTextBox.Name = "logTextBox";
