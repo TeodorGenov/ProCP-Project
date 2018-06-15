@@ -451,7 +451,7 @@ namespace Air_Traffic_Simulation
             this.airplaneList.Remove((Airplane) p1);
             allFlightsListBox.Items.Remove(p1);
             crashedAirplanes.Add((Airplane) p1);
-            updateLogTextBox("Oh no!" + ((Airplane) p1).Name + " has crashed!");
+            updateLogTextBox("Oh no! " + ((Airplane) p1).Name + " has crashed!");
 
         }
 

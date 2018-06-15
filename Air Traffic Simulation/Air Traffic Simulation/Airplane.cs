@@ -45,7 +45,7 @@ namespace Air_Traffic_Simulation
             set
             {
                 movingDirectionHasChanged = true;
-                ktsPerSecond = value / 360;
+                milesPerSecond = value / 360;
                 speedInKts = value;
             }
         }
@@ -53,7 +53,7 @@ namespace Air_Traffic_Simulation
         /// <summary>
         /// The airplane's speedInKts for knots per second. Used for calculation of movement.
         /// </summary>
-        private double ktsPerSecond;
+        private double milesPerSecond;
 
         /// <summary>
         /// The altitude at which the airplane is currently moving.
@@ -115,7 +115,7 @@ namespace Air_Traffic_Simulation
             Name = name;
             this.CoordinateX = coordinateX;
             this.CoordinateY = coordinateY;
-            this.speedInKts = speedInKts;
+            this.SpeedInKts = speedInKts;
             this.Altitude = altitudeInFt;
             FlightNumber = flightNumber;
             Area = 20;
@@ -131,7 +131,7 @@ namespace Air_Traffic_Simulation
             MaxAltitude = 7500;
             MinAltitude = 6500;
 
-            this.ktsPerSecond = speedInKts / 360;
+            this.milesPerSecond = speedInKts / 360;
         }
 
         /// <summary>
@@ -208,7 +208,7 @@ namespace Air_Traffic_Simulation
                     c = Math.Sqrt(Math.Pow(a, 2) +
                                   Math.Pow(b, 2)); //the distance the plane has to fly in miles; Pythagoras again
 
-                double t = c / ktsPerSecond; //the time which the plane will need to fly this distance
+                double t = c / milesPerSecond; //the time which the plane will need to fly this distance
 
                 leapx = (b / t) * Grid
                             .PixelsPerMileHorizontally; //the x speedInKts of the airplane in miles times pixels per mile 
@@ -229,7 +229,7 @@ namespace Air_Traffic_Simulation
                 {
                     MinSpeed = target.Value.MinSpeed;
                     MaxSpeed = target.Value.MaxSpeed;
-                    speedInKts = target.Value.MaxSpeed;
+                    SpeedInKts = target.Value.MaxSpeed;
 
                     if (speedInKts == 0)
                     {
