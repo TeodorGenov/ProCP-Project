@@ -231,6 +231,13 @@ namespace Air_Traffic_Simulation
                     MaxSpeed = target.Value.MaxSpeed;
                     speedInKts = target.Value.MaxSpeed;
 
+                    if (speedInKts == 0)
+                    {
+                        MinSpeed = 120;
+                        MaxSpeed = 150;
+                        SpeedInKts = 150;
+                    }
+
                     MinAltitude = target.Value.MinAltitude;
                     MaxAltitude = target.Value.MaxAltitude;
                     Altitude = target.Value.MaxAltitude-1;
