@@ -963,7 +963,7 @@ namespace Air_Traffic_Simulation
                     cpName = 0;
                 }
 
-
+                ClearListboxes();
                 checkpoints = new ObservableCollection<Checkpoint>();
                 airplaneList = new ObservableCollection<Airplane>();
                 landedAirplanes.Clear();
@@ -998,7 +998,6 @@ namespace Air_Traffic_Simulation
                     {
                         airplaneList[i].OnAirportReached += airplaneHasReachedTheAirport;
                         airplaneList[i].OnCrash += airplaneCrashed;
-                        allFlightsListBox.Items.Add(airplaneList[i]);
                         if (i == airplaneList.Count - 1)
                         {
                             apName = Convert.ToInt32(airplaneList[i].Name.Substring("Airplane".Length));
@@ -1008,14 +1007,8 @@ namespace Air_Traffic_Simulation
 
                     pictureBox1.Invalidate();
                 }
-
-                if (landedAirplanes != null)
-                {
-                    foreach (Airplane a in landedAirplanes)
-                    {
-                        allFlightsListBox.Items.Add(a.Name + "\t" + a.FlightNumber);
-                    }
-                }
+                
+              UpdateListboxes();
             }
 
             //foreach (Checkpoint a in checkpoints)
@@ -1231,6 +1224,7 @@ namespace Air_Traffic_Simulation
         {
             if (timerSimRunning.Enabled)
             {
+                btnPlaySimulation.Image = Air_Traffic_Simulation.Properties.Resources.playbutton;
                 updateLogTextBox("Simulation interrupted.");
                 timerSimRunning.Stop();
             }
@@ -1239,6 +1233,8 @@ namespace Air_Traffic_Simulation
                 pictureBox1.Invalidate();
                 timerSimRunning.Start();
                 updateLogTextBox("Simulation started.");
+
+                btnPlaySimulation.Image = Air_Traffic_Simulation.Properties.Resources.pause;
             }
         }
 
@@ -1254,8 +1250,6 @@ namespace Air_Traffic_Simulation
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            string fileSavePath = "d:\\csharp-Excel.xls";
-
             if (timerSimRunning.Enabled)
             {
                 MessageBox.Show("Simulation is running, please stop simulation and try again!");
@@ -1265,8 +1259,7 @@ namespace Air_Traffic_Simulation
                 Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
                 if (xlApp == null)
                 {
-                    MessageBox.Show(
-                        "Excel is not installed in your system, and therefore we can't generate a report file for you");
+                    MessageBox.Show("Excel is not installed in your system, and therefore we can't generate a report file for you");
                     Refresh();
                     ClearListboxes();
                     ClearLists();
@@ -1274,6 +1267,8 @@ namespace Air_Traffic_Simulation
                 }
                 else
                 {
+
+
                     double landed = 0;
                     double crashed = 0;
                     double totalperc = 0;
@@ -1283,7 +1278,6 @@ namespace Air_Traffic_Simulation
                     {
                         landed = landedAirplanes.Count;
                     }
-
                     if (crashedAirplanes != null)
                     {
                         crashed = crashedAirplanes.Count;
@@ -1301,14 +1295,14 @@ namespace Air_Traffic_Simulation
                     }
 
 
+
                     //ToDo: add a method that saves and overview to a file!
                     Excel.Workbook xlWorkBook;
                     Excel.Worksheet xlWorkSheet;
                     object misValue = System.Reflection.Missing.Value;
 
                     xlWorkBook = xlApp.Workbooks.Add(misValue);
-                    xlWorkSheet = (Excel.Worksheet) xlWorkBook.Worksheets.get_Item(1);
-
+                    xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
                     xlWorkSheet.Cells[1, 2] = "Simulation Results";
                     xlWorkSheet.Cells[2, 7] = "Number";
                     xlWorkSheet.Cells[2, 9] = "Percent";
@@ -1322,66 +1316,61 @@ namespace Air_Traffic_Simulation
                     xlWorkSheet.Cells[5, 7] = crashed;
                     xlWorkSheet.Cells[5, 9] = crashedperc + "%";
                     xlWorkSheet.Cells[7, 2] = "Simulation Analysis:";
-
-                    int lastLineNr = 0;
-
                     if (crashedperc >= 50)
                     {
                         xlWorkSheet.Cells[7, 7] = "Very bad, more than half of the planes were destroyed.";
-                        xlWorkSheet.Cells[8, 7] =
-                            "Please try to lower the amount of airplanes moving in the airspace at the time.";
-                        lastLineNr = 9;
+                        xlWorkSheet.Cells[8, 7] = "Please try to lower the amount of airplanes moving in the airspace at the time.";
                     }
                     else if (crashedperc >= 20 && crashedperc < 50)
                     {
-                        xlWorkSheet.Cells[7, 7] =
-                            "It is bad, most of the airplanes managed to land, however some of them crashed.";
-                        xlWorkSheet.Cells[8, 7] =
-                            "Please try to add more checkpoints so the airplanes would have more options to choose";
+                        xlWorkSheet.Cells[7, 7] = "It is bad, most of the airplanes managed to land, however some of them crashed.";
+                        xlWorkSheet.Cells[8, 7] = "Please try to add more checkpoints so the airplanes would have more options to choose";
                         xlWorkSheet.Cells[9, 7] = "from where should they go.";
-                        lastLineNr = 10;
                     }
                     else if (crashedperc >= 1 && crashedperc < 20)
                     {
-                        xlWorkSheet.Cells[7, 7] =
-                            "It's not bad, almost all airplanes managed to land without any circumstances.";
-                        xlWorkSheet.Cells[8, 7] =
-                            "To improve it further please adjust other airplanes speed so they wouldn't overlap on each other.";
-                        lastLineNr = 9;
+                        xlWorkSheet.Cells[7, 7] = "It's not bad, almost all airplanes managed to land without any circumstances.";
+                        xlWorkSheet.Cells[8, 7] = "To improve it further please adjust other airplanes speed so they wouldn't overlap on each other.";
                     }
                     else if (crashedperc == 0)
                     {
                         xlWorkSheet.Cells[7, 7] = "The simulation ran perfectly, no airplanes were crashed.";
-                        xlWorkSheet.Cells[8, 7] =
-                            "Every airplanes managed to land successfully because of the good job";
-                        xlWorkSheet.Cells[9, 7] = "that you did as an air traffic controller!";
-                        lastLineNr = 10;
+                        xlWorkSheet.Cells[8, 7] = "Every airplanes managed to land successfully because of the good job";
+                        xlWorkSheet.Cells[9, 7] = "that you did as an airspace manager!";
                     }
 
-                    xlWorkSheet.Cells[++lastLineNr, 7] = $"Final mark for the run: {100 - crashedperc}/100 points";
+                    try
+                    {
+                        string path = null;
+                        SaveFileDialog SaveFileDialogMain = new SaveFileDialog();
+                        SaveFileDialogMain.Filter = "Excel Files (*.xls)|*.xls";
+                        SaveFileDialogMain.DefaultExt = "xls";
+                        SaveFileDialogMain.AddExtension = true;
+                        if (SaveFileDialogMain.ShowDialog() == DialogResult.OK)
+                        {
+                            path = SaveFileDialogMain.FileName;
+                        }
+                        xlWorkBook.SaveAs(path, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                        xlWorkBook.Close(true, misValue, misValue);
+                        xlApp.Quit();
 
-                    xlWorkBook.SaveAs(fileSavePath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
-                        misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue,
-                        misValue, misValue);
-                    xlWorkBook.Close(true, misValue, misValue);
-                    xlApp.Quit();
+                        xlWorkSheet = null;
+                        xlWorkBook = null;
+                        xlApp = null;
 
-                    xlWorkSheet = null;
-                    xlWorkBook = null;
-                    xlApp = null;
+                        Refresh();
+                        ClearListboxes();
+                        ClearLists();
+                        MessageBox.Show("Simulation cleared!");
+                    }
+                    catch (System.Runtime.InteropServices.COMException)
+                    {
+                        MessageBox.Show("Please exit your excel file that is running in the background");
+                    }
 
-                    Refresh();
-                    ClearListboxes();
-                    ClearLists();
+
                 }
 
-
-                pictureBox1.Invalidate();
-                ClearListboxes();
-                ClearLists();
-                MessageBox.Show(this, $"Simulation cleared! Your overview has been saved to {fileSavePath}.");
-                //ToDo: add a method that saves and overview to a file!
-                updateLogTextBox($"+++++++++++++++++{Environment.NewLine}Simulation cleared! Your overview has been saved to {fileSavePath}.");
             }
         }
 
