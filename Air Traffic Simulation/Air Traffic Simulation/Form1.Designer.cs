@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.logTextBox = new System.Windows.Forms.TextBox();
             this.lbAddedAirplanesList = new System.Windows.Forms.Label();
             this.panelAllFlights = new System.Windows.Forms.Panel();
             this.allFlightsListBox = new System.Windows.Forms.ListBox();
@@ -56,6 +57,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btClear = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.landedAirplanesPanel = new System.Windows.Forms.Panel();
+            this.landedAirplanesListBox = new System.Windows.Forms.ListBox();
+            this.lbLandedAirplanesList = new System.Windows.Forms.Label();
             this.airplaneControlsGroupBox = new System.Windows.Forms.GroupBox();
             this.modifyPlaneAltitudeFtLbl = new System.Windows.Forms.Label();
             this.modifyAirplaneSpeedKtsLbl = new System.Windows.Forms.Label();
@@ -66,8 +70,6 @@
             this.panelGetListShowProb = new System.Windows.Forms.Panel();
             this.getListBtn = new System.Windows.Forms.Button();
             this.showProbabilityBtn = new System.Windows.Forms.Button();
-            this.lbLandedAirplanesList = new System.Windows.Forms.Label();
-            this.landedAirplanesListBox = new System.Windows.Forms.ListBox();
             this.panelSimSpeed = new System.Windows.Forms.Panel();
             this.simSpeedComboBox = new System.Windows.Forms.ComboBox();
             this.simSpeedLb = new System.Windows.Forms.Label();
@@ -76,6 +78,9 @@
             this.label11 = new System.Windows.Forms.Label();
             this.btnSaveData = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.createAirplaneAltnumericUpDown = new System.Windows.Forms.NumericUpDown();
+            this.createAltitudeFtLbl = new System.Windows.Forms.Label();
+            this.createPlaneAltitudeLbl = new System.Windows.Forms.Label();
             this.btnRandom = new System.Windows.Forms.Button();
             this.nSpeed = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
@@ -89,23 +94,18 @@
             this.label8 = new System.Windows.Forms.Label();
             this.btTakeOff = new System.Windows.Forms.Button();
             this.Header = new System.Windows.Forms.Panel();
+            this.warningsLbl = new System.Windows.Forms.Label();
             this.panel10 = new System.Windows.Forms.Panel();
             this.btMinimize = new System.Windows.Forms.Label();
             this.panel9 = new System.Windows.Forms.Panel();
             this.btClose = new System.Windows.Forms.Label();
             this.fileSystemWatcher1 = new System.IO.FileSystemWatcher();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.panelBeneathGrid = new System.Windows.Forms.Panel();
             this.planeInfoTextBox = new System.Windows.Forms.TextBox();
             this.toggleWeatherBtn = new System.Windows.Forms.Button();
             this.timerSimRunning = new System.Windows.Forms.Timer(this.components);
-            this.createAirplaneAltnumericUpDown = new System.Windows.Forms.NumericUpDown();
-            this.createAltitudeFtLbl = new System.Windows.Forms.Label();
-            this.createPlaneAltitudeLbl = new System.Windows.Forms.Label();
-            this.warningsLbl = new System.Windows.Forms.Label();
-            this.landedAirplanesPanel = new System.Windows.Forms.Panel();
             this.panel1.SuspendLayout();
             this.panelAllFlights.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarPrecipitation)).BeginInit();
@@ -113,6 +113,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBarTemperature)).BeginInit();
             this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.landedAirplanesPanel.SuspendLayout();
             this.airplaneControlsGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.modifyAirplaneAltnumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.modifyAirplaneSpeedNumericUpDown)).BeginInit();
@@ -120,6 +121,7 @@
             this.panelSimSpeed.SuspendLayout();
             this.panel7.SuspendLayout();
             this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.createAirplaneAltnumericUpDown)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nSpeed)).BeginInit();
             this.panel6.SuspendLayout();
             this.Header.SuspendLayout();
@@ -129,12 +131,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.panel5.SuspendLayout();
             this.panelBeneathGrid.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.createAirplaneAltnumericUpDown)).BeginInit();
-            this.landedAirplanesPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.logTextBox);
             this.panel1.Controls.Add(this.lbAddedAirplanesList);
             this.panel1.Controls.Add(this.panelAllFlights);
             this.panel1.Controls.Add(this.lbPrecipitationType);
@@ -162,12 +163,22 @@
             this.panel1.Size = new System.Drawing.Size(272, 707);
             this.panel1.TabIndex = 0;
             // 
+            // logTextBox
+            // 
+            this.logTextBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.logTextBox.Location = new System.Drawing.Point(0, 498);
+            this.logTextBox.Multiline = true;
+            this.logTextBox.Name = "logTextBox";
+            this.logTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.logTextBox.Size = new System.Drawing.Size(272, 73);
+            this.logTextBox.TabIndex = 25;
+            // 
             // lbAddedAirplanesList
             // 
-            this.lbAddedAirplanesList.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lbAddedAirplanesList.AutoSize = true;
+            this.lbAddedAirplanesList.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.lbAddedAirplanesList.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.lbAddedAirplanesList.Location = new System.Drawing.Point(4, 572);
+            this.lbAddedAirplanesList.Location = new System.Drawing.Point(0, 571);
             this.lbAddedAirplanesList.Name = "lbAddedAirplanesList";
             this.lbAddedAirplanesList.Size = new System.Drawing.Size(245, 21);
             this.lbAddedAirplanesList.TabIndex = 24;
@@ -422,6 +433,39 @@
             this.panel2.Size = new System.Drawing.Size(200, 707);
             this.panel2.TabIndex = 1;
             // 
+            // landedAirplanesPanel
+            // 
+            this.landedAirplanesPanel.AutoSize = true;
+            this.landedAirplanesPanel.Controls.Add(this.landedAirplanesListBox);
+            this.landedAirplanesPanel.Controls.Add(this.lbLandedAirplanesList);
+            this.landedAirplanesPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.landedAirplanesPanel.Location = new System.Drawing.Point(0, 653);
+            this.landedAirplanesPanel.Name = "landedAirplanesPanel";
+            this.landedAirplanesPanel.Size = new System.Drawing.Size(200, 54);
+            this.landedAirplanesPanel.TabIndex = 25;
+            // 
+            // landedAirplanesListBox
+            // 
+            this.landedAirplanesListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.landedAirplanesListBox.FormattingEnabled = true;
+            this.landedAirplanesListBox.ItemHeight = 23;
+            this.landedAirplanesListBox.Location = new System.Drawing.Point(0, 21);
+            this.landedAirplanesListBox.Name = "landedAirplanesListBox";
+            this.landedAirplanesListBox.Size = new System.Drawing.Size(200, 33);
+            this.landedAirplanesListBox.TabIndex = 23;
+            this.landedAirplanesListBox.SelectedIndexChanged += new System.EventHandler(this.landedAirplanesListBox_SelectedIndexChanged);
+            // 
+            // lbLandedAirplanesList
+            // 
+            this.lbLandedAirplanesList.AutoSize = true;
+            this.lbLandedAirplanesList.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lbLandedAirplanesList.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.lbLandedAirplanesList.Location = new System.Drawing.Point(0, 0);
+            this.lbLandedAirplanesList.Name = "lbLandedAirplanesList";
+            this.lbLandedAirplanesList.Size = new System.Drawing.Size(155, 21);
+            this.lbLandedAirplanesList.TabIndex = 24;
+            this.lbLandedAirplanesList.Text = "Landed airplanes";
+            // 
             // airplaneControlsGroupBox
             // 
             this.airplaneControlsGroupBox.Controls.Add(this.modifyPlaneAltitudeFtLbl);
@@ -431,6 +475,7 @@
             this.airplaneControlsGroupBox.Controls.Add(this.modifyAirplaneAltnumericUpDown);
             this.airplaneControlsGroupBox.Controls.Add(this.modifyAirplaneSpeedNumericUpDown);
             this.airplaneControlsGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.airplaneControlsGroupBox.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(135)))), ((int)(((byte)(158)))), ((int)(((byte)(209)))));
             this.airplaneControlsGroupBox.Location = new System.Drawing.Point(0, 561);
             this.airplaneControlsGroupBox.Name = "airplaneControlsGroupBox";
             this.airplaneControlsGroupBox.Size = new System.Drawing.Size(200, 92);
@@ -441,6 +486,7 @@
             // modifyPlaneAltitudeFtLbl
             // 
             this.modifyPlaneAltitudeFtLbl.AutoSize = true;
+            this.modifyPlaneAltitudeFtLbl.ForeColor = System.Drawing.Color.White;
             this.modifyPlaneAltitudeFtLbl.Location = new System.Drawing.Point(164, 58);
             this.modifyPlaneAltitudeFtLbl.Name = "modifyPlaneAltitudeFtLbl";
             this.modifyPlaneAltitudeFtLbl.Size = new System.Drawing.Size(23, 23);
@@ -450,6 +496,7 @@
             // modifyAirplaneSpeedKtsLbl
             // 
             this.modifyAirplaneSpeedKtsLbl.AutoSize = true;
+            this.modifyAirplaneSpeedKtsLbl.ForeColor = System.Drawing.Color.White;
             this.modifyAirplaneSpeedKtsLbl.Location = new System.Drawing.Point(165, 28);
             this.modifyAirplaneSpeedKtsLbl.Name = "modifyAirplaneSpeedKtsLbl";
             this.modifyAirplaneSpeedKtsLbl.Size = new System.Drawing.Size(35, 23);
@@ -459,6 +506,7 @@
             // modifyPlaneAltitudeLbl
             // 
             this.modifyPlaneAltitudeLbl.AutoSize = true;
+            this.modifyPlaneAltitudeLbl.ForeColor = System.Drawing.Color.White;
             this.modifyPlaneAltitudeLbl.Location = new System.Drawing.Point(9, 58);
             this.modifyPlaneAltitudeLbl.Name = "modifyPlaneAltitudeLbl";
             this.modifyPlaneAltitudeLbl.Size = new System.Drawing.Size(37, 23);
@@ -468,6 +516,7 @@
             // modifyPlaneSpeedSpeedLbl
             // 
             this.modifyPlaneSpeedSpeedLbl.AutoSize = true;
+            this.modifyPlaneSpeedSpeedLbl.ForeColor = System.Drawing.Color.White;
             this.modifyPlaneSpeedSpeedLbl.Location = new System.Drawing.Point(7, 28);
             this.modifyPlaneSpeedSpeedLbl.Name = "modifyPlaneSpeedSpeedLbl";
             this.modifyPlaneSpeedSpeedLbl.Size = new System.Drawing.Size(74, 23);
@@ -565,28 +614,6 @@
             this.showProbabilityBtn.Text = "Show probability";
             this.showProbabilityBtn.UseVisualStyleBackColor = true;
             this.showProbabilityBtn.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // lbLandedAirplanesList
-            // 
-            this.lbLandedAirplanesList.AutoSize = true;
-            this.lbLandedAirplanesList.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lbLandedAirplanesList.Font = new System.Drawing.Font("Century Gothic", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
-            this.lbLandedAirplanesList.Location = new System.Drawing.Point(0, 0);
-            this.lbLandedAirplanesList.Name = "lbLandedAirplanesList";
-            this.lbLandedAirplanesList.Size = new System.Drawing.Size(155, 21);
-            this.lbLandedAirplanesList.TabIndex = 24;
-            this.lbLandedAirplanesList.Text = "Landed airplanes";
-            // 
-            // landedAirplanesListBox
-            // 
-            this.landedAirplanesListBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.landedAirplanesListBox.FormattingEnabled = true;
-            this.landedAirplanesListBox.ItemHeight = 23;
-            this.landedAirplanesListBox.Location = new System.Drawing.Point(0, 21);
-            this.landedAirplanesListBox.Name = "landedAirplanesListBox";
-            this.landedAirplanesListBox.Size = new System.Drawing.Size(200, 33);
-            this.landedAirplanesListBox.TabIndex = 23;
-            this.landedAirplanesListBox.SelectedIndexChanged += new System.EventHandler(this.landedAirplanesListBox_SelectedIndexChanged);
             // 
             // panelSimSpeed
             // 
@@ -697,6 +724,49 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(200, 187);
             this.panel4.TabIndex = 2;
+            // 
+            // createAirplaneAltnumericUpDown
+            // 
+            this.createAirplaneAltnumericUpDown.Location = new System.Drawing.Point(53, 94);
+            this.createAirplaneAltnumericUpDown.Maximum = new decimal(new int[] {
+            7500,
+            0,
+            0,
+            0});
+            this.createAirplaneAltnumericUpDown.Minimum = new decimal(new int[] {
+            6500,
+            0,
+            0,
+            0});
+            this.createAirplaneAltnumericUpDown.Name = "createAirplaneAltnumericUpDown";
+            this.createAirplaneAltnumericUpDown.Size = new System.Drawing.Size(91, 32);
+            this.createAirplaneAltnumericUpDown.TabIndex = 30;
+            this.createAirplaneAltnumericUpDown.Value = new decimal(new int[] {
+            6500,
+            0,
+            0,
+            0});
+            // 
+            // createAltitudeFtLbl
+            // 
+            this.createAltitudeFtLbl.AutoSize = true;
+            this.createAltitudeFtLbl.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.createAltitudeFtLbl.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.createAltitudeFtLbl.Location = new System.Drawing.Point(150, 98);
+            this.createAltitudeFtLbl.Name = "createAltitudeFtLbl";
+            this.createAltitudeFtLbl.Size = new System.Drawing.Size(22, 21);
+            this.createAltitudeFtLbl.TabIndex = 29;
+            this.createAltitudeFtLbl.Text = "ft";
+            // 
+            // createPlaneAltitudeLbl
+            // 
+            this.createPlaneAltitudeLbl.AutoSize = true;
+            this.createPlaneAltitudeLbl.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.createPlaneAltitudeLbl.Location = new System.Drawing.Point(8, 96);
+            this.createPlaneAltitudeLbl.Name = "createPlaneAltitudeLbl";
+            this.createPlaneAltitudeLbl.Size = new System.Drawing.Size(37, 23);
+            this.createPlaneAltitudeLbl.TabIndex = 28;
+            this.createPlaneAltitudeLbl.Text = "Alt";
             // 
             // btnRandom
             // 
@@ -865,6 +935,15 @@
             this.Header.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Header_MouseMove);
             this.Header.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Header_MouseUp);
             // 
+            // warningsLbl
+            // 
+            this.warningsLbl.AutoSize = true;
+            this.warningsLbl.Location = new System.Drawing.Point(13, 10);
+            this.warningsLbl.Name = "warningsLbl";
+            this.warningsLbl.Size = new System.Drawing.Size(323, 23);
+            this.warningsLbl.TabIndex = 5;
+            this.warningsLbl.Text = "No missing checkpoint warnings.";
+            // 
             // panel10
             // 
             this.panel10.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
@@ -908,10 +987,6 @@
             // 
             this.fileSystemWatcher1.EnableRaisingEvents = true;
             this.fileSystemWatcher1.SynchronizingObject = this;
-            // 
-            // timer1
-            // 
-            this.timer1.Tick += new System.EventHandler(this.t_Tick);
             // 
             // pictureBox1
             // 
@@ -976,69 +1051,6 @@
             this.timerSimRunning.Interval = 1000;
             this.timerSimRunning.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // createAirplaneAltnumericUpDown
-            // 
-            this.createAirplaneAltnumericUpDown.Location = new System.Drawing.Point(53, 94);
-            this.createAirplaneAltnumericUpDown.Maximum = new decimal(new int[] {
-            7500,
-            0,
-            0,
-            0});
-            this.createAirplaneAltnumericUpDown.Minimum = new decimal(new int[] {
-            6500,
-            0,
-            0,
-            0});
-            this.createAirplaneAltnumericUpDown.Name = "createAirplaneAltnumericUpDown";
-            this.createAirplaneAltnumericUpDown.Size = new System.Drawing.Size(91, 32);
-            this.createAirplaneAltnumericUpDown.TabIndex = 30;
-            this.createAirplaneAltnumericUpDown.Value = new decimal(new int[] {
-            6500,
-            0,
-            0,
-            0});
-            // 
-            // createAltitudeFtLbl
-            // 
-            this.createAltitudeFtLbl.AutoSize = true;
-            this.createAltitudeFtLbl.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.createAltitudeFtLbl.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.createAltitudeFtLbl.Location = new System.Drawing.Point(150, 98);
-            this.createAltitudeFtLbl.Name = "createAltitudeFtLbl";
-            this.createAltitudeFtLbl.Size = new System.Drawing.Size(22, 21);
-            this.createAltitudeFtLbl.TabIndex = 29;
-            this.createAltitudeFtLbl.Text = "ft";
-            // 
-            // createPlaneAltitudeLbl
-            // 
-            this.createPlaneAltitudeLbl.AutoSize = true;
-            this.createPlaneAltitudeLbl.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.createPlaneAltitudeLbl.Location = new System.Drawing.Point(8, 96);
-            this.createPlaneAltitudeLbl.Name = "createPlaneAltitudeLbl";
-            this.createPlaneAltitudeLbl.Size = new System.Drawing.Size(37, 23);
-            this.createPlaneAltitudeLbl.TabIndex = 28;
-            this.createPlaneAltitudeLbl.Text = "Alt";
-            // 
-            // warningsLbl
-            // 
-            this.warningsLbl.AutoSize = true;
-            this.warningsLbl.Location = new System.Drawing.Point(13, 10);
-            this.warningsLbl.Name = "warningsLbl";
-            this.warningsLbl.Size = new System.Drawing.Size(323, 23);
-            this.warningsLbl.TabIndex = 5;
-            this.warningsLbl.Text = "No missing checkpoint warnings.";
-            // 
-            // landedAirplanesPanel
-            // 
-            this.landedAirplanesPanel.AutoSize = true;
-            this.landedAirplanesPanel.Controls.Add(this.landedAirplanesListBox);
-            this.landedAirplanesPanel.Controls.Add(this.lbLandedAirplanesList);
-            this.landedAirplanesPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.landedAirplanesPanel.Location = new System.Drawing.Point(0, 653);
-            this.landedAirplanesPanel.Name = "landedAirplanesPanel";
-            this.landedAirplanesPanel.Size = new System.Drawing.Size(200, 54);
-            this.landedAirplanesPanel.TabIndex = 25;
-            // 
             // Form1
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -1065,6 +1077,8 @@
             this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
+            this.landedAirplanesPanel.ResumeLayout(false);
+            this.landedAirplanesPanel.PerformLayout();
             this.airplaneControlsGroupBox.ResumeLayout(false);
             this.airplaneControlsGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.modifyAirplaneAltnumericUpDown)).EndInit();
@@ -1076,6 +1090,7 @@
             this.panel7.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.createAirplaneAltnumericUpDown)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nSpeed)).EndInit();
             this.panel6.ResumeLayout(false);
             this.panel6.PerformLayout();
@@ -1090,9 +1105,6 @@
             this.panel5.ResumeLayout(false);
             this.panelBeneathGrid.ResumeLayout(false);
             this.panelBeneathGrid.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.createAirplaneAltnumericUpDown)).EndInit();
-            this.landedAirplanesPanel.ResumeLayout(false);
-            this.landedAirplanesPanel.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1123,7 +1135,6 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button btnLoadData;
         private System.Windows.Forms.Button btnSaveData;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label labelTemp;
         private System.Windows.Forms.Label labelWind;
         private System.Windows.Forms.Label labelPrec;
@@ -1175,6 +1186,7 @@
         private System.Windows.Forms.Label createPlaneAltitudeLbl;
         private System.Windows.Forms.Label warningsLbl;
         private System.Windows.Forms.Panel landedAirplanesPanel;
+        private System.Windows.Forms.TextBox logTextBox;
     }
 }
 

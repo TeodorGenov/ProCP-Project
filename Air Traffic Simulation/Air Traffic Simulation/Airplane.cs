@@ -185,6 +185,8 @@ namespace Air_Traffic_Simulation
                 target.Value.GetType() == typeof(Airstrip) &&
                 OnAirportReached != null)
             {
+                this.CoordinateX = target.Value.CoordinateX;
+                this.CoordinateY = target.Value.CoordinateY;
                 target = null;
                 OnAirportReached(this, EventArgs.Empty);
                 return;
@@ -360,7 +362,7 @@ namespace Air_Traffic_Simulation
         /// </summary>
         /// <param name="points">All the checkpoints in the airspace. No airstrips, no airplanes.</param>
         /// <param name="exitCheckpoint">The checkpoint through which the plane has to leave the airspace.</param>
-        public void FindShortestPathLeavingAirspace(List<Checkpoint> points)
+        public void CalculateShortestPathLeavingAirspace(List<Checkpoint> points)
         {
             this.ReachableNodes.Clear();
             this.ShortestPath.Clear();
@@ -378,7 +380,7 @@ namespace Air_Traffic_Simulation
                     ShortestPath.AddFirst(target);
                     return;
                 }
-                else if (target != null && point.ParentCellType == ((Checkpoint) target.Value).ParentCellType)
+                else if (target != null && point.ParentCellType == ((Checkpoint)target.Value).ParentCellType)
                 {
                     this.AddSingleDestination(point, CalculateTimeBetweenPoints(point));
                 }
@@ -391,7 +393,7 @@ namespace Air_Traffic_Simulation
             exitDestination.ShortestPath.Clear();
 
             HashSet<AbstractCheckpoint> settledCheckpoints = new HashSet<AbstractCheckpoint>();
-            HashSet<AbstractCheckpoint> unsettledCheckpoints = new HashSet<AbstractCheckpoint> {this};
+            HashSet<AbstractCheckpoint> unsettledCheckpoints = new HashSet<AbstractCheckpoint> { this };
 
 
             while (unsettledCheckpoints.Count != 0)
@@ -407,7 +409,7 @@ namespace Air_Traffic_Simulation
                     {
                         var shortestPath = CalculateMinDistance(reachableCheckpoint, edgeWeight, currentCheckpnt);
                         if (shortestPath != null && reachableCheckpoint.GetType() == typeof(Checkpoint) &&
-                            ((Checkpoint) reachableCheckpoint).ParentCellType == CellType.BORDER)
+                            ((Checkpoint)reachableCheckpoint).ParentCellType == CellType.BORDER)
                         {
                             shortestPath.AddLast(reachableCheckpoint);
 

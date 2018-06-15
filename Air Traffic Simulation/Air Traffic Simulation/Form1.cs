@@ -130,7 +130,7 @@ namespace Air_Traffic_Simulation
                 }
                 else
                 {
-                    plane.FindShortestPathLeavingAirspace(checkpoints.ToList());
+                    plane.CalculateShortestPathLeavingAirspace(checkpoints.ToList());
                 }
             }
 
@@ -173,11 +173,11 @@ namespace Air_Traffic_Simulation
                 }
             }
 
-            
+
             #region MissingCheckpointsErrorDisplay
 
             //generates the message box that informs the user that some areas are missing points
-            bool[] allZonesCheck = new bool[] { false, false, false, false };
+            bool[] allZonesCheck = new bool[] {false, false, false, false};
             string lacking =
                 $"   - UPPER   - MIDDLE   - LOWER   - FINAL";
 
@@ -208,7 +208,7 @@ namespace Air_Traffic_Simulation
 
             if (allZonesCheck.Contains(false))
             {
-                    warningsLbl.Text = "WARNING: missing checkpoints in zones: " + lacking;
+                warningsLbl.Text = "WARNING: missing checkpoints in zones: " + lacking;
             }
             else
             {
@@ -226,7 +226,7 @@ namespace Air_Traffic_Simulation
                 }
                 else
                 {
-                    plane.FindShortestPathLeavingAirspace(checkpoints.ToList());
+                    plane.CalculateShortestPathLeavingAirspace(checkpoints.ToList());
                 }
             }
 
@@ -397,7 +397,7 @@ namespace Air_Traffic_Simulation
             }
             catch (InvalidOperationException ex)
             {
-                MessageBox.Show("Something went wrong with checkpoints list.");
+                updateLogTextBox("Oh no! The bad weather has removed a checkpoint!");
             }
         }
 
@@ -408,11 +408,12 @@ namespace Air_Traffic_Simulation
         /// <param name="e"></param>
         private void airplaneHasReachedTheAirport(Object sender, EventArgs e)
         {
-            ((Airplane) sender).OnAirportReached -= airplaneHasReachedTheAirport;
-            this.landedAirplanes.Add((Airplane) sender);
-            landedAirplanesListBox.Items.Add((Airplane) sender);
-            this.airplaneList.Remove((Airplane) sender);
+            ((Airplane)sender).OnAirportReached -= airplaneHasReachedTheAirport;
+            this.landedAirplanes.Add((Airplane)sender);
+            landedAirplanesListBox.Items.Add((Airplane)sender);
+            this.airplaneList.Remove((Airplane)sender);
             allFlightsListBox.Items.Remove(sender);
+            updateLogTextBox($"Flight {(Airplane) sender} has successfully landed!");
         }
 
         /// <summary>
@@ -426,6 +427,7 @@ namespace Air_Traffic_Simulation
             successfulylExitedAirspace.Add(((Airplane) sender));
             allFlightsListBox.Items.Remove(((Airplane) sender));
             airplaneList.Remove(((Airplane) sender));
+            updateLogTextBox($"Flight {(Airplane) sender} has successfully exited the airspace!");
         }
 
         /// <summary>
@@ -440,21 +442,17 @@ namespace Air_Traffic_Simulation
         }
 
         /// <summary>
-        /// Unsubscribes an airplane from the event handler
+        /// Unsubscribes an airplane from the event handler <see cref="Airplane.OnCrash"/>
         /// </summary>
-        /// <param name="p1"></param>
+        /// <param name="p1">The <see cref="Airplane"/> that is to be unsubscribed.</param>
         private void UnsubscribePlane(Object p1)
         {
             ((Airplane) p1).OnCrash -= airplaneCrashed;
             this.airplaneList.Remove((Airplane) p1);
             allFlightsListBox.Items.Remove(p1);
             crashedAirplanes.Add((Airplane) p1);
-            Console.WriteLine(((Airplane) p1).Name + " has crashed!");
-        }
+            updateLogTextBox("Oh no!" + ((Airplane) p1).Name + " has crashed!");
 
-
-        private void t_Tick(object sender, EventArgs e)
-        {
         }
 
         private void Header_MouseDown(object sender, MouseEventArgs e)
@@ -507,7 +505,6 @@ namespace Air_Traffic_Simulation
                 btnRemoveCheckpoint.Enabled = false;
                 btnAddAirplane.Enabled = false;
                 btnRemoveAirplane.Enabled = false;
-                btnRandom.Enabled = false;
                 AddingCheckpoints = true;
                 btnAddCheckpoint.Text = "Stop";
             }
@@ -515,13 +512,9 @@ namespace Air_Traffic_Simulation
             {
                 btTakeOff.Enabled = true;
                 btnRemoveCheckpoint.Enabled = true;
-                if (RandomAirplane == false)
-                {
-                    btnAddAirplane.Enabled = true;
-                    btnRemoveAirplane.Enabled = true;
-                }
+                btnAddAirplane.Enabled = true;
+                btnRemoveAirplane.Enabled = true;
 
-                btnRandom.Enabled = true;
                 AddingCheckpoints = false;
                 btnAddCheckpoint.Text = "Add";
             }
@@ -633,7 +626,7 @@ namespace Air_Traffic_Simulation
         {
             foreach (Cell c in grid.listOfCells)
             {
-                if (c.ContainsPoint(e.X, e.Y) == true)
+                if (c.ContainsPoint(e.X, e.Y) == true && !c.ContainsPoint((int) landingStrip.CoordinateX, (int) landingStrip.CoordinateY))
                 {
                     bool exists = false;
                     Point p = c.GetCenter();
@@ -662,9 +655,9 @@ namespace Air_Traffic_Simulation
                                 takeOffDirectionCheckpoints);
                             a.OnWeatherPassing += weatherOnCheckpoint;
                             checkpoints.Add(a);
-                            MessageBox.Show("Added checkpoint  " + a.Name + "  With coordinates: (" +
-                                            a.CoordinateX +
-                                            "," + a.CoordinateY + ")");
+
+                            updateLogTextBox("Added checkpoint  " + a.Name +
+                                             "  With coordinates: (" + a.CoordinateX + "," + a.CoordinateY + ")");
                         }
                     }
                 }
@@ -690,8 +683,10 @@ namespace Air_Traffic_Simulation
                             PaintCircleB(p);
                             Checkpoint v = bee;
                             checkpoints.Remove(bee);
-                            MessageBox.Show("Successfully removed checkpoint " + v.Name + " With coordinates(" +
-                                            v.CoordinateX + "," + v.CoordinateY + ").");
+
+                            updateLogTextBox("Successfully removed checkpoint " + v.Name + " With coordinates(" +
+                                             v.CoordinateX + "," + v.CoordinateY + ").");
+
                             break;
                         }
                     }
@@ -699,6 +694,7 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        
         /// <summary>
         /// Adds an <see cref="Airplane"/> to the <see cref="Cell"/> of the <see cref="Grid"/> that has been clicked.
         /// </summary>
@@ -731,7 +727,8 @@ namespace Air_Traffic_Simulation
                             string name = "Airplane" + apName;
                             string flight = "fn" + fnName + "z";
 
-                            Airplane a = new Airplane(name, p.X, p.Y, Convert.ToDouble(nSpeed.Value), (int) createAirplaneAltnumericUpDown.Value, flight);
+                            Airplane a = new Airplane(name, p.X, p.Y, Convert.ToDouble(nSpeed.Value),
+                                (int) createAirplaneAltnumericUpDown.Value, flight);
                             a.OnAirportReached += airplaneHasReachedTheAirport;
                             a.OnCrash += airplaneCrashed;
                             airplaneList.Add(a);
@@ -739,7 +736,7 @@ namespace Air_Traffic_Simulation
 
                             allFlightsListBox.SelectedIndex = allFlightsListBox.Items.Count - 1;
 
-                            MessageBox.Show("Added Airplane  " + a.Name + "\nCoordinates: \t(" + a.CoordinateX +
+                            updateLogTextBox("Added Airplane  " + a.Name + "\nCoordinates: \t(" + a.CoordinateX +
                                             "," + a.CoordinateY + ")" + "\nFlight number: \t(" + flight + ") " +
                                             "\nSpeed: \t\t(" + nSpeed.Value + "kts)");
                         }
@@ -775,8 +772,8 @@ namespace Air_Traffic_Simulation
                             airplaneList.Remove(bee);
                             allFlightsListBox.Items.Remove(bee);
 
-                            MessageBox.Show("Successfully removed Airplane " + v.Name + " With coordinates(" +
-                                            v.CoordinateX + "," + v.CoordinateY + ").");
+                            updateLogTextBox("Airplane " + v.Name + " With coordinates(" +
+                                            v.CoordinateX + "," + v.CoordinateY + ") has been removed.");
                             break;
                         }
                     }
@@ -806,7 +803,7 @@ namespace Air_Traffic_Simulation
                                 selectedAirplane.IsLanding = false;
                                 airplaneList.Add(selectedAirplane);
                                 landedAirplanes.Remove(selectedAirplane);
-                                selectedAirplane.FindShortestPathLeavingAirspace(checkpoints.ToList());
+                                selectedAirplane.CalculateShortestPathLeavingAirspace(checkpoints.ToList());
                                 selectedAirplane.OnAirspaceExit += airplaneHasReachedTheEndOfTheAirspace;
                                 ClearListboxes();
                                 UpdateListboxes();
@@ -1166,7 +1163,6 @@ namespace Air_Traffic_Simulation
         }
 
 
-
         private void allFlightsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             btTakeOff.Enabled = false;
@@ -1183,7 +1179,7 @@ namespace Air_Traffic_Simulation
 
             modifyAirplaneAltnumericUpDown.Minimum = (Decimal) selectedAirplane.MinAltitude;
             modifyAirplaneAltnumericUpDown.Maximum = (Decimal) selectedAirplane.MaxAltitude;
-            modifyAirplaneAltnumericUpDown.Value = (Decimal)selectedAirplane.Altitude;
+            modifyAirplaneAltnumericUpDown.Value = (Decimal) selectedAirplane.Altitude;
 
 
             string planePath = String.Join(" --> ", selectedAirplane.ShortestPath);
@@ -1235,12 +1231,14 @@ namespace Air_Traffic_Simulation
         {
             if (timerSimRunning.Enabled)
             {
+                updateLogTextBox("Simulation interrupted.");
                 timerSimRunning.Stop();
             }
             else
             {
                 pictureBox1.Invalidate();
                 timerSimRunning.Start();
+                updateLogTextBox("Simulation started.");
             }
         }
 
@@ -1256,6 +1254,8 @@ namespace Air_Traffic_Simulation
 
         private void button2_Click_1(object sender, EventArgs e)
         {
+            string fileSavePath = "d:\\csharp-Excel.xls";
+
             if (timerSimRunning.Enabled)
             {
                 MessageBox.Show("Simulation is running, please stop simulation and try again!");
@@ -1360,7 +1360,7 @@ namespace Air_Traffic_Simulation
 
                     xlWorkSheet.Cells[++lastLineNr, 7] = $"Final mark for the run: {100 - crashedperc}/100 points";
 
-                    xlWorkBook.SaveAs("d:\\csharp-Excel.xls", Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
+                    xlWorkBook.SaveAs(fileSavePath, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue,
                         misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue,
                         misValue, misValue);
                     xlWorkBook.Close(true, misValue, misValue);
@@ -1373,15 +1373,15 @@ namespace Air_Traffic_Simulation
                     Refresh();
                     ClearListboxes();
                     ClearLists();
-                //    MessageBox.Show("Simulation cleared!");
                 }
 
 
-               // pictureBox1.Invalidate();
+                pictureBox1.Invalidate();
                 ClearListboxes();
                 ClearLists();
-                MessageBox.Show(this, "Simulation cleared!");
+                MessageBox.Show(this, $"Simulation cleared! Your overview has been saved to {fileSavePath}.");
                 //ToDo: add a method that saves and overview to a file!
+                updateLogTextBox($"+++++++++++++++++{Environment.NewLine}Simulation cleared! Your overview has been saved to {fileSavePath}.");
             }
         }
 
@@ -1392,6 +1392,7 @@ namespace Air_Traffic_Simulation
         {
             landedAirplanesListBox.Items.Clear();
             allFlightsListBox.Items.Clear();
+            logTextBox.Clear();
         }
 
         /// <summary>
@@ -1414,8 +1415,22 @@ namespace Air_Traffic_Simulation
         {
             if (settingTakeOffDirection)
             {
-                //TODO: log that the take off has been cancelled
+                btnRemoveAirplane.Enabled = true;
+                btnAddCheckpoint.Enabled = true;
+                btnRemoveCheckpoint.Enabled = true;
+                btnRandom.Enabled = true;
+                btnAddAirplane.Enabled = true;
+                btnLoadData.Enabled = true;
+                btnSaveData.Enabled = true;
+                getListBtn.Enabled = true;
+                showProbabilityBtn.Enabled = true;
+                toggleWeatherBtn.Enabled = true;
+                btClear.Enabled = true;
+                btnPlaySimulation.Enabled = true;
+
                 settingTakeOffDirection = false;
+
+                updateLogTextBox($"The take off for airplane {selectedAirplane} has been cancelled.");
             }
             else
             {
@@ -1431,6 +1446,10 @@ namespace Air_Traffic_Simulation
                 toggleWeatherBtn.Enabled = false;
                 btClear.Enabled = false;
                 btnPlaySimulation.Enabled = false;
+                AddingAirplanes = false;
+                AddingCheckpoints = false;
+                RemovingAirplanes = false;
+                RemovingCheckpoints = false;
 
                 MessageBox.Show(
                     "Please select a cell from the outermost circle, through which you would like to see the airplane exit the airspace.",
@@ -1666,7 +1685,6 @@ namespace Air_Traffic_Simulation
             lbPrecipitationType.Text = weather.GetPrecipitationType().ToString();
             lbProbability.Text = weather.Probability.ToString();
             lbVisibility.Text = weather.GetVisibility().ToString();
-            //MessageBox.Show(windDirection.ToString());
         }
 
         /// <summary>
@@ -1806,5 +1824,15 @@ namespace Air_Traffic_Simulation
                 gGrid.DrawRectangle(pGrid, rect);
             }
         }
+        /// <summary>
+        /// Adds a message to the logTextBox with the separator between the lines and all.
+        /// </summary>
+        /// <param name="messageToLog">The content of the message to be added.</param>
+        private void updateLogTextBox(string messageToLog)
+        {
+            logTextBox.Text = messageToLog + Environment.NewLine +
+                              "=================" + Environment.NewLine + logTextBox.Text;
+        }
+
     }
 }
