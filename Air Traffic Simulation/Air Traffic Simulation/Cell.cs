@@ -29,9 +29,14 @@ namespace Air_Traffic_Simulation
             this.y = y;
         }
 
+        /// <summary>
+        /// Finds if the field contains point
+        /// </summary>
+        /// <param name="xmouse"></param>
+        /// <param name="ymouse"></param>
+        /// <returns></returns>
         public bool ContainsPoint(int xmouse, int ymouse)
         {
-            //return (this.x - xmouse) * (this.x - xmouse) + (this.y - ymouse) * (this.y - ymouse) <= Width * Width;
             if (xmouse < x + Width && ymouse < y + Width && xmouse >= x && ymouse >= y)
             {
                 return true;
@@ -39,6 +44,10 @@ namespace Air_Traffic_Simulation
             return false;
         }
 
+        /// <summary>
+        /// Returns point of the center of the cell
+        /// </summary>
+        /// <returns></returns>
         public Point GetCenter()
         {
             Point p = new Point(x + (Width / 2), y + (Width / 2));

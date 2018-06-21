@@ -17,14 +17,15 @@ namespace Air_Traffic_Simulation
         public override string Name { get; }
         public override double CoordinateX { get; set; }
         public override double CoordinateY { get; set; }
+        [field:NonSerialized]
         public override LinkedList<AbstractCheckpoint> ShortestPath { get; set; }
         public override double DistanceFromSource { get; set; }
         public override Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }
 
-        public override int MaxSpeed { get; }
-        public override int MinSpeed { get; }
-        public override int MaxAltitude { get; }
-        public override int MinAltitude { get; }
+        public override int MaxSpeed { get; set; }
+        public override int MinSpeed { get; set; }
+        public override int MaxAltitude { get; set; }
+        public override int MinAltitude { get; set; }
 
         public bool IsFree { get; set; }
 

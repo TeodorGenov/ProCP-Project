@@ -48,35 +48,26 @@ namespace Air_Traffic_Simulation
         /// </summary>
         public abstract Dictionary<AbstractCheckpoint, double> ReachableNodes { get; set; }
 
-        //TODO: fix the mess with the inheritance and the min/max speed/altitude you are about to create
 
         /// <summary>
         /// The max speed an <see cref="Airplane"/> can be assigned upon the passing of this point.
-        /// This is probably subject to refactoring, since it is only needed for the Checkpoint and possibly Airstrip 
-        /// classes.
         /// </summary>
-        public abstract int MaxSpeed { get; }
+        public abstract int MaxSpeed { get; set; }
 
         /// <summary>
         /// The min speed an <see cref="Airplane"/> can be assigned upon the passing of this point.
-        /// This is probably subject to refactoring, since it is only needed for the Checkpoint and possibly Airstrip 
-        /// classes.
         /// </summary>
-        public abstract int MinSpeed { get; }
+        public abstract int MinSpeed { get; set; }
 
         /// <summary>
         /// The max altitude an <see cref="Airplane"/> can be assigned upon the passing of this point.
-        /// This is probably subject to refactoring, since it is only needed for the Checkpoint and possibly Airstrip 
-        /// classes.
         /// </summary>
-        public abstract int MaxAltitude { get; }
+        public abstract int MaxAltitude { get; set; }
 
         /// <summary>
         /// The min altitude an <see cref="Airplane"/> can be assigned upon the passing of this point.
-        /// This is probably subject to refactoring, since it is only needed for the Checkpoint and possibly Airstrip 
-        /// classes.
         /// </summary>
-        public abstract int MinAltitude { get; }
+        public abstract int MinAltitude { get; set; }
 
         #endregion
 

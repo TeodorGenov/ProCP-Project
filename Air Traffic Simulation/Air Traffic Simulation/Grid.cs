@@ -59,6 +59,12 @@ namespace Air_Traffic_Simulation
             PixelsPerMileVertically = (double) diameterOfAirspaceInPixelsVertically / diameterOfAirspaceInMiles;
         }
 
+        /// <summary>
+        /// Returns cell of the grid
+        /// </summary>
+        /// <param name="xmouse"></param>
+        /// <param name="ymouse"></param>
+        /// <returns></returns>
         public Cell GetCell(int xmouse, int ymouse)
         {
             foreach (Cell c in this.listOfCells)
@@ -72,6 +78,9 @@ namespace Air_Traffic_Simulation
             return null;
         }
 
+        /// <summary>
+        /// This method will paint a grid with different types of zones
+        /// </summary>
         public void MakeGrid()
         {
             Cell c;
@@ -97,6 +106,10 @@ namespace Air_Traffic_Simulation
             }
         }
 
+        /// <summary>
+        /// Assigns zone to the cell
+        /// </summary>
+        /// <param name="c"></param>
         private void assignZoneToCell(Cell c)
         {
             if ((c.id % ColumnsOfCells >= Math.Floor(0.9 * ColumnsOfCells / 2)) &&
@@ -132,7 +145,6 @@ namespace Air_Traffic_Simulation
             {
                 c.Type = CellType.BORDER;
             }
-            //last row
             else if (c.id > this.ColumnsOfCells * (this.RowsOfCells - 1))
             {
                 c.Type = CellType.BORDER;
@@ -141,14 +153,6 @@ namespace Air_Traffic_Simulation
             {
                 c.Type = CellType.UPPER;
             }
-
-            //                else if ((c.id % ColumnsOfCells >= Math.Floor(0.1 * ColumnsOfCells / 2)) &&
-            //                         (c.id % ColumnsOfCells <= ColumnsOfCells - Math.Floor(0.1 * ColumnsOfCells / 2)) &&
-            //                         (c.id > Math.Floor((0.1 * RowsOfCells / 2) - 1) * ColumnsOfCells) &&
-            //                         (c.id < (RowsOfCells - Math.Floor(0.1 * RowsOfCells / 2)) * ColumnsOfCells))
-            //                {
-            //                    c.Type = CellType.UPPER;
-            //                }
         }
     }
 }
